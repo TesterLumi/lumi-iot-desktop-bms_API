@@ -1,0 +1,39 @@
+{
+  "tc_id": "TC40",
+  "tc_name": "Gateway sync scene khong ton tai",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:23:34.206Z",
+  "finished_at": "2026-07-10T09:23:34.221Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Sync fake scene",
+      "method": "POST",
+      "endpoint": "/api/v0/scenes/999999999999999999/sync-from-gateway",
+      "request": {
+        "status": "Provision"
+      },
+      "response": {
+        "data": null,
+        "error": {
+          "code": "NOT_FOUND",
+          "detail": "Connection not found: 999999999999999999",
+          "message": "Không tìm thấy"
+        },
+        "success": false,
+        "timestamp": "2026-07-10T09:23:34.232285326Z"
+      },
+      "status": 404
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "scene_deleted": false,
+    "warnings": []
+  }
+}

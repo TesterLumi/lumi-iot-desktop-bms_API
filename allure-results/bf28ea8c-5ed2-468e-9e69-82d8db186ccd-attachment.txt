@@ -1,0 +1,2 @@
+{"scene_target_groups":[{"scene_index":0,"reused_devices":false,"device_ids":["87903193043180546","118431939315341315"]},{"scene_index":1,"reused_devices":false,"device_ids":["118431939315341314","118431937308523266"]}]}
+{"scene_device_mapping_evidence":{"scene_id":"280231888921263014","mappings":[{"device_id":"118431939315341314","expected":true,"mapped":true},{"device_id":"118431937308523266","expected":false,"mapped":true}]}}

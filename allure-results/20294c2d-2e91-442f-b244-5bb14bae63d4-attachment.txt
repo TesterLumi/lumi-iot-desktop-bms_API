@@ -1,0 +1,1 @@
+{"rule_gateway_slot_check":{"device_id":"87907690177550336","slot":1,"expected":false,"matched":true,"statuses":[{"id":"87907690177550336","status":[{"idx":0,"value":false},{"idx":1,"value":false}]}]}}

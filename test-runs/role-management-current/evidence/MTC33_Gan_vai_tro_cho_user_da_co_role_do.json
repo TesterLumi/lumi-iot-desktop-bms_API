@@ -1,0 +1,192 @@
+{
+  "tc_id": "MTC33",
+  "tc_name": "Gan vai tro cho user da co role do",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:58:53.879Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_MTC33_20260709_115853_wm7etg",
+        "email": "auto_user_MTC33_20260709_115853_wm7etg@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84973133879"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_mtc33_20260709_115853_wm7etg@auto-test.local",
+          "phone": "+84973133879",
+          "role": null,
+          "user_id": "3edb631a-7161-448e-8740-15eea6891c49",
+          "user_name": "auto_user_MTC33_20260709_115853_wm7etg"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:54.679799139+00:00"
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_MTC33_20260709_115854_l808"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:58:55.510552+00:00",
+          "description": "",
+          "id": "dd6629d9-e845-40fb-883c-6fd29c8aefa2",
+          "is_system_admin": false,
+          "name": "auto_role_MTC33_20260709_115854_l808",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:58:55.510552+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:55.514077172+00:00"
+      }
+    },
+    {
+      "step": "Assign role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/dd6629d9-e845-40fb-883c-6fd29c8aefa2/assignments",
+      "status": 200,
+      "request": {
+        "userId": "3edb631a-7161-448e-8740-15eea6891c49"
+      },
+      "response": {
+        "data": {
+          "assigned_at": "2026-07-09T04:58:56.414771+00:00",
+          "id": "a7706e6b-ecff-409f-88df-7f837a24e750",
+          "revoked_at": null,
+          "roleId": "dd6629d9-e845-40fb-883c-6fd29c8aefa2",
+          "userId": "3edb631a-7161-448e-8740-15eea6891c49"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:56.416938378+00:00"
+      }
+    },
+    {
+      "step": "Assign role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/dd6629d9-e845-40fb-883c-6fd29c8aefa2/assignments",
+      "status": 200,
+      "request": {
+        "userId": "3edb631a-7161-448e-8740-15eea6891c49"
+      },
+      "response": {
+        "data": {
+          "assigned_at": "2026-07-09T04:58:57.321813+00:00",
+          "id": "945c34a2-7a04-4a1a-98dd-79b80f9acdbe",
+          "revoked_at": null,
+          "roleId": "dd6629d9-e845-40fb-883c-6fd29c8aefa2",
+          "userId": "3edb631a-7161-448e-8740-15eea6891c49"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:57.324426769+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "3edb631a-7161-448e-8740-15eea6891c49"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:58.208155204+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/dd6629d9-e845-40fb-883c-6fd29c8aefa2",
+      "status": 400,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "ROLE_HAS_ASSIGNMENTS",
+          "message": "Không thể thay đổi tên hoặc xóa vai trò đã được gán cho người dùng"
+        },
+        "timestamp": "2026-07-09T04:58:59.114347692+00:00"
+      }
+    },
+    {
+      "step": "Update role",
+      "method": "PATCH",
+      "endpoint": "/api/v0/roles/dd6629d9-e845-40fb-883c-6fd29c8aefa2",
+      "status": 200,
+      "request": {
+        "status": "Disabled"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:58:55.510552+00:00",
+          "description": "",
+          "id": "dd6629d9-e845-40fb-883c-6fd29c8aefa2",
+          "is_system_admin": false,
+          "name": "auto_role_MTC33_20260709_115854_l808",
+          "permissions": [],
+          "status": "Disabled",
+          "updated_at": "2026-07-09T04:59:00.012588+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:59:00.014975414+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/dd6629d9-e845-40fb-883c-6fd29c8aefa2",
+      "status": 404,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "NOT_FOUND",
+          "message": "Không tìm thấy"
+        },
+        "timestamp": "2026-07-09T04:59:00.904212324+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Assigning the same role twice is idempotent"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 1,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:59:01.063Z"
+}

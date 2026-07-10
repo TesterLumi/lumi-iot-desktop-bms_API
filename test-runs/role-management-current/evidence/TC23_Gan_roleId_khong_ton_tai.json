@@ -1,0 +1,45 @@
+{
+  "tc_id": "TC23",
+  "tc_name": "Gan roleId khong ton tai",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:57:52.699Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Assign role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/00000000-0000-4000-8000-000000000000/assignments",
+      "status": 404,
+      "request": {
+        "userId": "00000000-0000-4000-8000-000000000001"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "NOT_FOUND",
+          "message": "Không tìm thấy"
+        },
+        "timestamp": "2026-07-09T04:57:53.410768974+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Assigning non-existent role returns 404"
+  ],
+  "cleanup": {
+    "role_deleted": false,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:57:53.579Z"
+}

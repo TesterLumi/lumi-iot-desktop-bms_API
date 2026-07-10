@@ -1,0 +1,86 @@
+{
+  "tc_id": "TC49",
+  "tc_name": "Go device chua gan idempotent",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:05:57.379Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC49_20260710_080557_qbl6"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-19FBAD7E",
+          "created_at": "2026-07-10T01:05:57.994383+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "db5c8496-847b-4bff-83e6-f8c075b1e4c7",
+          "image_url": null,
+          "name": "auto_area_TC49_20260710_080557_qbl6",
+          "parent_id": null,
+          "path": "AREA_19FBAD7E",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:05:57.994383+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:57.996488789+00:00"
+      }
+    },
+    {
+      "step": "Unassign devices",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/db5c8496-847b-4bff-83e6-f8c075b1e4c7/devices",
+      "status": 200,
+      "request": {
+        "device_ids": [
+          "118431939315341315"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:58.894974279+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/db5c8496-847b-4bff-83e6-f8c075b1e4c7",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:59.802534910+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Unassign missing device is idempotent"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:06:00.071Z"
+}

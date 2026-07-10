@@ -1,0 +1,80 @@
+{
+  "tc_id": "MTC39",
+  "tc_name": "Danh sach policy rong",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:59:08.277Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_MTC39_20260709_115908_1xrx"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:59:09.018764+00:00",
+          "description": "",
+          "id": "d8dfb9ea-1cf1-4ecc-a1bc-af878e684081",
+          "is_system_admin": false,
+          "name": "auto_role_MTC39_20260709_115908_1xrx",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:59:09.018764+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:59:09.021761753+00:00"
+      }
+    },
+    {
+      "step": "List policies",
+      "method": "GET",
+      "endpoint": "/api/v0/policies?role_id=d8dfb9ea-1cf1-4ecc-a1bc-af878e684081&page=1&limit=20",
+      "status": 200,
+      "response": {
+        "data": {
+          "items": [],
+          "limit": 20,
+          "page": 1,
+          "total": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:59:09.905645182+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/d8dfb9ea-1cf1-4ecc-a1bc-af878e684081",
+      "status": 200,
+      "response": ""
+    }
+  ],
+  "assertions": [
+    "Role without policies returns empty policy list"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:59:10.978Z"
+}

@@ -1,0 +1,36 @@
+{
+  "tc_id": "TC46",
+  "tc_name": "Xoa Scene id sai format",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:23:34.405Z",
+  "finished_at": "2026-07-10T09:23:34.411Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Delete invalid scene id",
+      "method": "DELETE",
+      "endpoint": "/api/v0/scenes/abc",
+      "response": {
+        "data": null,
+        "error": {
+          "code": "VALIDATION_ERROR",
+          "detail": "Invalid URL: invalid i64 string",
+          "message": "Dữ liệu đầu vào không hợp lệ"
+        },
+        "success": false,
+        "timestamp": "2026-07-10T09:23:34.424236762Z"
+      },
+      "status": 400
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "scene_deleted": false,
+    "warnings": []
+  }
+}

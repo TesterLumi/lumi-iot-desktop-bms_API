@@ -1,0 +1,213 @@
+{
+  "tc_id": "TC4",
+  "tc_name": "Lay danh sach root area",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:04:02.224Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC4_20260710_080402_uqq1"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-10C812B4",
+          "created_at": "2026-07-10T01:04:02.792194+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "62bfa317-f772-455c-b14a-6bd53b1692b0",
+          "image_url": null,
+          "name": "auto_area_TC4_20260710_080402_uqq1",
+          "parent_id": null,
+          "path": "AREA_10C812B4",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:04:02.792194+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:02.795185975+00:00"
+      }
+    },
+    {
+      "step": "List areas",
+      "method": "GET",
+      "endpoint": "/api/v0/areas?parent_id=null&page=1&limit=20",
+      "status": 200,
+      "response": {
+        "data": {
+          "items": [
+            {
+              "code": "AREA-10C812B4",
+              "created_at": "2026-07-10T01:04:02.792194+00:00",
+              "direct_devices": 0,
+              "floor_plan_url": null,
+              "id": "62bfa317-f772-455c-b14a-6bd53b1692b0",
+              "image_url": null,
+              "name": "auto_area_TC4_20260710_080402_uqq1",
+              "parent_id": null,
+              "path": "AREA_10C812B4",
+              "total_devices": 0,
+              "total_sub_areas": 0,
+              "updated_at": "2026-07-10T01:04:02.792194+00:00"
+            },
+            {
+              "code": "AREA-0825D0F3",
+              "created_at": "2026-07-09T08:27:24.967549+00:00",
+              "direct_devices": 0,
+              "floor_plan_url": null,
+              "id": "6a0d98aa-ec95-4945-9e8b-a24ed9111043",
+              "image_url": null,
+              "name": "auto_area_TC14_20260709_152723_frt3",
+              "parent_id": null,
+              "path": "AREA_0825D0F3",
+              "total_devices": 0,
+              "total_sub_areas": 0,
+              "updated_at": "2026-07-09T08:27:24.967549+00:00"
+            },
+            {
+              "code": "AREA-C5AEEE85",
+              "created_at": "2026-06-24T03:40:57.807737+00:00",
+              "direct_devices": 0,
+              "floor_plan_url": "area/5b6cf736-daae-4d3c-9326-a9182303e0d4_1783325213.png",
+              "id": "50226672-b304-444b-a4e5-04f51f1e92d7",
+              "image_url": null,
+              "name": "Sảnh chính",
+              "parent_id": null,
+              "path": "AREA_C5AEEE85",
+              "total_devices": 15,
+              "total_sub_areas": 5,
+              "updated_at": "2026-07-06T08:06:56.001138+00:00"
+            },
+            {
+              "code": "AREA-DC6EC265",
+              "created_at": "2026-06-13T02:42:45.722273+00:00",
+              "direct_devices": 0,
+              "floor_plan_url": null,
+              "id": "ad136896-b79e-49e8-a185-3e1d319f6353",
+              "image_url": null,
+              "name": "Tầng 1 tòa nhà văn phòng",
+              "parent_id": null,
+              "path": "AREA_DC6EC265",
+              "total_devices": 0,
+              "total_sub_areas": 0,
+              "updated_at": "2026-06-13T02:42:45.722273+00:00"
+            },
+            {
+              "code": "AREA-676E2C6D",
+              "created_at": "2026-05-20T03:42:44.285569+00:00",
+              "direct_devices": 0,
+              "floor_plan_url": null,
+              "id": "d1e59398-2ece-45d4-84f9-42c4c5fe7a59",
+              "image_url": null,
+              "name": "Phòng CTSV",
+              "parent_id": null,
+              "path": "AREA_676E2C6D",
+              "total_devices": 0,
+              "total_sub_areas": 0,
+              "updated_at": "2026-05-20T03:42:52.867219+00:00"
+            },
+            {
+              "code": "AREA-04A6D35C",
+              "created_at": "2026-05-20T02:59:35.300536+00:00",
+              "direct_devices": 0,
+              "floor_plan_url": null,
+              "id": "5195bb7a-4e2a-41a0-ba6f-915cd9202e95",
+              "image_url": null,
+              "name": "Tầng 2",
+              "parent_id": null,
+              "path": "AREA_04A6D35C",
+              "total_devices": 0,
+              "total_sub_areas": 0,
+              "updated_at": "2026-06-03T09:10:57.677138+00:00"
+            },
+            {
+              "code": "AREA-F229594D",
+              "created_at": "2026-05-11T02:53:55.768316+00:00",
+              "direct_devices": 0,
+              "floor_plan_url": null,
+              "id": "f38770e3-8a32-4b7e-b094-411e6906e62c",
+              "image_url": null,
+              "name": "Tầng 3",
+              "parent_id": null,
+              "path": "AREA_F229594D",
+              "total_devices": 0,
+              "total_sub_areas": 1,
+              "updated_at": "2026-06-03T09:11:08.487515+00:00"
+            },
+            {
+              "code": "AREA-5D47A113",
+              "created_at": "2026-04-20T17:16:11.624665+00:00",
+              "direct_devices": 0,
+              "floor_plan_url": null,
+              "id": "7ca14c26-dd60-437f-9e9e-5a82a8f1d22f",
+              "image_url": null,
+              "name": "Sảnh",
+              "parent_id": null,
+              "path": "AREA_5D47A113",
+              "total_devices": 1,
+              "total_sub_areas": 9,
+              "updated_at": "2026-05-02T17:05:49.485454+00:00"
+            },
+            {
+              "code": "AREA-24139533",
+              "created_at": "2026-04-20T17:16:11.569024+00:00",
+              "direct_devices": 0,
+              "floor_plan_url": null,
+              "id": "63dd6a7d-2096-4cb7-b8c6-64ef3eb04585",
+              "image_url": null,
+              "name": "Tầng hầm",
+              "parent_id": null,
+              "path": "AREA_24139533",
+              "total_devices": 0,
+              "total_sub_areas": 1,
+              "updated_at": "2026-04-23T08:27:47.101240+00:00"
+            }
+          ],
+          "limit": 20,
+          "page": 1,
+          "total": 9
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:03.701375419+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/62bfa317-f772-455c-b14a-6bd53b1692b0",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:04.601690922+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "parent_id=null returns only root areas"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:04:04.869Z"
+}

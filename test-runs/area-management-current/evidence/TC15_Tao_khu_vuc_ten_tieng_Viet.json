@@ -1,0 +1,69 @@
+{
+  "tc_id": "TC15",
+  "tc_name": "Tao khu vuc ten tieng Viet",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:04:22.907Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "Khu vuc tang mot 1783645462907"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-1094D784",
+          "created_at": "2026-07-10T01:04:23.501002+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "c5af71e0-4652-4b0b-b5a0-9774f971d742",
+          "image_url": null,
+          "name": "Khu vuc tang mot 1783645462907",
+          "parent_id": null,
+          "path": "AREA_1094D784",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:04:23.501002+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:23.503635127+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/c5af71e0-4652-4b0b-b5a0-9774f971d742",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:24.399294688+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Vietnamese area name is accepted"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:04:24.667Z"
+}

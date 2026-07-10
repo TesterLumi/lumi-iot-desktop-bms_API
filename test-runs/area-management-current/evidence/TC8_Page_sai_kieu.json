@@ -1,0 +1,36 @@
+{
+  "tc_id": "TC8",
+  "tc_name": "Page sai kieu",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:04:10.333Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "List areas",
+      "method": "GET",
+      "endpoint": "/api/v0/areas?page=abc",
+      "status": 400,
+      "response": "failed to parse parameter `page`: failed to parse \"integer(uint64)\": invalid digit found in string (occurred while parsing \"optional_integer(uint64)\")"
+    }
+  ],
+  "assertions": [
+    "Invalid page type returns 400"
+  ],
+  "cleanup": {
+    "area_deleted": false,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:04:11.195Z"
+}

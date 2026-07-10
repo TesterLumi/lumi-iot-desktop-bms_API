@@ -1,0 +1,36 @@
+{
+  "tc_id": "TC22",
+  "tc_name": "Lay chi tiet Scene khong ton tai",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:23:33.085Z",
+  "finished_at": "2026-07-10T09:23:33.096Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Get fake scene detail",
+      "method": "GET",
+      "endpoint": "/api/v0/scenes/999999999999999999",
+      "response": {
+        "data": null,
+        "error": {
+          "code": "NOT_FOUND",
+          "detail": "Connection not found",
+          "message": "Không tìm thấy"
+        },
+        "success": false,
+        "timestamp": "2026-07-10T09:23:33.108304679Z"
+      },
+      "status": 404
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "scene_deleted": false,
+    "warnings": []
+  }
+}

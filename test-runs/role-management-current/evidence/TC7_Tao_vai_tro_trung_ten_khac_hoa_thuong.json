@@ -1,0 +1,98 @@
+{
+  "tc_id": "TC7",
+  "tc_name": "Tao vai tro trung ten khac hoa thuong",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:56:18.193Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_tc7_20260709_115618_yx6d"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:56:18.906820+00:00",
+          "description": "",
+          "id": "28de64a6-5f19-4a62-adcf-f56d3b6cea3d",
+          "is_system_admin": false,
+          "name": "auto_role_tc7_20260709_115618_yx6d",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:56:18.906820+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:56:18.910013053+00:00"
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "AUTO_ROLE_TC7_20260709_115618_YX6D"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:56:19.816979+00:00",
+          "description": "",
+          "id": "314ae39a-a5d4-4726-8c8d-94b542a0638c",
+          "is_system_admin": false,
+          "name": "AUTO_ROLE_TC7_20260709_115618_YX6D",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:56:19.816979+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:56:19.821280450+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/314ae39a-a5d4-4726-8c8d-94b542a0638c",
+      "status": 200,
+      "response": ""
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/28de64a6-5f19-4a62-adcf-f56d3b6cea3d",
+      "status": 200,
+      "response": ""
+    }
+  ],
+  "assertions": [
+    "TODO_CONFIRM_EXPECTED_STATUS backend currently allows case-sensitive duplicate role names"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:56:21.778Z"
+}

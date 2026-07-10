@@ -1,0 +1,265 @@
+{
+  "tc_id": "TC76",
+  "tc_name": "User khong co quyen delete",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:07:47.239Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_area_role_TC76_1783645667239"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-10T01:07:47.796643+00:00",
+          "description": "",
+          "id": "15c02006-609a-42db-a97b-a52b76a5e9b2",
+          "is_system_admin": false,
+          "name": "auto_area_role_TC76_1783645667239",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-10T01:07:47.796643+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:47.800640336+00:00"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_area_user_TC76_20260710_080748_hjixta",
+        "email": "auto_area_user_TC76_20260710_080748_hjixta@auto-test.local",
+        "password": "Auto@456",
+        "display_name": "Auto Area User",
+        "phone": "+84945668066"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto Area User",
+          "email": "auto_area_user_tc76_20260710_080748_hjixta@auto-test.local",
+          "phone": "+84945668066",
+          "role": null,
+          "user_id": "407c77cb-17fd-48b3-8ba3-c83dc0717cd6",
+          "user_name": "auto_area_user_TC76_20260710_080748_hjixta"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:48.764615297+00:00"
+      }
+    },
+    {
+      "step": "Create policy",
+      "method": "POST",
+      "endpoint": "/api/v0/policies",
+      "status": 200,
+      "request": {
+        "role_id": "15c02006-609a-42db-a97b-a52b76a5e9b2",
+        "service_code": "area_management",
+        "resource_scope": "all",
+        "actions": 1,
+        "effect": "allow"
+      },
+      "response": {
+        "data": {
+          "actions": 1,
+          "effect": "allow",
+          "id": 289,
+          "resource_scope": "all",
+          "resources": null,
+          "role_id": "15c02006-609a-42db-a97b-a52b76a5e9b2",
+          "service_code": "area_management"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:49.605881914+00:00"
+      }
+    },
+    {
+      "step": "Assign role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/15c02006-609a-42db-a97b-a52b76a5e9b2/assignments",
+      "status": 200,
+      "request": {
+        "userId": "407c77cb-17fd-48b3-8ba3-c83dc0717cd6"
+      },
+      "response": {
+        "data": {
+          "assigned_at": "2026-07-10T01:07:50.506447+00:00",
+          "id": "534b114b-8e5c-4001-a4bb-081c56dc5fe9",
+          "revoked_at": null,
+          "roleId": "15c02006-609a-42db-a97b-a52b76a5e9b2",
+          "userId": "407c77cb-17fd-48b3-8ba3-c83dc0717cd6"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:50.508566431+00:00"
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC76_20260710_080751_agps"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-12ABD408",
+          "created_at": "2026-07-10T01:07:52.293225+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "fca527f1-1d2d-41ee-b9e5-cd4a07a78767",
+          "image_url": null,
+          "name": "auto_area_TC76_20260710_080751_agps",
+          "parent_id": null,
+          "path": "AREA_12ABD408",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:07:52.293225+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:52.295353928+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/fca527f1-1d2d-41ee-b9e5-cd4a07a78767",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:53.204384511+00:00"
+      }
+    },
+    {
+      "step": "Delete policy",
+      "method": "DELETE",
+      "endpoint": "/api/v0/policies/289",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:54.106060712+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "407c77cb-17fd-48b3-8ba3-c83dc0717cd6"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:55.009614772+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/15c02006-609a-42db-a97b-a52b76a5e9b2",
+      "status": 400,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "ROLE_HAS_ASSIGNMENTS",
+          "message": "Không thể thay đổi tên hoặc xóa vai trò đã được gán cho người dùng"
+        },
+        "timestamp": "2026-07-10T01:07:55.902819043+00:00"
+      }
+    },
+    {
+      "step": "Update role",
+      "method": "PATCH",
+      "endpoint": "/api/v0/roles/15c02006-609a-42db-a97b-a52b76a5e9b2",
+      "status": 200,
+      "request": {
+        "status": "Disabled"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-10T01:07:47.796643+00:00",
+          "description": "",
+          "id": "15c02006-609a-42db-a97b-a52b76a5e9b2",
+          "is_system_admin": false,
+          "name": "auto_area_role_TC76_1783645667239",
+          "permissions": [],
+          "status": "Disabled",
+          "updated_at": "2026-07-10T01:07:56.804028+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:56.806398071+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/15c02006-609a-42db-a97b-a52b76a5e9b2",
+      "status": 404,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "NOT_FOUND",
+          "message": "Không tìm thấy"
+        },
+        "timestamp": "2026-07-10T01:07:57.700908454+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/fca527f1-1d2d-41ee-b9e5-cd4a07a78767",
+      "status": 404,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "AREA_NOT_FOUND",
+          "message": "Khu vực không tồn tại"
+        },
+        "timestamp": "2026-07-10T01:07:58.598750703+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "TODO_CONFIRM_SECURITY backend allows viewer to delete area"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 1,
+    "roles_deleted": 1,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:07:58.860Z"
+}

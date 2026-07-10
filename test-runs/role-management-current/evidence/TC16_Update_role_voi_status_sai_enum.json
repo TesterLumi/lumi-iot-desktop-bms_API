@@ -1,0 +1,80 @@
+{
+  "tc_id": "TC16",
+  "tc_name": "Update role voi status sai enum",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:57:19.385Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_TC16_20260709_115719_llqz"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:57:20.116562+00:00",
+          "description": "",
+          "id": "e1788e9e-e089-4463-9518-b7725a5e923a",
+          "is_system_admin": false,
+          "name": "auto_role_TC16_20260709_115719_llqz",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:57:20.116562+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:57:20.119575002+00:00"
+      }
+    },
+    {
+      "step": "Update role",
+      "method": "PATCH",
+      "endpoint": "/api/v0/roles/e1788e9e-e089-4463-9518-b7725a5e923a",
+      "status": 400,
+      "request": {
+        "status": "Inactive"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "INVALID_ROLE_STATUS",
+          "message": "Trạng thái vai trò phải là 'Active' hoặc 'Disabled'"
+        },
+        "timestamp": "2026-07-09T04:57:21.014625608+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/e1788e9e-e089-4463-9518-b7725a5e923a",
+      "status": 200,
+      "response": ""
+    }
+  ],
+  "assertions": [
+    "Invalid status enum returns 400"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:57:22.074Z"
+}

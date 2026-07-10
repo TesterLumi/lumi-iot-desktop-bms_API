@@ -1,0 +1,160 @@
+{
+  "tc_id": "TC81",
+  "tc_name": "Auto-move home controller sang area khac",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:08:32.237Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC81_a_20260710_080832_ijkc"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-6CB7BD2B",
+          "created_at": "2026-07-10T01:08:32.793817+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "5764e0ee-472e-4a58-9c05-4b8ed12a1a40",
+          "image_url": null,
+          "name": "auto_area_TC81_a_20260710_080832_ijkc",
+          "parent_id": null,
+          "path": "AREA_6CB7BD2B",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:08:32.793817+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:32.795927057+00:00"
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC81_b_20260710_080833_ht0k"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-F03B01BB",
+          "created_at": "2026-07-10T01:08:33.693399+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "de618fb4-3370-4465-914e-9f59c3c96b23",
+          "image_url": null,
+          "name": "auto_area_TC81_b_20260710_080833_ht0k",
+          "parent_id": null,
+          "path": "AREA_F03B01BB",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:08:33.693399+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:33.695448527+00:00"
+      }
+    },
+    {
+      "step": "Assign home controllers",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/5764e0ee-472e-4a58-9c05-4b8ed12a1a40/home-controllers",
+      "status": 200,
+      "request": {
+        "hc_ids": [
+          "4932308540097659019"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:34.604600830+00:00"
+      }
+    },
+    {
+      "step": "Assign home controllers",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/de618fb4-3370-4465-914e-9f59c3c96b23/home-controllers",
+      "status": 200,
+      "request": {
+        "hc_ids": [
+          "4932308540097659019"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:35.505709360+00:00"
+      }
+    },
+    {
+      "step": "Unassign home controllers",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/de618fb4-3370-4465-914e-9f59c3c96b23/home-controllers",
+      "status": 200,
+      "request": {
+        "hc_ids": [
+          "4932308540097659019"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:36.402527269+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/5764e0ee-472e-4a58-9c05-4b8ed12a1a40",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:37.303397752+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/de618fb4-3370-4465-914e-9f59c3c96b23",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:38.204853814+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Home controller auto-moves between areas"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:08:38.468Z"
+}

@@ -1,0 +1,292 @@
+{
+  "tc_id": "TC51",
+  "tc_name": "Flow Scene nhieu thiet bi",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:23:34.664Z",
+  "finished_at": "2026-07-10T09:23:34.705Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Create scene",
+      "method": "POST",
+      "endpoint": "/api/v0/scenes",
+      "request": {
+        "type": "Normal",
+        "name": "auto_scene_TCTC51_scene_20260710092334_2xmn",
+        "icon": "-1",
+        "enable": true,
+        "background": null,
+        "background_color": "#ffffff",
+        "binding": [
+          {
+            "id": "87903193043180546",
+            "snapshot": {
+              "1": true
+            },
+            "status": "Activated"
+          },
+          {
+            "id": "118431939315341315",
+            "snapshot": {
+              "1": true
+            },
+            "status": "Activated"
+          },
+          {
+            "id": "118431939315341314",
+            "snapshot": {
+              "1": true
+            },
+            "status": "Activated"
+          }
+        ],
+        "cron": null,
+        "cron_enable": false
+      },
+      "response": {
+        "data": {
+          "id": "222841967305957208",
+          "type": "Normal",
+          "name": "auto_scene_TCTC51_scene_20260710092334_2xmn",
+          "icon": "-1",
+          "enable": true,
+          "background": null,
+          "background_color": "#ffffff",
+          "status": "Provision",
+          "binding": [
+            {
+              "id": "87903193043180546",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341315",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341314",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            }
+          ],
+          "cron": null,
+          "cron_enable": false,
+          "area": {
+            "id": null,
+            "name": null
+          },
+          "hcid": null
+        },
+        "success": true,
+        "timestamp": "2026-07-10T09:23:34.686291118Z"
+      },
+      "status": 200
+    },
+    {
+      "step": "Get scene detail",
+      "method": "GET",
+      "endpoint": "/api/v0/scenes/222841967305957208",
+      "response": {
+        "data": {
+          "id": "222841967305957208",
+          "type": "Normal",
+          "name": "auto_scene_TCTC51_scene_20260710092334_2xmn",
+          "icon": "-1",
+          "enable": true,
+          "background": null,
+          "background_color": "#ffffff",
+          "status": "Provision",
+          "binding": [
+            {
+              "id": "87903193043180546",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341315",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341314",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            }
+          ],
+          "cron": null,
+          "cron_enable": false,
+          "area": {
+            "id": null,
+            "name": null
+          },
+          "hcid": null
+        },
+        "success": true,
+        "timestamp": "2026-07-10T09:23:34.694203056Z"
+      },
+      "status": 200
+    },
+    {
+      "step": "Flow update scene",
+      "method": "POST",
+      "endpoint": "/api/v0/scenes/222841967305957208",
+      "request": {
+        "name": "auto_scene_TCTC51updated_scene_20260710092334_np50",
+        "binding": [
+          {
+            "id": "87903193043180546",
+            "snapshot": {
+              "1": true
+            },
+            "status": "Activated"
+          },
+          {
+            "id": "118431939315341315",
+            "snapshot": {
+              "1": false
+            },
+            "status": "Activated"
+          },
+          {
+            "id": "118431939315341314",
+            "snapshot": {
+              "1": true
+            },
+            "status": "Activated"
+          }
+        ]
+      },
+      "response": {
+        "data": {
+          "id": "222841967305957208",
+          "type": "Normal",
+          "name": "auto_scene_TCTC51updated_scene_20260710092334_np50",
+          "icon": "-1",
+          "enable": true,
+          "background": null,
+          "background_color": "#ffffff",
+          "status": "Provision",
+          "binding": [
+            {
+              "id": "87903193043180546",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341315",
+              "snapshot": {
+                "1": false
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341314",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            }
+          ],
+          "cron": null,
+          "cron_enable": false,
+          "area": {
+            "id": null,
+            "name": null
+          },
+          "hcid": null
+        },
+        "success": true,
+        "timestamp": "2026-07-10T09:23:34.703002338Z"
+      },
+      "status": 200
+    },
+    {
+      "step": "Get scene detail",
+      "method": "GET",
+      "endpoint": "/api/v0/scenes/222841967305957208",
+      "response": {
+        "data": {
+          "id": "222841967305957208",
+          "type": "Normal",
+          "name": "auto_scene_TCTC51updated_scene_20260710092334_np50",
+          "icon": "-1",
+          "enable": true,
+          "background": null,
+          "background_color": "#ffffff",
+          "status": "Provision",
+          "binding": [
+            {
+              "id": "87903193043180546",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341315",
+              "snapshot": {
+                "1": false
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341314",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            }
+          ],
+          "cron": null,
+          "cron_enable": false,
+          "area": {
+            "id": null,
+            "name": null
+          },
+          "hcid": null
+        },
+        "success": true,
+        "timestamp": "2026-07-10T09:23:34.710065169Z"
+      },
+      "status": 200
+    },
+    {
+      "step": "Flow delete scene",
+      "method": "DELETE",
+      "endpoint": "/api/v0/scenes/222841967305957208",
+      "response": {
+        "data": 1,
+        "success": true,
+        "timestamp": "2026-07-10T09:23:34.716177516Z"
+      },
+      "status": 200
+    }
+  ],
+  "assertions": [
+    "Create scene returns id"
+  ],
+  "cleanup": {
+    "scene_deleted": true,
+    "warnings": []
+  }
+}

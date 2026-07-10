@@ -1,0 +1,86 @@
+{
+  "tc_id": "TC26",
+  "tc_name": "Update parent_id sai UUID",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:04:51.717Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC26_20260710_080451_09fo"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-C618098D",
+          "created_at": "2026-07-10T01:04:52.298233+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "8b741d07-4ed8-4bfc-9206-19e024f54594",
+          "image_url": null,
+          "name": "auto_area_TC26_20260710_080451_09fo",
+          "parent_id": null,
+          "path": "AREA_C618098D",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:04:52.298233+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:52.300211970+00:00"
+      }
+    },
+    {
+      "step": "Update area",
+      "method": "PATCH",
+      "endpoint": "/api/v0/areas/8b741d07-4ed8-4bfc-9206-19e024f54594",
+      "status": 400,
+      "request": {
+        "parent_id": "abc"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "VALIDATION_ERROR",
+          "message": "parse request payload error: failed to parse \"string_uuid\": invalid length: expected length 32 for simple format, found 3 (occurred while parsing \"optional_string_uuid\") (occurred while parsing \"UpdateAreaRequest\")"
+        },
+        "timestamp": "2026-07-10T01:04:53.195178519+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/8b741d07-4ed8-4bfc-9206-19e024f54594",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:54.102861618+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Invalid parent_id update returns 400"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:04:54.371Z"
+}

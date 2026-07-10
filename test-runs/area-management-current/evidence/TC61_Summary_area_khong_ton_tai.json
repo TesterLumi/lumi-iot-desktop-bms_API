@@ -1,0 +1,43 @@
+{
+  "tc_id": "TC61",
+  "tc_name": "Summary area khong ton tai",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:06:42.438Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Get area device summary",
+      "method": "GET",
+      "endpoint": "/api/v0/areas/00000000-0000-4000-8000-000000000000/devices/summary",
+      "status": 404,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "AREA_NOT_FOUND",
+          "message": "Khu vực không tồn tại"
+        },
+        "timestamp": "2026-07-10T01:06:42.993392819+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Summary nonexistent area returns 404"
+  ],
+  "cleanup": {
+    "area_deleted": false,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:06:43.256Z"
+}

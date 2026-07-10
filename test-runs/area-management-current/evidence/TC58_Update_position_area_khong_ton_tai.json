@@ -1,0 +1,47 @@
+{
+  "tc_id": "TC58",
+  "tc_name": "Update position area khong ton tai",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:06:33.426Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Update device position",
+      "method": "PATCH",
+      "endpoint": "/api/v0/areas/00000000-0000-4000-8000-000000000000/devices/118431939315341315/position",
+      "status": 404,
+      "request": {
+        "pos_x": 0.4,
+        "pos_y": 0.5
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "DEVICE_NOT_IN_AREA",
+          "message": "Thiết bị không được gán vào khu vực này"
+        },
+        "timestamp": "2026-07-10T01:06:33.995990198+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Updating position in nonexistent area returns 404"
+  ],
+  "cleanup": {
+    "area_deleted": false,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:06:34.259Z"
+}

@@ -1,0 +1,88 @@
+{
+  "tc_id": "TC46",
+  "tc_name": "Gan device khong ton tai",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:05:49.339Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC46_20260710_080549_nwhk"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-AF8F49DE",
+          "created_at": "2026-07-10T01:05:49.899649+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "04f9759e-7a82-4dca-8aa4-b00395aa2c7f",
+          "image_url": null,
+          "name": "auto_area_TC46_20260710_080549_nwhk",
+          "parent_id": null,
+          "path": "AREA_AF8F49DE",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:05:49.899649+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:49.901774628+00:00"
+      }
+    },
+    {
+      "step": "Assign devices",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/04f9759e-7a82-4dca-8aa4-b00395aa2c7f/devices",
+      "status": 404,
+      "request": {
+        "device_ids": [
+          "999999999999999998"
+        ]
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "DEVICE_NOT_FOUND",
+          "message": "Thiết bị không tồn tại"
+        },
+        "timestamp": "2026-07-10T01:05:50.797261140+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/04f9759e-7a82-4dca-8aa4-b00395aa2c7f",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:51.706175422+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Assign nonexistent device returns 404"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:05:51.968Z"
+}

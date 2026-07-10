@@ -1,0 +1,133 @@
+{
+  "tc_id": "TC1",
+  "tc_name": "Lay danh sach Scene thanh cong",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:23:25.315Z",
+  "finished_at": "2026-07-10T09:23:25.349Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "List scenes",
+      "method": "GET",
+      "endpoint": "/api/v0/scenes?page=1&limit=20",
+      "response": {
+        "data": {
+          "items": [
+            {
+              "id": "254681896660679170",
+              "type": "Normal",
+              "name": "Vào lớp",
+              "icon": "-1",
+              "enable": true,
+              "background": null,
+              "background_color": "#ffffff",
+              "status": "Activated",
+              "binding": [],
+              "cron": "0 15 7 * * 2,3,4,5,6,7 *",
+              "cron_enable": true,
+              "area": {
+                "id": null,
+                "name": null
+              },
+              "hcid": "4932308540097724437"
+            },
+            {
+              "id": "264984479151316125",
+              "type": "Normal",
+              "name": "Ra về",
+              "icon": "-1",
+              "enable": true,
+              "background": null,
+              "background_color": "#ffffff",
+              "status": "Activated",
+              "binding": [],
+              "cron": "0 30 16 * * 2,3,4,5,6,7 *",
+              "cron_enable": true,
+              "area": {
+                "id": null,
+                "name": null
+              },
+              "hcid": "4932308540097724437"
+            },
+            {
+              "id": "217117409446161916",
+              "type": "Normal",
+              "name": "Làm việc",
+              "icon": "-1",
+              "enable": true,
+              "background": null,
+              "background_color": "#ffffff",
+              "status": "Activated",
+              "binding": [],
+              "cron": null,
+              "cron_enable": false,
+              "area": {
+                "id": null,
+                "name": null
+              },
+              "hcid": "4932308540097724437"
+            },
+            {
+              "id": "269752718985980716",
+              "type": "Normal",
+              "name": "Tiết kiệm điện",
+              "icon": "-1",
+              "enable": true,
+              "background": null,
+              "background_color": "#ffffff",
+              "status": "Activated",
+              "binding": [],
+              "cron": "0 14 17 * * 2,3,4,5,6,7,1 *",
+              "cron_enable": true,
+              "area": {
+                "id": null,
+                "name": null
+              },
+              "hcid": "4932308540097724437"
+            },
+            {
+              "id": "230650088460920169",
+              "type": "Normal",
+              "name": "Khẩn cấp",
+              "icon": "-1",
+              "enable": true,
+              "background": null,
+              "background_color": "#ffffff",
+              "status": "Provision",
+              "binding": [
+                {
+                  "id": "126600124909943299",
+                  "snapshot": {},
+                  "status": "Updating"
+                }
+              ],
+              "cron": null,
+              "cron_enable": false,
+              "area": {
+                "id": null,
+                "name": null
+              },
+              "hcid": "4932308540097724437"
+            }
+          ],
+          "total": 5,
+          "page": 1,
+          "limit": 20
+        },
+        "success": true,
+        "timestamp": "2026-07-10T09:23:25.357096407Z"
+      },
+      "status": 200
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "scene_deleted": false,
+    "warnings": []
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "tc_id": "UI-TC3",
+  "tc_name": "Doi ten scene thuy<N> thanh thuyvu<N>",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:23:36.425Z",
+  "finished_at": "2026-07-10T09:23:36.455Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Rename first thuy scene",
+      "method": "PUT",
+      "endpoint": "/api/v0/scenes/244783649876041156",
+      "request": {
+        "name": "thuyvu1"
+      },
+      "response": {
+        "data": {
+          "id": "244783649876041156",
+          "type": "Normal",
+          "name": "thuyvu1",
+          "icon": "-1",
+          "enable": true,
+          "background": null,
+          "background_color": "#ffffff",
+          "status": "Activated",
+          "binding": [
+            {
+              "id": "87903193043180546",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Activated"
+            },
+            {
+              "id": "118431939315341315",
+              "snapshot": {
+                "1": false
+              },
+              "status": "Activated"
+            }
+          ],
+          "cron": null,
+          "cron_enable": false,
+          "area": {
+            "id": null,
+            "name": null
+          },
+          "hcid": null
+        },
+        "success": true,
+        "timestamp": "2026-07-10T09:23:36.448401399Z"
+      },
+      "status": 200
+    },
+    {
+      "step": "Verify renamed scene detail",
+      "method": "GET",
+      "endpoint": "/api/v0/scenes/244783649876041156/detail",
+      "response": {
+        "data": {
+          "id": "244783649876041156",
+          "type": "Normal",
+          "name": "thuyvu1",
+          "icon": "-1",
+          "enable": true,
+          "background": null,
+          "background_color": "#ffffff",
+          "status": "Activated",
+          "binding": [
+            {
+              "id": "87903193043180546",
+              "name": "thiết bị_F61C_2",
+              "area": {
+                "id": "b9391050-a75f-4ce4-bb18-5c766e28e283",
+                "name": "Khu lễ tân"
+              },
+              "type": "device",
+              "snapshot": {
+                "1": true
+              }
+            },
+            {
+              "id": "118431939315341315",
+              "name": "thiết bị_F398_3",
+              "area": {
+                "id": null,
+                "name": null
+              },
+              "type": "device",
+              "snapshot": {
+                "1": false
+              }
+            }
+          ],
+          "cron": null,
+          "cron_enable": false,
+          "area": {
+            "id": null,
+            "name": null
+          }
+        },
+        "success": true,
+        "timestamp": "2026-07-10T09:23:36.466190042Z"
+      },
+      "status": 200
+    }
+  ],
+  "assertions": [
+    "Scene thuy<N> renamed to thuyvu<N>"
+  ],
+  "cleanup": {
+    "scene_deleted": false,
+    "warnings": []
+  }
+}

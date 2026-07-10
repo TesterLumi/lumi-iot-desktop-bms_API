@@ -1,0 +1,29 @@
+{
+  "tc_id": "TC63",
+  "tc_name": "Runtime rule disabled khong chay",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:13:15.765Z",
+  "finished_at": "2026-07-10T09:13:20.933Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Run Rule API testcase",
+      "details": {
+        "tc_id": "TC63",
+        "tc_name": "Runtime rule disabled khong chay"
+      }
+    }
+  ],
+  "assertions": [
+    "TC63 completed successfully"
+  ],
+  "cleanup": {
+    "rule_deleted": false,
+    "warnings": []
+  }
+}

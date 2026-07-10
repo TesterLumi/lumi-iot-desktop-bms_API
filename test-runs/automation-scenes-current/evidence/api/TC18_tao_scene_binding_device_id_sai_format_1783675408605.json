@@ -1,0 +1,55 @@
+{
+  "tc_id": "TC18",
+  "tc_name": "Tao Scene binding device id sai format",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:23:28.578Z",
+  "finished_at": "2026-07-10T09:23:28.605Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Create invalid scene",
+      "method": "POST",
+      "endpoint": "/api/v0/scenes",
+      "request": {
+        "type": "Normal",
+        "name": "auto_scene_TC18_scene_20260710092328_vo5z",
+        "icon": "-1",
+        "enable": true,
+        "background": null,
+        "background_color": "#ffffff",
+        "binding": [
+          {
+            "id": "abc",
+            "snapshot": {
+              "1": true
+            },
+            "status": "Updating"
+          }
+        ],
+        "cron": null,
+        "cron_enable": false
+      },
+      "response": {
+        "data": null,
+        "error": {
+          "code": "VALIDATION_ERROR",
+          "detail": "Failed to deserialize the JSON body into the target type: binding[0].id: invalid i64 string at line 1 column 163",
+          "message": "Dữ liệu đầu vào không hợp lệ"
+        },
+        "success": false,
+        "timestamp": "2026-07-10T09:23:28.615263235Z"
+      },
+      "status": 422
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "scene_deleted": false,
+    "warnings": []
+  }
+}

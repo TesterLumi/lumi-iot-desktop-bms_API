@@ -1,0 +1,160 @@
+{
+  "tc_id": "TC64",
+  "tc_name": "Auto-move group sang area khac",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:06:51.442Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC64_a_20260710_080651_1z06"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-D35F589D",
+          "created_at": "2026-07-10T01:06:51.992500+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "25141210-fb32-4bba-9921-752d99d9c236",
+          "image_url": null,
+          "name": "auto_area_TC64_a_20260710_080651_1z06",
+          "parent_id": null,
+          "path": "AREA_D35F589D",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:06:51.992500+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:51.994675213+00:00"
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC64_b_20260710_080652_65c6"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-A7255176",
+          "created_at": "2026-07-10T01:06:52.892223+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "746e47b8-7699-43b6-a2b0-8db7efa54a6c",
+          "image_url": null,
+          "name": "auto_area_TC64_b_20260710_080652_65c6",
+          "parent_id": null,
+          "path": "AREA_A7255176",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:06:52.892223+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:52.894358835+00:00"
+      }
+    },
+    {
+      "step": "Assign groups",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/25141210-fb32-4bba-9921-752d99d9c236/groups",
+      "status": 200,
+      "request": {
+        "group_ids": [
+          "312191246965906083"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:53.803605904+00:00"
+      }
+    },
+    {
+      "step": "Assign groups",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/746e47b8-7699-43b6-a2b0-8db7efa54a6c/groups",
+      "status": 200,
+      "request": {
+        "group_ids": [
+          "312191246965906083"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:54.703599174+00:00"
+      }
+    },
+    {
+      "step": "Unassign groups",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/746e47b8-7699-43b6-a2b0-8db7efa54a6c/groups",
+      "status": 200,
+      "request": {
+        "group_ids": [
+          "312191246965906083"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:55.601361875+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/25141210-fb32-4bba-9921-752d99d9c236",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:56.501918923+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/746e47b8-7699-43b6-a2b0-8db7efa54a6c",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:57.403508503+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Lighting group auto-moves between areas"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:06:57.671Z"
+}

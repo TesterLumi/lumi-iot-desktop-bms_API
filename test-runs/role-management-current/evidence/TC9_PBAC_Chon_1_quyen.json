@@ -1,0 +1,376 @@
+{
+  "tc_id": "TC9_PBAC",
+  "tc_name": "Chon 1 quyen",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:56:22.689Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "Role co 1 quyen read area_management",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_TC9_PBAC_20260709_115622_xdrx"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:56:23.405822+00:00",
+          "description": "Role co 1 quyen read area_management",
+          "id": "405bb910-54be-4b7c-a6cc-50cbf36872b6",
+          "is_system_admin": false,
+          "name": "auto_role_TC9_PBAC_20260709_115622_xdrx",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:56:23.405822+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:56:23.409101505+00:00"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC9_PBAC_20260709_115623_0hrzsx",
+        "email": "auto_user_TC9_PBAC_20260709_115623_0hrzsx@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84972983573"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc9_pbac_20260709_115623_0hrzsx@auto-test.local",
+          "phone": "+84972983573",
+          "role": null,
+          "user_id": "39a88376-213f-4ff4-ab08-e31a648a5d2b",
+          "user_name": "auto_user_TC9_PBAC_20260709_115623_0hrzsx"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:56:24.378651162+00:00"
+      }
+    },
+    {
+      "step": "Create policy",
+      "method": "POST",
+      "endpoint": "/api/v0/policies",
+      "status": 200,
+      "request": {
+        "role_id": "405bb910-54be-4b7c-a6cc-50cbf36872b6",
+        "service_code": "area_management",
+        "resource_scope": "all",
+        "actions": 1,
+        "effect": "allow"
+      },
+      "response": {
+        "data": {
+          "actions": 1,
+          "effect": "allow",
+          "id": 258,
+          "resource_scope": "all",
+          "resources": null,
+          "role_id": "405bb910-54be-4b7c-a6cc-50cbf36872b6",
+          "service_code": "area_management"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:56:25.202764439+00:00"
+      }
+    },
+    {
+      "step": "List policies",
+      "method": "GET",
+      "endpoint": "/api/v0/policies?role_id=405bb910-54be-4b7c-a6cc-50cbf36872b6&page=1&limit=20",
+      "status": 200,
+      "response": {
+        "data": {
+          "items": [
+            {
+              "actions": 1,
+              "effect": "allow",
+              "id": 258,
+              "resource_scope": "all",
+              "resources": null,
+              "role_id": "405bb910-54be-4b7c-a6cc-50cbf36872b6",
+              "service_code": "area_management"
+            }
+          ],
+          "limit": 20,
+          "page": 1,
+          "total": 1
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:56:26.112910473+00:00"
+      }
+    },
+    {
+      "step": "Assign role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/405bb910-54be-4b7c-a6cc-50cbf36872b6/assignments",
+      "status": 200,
+      "request": {
+        "userId": "39a88376-213f-4ff4-ab08-e31a648a5d2b"
+      },
+      "response": {
+        "data": {
+          "assigned_at": "2026-07-09T04:56:27.012927+00:00",
+          "id": "07e0cf46-1dd4-42fa-82a6-5023fe72690b",
+          "revoked_at": null,
+          "roleId": "405bb910-54be-4b7c-a6cc-50cbf36872b6",
+          "userId": "39a88376-213f-4ff4-ab08-e31a648a5d2b"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:56:27.015561763+00:00"
+      }
+    },
+    {
+      "step": "Get permission tree",
+      "method": "GET",
+      "endpoint": "/api/v0/permissions/tree",
+      "status": 200,
+      "response": {
+        "data": [
+          {
+            "actions": 0,
+            "children": [
+              {
+                "actions": 0,
+                "children": [
+                  {
+                    "actions": 1,
+                    "children": [],
+                    "code": "area_management",
+                    "name": "Quản lý khu vực"
+                  },
+                  {
+                    "actions": 0,
+                    "children": [],
+                    "code": "device_control",
+                    "name": "Điều khiển thiết bị"
+                  },
+                  {
+                    "actions": 0,
+                    "children": [
+                      {
+                        "actions": 0,
+                        "children": [],
+                        "code": "group_device_management",
+                        "name": "Quản lý nhóm"
+                      },
+                      {
+                        "actions": 0,
+                        "children": [],
+                        "code": "rule_management",
+                        "name": "Quản lý Rule"
+                      },
+                      {
+                        "actions": 0,
+                        "children": [],
+                        "code": "scene_management",
+                        "name": "Quản lý Cảnh"
+                      },
+                      {
+                        "actions": 0,
+                        "children": [],
+                        "code": "schedule_device_management",
+                        "name": "Quản lý lịch"
+                      }
+                    ],
+                    "code": "rule_scene_schedule",
+                    "name": "Cấu hình Rule/Cảnh/Lịch"
+                  }
+                ],
+                "code": "area_root",
+                "name": "Khu vực"
+              },
+              {
+                "actions": 0,
+                "children": [
+                  {
+                    "actions": 0,
+                    "children": [],
+                    "code": "device_management",
+                    "name": "Quản lý thiết bị"
+                  },
+                  {
+                    "actions": 0,
+                    "children": [],
+                    "code": "firmware_management",
+                    "name": "Quản lý firmware"
+                  },
+                  {
+                    "actions": 0,
+                    "children": [],
+                    "code": "hc_management",
+                    "name": "Quản lý HC"
+                  },
+                  {
+                    "actions": 0,
+                    "children": [],
+                    "code": "maintenance",
+                    "name": "Bảo trì thiết bị"
+                  }
+                ],
+                "code": "device_ops",
+                "name": "Thiết bị"
+              },
+              {
+                "actions": 0,
+                "children": [
+                  {
+                    "actions": 0,
+                    "children": [
+                      {
+                        "actions": 0,
+                        "children": [],
+                        "code": "role_management",
+                        "name": "Quản lý vai trò"
+                      },
+                      {
+                        "actions": 0,
+                        "children": [],
+                        "code": "user_management",
+                        "name": "Quản lý tài khoản"
+                      }
+                    ],
+                    "code": "account_management",
+                    "name": "Quản lý tài khoản"
+                  },
+                  {
+                    "actions": 0,
+                    "children": [],
+                    "code": "system_history",
+                    "name": "Lịch sử hệ thống"
+                  }
+                ],
+                "code": "general_management",
+                "name": "Quản lý chung"
+              },
+              {
+                "actions": 0,
+                "children": [],
+                "code": "operations_root",
+                "name": "Vận hành"
+              }
+            ],
+            "code": "sys_root",
+            "name": "Hệ thống"
+          }
+        ],
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:56:28.805202222+00:00"
+      }
+    },
+    {
+      "step": "Delete policy",
+      "method": "DELETE",
+      "endpoint": "/api/v0/policies/258",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:56:29.706567326+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "39a88376-213f-4ff4-ab08-e31a648a5d2b"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:56:30.609501954+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/405bb910-54be-4b7c-a6cc-50cbf36872b6",
+      "status": 400,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "ROLE_HAS_ASSIGNMENTS",
+          "message": "Không thể thay đổi tên hoặc xóa vai trò đã được gán cho người dùng"
+        },
+        "timestamp": "2026-07-09T04:56:31.501587163+00:00"
+      }
+    },
+    {
+      "step": "Update role",
+      "method": "PATCH",
+      "endpoint": "/api/v0/roles/405bb910-54be-4b7c-a6cc-50cbf36872b6",
+      "status": 200,
+      "request": {
+        "status": "Disabled"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:56:23.405822+00:00",
+          "description": "Role co 1 quyen read area_management",
+          "id": "405bb910-54be-4b7c-a6cc-50cbf36872b6",
+          "is_system_admin": false,
+          "name": "auto_role_TC9_PBAC_20260709_115622_xdrx",
+          "permissions": [],
+          "status": "Disabled",
+          "updated_at": "2026-07-09T04:56:32.414899+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:56:32.417638822+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/405bb910-54be-4b7c-a6cc-50cbf36872b6",
+      "status": 404,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "NOT_FOUND",
+          "message": "Không tìm thấy"
+        },
+        "timestamp": "2026-07-09T04:56:33.298220602+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "User permission tree contains area_management actions=1 after one PBAC policy"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 1,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:56:33.460Z"
+}

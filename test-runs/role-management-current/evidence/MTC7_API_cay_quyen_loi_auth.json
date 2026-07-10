@@ -1,0 +1,49 @@
+{
+  "tc_id": "MTC7",
+  "tc_name": "API cay quyen loi auth",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:58:28.723Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Get permission tree",
+      "method": "GET",
+      "endpoint": "/api/v0/permissions/tree",
+      "status": 400,
+      "response": "failed to parse parameter `authorization`: Type \"string\" expects an input value."
+    },
+    {
+      "step": "Get permission tree",
+      "method": "GET",
+      "endpoint": "/api/v0/permissions/tree",
+      "status": 401,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "UNAUTHORIZED",
+          "message": "Unauthorized"
+        },
+        "timestamp": "2026-07-09T04:58:30.304902829+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Permission tree rejects anonymous and invalid-token requests"
+  ],
+  "cleanup": {
+    "role_deleted": false,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:58:30.468Z"
+}

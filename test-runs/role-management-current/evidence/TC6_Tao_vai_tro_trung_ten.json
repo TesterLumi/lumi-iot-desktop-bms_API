@@ -1,0 +1,83 @@
+{
+  "tc_id": "TC6",
+  "tc_name": "Tao vai tro trung ten",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:56:15.488Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_TC6_20260709_115615_bui3"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:56:16.202223+00:00",
+          "description": "",
+          "id": "0259349d-4957-47e5-89a8-409f7a2d5cec",
+          "is_system_admin": false,
+          "name": "auto_role_TC6_20260709_115615_bui3",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:56:16.202223+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:56:16.205518108+00:00"
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 409,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_TC6_20260709_115615_bui3"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "CONFLICT",
+          "message": "Dữ liệu đã tồn tại"
+        },
+        "timestamp": "2026-07-09T04:56:17.102638623+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/0259349d-4957-47e5-89a8-409f7a2d5cec",
+      "status": 200,
+      "response": ""
+    }
+  ],
+  "assertions": [
+    "Duplicate exact role name is rejected"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:56:18.177Z"
+}

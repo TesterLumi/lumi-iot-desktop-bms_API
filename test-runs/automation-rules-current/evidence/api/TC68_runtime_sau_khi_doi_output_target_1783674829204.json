@@ -1,0 +1,29 @@
+{
+  "tc_id": "TC68",
+  "tc_name": "Runtime sau khi doi output target",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:13:44.910Z",
+  "finished_at": "2026-07-10T09:13:49.204Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Run Rule API testcase",
+      "details": {
+        "tc_id": "TC68",
+        "tc_name": "Runtime sau khi doi output target"
+      }
+    }
+  ],
+  "assertions": [
+    "TC68 completed successfully"
+  ],
+  "cleanup": {
+    "rule_deleted": false,
+    "warnings": []
+  }
+}

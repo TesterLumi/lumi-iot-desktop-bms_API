@@ -1,0 +1,86 @@
+{
+  "tc_id": "TC84",
+  "tc_name": "Go home controller chua gan idempotent",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:08:43.014Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC84_20260710_080843_9uus"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-A8F5208D",
+          "created_at": "2026-07-10T01:08:43.600883+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "f4a6bef8-c06d-400e-8bc7-bf54fabd3b8a",
+          "image_url": null,
+          "name": "auto_area_TC84_20260710_080843_9uus",
+          "parent_id": null,
+          "path": "AREA_A8F5208D",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:08:43.600883+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:43.603035512+00:00"
+      }
+    },
+    {
+      "step": "Unassign home controllers",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/f4a6bef8-c06d-400e-8bc7-bf54fabd3b8a/home-controllers",
+      "status": 200,
+      "request": {
+        "hc_ids": [
+          "4932308540097659019"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:44.509682623+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/f4a6bef8-c06d-400e-8bc7-bf54fabd3b8a",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:45.404645053+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Unassign missing HC is idempotent"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:08:45.669Z"
+}

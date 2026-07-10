@@ -1,0 +1,102 @@
+{
+  "tc_id": "TC33",
+  "tc_name": "Batch co ID khong ton tai",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:05:12.374Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC33_20260710_080512_6506"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-95850D97",
+          "created_at": "2026-07-10T01:05:12.991586+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "088f2dce-b38e-4b81-8c33-ccbab4ef0475",
+          "image_url": null,
+          "name": "auto_area_TC33_20260710_080512_6506",
+          "parent_id": null,
+          "path": "AREA_95850D97",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:05:12.991586+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:12.994396943+00:00"
+      }
+    },
+    {
+      "step": "Batch areas",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/batch",
+      "status": 200,
+      "request": {
+        "ids": [
+          "088f2dce-b38e-4b81-8c33-ccbab4ef0475",
+          "00000000-0000-4000-8000-000000000000"
+        ]
+      },
+      "response": {
+        "data": [
+          {
+            "code": "AREA-95850D97",
+            "created_at": "2026-07-10T01:05:12.991586+00:00",
+            "direct_devices": 0,
+            "floor_plan_url": null,
+            "id": "088f2dce-b38e-4b81-8c33-ccbab4ef0475",
+            "image_url": null,
+            "name": "auto_area_TC33_20260710_080512_6506",
+            "parent_id": null,
+            "path": "AREA_95850D97",
+            "total_devices": 0,
+            "total_sub_areas": 0,
+            "updated_at": "2026-07-10T01:05:12.991586+00:00"
+          }
+        ],
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:13.897184590+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/088f2dce-b38e-4b81-8c33-ccbab4ef0475",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:14.800644548+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Batch ignores nonexistent ids"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:05:15.062Z"
+}

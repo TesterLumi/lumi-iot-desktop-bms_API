@@ -1,0 +1,156 @@
+{
+  "tc_id": "TC32",
+  "tc_name": "Lay nhieu khu vuc theo IDs",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:05:07.867Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC32_a_20260710_080507_40ys"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-4630AE76",
+          "created_at": "2026-07-10T01:05:08.493069+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "3a2290fd-96f7-4dc6-83f8-c4f925feacae",
+          "image_url": null,
+          "name": "auto_area_TC32_a_20260710_080507_40ys",
+          "parent_id": null,
+          "path": "AREA_4630AE76",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:05:08.493069+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:08.497390831+00:00"
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC32_b_20260710_080508_0afj"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-69955508",
+          "created_at": "2026-07-10T01:05:09.397008+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "4ef00c18-9a6a-4499-a5a3-37bd0833fb12",
+          "image_url": null,
+          "name": "auto_area_TC32_b_20260710_080508_0afj",
+          "parent_id": null,
+          "path": "AREA_69955508",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:05:09.397008+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:09.398911607+00:00"
+      }
+    },
+    {
+      "step": "Batch areas",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/batch",
+      "status": 200,
+      "request": {
+        "ids": [
+          "3a2290fd-96f7-4dc6-83f8-c4f925feacae",
+          "4ef00c18-9a6a-4499-a5a3-37bd0833fb12"
+        ]
+      },
+      "response": {
+        "data": [
+          {
+            "code": "AREA-4630AE76",
+            "created_at": "2026-07-10T01:05:08.493069+00:00",
+            "direct_devices": 0,
+            "floor_plan_url": null,
+            "id": "3a2290fd-96f7-4dc6-83f8-c4f925feacae",
+            "image_url": null,
+            "name": "auto_area_TC32_a_20260710_080507_40ys",
+            "parent_id": null,
+            "path": "AREA_4630AE76",
+            "total_devices": 0,
+            "total_sub_areas": 0,
+            "updated_at": "2026-07-10T01:05:08.493069+00:00"
+          },
+          {
+            "code": "AREA-69955508",
+            "created_at": "2026-07-10T01:05:09.397008+00:00",
+            "direct_devices": 0,
+            "floor_plan_url": null,
+            "id": "4ef00c18-9a6a-4499-a5a3-37bd0833fb12",
+            "image_url": null,
+            "name": "auto_area_TC32_b_20260710_080508_0afj",
+            "parent_id": null,
+            "path": "AREA_69955508",
+            "total_devices": 0,
+            "total_sub_areas": 0,
+            "updated_at": "2026-07-10T01:05:09.397008+00:00"
+          }
+        ],
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:10.302518515+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/3a2290fd-96f7-4dc6-83f8-c4f925feacae",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:11.203208858+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/4ef00c18-9a6a-4499-a5a3-37bd0833fb12",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:12.097398764+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Batch lookup returns requested area ids"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:05:12.357Z"
+}

@@ -1,0 +1,83 @@
+{
+  "tc_id": "MTC41",
+  "tc_name": "User khong co quyen xem vai tro",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:59:20.035Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_MTC41_20260709_115920_s73eqd",
+        "email": "auto_user_MTC41_20260709_115920_s73eqd@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84973160035"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_mtc41_20260709_115920_s73eqd@auto-test.local",
+          "phone": "+84973160035",
+          "role": null,
+          "user_id": "f83bf0d1-a849-4290-a4b1-02bfb115349d",
+          "user_name": "auto_user_MTC41_20260709_115920_s73eqd"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:59:20.770214190+00:00"
+      }
+    },
+    {
+      "step": "List roles",
+      "method": "GET",
+      "endpoint": "/api/v0/roles/?page=1&limit=10",
+      "status": 403,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "FORBIDDEN",
+          "message": "Không có quyền thực hiện thao tác"
+        },
+        "timestamp": "2026-07-09T04:59:22.525750954+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "f83bf0d1-a849-4290-a4b1-02bfb115349d"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:59:23.423593687+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "No-permission user cannot view role list"
+  ],
+  "cleanup": {
+    "role_deleted": false,
+    "users_deleted": 1,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:59:23.583Z"
+}

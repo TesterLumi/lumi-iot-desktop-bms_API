@@ -1,0 +1,43 @@
+{
+  "tc_id": "TC31",
+  "tc_name": "Xoa khu vuc id sai format",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:05:06.974Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/abc",
+      "status": 400,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "INVALID_UUID",
+          "message": "ID không đúng định dạng UUID"
+        },
+        "timestamp": "2026-07-10T01:05:07.591893543+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Delete invalid id is rejected"
+  ],
+  "cleanup": {
+    "area_deleted": false,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:05:07.852Z"
+}

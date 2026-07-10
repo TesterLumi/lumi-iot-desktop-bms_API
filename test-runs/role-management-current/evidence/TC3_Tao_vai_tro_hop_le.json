@@ -1,0 +1,92 @@
+{
+  "tc_id": "TC3",
+  "tc_name": "Tao vai tro hop le",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:56:10.102Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "Role tao boi automation TC3",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_TC3_20260709_115610_auvc"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:56:10.814811+00:00",
+          "description": "Role tao boi automation TC3",
+          "id": "36770689-3bf0-47d1-a2e0-130b3e9e96ee",
+          "is_system_admin": false,
+          "name": "auto_role_TC3_20260709_115610_auvc",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:56:10.814811+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:56:10.818028092+00:00"
+      }
+    },
+    {
+      "step": "List roles",
+      "method": "GET",
+      "endpoint": "/api/v0/roles/?search=auto_role_TC3_20260709_115610_auvc&page=1&limit=10",
+      "status": 200,
+      "response": {
+        "data": {
+          "items": [
+            {
+              "created_at": "2026-07-09T04:56:10.814811+00:00",
+              "description": "Role tao boi automation TC3",
+              "id": "36770689-3bf0-47d1-a2e0-130b3e9e96ee",
+              "is_system_admin": false,
+              "name": "auto_role_TC3_20260709_115610_auvc",
+              "permissions": [],
+              "status": "Active",
+              "updated_at": "2026-07-09T04:56:10.814811+00:00",
+              "user_count": 0
+            }
+          ],
+          "limit": 10,
+          "page": 1,
+          "total": 1
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:56:11.706273546+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/36770689-3bf0-47d1-a2e0-130b3e9e96ee",
+      "status": 200,
+      "response": ""
+    }
+  ],
+  "assertions": [
+    "Role is created and searchable"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:56:12.769Z"
+}

@@ -1,0 +1,138 @@
+{
+  "tc_id": "TC23",
+  "tc_name": "Di chuyen khu vuc ra root",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:04:43.579Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC23_parent_20260710_080443_kypx"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-F49AB464",
+          "created_at": "2026-07-10T01:04:44.185712+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "8f72d64f-08e6-43bd-8cdc-4f7aa532205a",
+          "image_url": null,
+          "name": "auto_area_TC23_parent_20260710_080443_kypx",
+          "parent_id": null,
+          "path": "AREA_F49AB464",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:04:44.185712+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:44.187858793+00:00"
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC23_child_20260710_080444_ad8i",
+        "parent_id": "8f72d64f-08e6-43bd-8cdc-4f7aa532205a"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-514E8BCC",
+          "created_at": "2026-07-10T01:04:45.092266+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "836478b2-f7a0-4c1d-bba8-8b17a016f4f6",
+          "image_url": null,
+          "name": "auto_area_TC23_child_20260710_080444_ad8i",
+          "parent_id": "8f72d64f-08e6-43bd-8cdc-4f7aa532205a",
+          "path": "AREA_F49AB464.AREA_514E8BCC",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:04:45.092266+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:45.094051227+00:00"
+      }
+    },
+    {
+      "step": "Update area",
+      "method": "PATCH",
+      "endpoint": "/api/v0/areas/836478b2-f7a0-4c1d-bba8-8b17a016f4f6",
+      "status": 200,
+      "request": {
+        "parent_id": null
+      },
+      "response": {
+        "data": {
+          "code": "AREA-514E8BCC",
+          "created_at": "2026-07-10T01:04:45.092266+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "836478b2-f7a0-4c1d-bba8-8b17a016f4f6",
+          "image_url": null,
+          "name": "auto_area_TC23_child_20260710_080444_ad8i",
+          "parent_id": null,
+          "path": "AREA_514E8BCC",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:04:45.995197+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:46.002706237+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/836478b2-f7a0-4c1d-bba8-8b17a016f4f6",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:46.899364782+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/8f72d64f-08e6-43bd-8cdc-4f7aa532205a",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:47.798465860+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Child area can move to root"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:04:48.062Z"
+}

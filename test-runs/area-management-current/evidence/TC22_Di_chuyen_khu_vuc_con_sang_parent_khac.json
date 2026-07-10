@@ -1,0 +1,166 @@
+{
+  "tc_id": "TC22",
+  "tc_name": "Di chuyen khu vuc con sang parent khac",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:04:38.210Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC22_parentA_20260710_080438_6m6c"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-B55EE781",
+          "created_at": "2026-07-10T01:04:38.790671+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "9a92a179-7f37-4181-8dd3-d61f59791820",
+          "image_url": null,
+          "name": "auto_area_TC22_parentA_20260710_080438_6m6c",
+          "parent_id": null,
+          "path": "AREA_B55EE781",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:04:38.790671+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:38.792604836+00:00"
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC22_parentB_20260710_080439_qh5x"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-5FE6289B",
+          "created_at": "2026-07-10T01:04:39.696678+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "5af7d7a7-ec94-4d07-9c23-f3e7b8032665",
+          "image_url": null,
+          "name": "auto_area_TC22_parentB_20260710_080439_qh5x",
+          "parent_id": null,
+          "path": "AREA_5FE6289B",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:04:39.696678+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:39.698751954+00:00"
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC22_child_20260710_080439_j929",
+        "parent_id": "9a92a179-7f37-4181-8dd3-d61f59791820"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-F46BCCC5",
+          "created_at": "2026-07-10T01:04:40.598471+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "754d73af-d716-41df-a33e-fae4e8e67723",
+          "image_url": null,
+          "name": "auto_area_TC22_child_20260710_080439_j929",
+          "parent_id": "9a92a179-7f37-4181-8dd3-d61f59791820",
+          "path": "AREA_B55EE781.AREA_F46BCCC5",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:04:40.598471+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:40.601498755+00:00"
+      }
+    },
+    {
+      "step": "Update area",
+      "method": "PATCH",
+      "endpoint": "/api/v0/areas/754d73af-d716-41df-a33e-fae4e8e67723",
+      "status": 200,
+      "request": {
+        "parent_id": "5af7d7a7-ec94-4d07-9c23-f3e7b8032665"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-F46BCCC5",
+          "created_at": "2026-07-10T01:04:40.598471+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "754d73af-d716-41df-a33e-fae4e8e67723",
+          "image_url": null,
+          "name": "auto_area_TC22_child_20260710_080439_j929",
+          "parent_id": "5af7d7a7-ec94-4d07-9c23-f3e7b8032665",
+          "path": "AREA_5FE6289B.AREA_F46BCCC5",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:04:41.497311+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:41.505431803+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/9a92a179-7f37-4181-8dd3-d61f59791820",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:42.405061466+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/5af7d7a7-ec94-4d07-9c23-f3e7b8032665",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:43.297637021+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Child area can move to another parent"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:04:43.561Z"
+}

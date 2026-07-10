@@ -1,0 +1,35 @@
+{
+  "tc_id": "TC30",
+  "tc_name": "Khong truyen token khi goi list role",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:58:23.284Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "List roles",
+      "method": "GET",
+      "endpoint": "/api/v0/roles/?page=1&limit=10",
+      "status": 400,
+      "response": "failed to parse parameter `authorization`: Type \"string\" expects an input value."
+    }
+  ],
+  "assertions": [
+    "List roles without token is rejected"
+  ],
+  "cleanup": {
+    "role_deleted": false,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:58:24.161Z"
+}

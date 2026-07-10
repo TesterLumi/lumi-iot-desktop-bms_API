@@ -1,0 +1,1 @@
+{"rule_negative_case":"TC32","status":422,"accepted_by_backend":false,"response":{"data":null,"error":{"code":"VALIDATION_ERROR","detail":"Failed to deserialize the JSON body into the target type: missing field `execution` at line 1 column 102","message":"Dữ liệu đầu vào không hợp lệ"},"success":false,"timestamp":"2026-07-10T09:03:26.960627942Z"}}

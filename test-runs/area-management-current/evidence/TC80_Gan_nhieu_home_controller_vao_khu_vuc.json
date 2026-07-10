@@ -1,0 +1,105 @@
+{
+  "tc_id": "TC80",
+  "tc_name": "Gan nhieu home controller vao khu vuc",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:08:28.639Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC80_20260710_080828_s7bz"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-A5720C21",
+          "created_at": "2026-07-10T01:08:29.199843+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "df49d3cc-6bab-4452-9af9-4ad91ed52389",
+          "image_url": null,
+          "name": "auto_area_TC80_20260710_080828_s7bz",
+          "parent_id": null,
+          "path": "AREA_A5720C21",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:08:29.199843+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:29.201882738+00:00"
+      }
+    },
+    {
+      "step": "Assign home controllers",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/df49d3cc-6bab-4452-9af9-4ad91ed52389/home-controllers",
+      "status": 200,
+      "request": {
+        "hc_ids": [
+          "4932308540097659019",
+          "8946054079183192308"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:30.107100724+00:00"
+      }
+    },
+    {
+      "step": "Unassign home controllers",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/df49d3cc-6bab-4452-9af9-4ad91ed52389/home-controllers",
+      "status": 200,
+      "request": {
+        "hc_ids": [
+          "4932308540097659019",
+          "8946054079183192308"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:31.004329682+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/df49d3cc-6bab-4452-9af9-4ad91ed52389",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:31.904271722+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Multiple home controllers can be assigned"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:08:32.170Z"
+}

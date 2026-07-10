@@ -1,0 +1,36 @@
+{
+  "tc_id": "TC8",
+  "tc_name": "Filter scene type khong hop le",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:23:25.723Z",
+  "finished_at": "2026-07-10T09:23:25.732Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Invalid type filter",
+      "method": "GET",
+      "endpoint": "/api/v0/scenes?type=Invalid",
+      "response": {
+        "data": null,
+        "error": {
+          "code": "VALIDATION_ERROR",
+          "detail": "Failed to deserialize query string: type: unknown variant `Invalid`, expected `Normal` or `Lighting`",
+          "message": "Dữ liệu đầu vào không hợp lệ"
+        },
+        "success": false,
+        "timestamp": "2026-07-10T09:23:25.743495026Z"
+      },
+      "status": 400
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "scene_deleted": false,
+    "warnings": []
+  }
+}

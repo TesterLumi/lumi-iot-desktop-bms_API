@@ -1,0 +1,36 @@
+{
+  "tc_id": "TC6",
+  "tc_name": "Search name khong ton tai",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:23:25.633Z",
+  "finished_at": "2026-07-10T09:23:25.663Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Search missing scene name",
+      "method": "GET",
+      "endpoint": "/api/v0/scenes?name=auto_scene_TCTC6missing_scene_20260710092325_gidp",
+      "response": {
+        "data": {
+          "items": [],
+          "total": 0,
+          "page": 1,
+          "limit": 20
+        },
+        "success": true,
+        "timestamp": "2026-07-10T09:23:25.673626231Z"
+      },
+      "status": 200
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "scene_deleted": false,
+    "warnings": []
+  }
+}

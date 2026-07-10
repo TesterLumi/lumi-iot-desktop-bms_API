@@ -1,0 +1,89 @@
+{
+  "tc_id": "TC26",
+  "tc_name": "User khong co quyen khong duoc tao role",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:58:01.699Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC26_20260709_115801_jdgo49",
+        "email": "auto_user_TC26_20260709_115801_jdgo49@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84973081699"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc26_20260709_115801_jdgo49@auto-test.local",
+          "phone": "+84973081699",
+          "role": null,
+          "user_id": "aafb8d23-f0d3-4c97-a5ca-9e5a749ffcdb",
+          "user_name": "auto_user_TC26_20260709_115801_jdgo49"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:02.471040302+00:00"
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 403,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_TC26_20260709_115803_f7aj"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "FORBIDDEN",
+          "message": "Không có quyền thực hiện thao tác"
+        },
+        "timestamp": "2026-07-09T04:58:04.206986351+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "aafb8d23-f0d3-4c97-a5ca-9e5a749ffcdb"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:05.115992890+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "No-permission generated user cannot create role"
+  ],
+  "cleanup": {
+    "role_deleted": false,
+    "users_deleted": 1,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:58:05.277Z"
+}

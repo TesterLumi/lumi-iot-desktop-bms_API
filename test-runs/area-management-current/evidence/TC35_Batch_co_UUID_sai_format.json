@@ -1,0 +1,48 @@
+{
+  "tc_id": "TC35",
+  "tc_name": "Batch co UUID sai format",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:05:16.040Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Batch areas",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/batch",
+      "status": 400,
+      "request": {
+        "ids": [
+          "abc"
+        ]
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "VALIDATION_ERROR",
+          "message": "parse request payload error: failed to parse \"string_uuid\": invalid length: expected length 32 for simple format, found 3 (occurred while parsing \"list_string_uuid\") (occurred while parsing \"BatchAreaRequest\")"
+        },
+        "timestamp": "2026-07-10T01:05:16.597141494+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Batch invalid UUID returns 400"
+  ],
+  "cleanup": {
+    "area_deleted": false,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:05:16.865Z"
+}

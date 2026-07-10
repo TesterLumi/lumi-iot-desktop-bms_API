@@ -1,0 +1,44 @@
+{
+  "tc_id": "TC34",
+  "tc_name": "Batch ids rong",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:05:15.087Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Batch areas",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/batch",
+      "status": 200,
+      "request": {
+        "ids": []
+      },
+      "response": {
+        "data": [],
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:15.697687402+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Batch empty ids returns empty array"
+  ],
+  "cleanup": {
+    "area_deleted": false,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:05:15.971Z"
+}

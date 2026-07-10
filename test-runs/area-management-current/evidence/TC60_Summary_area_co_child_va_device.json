@@ -1,0 +1,155 @@
+{
+  "tc_id": "TC60",
+  "tc_name": "Summary area co child va device",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:06:37.030Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC60_parent_20260710_080637_bfo2"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-EC009EA1",
+          "created_at": "2026-07-10T01:06:37.599994+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "ae0f55f1-ec9d-4e75-bc0e-753af591c21d",
+          "image_url": null,
+          "name": "auto_area_TC60_parent_20260710_080637_bfo2",
+          "parent_id": null,
+          "path": "AREA_EC009EA1",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:06:37.599994+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:37.602454137+00:00"
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC60_child_20260710_080637_0krn",
+        "parent_id": "ae0f55f1-ec9d-4e75-bc0e-753af591c21d"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-C76D1872",
+          "created_at": "2026-07-10T01:06:38.500786+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "9729944a-9ca9-4e9b-8ff2-5a4ba13f0993",
+          "image_url": null,
+          "name": "auto_area_TC60_child_20260710_080637_0krn",
+          "parent_id": "ae0f55f1-ec9d-4e75-bc0e-753af591c21d",
+          "path": "AREA_EC009EA1.AREA_C76D1872",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:06:38.500786+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:38.502998929+00:00"
+      }
+    },
+    {
+      "step": "Assign devices",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/9729944a-9ca9-4e9b-8ff2-5a4ba13f0993/devices",
+      "status": 200,
+      "request": {
+        "device_ids": [
+          "118431939315341315"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:39.410480058+00:00"
+      }
+    },
+    {
+      "step": "Get area device summary",
+      "method": "GET",
+      "endpoint": "/api/v0/areas/ae0f55f1-ec9d-4e75-bc0e-753af591c21d/devices/summary",
+      "status": 200,
+      "response": {
+        "data": {
+          "children_summary": [
+            {
+              "device_count": 1,
+              "id": "9729944a-9ca9-4e9b-8ff2-5a4ba13f0993",
+              "name": "auto_area_TC60_child_20260710_080637_0krn"
+            }
+          ],
+          "direct_devices": 0,
+          "total_devices": 1,
+          "unassigned_devices": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:40.303382566+00:00"
+      }
+    },
+    {
+      "step": "Unassign devices",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/9729944a-9ca9-4e9b-8ff2-5a4ba13f0993/devices",
+      "status": 200,
+      "request": {
+        "device_ids": [
+          "118431939315341315"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:41.200850763+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/ae0f55f1-ec9d-4e75-bc0e-753af591c21d",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:42.103434358+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Parent summary includes devices from child area"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:06:42.372Z"
+}

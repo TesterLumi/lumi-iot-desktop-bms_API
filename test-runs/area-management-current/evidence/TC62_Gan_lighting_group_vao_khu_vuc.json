@@ -1,0 +1,103 @@
+{
+  "tc_id": "TC62",
+  "tc_name": "Gan lighting group vao khu vuc",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:06:43.272Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC62_20260710_080643_k8gy"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-9D6902A7",
+          "created_at": "2026-07-10T01:06:43.892145+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "1deb0565-61b8-41c5-8bea-bcc178c9392a",
+          "image_url": null,
+          "name": "auto_area_TC62_20260710_080643_k8gy",
+          "parent_id": null,
+          "path": "AREA_9D6902A7",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:06:43.892145+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:43.894373443+00:00"
+      }
+    },
+    {
+      "step": "Assign groups",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/1deb0565-61b8-41c5-8bea-bcc178c9392a/groups",
+      "status": 200,
+      "request": {
+        "group_ids": [
+          "312191246965906083"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:44.804721606+00:00"
+      }
+    },
+    {
+      "step": "Unassign groups",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/1deb0565-61b8-41c5-8bea-bcc178c9392a/groups",
+      "status": 200,
+      "request": {
+        "group_ids": [
+          "312191246965906083"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:45.698792720+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/1deb0565-61b8-41c5-8bea-bcc178c9392a",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:46.602767358+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Lighting group can be assigned"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:06:46.871Z"
+}

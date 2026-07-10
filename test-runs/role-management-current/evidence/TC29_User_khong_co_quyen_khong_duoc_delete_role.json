@@ -1,0 +1,104 @@
+{
+  "tc_id": "TC29",
+  "tc_name": "User khong co quyen khong duoc delete role",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:58:18.791Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC29_20260709_115818_hsa3lc",
+        "email": "auto_user_TC29_20260709_115818_hsa3lc@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84973098791"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc29_20260709_115818_hsa3lc@auto-test.local",
+          "phone": "+84973098791",
+          "role": null,
+          "user_id": "3be7ec7f-a408-4c3c-9cdd-d998830154e5",
+          "user_name": "auto_user_TC29_20260709_115818_hsa3lc"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:19.564609606+00:00"
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_TC29_20260709_115820_f4vw"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:58:21.316265+00:00",
+          "description": "",
+          "id": "dea6ad20-cdd6-4743-a5fe-d231e3d591fd",
+          "is_system_admin": false,
+          "name": "auto_role_TC29_20260709_115820_f4vw",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:58:21.316265+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:21.319425029+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/dea6ad20-cdd6-4743-a5fe-d231e3d591fd",
+      "status": 200,
+      "response": ""
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "3be7ec7f-a408-4c3c-9cdd-d998830154e5"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:23.107394967+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "TODO_CONFIRM_SECURITY backend currently allows no-permission generated user to delete role"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 1,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:58:23.268Z"
+}

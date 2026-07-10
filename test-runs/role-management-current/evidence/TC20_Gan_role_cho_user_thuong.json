@@ -1,0 +1,171 @@
+{
+  "tc_id": "TC20",
+  "tc_name": "Gan role cho user thuong",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:57:32.889Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC20_20260709_115732_rzthfe",
+        "email": "auto_user_TC20_20260709_115732_rzthfe@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84973052889"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc20_20260709_115732_rzthfe@auto-test.local",
+          "phone": "+84973052889",
+          "role": null,
+          "user_id": "591fb978-e471-4a1e-ba48-dcd0468f0769",
+          "user_name": "auto_user_TC20_20260709_115732_rzthfe"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:57:33.673954361+00:00"
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_TC20_20260709_115733_h1ve"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:57:34.502697+00:00",
+          "description": "",
+          "id": "7c6d4639-43b8-4a67-947e-6852e92fbc9b",
+          "is_system_admin": false,
+          "name": "auto_role_TC20_20260709_115733_h1ve",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:57:34.502697+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:57:34.505890763+00:00"
+      }
+    },
+    {
+      "step": "Assign role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/7c6d4639-43b8-4a67-947e-6852e92fbc9b/assignments",
+      "status": 200,
+      "request": {
+        "userId": "591fb978-e471-4a1e-ba48-dcd0468f0769"
+      },
+      "response": {
+        "data": {
+          "assigned_at": "2026-07-09T04:57:35.416566+00:00",
+          "id": "4a627dd4-e510-4aa1-a80f-957aa3753ce2",
+          "revoked_at": null,
+          "roleId": "7c6d4639-43b8-4a67-947e-6852e92fbc9b",
+          "userId": "591fb978-e471-4a1e-ba48-dcd0468f0769"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:57:35.418557024+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "591fb978-e471-4a1e-ba48-dcd0468f0769"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:57:36.318250075+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/7c6d4639-43b8-4a67-947e-6852e92fbc9b",
+      "status": 400,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "ROLE_HAS_ASSIGNMENTS",
+          "message": "Không thể thay đổi tên hoặc xóa vai trò đã được gán cho người dùng"
+        },
+        "timestamp": "2026-07-09T04:57:37.199205047+00:00"
+      }
+    },
+    {
+      "step": "Update role",
+      "method": "PATCH",
+      "endpoint": "/api/v0/roles/7c6d4639-43b8-4a67-947e-6852e92fbc9b",
+      "status": 200,
+      "request": {
+        "status": "Disabled"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:57:34.502697+00:00",
+          "description": "",
+          "id": "7c6d4639-43b8-4a67-947e-6852e92fbc9b",
+          "is_system_admin": false,
+          "name": "auto_role_TC20_20260709_115733_h1ve",
+          "permissions": [],
+          "status": "Disabled",
+          "updated_at": "2026-07-09T04:57:38.101023+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:57:38.102890377+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/7c6d4639-43b8-4a67-947e-6852e92fbc9b",
+      "status": 404,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "NOT_FOUND",
+          "message": "Không tìm thấy"
+        },
+        "timestamp": "2026-07-09T04:57:39.001007756+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Role assignment response contains userId, roleId, assigned_at"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 1,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:57:39.162Z"
+}

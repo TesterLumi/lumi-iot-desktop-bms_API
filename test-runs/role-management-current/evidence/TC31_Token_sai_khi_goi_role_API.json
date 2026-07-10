@@ -1,0 +1,42 @@
+{
+  "tc_id": "TC31",
+  "tc_name": "Token sai khi goi role API",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:58:24.176Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "List roles",
+      "method": "GET",
+      "endpoint": "/api/v0/roles/?page=1&limit=10",
+      "status": 401,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "UNAUTHORIZED",
+          "message": "Unauthorized"
+        },
+        "timestamp": "2026-07-09T04:58:24.901290481+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Invalid bearer token returns 401"
+  ],
+  "cleanup": {
+    "role_deleted": false,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:58:25.063Z"
+}

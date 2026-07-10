@@ -1,0 +1,86 @@
+{
+  "tc_id": "TC69",
+  "tc_name": "Go group chua gan idempotent",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:07:09.440Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC69_20260710_080709_fjh2"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-6531D8FD",
+          "created_at": "2026-07-10T01:07:09.992306+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "cf758597-42b1-4e9e-bde7-1409aa62eaa2",
+          "image_url": null,
+          "name": "auto_area_TC69_20260710_080709_fjh2",
+          "parent_id": null,
+          "path": "AREA_6531D8FD",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:07:09.992306+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:09.994046679+00:00"
+      }
+    },
+    {
+      "step": "Unassign groups",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/cf758597-42b1-4e9e-bde7-1409aa62eaa2/groups",
+      "status": 200,
+      "request": {
+        "group_ids": [
+          "312191246965906083"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:10.895112555+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/cf758597-42b1-4e9e-bde7-1409aa62eaa2",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:11.803310344+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Unassign missing group is idempotent"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:07:12.071Z"
+}

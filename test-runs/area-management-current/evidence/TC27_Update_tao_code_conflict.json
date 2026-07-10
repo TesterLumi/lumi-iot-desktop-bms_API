@@ -1,0 +1,137 @@
+{
+  "tc_id": "TC27",
+  "tc_name": "Update tao code conflict",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:04:54.427Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC27_20260710_080454_jlw5"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-CAF858DB",
+          "created_at": "2026-07-10T01:04:54.990511+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "40140e1d-8ebe-483d-a878-b5e468b30adb",
+          "image_url": null,
+          "name": "auto_area_TC27_20260710_080454_jlw5",
+          "parent_id": null,
+          "path": "AREA_CAF858DB",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:04:54.990511+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:54.992655168+00:00"
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC27_b_20260710_080455_rm6r"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-53DD580E",
+          "created_at": "2026-07-10T01:04:55.891205+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "72bec986-ea04-4538-a9ce-7963a714c112",
+          "image_url": null,
+          "name": "auto_area_TC27_b_20260710_080455_rm6r",
+          "parent_id": null,
+          "path": "AREA_53DD580E",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:04:55.891205+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:55.893226670+00:00"
+      }
+    },
+    {
+      "step": "Update area",
+      "method": "PATCH",
+      "endpoint": "/api/v0/areas/72bec986-ea04-4538-a9ce-7963a714c112",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC27_20260710_080454_jlw5"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-53DD580E",
+          "created_at": "2026-07-10T01:04:55.891205+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "72bec986-ea04-4538-a9ce-7963a714c112",
+          "image_url": null,
+          "name": "auto_area_TC27_20260710_080454_jlw5",
+          "parent_id": null,
+          "path": "AREA_53DD580E",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:04:56.799463+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:56.806126290+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/40140e1d-8ebe-483d-a878-b5e468b30adb",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:57.701823560+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/72bec986-ea04-4538-a9ce-7963a714c112",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:58.602821127+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Update duplicate generated code follows backend behavior"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:04:58.867Z"
+}

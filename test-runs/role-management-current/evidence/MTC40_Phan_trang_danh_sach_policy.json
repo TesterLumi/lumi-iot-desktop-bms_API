@@ -1,0 +1,243 @@
+{
+  "tc_id": "MTC40",
+  "tc_name": "Phan trang danh sach policy",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:59:11.006Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_MTC40_20260709_115911_gn94"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:59:11.712091+00:00",
+          "description": "",
+          "id": "736d22aa-284e-4dd4-8d36-d2313f6994ad",
+          "is_system_admin": false,
+          "name": "auto_role_MTC40_20260709_115911_gn94",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:59:11.712091+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:59:11.717708708+00:00"
+      }
+    },
+    {
+      "step": "Create policy",
+      "method": "POST",
+      "endpoint": "/api/v0/policies",
+      "status": 200,
+      "request": {
+        "role_id": "736d22aa-284e-4dd4-8d36-d2313f6994ad",
+        "service_code": "area_management",
+        "resource_scope": "all",
+        "actions": 1,
+        "effect": "allow"
+      },
+      "response": {
+        "data": {
+          "actions": 1,
+          "effect": "allow",
+          "id": 266,
+          "resource_scope": "all",
+          "resources": null,
+          "role_id": "736d22aa-284e-4dd4-8d36-d2313f6994ad",
+          "service_code": "area_management"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:59:12.612732796+00:00"
+      }
+    },
+    {
+      "step": "Create policy",
+      "method": "POST",
+      "endpoint": "/api/v0/policies",
+      "status": 200,
+      "request": {
+        "role_id": "736d22aa-284e-4dd4-8d36-d2313f6994ad",
+        "service_code": "device_control",
+        "resource_scope": "all",
+        "actions": 4,
+        "effect": "allow"
+      },
+      "response": {
+        "data": {
+          "actions": 4,
+          "effect": "allow",
+          "id": 267,
+          "resource_scope": "all",
+          "resources": null,
+          "role_id": "736d22aa-284e-4dd4-8d36-d2313f6994ad",
+          "service_code": "device_control"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:59:13.517768329+00:00"
+      }
+    },
+    {
+      "step": "Create policy",
+      "method": "POST",
+      "endpoint": "/api/v0/policies",
+      "status": 200,
+      "request": {
+        "role_id": "736d22aa-284e-4dd4-8d36-d2313f6994ad",
+        "service_code": "rule_management",
+        "resource_scope": "all",
+        "actions": 7,
+        "effect": "allow"
+      },
+      "response": {
+        "data": {
+          "actions": 7,
+          "effect": "allow",
+          "id": 268,
+          "resource_scope": "all",
+          "resources": null,
+          "role_id": "736d22aa-284e-4dd4-8d36-d2313f6994ad",
+          "service_code": "rule_management"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:59:14.407876346+00:00"
+      }
+    },
+    {
+      "step": "List policies",
+      "method": "GET",
+      "endpoint": "/api/v0/policies?role_id=736d22aa-284e-4dd4-8d36-d2313f6994ad&page=1&limit=2",
+      "status": 200,
+      "response": {
+        "data": {
+          "items": [
+            {
+              "actions": 1,
+              "effect": "allow",
+              "id": 266,
+              "resource_scope": "all",
+              "resources": null,
+              "role_id": "736d22aa-284e-4dd4-8d36-d2313f6994ad",
+              "service_code": "area_management"
+            },
+            {
+              "actions": 4,
+              "effect": "allow",
+              "id": 267,
+              "resource_scope": "all",
+              "resources": null,
+              "role_id": "736d22aa-284e-4dd4-8d36-d2313f6994ad",
+              "service_code": "device_control"
+            }
+          ],
+          "limit": 2,
+          "page": 1,
+          "total": 3
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:59:15.307076923+00:00"
+      }
+    },
+    {
+      "step": "List policies",
+      "method": "GET",
+      "endpoint": "/api/v0/policies?role_id=736d22aa-284e-4dd4-8d36-d2313f6994ad&page=2&limit=2",
+      "status": 200,
+      "response": {
+        "data": {
+          "items": [
+            {
+              "actions": 7,
+              "effect": "allow",
+              "id": 268,
+              "resource_scope": "all",
+              "resources": null,
+              "role_id": "736d22aa-284e-4dd4-8d36-d2313f6994ad",
+              "service_code": "rule_management"
+            }
+          ],
+          "limit": 2,
+          "page": 2,
+          "total": 3
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:59:16.213230225+00:00"
+      }
+    },
+    {
+      "step": "Delete policy",
+      "method": "DELETE",
+      "endpoint": "/api/v0/policies/268",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:59:17.111616252+00:00"
+      }
+    },
+    {
+      "step": "Delete policy",
+      "method": "DELETE",
+      "endpoint": "/api/v0/policies/267",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:59:18.025956603+00:00"
+      }
+    },
+    {
+      "step": "Delete policy",
+      "method": "DELETE",
+      "endpoint": "/api/v0/policies/266",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:59:18.909599366+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/736d22aa-284e-4dd4-8d36-d2313f6994ad",
+      "status": 200,
+      "response": ""
+    }
+  ],
+  "assertions": [
+    "Policy list supports page and limit parameters"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:59:19.990Z"
+}

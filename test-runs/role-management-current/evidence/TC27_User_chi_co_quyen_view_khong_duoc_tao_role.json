@@ -1,0 +1,196 @@
+{
+  "tc_id": "TC27",
+  "tc_name": "User chi co quyen view khong duoc tao role",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:58:05.297Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC27_20260709_115805_geqjt7",
+        "email": "auto_user_TC27_20260709_115805_geqjt7@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84973085297"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc27_20260709_115805_geqjt7@auto-test.local",
+          "phone": "+84973085297",
+          "role": null,
+          "user_id": "1c8c40a1-21ea-448e-9e9c-aac411714b5c",
+          "user_name": "auto_user_TC27_20260709_115805_geqjt7"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:06.078737106+00:00"
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "Viewer role tao boi automation TC27",
+        "permissions": [
+          {
+            "module": "role_management",
+            "action": "view"
+          }
+        ],
+        "status": "Active",
+        "name": "auto_role_TC27_viewer_20260709_115806_jmp5"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:58:06.906350+00:00",
+          "description": "Viewer role tao boi automation TC27",
+          "id": "78b32f6b-240d-4d0e-a969-018dfe150bdc",
+          "is_system_admin": false,
+          "name": "auto_role_TC27_viewer_20260709_115806_jmp5",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:58:06.906350+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:06.912790777+00:00"
+      }
+    },
+    {
+      "step": "Assign role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/78b32f6b-240d-4d0e-a969-018dfe150bdc/assignments",
+      "status": 200,
+      "request": {
+        "userId": "1c8c40a1-21ea-448e-9e9c-aac411714b5c"
+      },
+      "response": {
+        "data": {
+          "assigned_at": "2026-07-09T04:58:07.809356+00:00",
+          "id": "bfa75652-8a5c-4db5-a6e3-99b9ad3e345d",
+          "revoked_at": null,
+          "roleId": "78b32f6b-240d-4d0e-a969-018dfe150bdc",
+          "userId": "1c8c40a1-21ea-448e-9e9c-aac411714b5c"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:07.811168244+00:00"
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 403,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_TC27_20260709_115808_vp3k"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "FORBIDDEN",
+          "message": "Không có quyền thực hiện thao tác"
+        },
+        "timestamp": "2026-07-09T04:58:09.617611045+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "1c8c40a1-21ea-448e-9e9c-aac411714b5c"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:10.505627259+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/78b32f6b-240d-4d0e-a969-018dfe150bdc",
+      "status": 400,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "ROLE_HAS_ASSIGNMENTS",
+          "message": "Không thể thay đổi tên hoặc xóa vai trò đã được gán cho người dùng"
+        },
+        "timestamp": "2026-07-09T04:58:11.409632433+00:00"
+      }
+    },
+    {
+      "step": "Update role",
+      "method": "PATCH",
+      "endpoint": "/api/v0/roles/78b32f6b-240d-4d0e-a969-018dfe150bdc",
+      "status": 200,
+      "request": {
+        "status": "Disabled"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:58:06.906350+00:00",
+          "description": "Viewer role tao boi automation TC27",
+          "id": "78b32f6b-240d-4d0e-a969-018dfe150bdc",
+          "is_system_admin": false,
+          "name": "auto_role_TC27_viewer_20260709_115806_jmp5",
+          "permissions": [],
+          "status": "Disabled",
+          "updated_at": "2026-07-09T04:58:12.311736+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:12.313560945+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/78b32f6b-240d-4d0e-a969-018dfe150bdc",
+      "status": 404,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "NOT_FOUND",
+          "message": "Không tìm thấy"
+        },
+        "timestamp": "2026-07-09T04:58:13.207763754+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Viewer generated user cannot create role"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 1,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:58:13.370Z"
+}

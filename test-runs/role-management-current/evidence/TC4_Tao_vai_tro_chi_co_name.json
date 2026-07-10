@@ -1,0 +1,63 @@
+{
+  "tc_id": "TC4",
+  "tc_name": "Tao vai tro chi co name",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:56:12.784Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_TC4_20260709_115612_t0d7"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:56:13.516881+00:00",
+          "description": "",
+          "id": "6a2644c7-4680-44e4-84b9-ed7b7ba14cd2",
+          "is_system_admin": false,
+          "name": "auto_role_TC4_20260709_115612_t0d7",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:56:13.516881+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:56:13.519816448+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/6a2644c7-4680-44e4-84b9-ed7b7ba14cd2",
+      "status": 200,
+      "response": ""
+    }
+  ],
+  "assertions": [
+    "Create role with name only defaults to Active"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:56:14.568Z"
+}

@@ -1,0 +1,92 @@
+{
+  "tc_id": "TC45",
+  "tc_name": "Gan device id sai UUID",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:05:46.573Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC45_20260710_080546_5axk"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-F45A7221",
+          "created_at": "2026-07-10T01:05:47.198760+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "44ca6a77-ad57-4bd0-94f7-f3248e32fa16",
+          "image_url": null,
+          "name": "auto_area_TC45_20260710_080546_5axk",
+          "parent_id": null,
+          "path": "AREA_F45A7221",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:05:47.198760+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:47.200795373+00:00"
+      }
+    },
+    {
+      "step": "Assign devices",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/44ca6a77-ad57-4bd0-94f7-f3248e32fa16/devices",
+      "status": 400,
+      "request": {
+        "device_ids": [
+          "abc"
+        ]
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "VALIDATION_ERROR",
+          "message": "Dữ liệu đầu vào không hợp lệ",
+          "details": {
+            "field": "device_id",
+            "reason": "invalid bigint id"
+          }
+        },
+        "timestamp": "2026-07-10T01:05:48.087652605+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/44ca6a77-ad57-4bd0-94f7-f3248e32fa16",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:49.002338650+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Invalid device uuid returns 400"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:05:49.268Z"
+}

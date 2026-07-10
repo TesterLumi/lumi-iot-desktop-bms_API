@@ -1,0 +1,29 @@
+{
+  "tc_id": "TC62",
+  "tc_name": "Runtime OR khong input nao dung khong trigger",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:13:09.464Z",
+  "finished_at": "2026-07-10T09:13:15.740Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Run Rule API testcase",
+      "details": {
+        "tc_id": "TC62",
+        "tc_name": "Runtime OR khong input nao dung khong trigger"
+      }
+    }
+  ],
+  "assertions": [
+    "TC62 completed successfully"
+  ],
+  "cleanup": {
+    "rule_deleted": false,
+    "warnings": []
+  }
+}

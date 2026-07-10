@@ -1,0 +1,130 @@
+{
+  "tc_id": "TC22",
+  "tc_name": "Gan role voi userId khong ton tai",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:57:48.185Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_TC22_20260709_115748_wfeq"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:57:48.905483+00:00",
+          "description": "",
+          "id": "a1e8ac26-5397-4ebc-9bd2-38a9ba0c4cf6",
+          "is_system_admin": false,
+          "name": "auto_role_TC22_20260709_115748_wfeq",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:57:48.905483+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:57:48.908545169+00:00"
+      }
+    },
+    {
+      "step": "Assign role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/a1e8ac26-5397-4ebc-9bd2-38a9ba0c4cf6/assignments",
+      "status": 200,
+      "request": {
+        "userId": "00000000-0000-4000-8000-000000000001"
+      },
+      "response": {
+        "data": {
+          "assigned_at": "2026-07-09T04:57:49.810299+00:00",
+          "id": "9a412b7f-d00a-4ef4-af65-ef76c9881e50",
+          "revoked_at": null,
+          "roleId": "a1e8ac26-5397-4ebc-9bd2-38a9ba0c4cf6",
+          "userId": "00000000-0000-4000-8000-000000000001"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:57:49.812125783+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/a1e8ac26-5397-4ebc-9bd2-38a9ba0c4cf6",
+      "status": 400,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "ROLE_HAS_ASSIGNMENTS",
+          "message": "Không thể thay đổi tên hoặc xóa vai trò đã được gán cho người dùng"
+        },
+        "timestamp": "2026-07-09T04:57:50.716637841+00:00"
+      }
+    },
+    {
+      "step": "Update role",
+      "method": "PATCH",
+      "endpoint": "/api/v0/roles/a1e8ac26-5397-4ebc-9bd2-38a9ba0c4cf6",
+      "status": 200,
+      "request": {
+        "status": "Disabled"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:57:48.905483+00:00",
+          "description": "",
+          "id": "a1e8ac26-5397-4ebc-9bd2-38a9ba0c4cf6",
+          "is_system_admin": false,
+          "name": "auto_role_TC22_20260709_115748_wfeq",
+          "permissions": [],
+          "status": "Disabled",
+          "updated_at": "2026-07-09T04:57:51.608241+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:57:51.610118386+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/a1e8ac26-5397-4ebc-9bd2-38a9ba0c4cf6",
+      "status": 404,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "NOT_FOUND",
+          "message": "Không tìm thấy"
+        },
+        "timestamp": "2026-07-09T04:57:52.506114802+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "TODO_CONFIRM_EXPECTED_STATUS fake user assignment behavior captured"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:57:52.669Z"
+}

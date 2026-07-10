@@ -1,0 +1,81 @@
+{
+  "tc_id": "MTC23",
+  "tc_name": "Cap nhat ten qua dai",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:58:39.481Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_MTC23_20260709_115839_54ls"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:58:40.203155+00:00",
+          "description": "",
+          "id": "a532c484-ebeb-4ee4-871a-75f760ed057d",
+          "is_system_admin": false,
+          "name": "auto_role_MTC23_20260709_115839_54ls",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:58:40.203155+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:40.206189535+00:00"
+      }
+    },
+    {
+      "step": "Update role",
+      "method": "PATCH",
+      "endpoint": "/api/v0/roles/a532c484-ebeb-4ee4-871a-75f760ed057d",
+      "status": 400,
+      "request": {
+        "name": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "VALIDATION_ERROR",
+          "message": "Dữ liệu đầu vào không hợp lệ",
+          "details": "Role name must be at most 100 characters"
+        },
+        "timestamp": "2026-07-09T04:58:41.110825606+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/a532c484-ebeb-4ee4-871a-75f760ed057d",
+      "status": 200,
+      "response": ""
+    }
+  ],
+  "assertions": [
+    "Updating role name longer than 100 chars is rejected"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:58:42.173Z"
+}

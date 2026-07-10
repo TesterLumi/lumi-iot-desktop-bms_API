@@ -1,0 +1,53 @@
+{
+  "tc_id": "MTC16",
+  "tc_name": "Tao vai tro voi permission khong hop le",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:58:30.482Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 400,
+      "request": {
+        "description": "",
+        "permissions": [
+          {
+            "module": "unknown_module",
+            "action": "invalid"
+          }
+        ],
+        "status": "Active",
+        "name": "auto_role_MTC16_20260709_115830_wzez"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "INVALID_PERMISSION",
+          "message": "Định dạng quyền không hợp lệ"
+        },
+        "timestamp": "2026-07-09T04:58:31.203209136+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Invalid legacy permission payload is rejected"
+  ],
+  "cleanup": {
+    "role_deleted": false,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:58:31.363Z"
+}

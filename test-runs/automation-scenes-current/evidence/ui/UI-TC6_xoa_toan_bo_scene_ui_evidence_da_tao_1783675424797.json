@@ -1,0 +1,39 @@
+{
+  "tc_id": "UI-TC6",
+  "tc_name": "Xoa toan bo scene UI evidence da tao",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:23:44.782Z",
+  "finished_at": "2026-07-10T09:23:44.797Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Delete UI evidence scenes",
+      "method": "DELETE",
+      "endpoint": "/api/v0/scenes",
+      "request": {
+        "scene_ids": [
+          "244783649876041156",
+          "280231888921263014"
+        ]
+      },
+      "response": {
+        "deleted_scene_ids": [
+          "244783649876041156",
+          "280231888921263014"
+        ]
+      }
+    }
+  ],
+  "assertions": [
+    "All UI evidence scenes created by this run were deleted"
+  ],
+  "cleanup": {
+    "scene_deleted": false,
+    "warnings": []
+  }
+}

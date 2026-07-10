@@ -1,0 +1,31 @@
+{
+  "tc_id": "TC45",
+  "tc_name": "Xoa Scene khong ton tai",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:23:34.354Z",
+  "finished_at": "2026-07-10T09:23:34.375Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Delete fake scene",
+      "method": "DELETE",
+      "endpoint": "/api/v0/scenes/999999999999999999",
+      "response": {
+        "data": 0,
+        "success": true,
+        "timestamp": "2026-07-10T09:23:34.374136444Z"
+      },
+      "status": 200
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "scene_deleted": false,
+    "warnings": []
+  }
+}

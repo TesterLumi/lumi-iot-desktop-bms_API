@@ -1,0 +1,272 @@
+{
+  "tc_id": "UI-TC5",
+  "tc_name": "Kich hoat scene lich thuy<N+1> verify output",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:23:40.613Z",
+  "finished_at": "2026-07-10T09:23:44.738Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Activate scheduled thuy scene and verify real output",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "mode": "ui_device_binding_controls",
+        "scene_id": "280231888921263014",
+        "scene_name": "thuy2",
+        "device_hc_id": "4932308540097724437",
+        "baseline": [
+          {
+            "deviceId": "118431939315341314",
+            "slot": "1",
+            "value": false
+          },
+          {
+            "deviceId": "118431937308523266",
+            "slot": "1",
+            "value": true
+          }
+        ],
+        "expected": [
+          {
+            "deviceId": "118431939315341314",
+            "slot": "1",
+            "value": true
+          },
+          {
+            "deviceId": "118431937308523266",
+            "slot": "1",
+            "value": false
+          }
+        ]
+      },
+      "response": {
+        "scene_id": "280231888921263014",
+        "device_ids": [
+          "118431939315341314",
+          "118431937308523266"
+        ],
+        "bindings": [
+          {
+            "deviceId": "118431939315341314",
+            "slot": "1",
+            "value": true
+          },
+          {
+            "deviceId": "118431937308523266",
+            "slot": "1",
+            "value": false
+          }
+        ],
+        "expected_output": [
+          {
+            "deviceId": "118431939315341314",
+            "slot": "1",
+            "value": true
+          },
+          {
+            "deviceId": "118431937308523266",
+            "slot": "1",
+            "value": false
+          }
+        ],
+        "verified_output": [
+          {
+            "device_id": "118431939315341314",
+            "slot": "1",
+            "expected": true,
+            "actual": true,
+            "matched": true
+          },
+          {
+            "device_id": "118431937308523266",
+            "slot": "1",
+            "expected": false,
+            "actual": false,
+            "matched": true
+          }
+        ],
+        "baseline_before_activation": [
+          {
+            "deviceId": "118431939315341314",
+            "slot": "1",
+            "value": false
+          },
+          {
+            "deviceId": "118431937308523266",
+            "slot": "1",
+            "value": true
+          }
+        ],
+        "before_statuses": [
+          {
+            "id": "118431939315341314",
+            "status": [
+              {
+                "idx": 2,
+                "value": 222.2
+              },
+              {
+                "idx": 6,
+                "value": 1489447
+              },
+              {
+                "idx": 3,
+                "value": 0
+              },
+              {
+                "idx": 1,
+                "value": false
+              },
+              {
+                "idx": 0,
+                "value": true
+              },
+              {
+                "idx": 5,
+                "value": 0
+              },
+              {
+                "idx": 4,
+                "value": 0
+              }
+            ]
+          },
+          {
+            "id": "118431937308523266",
+            "status": [
+              {
+                "idx": 5,
+                "value": 0
+              },
+              {
+                "idx": 0,
+                "value": true
+              },
+              {
+                "idx": 6,
+                "value": 966139
+              },
+              {
+                "idx": 2,
+                "value": 222.8
+              },
+              {
+                "idx": 3,
+                "value": 0
+              },
+              {
+                "idx": 1,
+                "value": true
+              },
+              {
+                "idx": 4,
+                "value": 0
+              }
+            ]
+          }
+        ],
+        "after_statuses": [
+          {
+            "id": "118431939315341314",
+            "status": [
+              {
+                "idx": 2,
+                "value": 222.2
+              },
+              {
+                "idx": 6,
+                "value": 1489447
+              },
+              {
+                "idx": 3,
+                "value": 0
+              },
+              {
+                "idx": 1,
+                "value": true
+              },
+              {
+                "idx": 0,
+                "value": true
+              },
+              {
+                "idx": 5,
+                "value": 0
+              },
+              {
+                "idx": 4,
+                "value": 0
+              }
+            ]
+          },
+          {
+            "id": "118431937308523266",
+            "status": [
+              {
+                "idx": 5,
+                "value": 0
+              },
+              {
+                "idx": 0,
+                "value": true
+              },
+              {
+                "idx": 6,
+                "value": 966139
+              },
+              {
+                "idx": 2,
+                "value": 222.8
+              },
+              {
+                "idx": 3,
+                "value": 0
+              },
+              {
+                "idx": 1,
+                "value": false
+              },
+              {
+                "idx": 4,
+                "value": 0
+              }
+            ]
+          }
+        ],
+        "response": [
+          {
+            "device_id": "118431939315341314",
+            "slot": "1",
+            "value": true,
+            "x_hc_id": "4932308540097724437",
+            "response": {
+              "status": true
+            }
+          },
+          {
+            "device_id": "118431937308523266",
+            "slot": "1",
+            "value": false,
+            "x_hc_id": "4932308540097724437",
+            "response": {
+              "status": true
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "assertions": [
+    "Scheduled scene output states matched configured snapshots"
+  ],
+  "cleanup": {
+    "scene_deleted": false,
+    "warnings": []
+  }
+}

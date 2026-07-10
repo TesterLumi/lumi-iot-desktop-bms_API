@@ -1,0 +1,117 @@
+{
+  "tc_id": "TC11",
+  "tc_name": "Cap nhat ten vai tro",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:57:05.890Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_TC11_20260709_115705_cfzs"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:57:06.606222+00:00",
+          "description": "",
+          "id": "4d60e763-a14c-41d2-b19f-7a92ce2c6133",
+          "is_system_admin": false,
+          "name": "auto_role_TC11_20260709_115705_cfzs",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:57:06.606222+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:57:06.609131484+00:00"
+      }
+    },
+    {
+      "step": "Update role",
+      "method": "PATCH",
+      "endpoint": "/api/v0/roles/4d60e763-a14c-41d2-b19f-7a92ce2c6133",
+      "status": 200,
+      "request": {
+        "name": "auto_role_TC11_updated_20260709_115706_ncb0"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:57:06.606222+00:00",
+          "description": "",
+          "id": "4d60e763-a14c-41d2-b19f-7a92ce2c6133",
+          "is_system_admin": false,
+          "name": "auto_role_TC11_updated_20260709_115706_ncb0",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:57:07.508419+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:57:07.510523187+00:00"
+      }
+    },
+    {
+      "step": "List roles",
+      "method": "GET",
+      "endpoint": "/api/v0/roles/?search=auto_role_TC11_updated_20260709_115706_ncb0&page=1&limit=10",
+      "status": 200,
+      "response": {
+        "data": {
+          "items": [
+            {
+              "created_at": "2026-07-09T04:57:06.606222+00:00",
+              "description": "",
+              "id": "4d60e763-a14c-41d2-b19f-7a92ce2c6133",
+              "is_system_admin": false,
+              "name": "auto_role_TC11_updated_20260709_115706_ncb0",
+              "permissions": [],
+              "status": "Active",
+              "updated_at": "2026-07-09T04:57:07.508419+00:00",
+              "user_count": 0
+            }
+          ],
+          "limit": 10,
+          "page": 1,
+          "total": 1
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:57:08.409726620+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/4d60e763-a14c-41d2-b19f-7a92ce2c6133",
+      "status": 200,
+      "response": ""
+    }
+  ],
+  "assertions": [
+    "Updated role name is persisted and searchable"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:57:09.465Z"
+}

@@ -1,0 +1,81 @@
+{
+  "tc_id": "MTC24",
+  "tc_name": "Cap nhat mo ta qua dai",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:58:42.191Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_MTC24_20260709_115842_bbqa"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:58:42.905707+00:00",
+          "description": "",
+          "id": "1e3c7409-8b70-4914-ab57-a8c023bed2e1",
+          "is_system_admin": false,
+          "name": "auto_role_MTC24_20260709_115842_bbqa",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:58:42.905707+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:42.908862470+00:00"
+      }
+    },
+    {
+      "step": "Update role",
+      "method": "PATCH",
+      "endpoint": "/api/v0/roles/1e3c7409-8b70-4914-ab57-a8c023bed2e1",
+      "status": 400,
+      "request": {
+        "description": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "VALIDATION_ERROR",
+          "message": "Dữ liệu đầu vào không hợp lệ",
+          "details": "Role description must be at most 500 characters"
+        },
+        "timestamp": "2026-07-09T04:58:43.811700252+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/1e3c7409-8b70-4914-ab57-a8c023bed2e1",
+      "status": 200,
+      "response": ""
+    }
+  ],
+  "assertions": [
+    "Updating role description longer than 500 chars is rejected"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:58:44.869Z"
+}

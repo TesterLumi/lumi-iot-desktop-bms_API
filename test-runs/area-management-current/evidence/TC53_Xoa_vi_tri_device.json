@@ -1,0 +1,163 @@
+{
+  "tc_id": "TC53",
+  "tc_name": "Xoa vi tri device",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:06:10.942Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC53_20260710_080610_wtlw"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-3BBDB9BA",
+          "created_at": "2026-07-10T01:06:11.492096+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "a2c299a5-7e63-4e14-96d8-730df56b99fa",
+          "image_url": null,
+          "name": "auto_area_TC53_20260710_080610_wtlw",
+          "parent_id": null,
+          "path": "AREA_3BBDB9BA",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:06:11.492096+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:11.494208138+00:00"
+      }
+    },
+    {
+      "step": "Assign devices",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/a2c299a5-7e63-4e14-96d8-730df56b99fa/devices",
+      "status": 200,
+      "request": {
+        "device_ids": [
+          "118431939315341315"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:12.400106373+00:00"
+      }
+    },
+    {
+      "step": "Update device position",
+      "method": "PATCH",
+      "endpoint": "/api/v0/areas/a2c299a5-7e63-4e14-96d8-730df56b99fa/devices/118431939315341315/position",
+      "status": 200,
+      "request": {
+        "pos_x": 0.45,
+        "pos_y": 0.72
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:13.298219901+00:00"
+      }
+    },
+    {
+      "step": "Update device position",
+      "method": "PATCH",
+      "endpoint": "/api/v0/areas/a2c299a5-7e63-4e14-96d8-730df56b99fa/devices/118431939315341315/position",
+      "status": 200,
+      "request": {
+        "pos_x": null,
+        "pos_y": null
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:14.200649214+00:00"
+      }
+    },
+    {
+      "step": "List area devices",
+      "method": "GET",
+      "endpoint": "/api/v0/areas/a2c299a5-7e63-4e14-96d8-730df56b99fa/devices",
+      "status": 200,
+      "response": {
+        "data": {
+          "items": [
+            {
+              "assigned_at": "2026-07-10T01:06:12.398546+00:00",
+              "child_points": null,
+              "device_code": null,
+              "device_id": "118431939315341315",
+              "device_name": "thiết bị_F398_3",
+              "device_status": false,
+              "pos_x": null,
+              "pos_y": null
+            }
+          ],
+          "limit": 20,
+          "page": 1,
+          "total": 1
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:15.102316309+00:00"
+      }
+    },
+    {
+      "step": "Unassign devices",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/a2c299a5-7e63-4e14-96d8-730df56b99fa/devices",
+      "status": 200,
+      "request": {
+        "device_ids": [
+          "118431939315341315"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:16.001823062+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/a2c299a5-7e63-4e14-96d8-730df56b99fa",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:16.904463430+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Device position can be cleared"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:06:17.171Z"
+}

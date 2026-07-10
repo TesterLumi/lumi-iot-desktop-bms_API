@@ -1,0 +1,292 @@
+{
+  "tc_id": "TC50",
+  "tc_name": "Flow Lighting Scene voi dim brightness",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:23:34.602Z",
+  "finished_at": "2026-07-10T09:23:34.644Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Create scene",
+      "method": "POST",
+      "endpoint": "/api/v0/scenes",
+      "request": {
+        "type": "Lighting",
+        "name": "auto_scene_TCTC50_scene_20260710092334_0hve",
+        "icon": "-1",
+        "enable": true,
+        "background": null,
+        "background_color": "#ffffff",
+        "binding": [
+          {
+            "id": "87903193043180546",
+            "snapshot": {
+              "1": true
+            },
+            "status": "Activated"
+          },
+          {
+            "id": "118431939315341315",
+            "snapshot": {
+              "1": true
+            },
+            "status": "Activated"
+          },
+          {
+            "id": "118431939315341314",
+            "snapshot": {
+              "1": true
+            },
+            "status": "Activated"
+          }
+        ],
+        "cron": null,
+        "cron_enable": false
+      },
+      "response": {
+        "data": {
+          "id": "285944759039142957",
+          "type": "Lighting",
+          "name": "auto_scene_TCTC50_scene_20260710092334_0hve",
+          "icon": "-1",
+          "enable": true,
+          "background": null,
+          "background_color": "#ffffff",
+          "status": "Provision",
+          "binding": [
+            {
+              "id": "87903193043180546",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341315",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341314",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            }
+          ],
+          "cron": null,
+          "cron_enable": false,
+          "area": {
+            "id": null,
+            "name": null
+          },
+          "hcid": null
+        },
+        "success": true,
+        "timestamp": "2026-07-10T09:23:34.624381277Z"
+      },
+      "status": 200
+    },
+    {
+      "step": "Get scene detail",
+      "method": "GET",
+      "endpoint": "/api/v0/scenes/285944759039142957",
+      "response": {
+        "data": {
+          "id": "285944759039142957",
+          "type": "Lighting",
+          "name": "auto_scene_TCTC50_scene_20260710092334_0hve",
+          "icon": "-1",
+          "enable": true,
+          "background": null,
+          "background_color": "#ffffff",
+          "status": "Provision",
+          "binding": [
+            {
+              "id": "87903193043180546",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341315",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341314",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            }
+          ],
+          "cron": null,
+          "cron_enable": false,
+          "area": {
+            "id": null,
+            "name": null
+          },
+          "hcid": null
+        },
+        "success": true,
+        "timestamp": "2026-07-10T09:23:34.633265490Z"
+      },
+      "status": 200
+    },
+    {
+      "step": "Flow update scene",
+      "method": "POST",
+      "endpoint": "/api/v0/scenes/285944759039142957",
+      "request": {
+        "name": "auto_scene_TCTC50updated_scene_20260710092334_rgix",
+        "binding": [
+          {
+            "id": "87903193043180546",
+            "snapshot": {
+              "1": true
+            },
+            "status": "Activated"
+          },
+          {
+            "id": "118431939315341315",
+            "snapshot": {
+              "1": false
+            },
+            "status": "Activated"
+          },
+          {
+            "id": "118431939315341314",
+            "snapshot": {
+              "1": true
+            },
+            "status": "Activated"
+          }
+        ]
+      },
+      "response": {
+        "data": {
+          "id": "285944759039142957",
+          "type": "Lighting",
+          "name": "auto_scene_TCTC50updated_scene_20260710092334_rgix",
+          "icon": "-1",
+          "enable": true,
+          "background": null,
+          "background_color": "#ffffff",
+          "status": "Provision",
+          "binding": [
+            {
+              "id": "87903193043180546",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341315",
+              "snapshot": {
+                "1": false
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341314",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            }
+          ],
+          "cron": null,
+          "cron_enable": false,
+          "area": {
+            "id": null,
+            "name": null
+          },
+          "hcid": null
+        },
+        "success": true,
+        "timestamp": "2026-07-10T09:23:34.642791112Z"
+      },
+      "status": 200
+    },
+    {
+      "step": "Get scene detail",
+      "method": "GET",
+      "endpoint": "/api/v0/scenes/285944759039142957",
+      "response": {
+        "data": {
+          "id": "285944759039142957",
+          "type": "Lighting",
+          "name": "auto_scene_TCTC50updated_scene_20260710092334_rgix",
+          "icon": "-1",
+          "enable": true,
+          "background": null,
+          "background_color": "#ffffff",
+          "status": "Provision",
+          "binding": [
+            {
+              "id": "87903193043180546",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341315",
+              "snapshot": {
+                "1": false
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341314",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            }
+          ],
+          "cron": null,
+          "cron_enable": false,
+          "area": {
+            "id": null,
+            "name": null
+          },
+          "hcid": null
+        },
+        "success": true,
+        "timestamp": "2026-07-10T09:23:34.650529995Z"
+      },
+      "status": 200
+    },
+    {
+      "step": "Flow delete scene",
+      "method": "DELETE",
+      "endpoint": "/api/v0/scenes/285944759039142957",
+      "response": {
+        "data": 1,
+        "success": true,
+        "timestamp": "2026-07-10T09:23:34.657561475Z"
+      },
+      "status": 200
+    }
+  ],
+  "assertions": [
+    "Create scene returns id"
+  ],
+  "cleanup": {
+    "scene_deleted": true,
+    "warnings": []
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "tc_id": "TC2",
+  "tc_name": "Tim kiem khu vuc theo ten",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:03:58.678Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC2_20260710_080358_rpq0"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-E2F81665",
+          "created_at": "2026-07-10T01:03:59.196601+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "0428169f-a427-4a19-b265-15575ca122ca",
+          "image_url": null,
+          "name": "auto_area_TC2_20260710_080358_rpq0",
+          "parent_id": null,
+          "path": "AREA_E2F81665",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:03:59.196601+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:03:59.199851676+00:00"
+      }
+    },
+    {
+      "step": "List areas",
+      "method": "GET",
+      "endpoint": "/api/v0/areas?search=auto_area_TC2_20260710_080358_rpq0&page=1&limit=20",
+      "status": 200,
+      "response": {
+        "data": {
+          "items": [
+            {
+              "code": "AREA-E2F81665",
+              "created_at": "2026-07-10T01:03:59.196601+00:00",
+              "direct_devices": 0,
+              "floor_plan_url": null,
+              "id": "0428169f-a427-4a19-b265-15575ca122ca",
+              "image_url": null,
+              "name": "auto_area_TC2_20260710_080358_rpq0",
+              "parent_id": null,
+              "path": "AREA_E2F81665",
+              "total_devices": 0,
+              "total_sub_areas": 0,
+              "updated_at": "2026-07-10T01:03:59.196601+00:00"
+            }
+          ],
+          "limit": 20,
+          "page": 1,
+          "total": 1
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:00.101745963+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/0428169f-a427-4a19-b265-15575ca122ca",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:04:01.002427944+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Created area can be found by exact search"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:04:01.271Z"
+}

@@ -1,0 +1,82 @@
+{
+  "tc_id": "TC20",
+  "tc_name": "Tao Scene binding status sai enum",
+  "status": "FAILED",
+  "started_at": "2026-07-10T09:23:30.785Z",
+  "finished_at": "2026-07-10T09:23:30.830Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Create invalid scene",
+      "method": "POST",
+      "endpoint": "/api/v0/scenes",
+      "request": {
+        "type": "Normal",
+        "name": "auto_scene_TC20_scene_20260710092330_1usr",
+        "icon": "-1",
+        "enable": true,
+        "background": null,
+        "background_color": "#ffffff",
+        "binding": [
+          {
+            "id": "1",
+            "snapshot": {
+              "1": true
+            },
+            "status": "Invalid"
+          }
+        ],
+        "cron": null,
+        "cron_enable": false
+      },
+      "response": {
+        "data": {
+          "id": "219174745722385923",
+          "type": "Normal",
+          "name": "auto_scene_TC20_scene_20260710092330_1usr",
+          "icon": "-1",
+          "enable": true,
+          "background": null,
+          "background_color": "#ffffff",
+          "status": "Provision",
+          "binding": [
+            {
+              "id": "1",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            }
+          ],
+          "cron": null,
+          "cron_enable": false,
+          "area": {
+            "id": null,
+            "name": null
+          },
+          "hcid": null
+        },
+        "success": true,
+        "timestamp": "2026-07-10T09:23:30.828486087Z"
+      },
+      "status": 200
+    },
+    {
+      "step": "Cleanup scene",
+      "method": "DELETE",
+      "endpoint": "/api/v0/scenes/219174745722385923",
+      "status": 200
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "scene_deleted": true,
+    "warnings": []
+  },
+  "error_message": "Invalid scene payload was accepted by backend. Expected 4xx, got 200. Payload={\"type\":\"Normal\",\"name\":\"auto_scene_TC20_scene_20260710092330_1usr\",\"icon\":\"-1\",\"enable\":true,\"background\":null,\"background_color\":\"#ffffff\",\"binding\":[{\"id\":\"1\",\"snapshot\":{\"1\":true},\"status\":\"Invalid\"}],\"cron\":null,\"cron_enable\":false} Response={\"data\":{\"id\":\"219174745722385923\",\"type\":\"Normal\",\"name\":\"auto_scene_TC20_scene_20260710092330_1usr\",\"icon\":\"-1\",\"enable\":true,\"background\":null,\"background_color\":\"#ffffff\",\"status\":\"Provision\",\"binding\":[{\"id\":\"1\",\"snapshot\":{\"1\":true},\"status\":\"Updating\"}],\"cron\":null,\"cron_enable\":false,\"area\":{\"id\":null,\"name\":null},\"hcid\":null},\"success\":true,\"timestamp\":\"2026-07-10T09:23:30.828486087Z\"} CleanupSceneId=219174745722385923"
+}

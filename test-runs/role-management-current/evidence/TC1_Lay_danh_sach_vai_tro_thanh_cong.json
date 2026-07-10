@@ -1,0 +1,90 @@
+{
+  "tc_id": "TC1",
+  "tc_name": "Lay danh sach vai tro thanh cong",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:56:06.579Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "List roles",
+      "method": "GET",
+      "endpoint": "/api/v0/roles/?page=1&limit=10",
+      "status": 200,
+      "response": {
+        "data": {
+          "items": [
+            {
+              "created_at": "2026-07-09T04:42:28.279699+00:00",
+              "description": "",
+              "id": "c7e5c9b8-77d0-4b06-b1f0-8948c0247434",
+              "is_system_admin": false,
+              "name": "auto_role_MTC45_20260709_114227_w129",
+              "permissions": [],
+              "status": "Active",
+              "updated_at": "2026-07-09T04:42:28.279699+00:00",
+              "user_count": 0
+            },
+            {
+              "created_at": "2026-06-04T02:49:50.154514+00:00",
+              "description": "",
+              "id": "9d482c3a-3910-448f-8ffd-17c88356c8ec",
+              "is_system_admin": false,
+              "name": "Nhân viên phòng kinh doanh",
+              "permissions": [],
+              "status": "Active",
+              "updated_at": "2026-06-04T02:50:24.965607+00:00",
+              "user_count": 36
+            },
+            {
+              "created_at": "2026-04-19T17:02:22.603589+00:00",
+              "description": "",
+              "id": "48d05274-28dd-43f4-808a-025359e80a1c",
+              "is_system_admin": false,
+              "name": "kỹ thuật viên",
+              "permissions": [],
+              "status": "Active",
+              "updated_at": "2026-04-19T17:02:22.603589+00:00",
+              "user_count": 16
+            },
+            {
+              "created_at": "2026-04-16T05:01:34.459545+00:00",
+              "description": "System Administrator - có tất cả quyền trong hệ thống",
+              "id": "00000000-0000-0000-0000-000000000001",
+              "is_system_admin": true,
+              "name": "Quản trị hệ thống",
+              "permissions": [],
+              "status": "Active",
+              "updated_at": "2026-04-16T05:01:34.459545+00:00",
+              "user_count": 1
+            }
+          ],
+          "limit": 10,
+          "page": 1,
+          "total": 4
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:56:07.209171432+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "HTTP status = 200 and role list pagination fields exist"
+  ],
+  "cleanup": {
+    "role_deleted": false,
+    "users_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:56:07.379Z"
+}

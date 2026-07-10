@@ -1,0 +1,46 @@
+{
+  "tc_id": "TC24",
+  "tc_name": "Update khu vuc khong ton tai",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:04:48.095Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Update area",
+      "method": "PATCH",
+      "endpoint": "/api/v0/areas/00000000-0000-4000-8000-000000000000",
+      "status": 404,
+      "request": {
+        "name": "auto_area_TC24_20260710_080448_15ya"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "AREA_NOT_FOUND",
+          "message": "Khu vực không tồn tại"
+        },
+        "timestamp": "2026-07-10T01:04:48.696777254+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Update nonexistent area returns 404"
+  ],
+  "cleanup": {
+    "area_deleted": false,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:04:48.972Z"
+}

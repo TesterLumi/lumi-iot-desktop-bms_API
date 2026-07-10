@@ -1,0 +1,121 @@
+{
+  "tc_id": "TC25",
+  "tc_name": "Admin thuong doi role System Admin bi chan",
+  "status": "PASSED",
+  "started_at": "2026-07-09T04:57:56.291Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC25_20260709_115756_gac83l",
+        "email": "auto_user_TC25_20260709_115756_gac83l@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84973076291"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc25_20260709_115756_gac83l@auto-test.local",
+          "phone": "+84973076291",
+          "role": null,
+          "user_id": "67b4a0cb-c83f-45d2-9970-abbd14110803",
+          "user_name": "auto_user_TC25_20260709_115756_gac83l"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:57:57.068142997+00:00"
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_role_TC25_20260709_115758_xqr1"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-09T04:57:58.807868+00:00",
+          "description": "",
+          "id": "abd7b7eb-1671-4f25-8e1f-880b775ed47e",
+          "is_system_admin": false,
+          "name": "auto_role_TC25_20260709_115758_xqr1",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-09T04:57:58.807868+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:57:58.810848747+00:00"
+      }
+    },
+    {
+      "step": "Assign role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/abd7b7eb-1671-4f25-8e1f-880b775ed47e/assignments",
+      "status": 403,
+      "request": {
+        "userId": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "FORBIDDEN",
+          "message": "Không có quyền thực hiện thao tác"
+        },
+        "timestamp": "2026-07-09T04:57:59.710719462+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "67b4a0cb-c83f-45d2-9970-abbd14110803"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-09T04:58:00.626906539+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/abd7b7eb-1671-4f25-8e1f-880b775ed47e",
+      "status": 200,
+      "response": ""
+    }
+  ],
+  "assertions": [
+    "Regular generated user cannot change ROOT/System Admin role"
+  ],
+  "cleanup": {
+    "role_deleted": true,
+    "users_deleted": 1,
+    "warnings": []
+  },
+  "finished_at": "2026-07-09T04:58:01.671Z"
+}

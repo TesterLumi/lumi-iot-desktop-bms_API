@@ -1,0 +1,103 @@
+{
+  "tc_id": "TC83",
+  "tc_name": "Go home controller khoi khu vuc",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:08:39.364Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC83_20260710_080839_pp5a"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-22A3261C",
+          "created_at": "2026-07-10T01:08:39.993748+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "7b46a819-062f-4178-b643-ae74a03de559",
+          "image_url": null,
+          "name": "auto_area_TC83_20260710_080839_pp5a",
+          "parent_id": null,
+          "path": "AREA_22A3261C",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:08:39.993748+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:39.995971458+00:00"
+      }
+    },
+    {
+      "step": "Assign home controllers",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/7b46a819-062f-4178-b643-ae74a03de559/home-controllers",
+      "status": 200,
+      "request": {
+        "hc_ids": [
+          "4932308540097659019"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:40.906691509+00:00"
+      }
+    },
+    {
+      "step": "Unassign home controllers",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/7b46a819-062f-4178-b643-ae74a03de559/home-controllers",
+      "status": 200,
+      "request": {
+        "hc_ids": [
+          "4932308540097659019"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:41.804571950+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/7b46a819-062f-4178-b643-ae74a03de559",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:08:42.703250097+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Home controller can be unassigned"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:08:42.968Z"
+}

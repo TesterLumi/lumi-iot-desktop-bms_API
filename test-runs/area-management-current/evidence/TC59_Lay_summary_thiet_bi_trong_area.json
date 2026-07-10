@@ -1,0 +1,86 @@
+{
+  "tc_id": "TC59",
+  "tc_name": "Lay summary thiet bi trong area",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:06:34.277Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC59_20260710_080634_h8or"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-A5CF828A",
+          "created_at": "2026-07-10T01:06:34.892475+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "338f2bb3-e897-467e-a475-fc4f23512b55",
+          "image_url": null,
+          "name": "auto_area_TC59_20260710_080634_h8or",
+          "parent_id": null,
+          "path": "AREA_A5CF828A",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:06:34.892475+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:34.894824310+00:00"
+      }
+    },
+    {
+      "step": "Get area device summary",
+      "method": "GET",
+      "endpoint": "/api/v0/areas/338f2bb3-e897-467e-a475-fc4f23512b55/devices/summary",
+      "status": 200,
+      "response": {
+        "data": {
+          "children_summary": [],
+          "direct_devices": 0,
+          "total_devices": 0,
+          "unassigned_devices": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:35.803481704+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/338f2bb3-e897-467e-a475-fc4f23512b55",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:36.703284213+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Device summary returns expected fields"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:06:36.973Z"
+}

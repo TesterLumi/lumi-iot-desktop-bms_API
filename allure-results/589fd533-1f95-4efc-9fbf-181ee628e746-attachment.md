@@ -1,0 +1,223 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: e2e\automation-scenes\api.spec.ts >> Scene Management API TC1-TC53 without permission cases >> TC17 - Tao Scene binding rong
+- Location: tests\e2e\automation-scenes\api.spec.ts:50:5
+
+# Error details
+
+```
+Error: Invalid scene payload was accepted by backend. Expected 4xx, got 200. Payload={"type":"Normal","name":"auto_scene_TC17_scene_20260710092326_7hyu","icon":"-1","enable":true,"background":null,"background_color":"#ffffff","binding":[],"cron":null,"cron_enable":false} Response={"data":{"id":"258044959973323053","type":"Normal","name":"auto_scene_TC17_scene_20260710092326_7hyu","icon":"-1","enable":true,"background":null,"background_color":"#ffffff","status":"Provision","binding":[],"cron":null,"cron_enable":false,"area":{"id":null,"name":null},"hcid":null},"success":true,"timestamp":"2026-07-10T09:23:26.220274002Z"} CleanupSceneId=258044959973323053
+```
+
+# Test source
+
+```ts
+  57  |       )
+  58  |       try {
+  59  |         await handler({ client, context, bindings })
+  60  |         await saveSceneEvidence(context, 'PASSED')
+  61  |       } catch (error) {
+  62  |         await saveSceneEvidence(context, 'FAILED', error)
+  63  |         throw error
+  64  |       }
+  65  |     })
+  66  |   }
+  67  | 
+  68  |   const createSceneForTc = async ({
+  69  |     client,
+  70  |     context,
+  71  |     tcId,
+  72  |     bindings,
+  73  |     overrides = {},
+  74  |   }: {
+  75  |     client: AutomationCenterApiClient
+  76  |     context: ReturnType<typeof createSceneTestContext>
+  77  |     tcId: string
+  78  |     bindings: ThuySceneBindingInput[]
+  79  |     overrides?: Partial<Parameters<typeof createAutoScenePayload>[0]>
+  80  |   }) => {
+  81  |     const payload = createAutoScenePayload({
+  82  |       tcId,
+  83  |       bindings,
+  84  |       ...overrides,
+  85  |     })
+  86  |     const response = await client.createSceneAPI(payload)
+  87  |     const body = (await recordSceneResponse(context, 'Create scene', response, {
+  88  |       method: 'POST',
+  89  |       endpoint: '/api/v0/scenes',
+  90  |       request: payload,
+  91  |     })) as { data?: { id?: string; name?: string } }
+  92  |     expect(response.status()).toBe(200)
+  93  |     expect(body.data?.id).toBeTruthy()
+  94  |     attachSceneAssertion(context, 'Create scene returns id')
+  95  |     return {
+  96  |       id: String(body.data?.id),
+  97  |       name: body.data?.name,
+  98  |       payload,
+  99  |     }
+  100 |   }
+  101 | 
+  102 |   const getSceneDetail = async (
+  103 |     client: AutomationCenterApiClient,
+  104 |     context: ReturnType<typeof createSceneTestContext>,
+  105 |     sceneId: string | number,
+  106 |   ) => {
+  107 |     const response = await client.getSceneAPI(sceneId)
+  108 |     const body = await recordSceneResponse(context, 'Get scene detail', response, {
+  109 |       method: 'GET',
+  110 |       endpoint: `/api/v0/scenes/${sceneId}`,
+  111 |     })
+  112 |     return { response, body }
+  113 |   }
+  114 | 
+  115 |   const expectCreateValidation = async (
+  116 |     client: AutomationCenterApiClient,
+  117 |     context: ReturnType<typeof createSceneTestContext>,
+  118 |     payload: Record<string, unknown>,
+  119 |   ) => {
+  120 |     const response = await client.createSceneAPI(payload as never)
+  121 |     const body = await recordSceneResponse(context, 'Create invalid scene', response, {
+  122 |       method: 'POST',
+  123 |       endpoint: '/api/v0/scenes',
+  124 |       request: payload,
+  125 |     })
+  126 |     if (response.status() >= 200 && response.status() < 300) {
+  127 |       const createdSceneId =
+  128 |         typeof body === 'object' && body !== null
+  129 |           ? String(
+  130 |               (body as { data?: { id?: unknown }; id?: unknown }).data?.id ??
+  131 |                 (body as { id?: unknown }).id ??
+  132 |                 '',
+  133 |             )
+  134 |           : ''
+  135 |       let cleanupSceneId = createdSceneId || undefined
+  136 | 
+  137 |       if (!cleanupSceneId && typeof payload.name === 'string') {
+  138 |         const listResponse = await client.listScenesAPI({
+  139 |           name: payload.name,
+  140 |           no_limit: true,
+  141 |         })
+  142 |         const listBody = await recordSceneResponse(
+  143 |           context,
+  144 |           'Find invalid scene created by backend',
+  145 |           listResponse,
+  146 |           {
+  147 |             method: 'GET',
+  148 |             endpoint: `/api/v0/scenes?name=${payload.name}`,
+  149 |           },
+  150 |         )
+  151 |         const candidates = extractSceneItems(listBody)
+  152 |         cleanupSceneId = candidates.find((scene) => scene.name === payload.name)
+  153 |           ?.id
+  154 |       }
+  155 | 
+  156 |       await cleanupAutoScene(client, context, cleanupSceneId)
+> 157 |       throw new Error(
+      |             ^ Error: Invalid scene payload was accepted by backend. Expected 4xx, got 200. Payload={"type":"Normal","name":"auto_scene_TC17_scene_20260710092326_7hyu","icon":"-1","enable":true,"background":null,"background_color":"#ffffff","binding":[],"cron":null,"cron_enable":false} Response={"data":{"id":"258044959973323053","type":"Normal","name":"auto_scene_TC17_scene_20260710092326_7hyu","icon":"-1","enable":true,"background":null,"background_color":"#ffffff","status":"Provision","binding":[],"cron":null,"cron_enable":false,"area":{"id":null,"name":null},"hcid":null},"success":true,"timestamp":"2026-07-10T09:23:26.220274002Z"} CleanupSceneId=258044959973323053
+  158 |         `Invalid scene payload was accepted by backend. Expected 4xx, got ${response.status()}. Payload=${JSON.stringify(payload)} Response=${JSON.stringify(body)} CleanupSceneId=${cleanupSceneId ?? 'not_found'}`,
+  159 |       )
+  160 |     }
+  161 | 
+  162 |     expect([400, 409, 422]).toContain(response.status())
+  163 |   }
+  164 | 
+  165 |   const extractSceneItems = (body: unknown): Array<{ id?: string; name?: string }> => {
+  166 |     if (!body || typeof body !== 'object') {
+  167 |       return []
+  168 |     }
+  169 |     const data = (body as { data?: unknown }).data
+  170 |     if (Array.isArray(data)) {
+  171 |       return data as Array<{ id?: string; name?: string }>
+  172 |     }
+  173 |     if (data && typeof data === 'object') {
+  174 |       const objectData = data as { items?: unknown; data?: unknown }
+  175 |       if (Array.isArray(objectData.items)) {
+  176 |         return objectData.items as Array<{ id?: string; name?: string }>
+  177 |       }
+  178 |       if (Array.isArray(objectData.data)) {
+  179 |         return objectData.data as Array<{ id?: string; name?: string }>
+  180 |       }
+  181 |     }
+  182 |     return []
+  183 |   }
+  184 | 
+  185 |   /*
+  186 | 
+  187 |    * TC1 - Lay danh sach Scene thanh cong
+  188 | 
+  189 |    */
+  190 | 
+  191 |   runTc('TC1', 'Lay danh sach Scene thanh cong', async ({ client, context }) => {
+  192 |     const response = await client.listScenesAPI({ page: 1, limit: 20 })
+  193 |     const body = await recordSceneResponse(context, 'List scenes', response, {
+  194 |       method: 'GET',
+  195 |       endpoint: '/api/v0/scenes?page=1&limit=20',
+  196 |     })
+  197 |     expect(response.status()).toBe(200)
+  198 |     expectSceneListShape(body)
+  199 |   })
+  200 | 
+  201 |   /*
+  202 | 
+  203 |    * TC2 - Loc Scene theo id
+  204 | 
+  205 |    */
+  206 | 
+  207 |   runTc('TC2', 'Loc Scene theo id', async ({ client, context, bindings }) => {
+  208 |     let sceneId: string | undefined
+  209 |     try {
+  210 |       const scene = await createSceneForTc({ client, context, tcId: 'TC2', bindings })
+  211 |       sceneId = scene.id
+  212 |       const response = await client.listScenesAPI({ page: 1, limit: 20, id: scene.id })
+  213 |       const body = (await recordSceneResponse(context, 'Filter scenes by id', response, {
+  214 |         method: 'GET',
+  215 |         endpoint: `/api/v0/scenes?id=${scene.id}`,
+  216 |       })) as { data?: { items?: Array<{ id: string | number }> } }
+  217 |       expect(response.status()).toBe(200)
+  218 |       expectSceneListShape(body)
+  219 |       if ((body.data?.items ?? []).length > 0) {
+  220 |         expect(body.data?.items?.some((item) => String(item.id) === scene.id)).toBe(true)
+  221 |       }
+  222 |     } finally {
+  223 |       await cleanupAutoScene(client, context, sceneId)
+  224 |     }
+  225 |   })
+  226 | 
+  227 |   /*
+  228 | 
+  229 |    * TC3 - Loc Scene theo status
+  230 | 
+  231 |    */
+  232 | 
+  233 |   runTc('TC3', 'Loc Scene theo status', async ({ client, context }) => {
+  234 |     const response = await client.listScenesAPI({ page: 1, limit: 20, status: 'Activated' })
+  235 |     const body = (await recordSceneResponse(context, 'Filter scenes by status', response, {
+  236 |       method: 'GET',
+  237 |       endpoint: '/api/v0/scenes?status=Activated',
+  238 |     })) as { data?: { items?: Array<{ status?: string }> } }
+  239 |     expect(response.status()).toBe(200)
+  240 |     expectSceneListShape(body)
+  241 |     for (const item of body.data?.items ?? []) {
+  242 |       expect(['Activated', undefined]).toContain(item.status)
+  243 |     }
+  244 |   })
+  245 | 
+  246 |   /*
+  247 | 
+  248 |    * TC4 - Loc Scene theo type
+  249 | 
+  250 |    */
+  251 | 
+  252 |   runTc('TC4', 'Loc Scene theo type', async ({ client, context }) => {
+  253 |     const response = await client.listScenesAPI({ page: 1, limit: 20, type: 'Normal' })
+  254 |     const body = await recordSceneResponse(context, 'Filter scenes by type', response, {
+  255 |       method: 'GET',
+  256 |       endpoint: '/api/v0/scenes?type=Normal',
+  257 |     })
+```

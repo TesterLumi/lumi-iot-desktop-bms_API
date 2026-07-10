@@ -1,0 +1,168 @@
+{
+  "tc_id": "TC5",
+  "tc_name": "Tim Scene theo name",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:23:25.540Z",
+  "finished_at": "2026-07-10T09:23:25.612Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Create scene",
+      "method": "POST",
+      "endpoint": "/api/v0/scenes",
+      "request": {
+        "type": "Normal",
+        "name": "auto_scene_TCTC5_scene_20260710092325_dnol",
+        "icon": "-1",
+        "enable": true,
+        "background": null,
+        "background_color": "#ffffff",
+        "binding": [
+          {
+            "id": "87903193043180546",
+            "snapshot": {
+              "1": true
+            },
+            "status": "Activated"
+          },
+          {
+            "id": "118431937308523266",
+            "snapshot": {
+              "1": true
+            },
+            "status": "Activated"
+          },
+          {
+            "id": "118431939315341315",
+            "snapshot": {
+              "1": true
+            },
+            "status": "Activated"
+          }
+        ],
+        "cron": null,
+        "cron_enable": false
+      },
+      "response": {
+        "data": {
+          "id": "255447310216044581",
+          "type": "Normal",
+          "name": "auto_scene_TCTC5_scene_20260710092325_dnol",
+          "icon": "-1",
+          "enable": true,
+          "background": null,
+          "background_color": "#ffffff",
+          "status": "Provision",
+          "binding": [
+            {
+              "id": "87903193043180546",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431937308523266",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            },
+            {
+              "id": "118431939315341315",
+              "snapshot": {
+                "1": true
+              },
+              "status": "Updating"
+            }
+          ],
+          "cron": null,
+          "cron_enable": false,
+          "area": {
+            "id": null,
+            "name": null
+          },
+          "hcid": null
+        },
+        "success": true,
+        "timestamp": "2026-07-10T09:23:25.563772291Z"
+      },
+      "status": 200
+    },
+    {
+      "step": "Search scenes by name",
+      "method": "GET",
+      "endpoint": "/api/v0/scenes?name=auto_scene_TCTC5_scene_20260710092325_dnol",
+      "response": {
+        "data": {
+          "items": [
+            {
+              "id": "255447310216044581",
+              "type": "Normal",
+              "name": "auto_scene_TCTC5_scene_20260710092325_dnol",
+              "icon": "-1",
+              "enable": true,
+              "background": null,
+              "background_color": "#ffffff",
+              "status": "Provision",
+              "binding": [
+                {
+                  "id": "87903193043180546",
+                  "snapshot": {
+                    "1": true
+                  },
+                  "status": "Updating"
+                },
+                {
+                  "id": "118431937308523266",
+                  "snapshot": {
+                    "1": true
+                  },
+                  "status": "Updating"
+                },
+                {
+                  "id": "118431939315341315",
+                  "snapshot": {
+                    "1": true
+                  },
+                  "status": "Updating"
+                }
+              ],
+              "cron": null,
+              "cron_enable": false,
+              "area": {
+                "id": null,
+                "name": null
+              },
+              "hcid": "4932308540097724437"
+            }
+          ],
+          "total": 1,
+          "page": 1,
+          "limit": 20
+        },
+        "success": true,
+        "timestamp": "2026-07-10T09:23:25.602103392Z"
+      },
+      "status": 200
+    },
+    {
+      "step": "Cleanup scene",
+      "method": "DELETE",
+      "endpoint": "/api/v0/scenes/255447310216044581",
+      "status": 200
+    }
+  ],
+  "assertions": [
+    "Create scene returns id"
+  ],
+  "cleanup": {
+    "scene_deleted": true,
+    "warnings": []
+  }
+}

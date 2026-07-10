@@ -1,0 +1,126 @@
+{
+  "tc_id": "TC29",
+  "tc_name": "Xoa khu vuc cha cascade con",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:05:01.572Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC29_parent_20260710_080501_vsfd"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-48EF04D4",
+          "created_at": "2026-07-10T01:05:02.193103+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "375b8342-865c-4007-9ad1-76b3eed2433d",
+          "image_url": null,
+          "name": "auto_area_TC29_parent_20260710_080501_vsfd",
+          "parent_id": null,
+          "path": "AREA_48EF04D4",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:05:02.193103+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:02.195102514+00:00"
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC29_child_20260710_080502_74yi",
+        "parent_id": "375b8342-865c-4007-9ad1-76b3eed2433d"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-B9C2069C",
+          "created_at": "2026-07-10T01:05:03.092588+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "a277896d-9075-4009-857f-24d9d96ae391",
+          "image_url": null,
+          "name": "auto_area_TC29_child_20260710_080502_74yi",
+          "parent_id": "375b8342-865c-4007-9ad1-76b3eed2433d",
+          "path": "AREA_48EF04D4.AREA_B9C2069C",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:05:03.092588+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:03.094875700+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/375b8342-865c-4007-9ad1-76b3eed2433d",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:03.997376134+00:00"
+      }
+    },
+    {
+      "step": "Get area",
+      "method": "GET",
+      "endpoint": "/api/v0/areas/375b8342-865c-4007-9ad1-76b3eed2433d",
+      "status": 404,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "AREA_NOT_FOUND",
+          "message": "Khu vực không tồn tại"
+        },
+        "timestamp": "2026-07-10T01:05:04.899092088+00:00"
+      }
+    },
+    {
+      "step": "Get area",
+      "method": "GET",
+      "endpoint": "/api/v0/areas/a277896d-9075-4009-857f-24d9d96ae391",
+      "status": 404,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "AREA_NOT_FOUND",
+          "message": "Khu vực không tồn tại"
+        },
+        "timestamp": "2026-07-10T01:05:05.794748637+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Deleting parent cascades child areas"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:05:06.055Z"
+}

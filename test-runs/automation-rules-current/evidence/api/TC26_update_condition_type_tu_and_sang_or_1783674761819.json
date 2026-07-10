@@ -1,0 +1,29 @@
+{
+  "tc_id": "TC26",
+  "tc_name": "Update condition type tu And sang Or",
+  "status": "PASSED",
+  "started_at": "2026-07-10T09:12:41.685Z",
+  "finished_at": "2026-07-10T09:12:41.819Z",
+  "endpoints": {
+    "automation_service": "http://10.10.0.198:19000",
+    "device_service": "http://10.10.0.198:3333",
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080"
+  },
+  "steps": [
+    {
+      "step": "Run Rule API testcase",
+      "details": {
+        "tc_id": "TC26",
+        "tc_name": "Update condition type tu And sang Or"
+      }
+    }
+  ],
+  "assertions": [
+    "TC26 completed successfully"
+  ],
+  "cleanup": {
+    "rule_deleted": false,
+    "warnings": []
+  }
+}

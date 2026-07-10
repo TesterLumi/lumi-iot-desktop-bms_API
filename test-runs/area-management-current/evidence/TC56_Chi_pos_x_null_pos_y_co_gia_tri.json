@@ -1,0 +1,121 @@
+{
+  "tc_id": "TC56",
+  "tc_name": "Chi pos_x null pos_y co gia tri",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:06:26.244Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC56_20260710_080626_wwyg"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-4AF0D087",
+          "created_at": "2026-07-10T01:06:26.792858+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "8c7fed40-0dc8-4ad0-bc3b-7848ef85070c",
+          "image_url": null,
+          "name": "auto_area_TC56_20260710_080626_wwyg",
+          "parent_id": null,
+          "path": "AREA_4AF0D087",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:06:26.792858+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:26.795105779+00:00"
+      }
+    },
+    {
+      "step": "Assign devices",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/8c7fed40-0dc8-4ad0-bc3b-7848ef85070c/devices",
+      "status": 200,
+      "request": {
+        "device_ids": [
+          "118431939315341315"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:27.701030689+00:00"
+      }
+    },
+    {
+      "step": "Update device position",
+      "method": "PATCH",
+      "endpoint": "/api/v0/areas/8c7fed40-0dc8-4ad0-bc3b-7848ef85070c/devices/118431939315341315/position",
+      "status": 400,
+      "request": {
+        "pos_x": null,
+        "pos_y": 0.5
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "INVALID_POSITION",
+          "message": "Toạ độ pos_x/pos_y nằm ngoài khoảng 0.0–1.0"
+        },
+        "timestamp": "2026-07-10T01:06:28.592373027+00:00"
+      }
+    },
+    {
+      "step": "Unassign devices",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/8c7fed40-0dc8-4ad0-bc3b-7848ef85070c/devices",
+      "status": 200,
+      "request": {
+        "device_ids": [
+          "118431939315341315"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:29.502793980+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/8c7fed40-0dc8-4ad0-bc3b-7848ef85070c",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:06:30.403448130+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Partial null position returns 400"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:06:30.673Z"
+}

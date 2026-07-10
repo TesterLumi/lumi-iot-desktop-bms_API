@@ -1,0 +1,143 @@
+{
+  "tc_id": "TC42",
+  "tc_name": "Gan nhieu thiet bi vao khu vuc",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:05:28.635Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC42_20260710_080528_wrgw"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-DB315C8C",
+          "created_at": "2026-07-10T01:05:29.191294+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "07480844-6b65-414b-a997-5c42997d81dc",
+          "image_url": null,
+          "name": "auto_area_TC42_20260710_080528_wrgw",
+          "parent_id": null,
+          "path": "AREA_DB315C8C",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:05:29.191294+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:29.193479334+00:00"
+      }
+    },
+    {
+      "step": "Assign devices",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/07480844-6b65-414b-a997-5c42997d81dc/devices",
+      "status": 200,
+      "request": {
+        "device_ids": [
+          "118431939315341315",
+          "118431939315341314"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:30.104373771+00:00"
+      }
+    },
+    {
+      "step": "List area devices",
+      "method": "GET",
+      "endpoint": "/api/v0/areas/07480844-6b65-414b-a997-5c42997d81dc/devices",
+      "status": 200,
+      "response": {
+        "data": {
+          "items": [
+            {
+              "assigned_at": "2026-07-10T01:05:30.102652+00:00",
+              "child_points": null,
+              "device_code": null,
+              "device_id": "118431939315341314",
+              "device_name": "thiết bị_F398_2",
+              "device_status": false,
+              "pos_x": null,
+              "pos_y": null
+            },
+            {
+              "assigned_at": "2026-07-10T01:05:30.102652+00:00",
+              "child_points": null,
+              "device_code": null,
+              "device_id": "118431939315341315",
+              "device_name": "thiết bị_F398_3",
+              "device_status": false,
+              "pos_x": null,
+              "pos_y": null
+            }
+          ],
+          "limit": 20,
+          "page": 1,
+          "total": 2
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:30.996569180+00:00"
+      }
+    },
+    {
+      "step": "Unassign devices",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/07480844-6b65-414b-a997-5c42997d81dc/devices",
+      "status": 200,
+      "request": {
+        "device_ids": [
+          "118431939315341315",
+          "118431939315341314"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:31.902002513+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/07480844-6b65-414b-a997-5c42997d81dc",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:32.803210857+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Multiple devices can be assigned to area"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:05:33.067Z"
+}

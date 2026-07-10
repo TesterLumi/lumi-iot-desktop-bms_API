@@ -1,0 +1,103 @@
+{
+  "tc_id": "TC68",
+  "tc_name": "Go group khoi khu vuc",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:07:05.857Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC68_20260710_080705_zwx1"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-46104700",
+          "created_at": "2026-07-10T01:07:06.395904+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "103d41ba-eb3b-43af-855c-2cd89a7331fa",
+          "image_url": null,
+          "name": "auto_area_TC68_20260710_080705_zwx1",
+          "parent_id": null,
+          "path": "AREA_46104700",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:07:06.395904+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:06.398141893+00:00"
+      }
+    },
+    {
+      "step": "Assign groups",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/103d41ba-eb3b-43af-855c-2cd89a7331fa/groups",
+      "status": 200,
+      "request": {
+        "group_ids": [
+          "312191246965906083"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:07.307819533+00:00"
+      }
+    },
+    {
+      "step": "Unassign groups",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/103d41ba-eb3b-43af-855c-2cd89a7331fa/groups",
+      "status": 200,
+      "request": {
+        "group_ids": [
+          "312191246965906083"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:08.202068952+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/103d41ba-eb3b-43af-855c-2cd89a7331fa",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:09.103401806+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Lighting group can be unassigned"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:07:09.371Z"
+}

@@ -1,0 +1,124 @@
+{
+  "tc_id": "TC38",
+  "tc_name": "Lay cay con theo parent_id",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:05:18.671Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC38_parent_20260710_080518_6uui"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-3B0E14B1",
+          "created_at": "2026-07-10T01:05:19.290636+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "1c353ff5-3da1-4ed2-a8b7-8d163cb5ca1d",
+          "image_url": null,
+          "name": "auto_area_TC38_parent_20260710_080518_6uui",
+          "parent_id": null,
+          "path": "AREA_3B0E14B1",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:05:19.290636+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:19.293246580+00:00"
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_area_TC38_child_20260710_080519_2hfj",
+        "parent_id": "1c353ff5-3da1-4ed2-a8b7-8d163cb5ca1d"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-8A562A9F",
+          "created_at": "2026-07-10T01:05:20.200095+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "31e836cf-34a7-4cf0-a558-461d678d6c2f",
+          "image_url": null,
+          "name": "auto_area_TC38_child_20260710_080519_2hfj",
+          "parent_id": "1c353ff5-3da1-4ed2-a8b7-8d163cb5ca1d",
+          "path": "AREA_3B0E14B1.AREA_8A562A9F",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-10T01:05:20.200095+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:20.202624946+00:00"
+      }
+    },
+    {
+      "step": "Get area tree",
+      "method": "GET",
+      "endpoint": "/api/v0/areas/tree?parent_id=1c353ff5-3da1-4ed2-a8b7-8d163cb5ca1d",
+      "status": 200,
+      "response": {
+        "data": [
+          {
+            "children": [],
+            "code": "AREA-8A562A9F",
+            "direct_devices": 0,
+            "floor_plan_url": null,
+            "id": "31e836cf-34a7-4cf0-a558-461d678d6c2f",
+            "image_url": null,
+            "name": "auto_area_TC38_child_20260710_080519_2hfj",
+            "parent_id": "1c353ff5-3da1-4ed2-a8b7-8d163cb5ca1d",
+            "path": "AREA_3B0E14B1.AREA_8A562A9F",
+            "total_devices": 0,
+            "total_sub_areas": 0
+          }
+        ],
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:21.102909218+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/1c353ff5-3da1-4ed2-a8b7-8d163cb5ca1d",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:05:22.004464419+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Tree by parent_id contains child"
+  ],
+  "cleanup": {
+    "area_deleted": true,
+    "users_deleted": 0,
+    "roles_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:05:22.268Z"
+}

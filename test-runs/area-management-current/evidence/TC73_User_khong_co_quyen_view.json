@@ -1,0 +1,330 @@
+{
+  "tc_id": "TC73",
+  "tc_name": "User khong co quyen view",
+  "status": "PASSED",
+  "started_at": "2026-07-10T01:07:16.588Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "steps": [
+    {
+      "step": "Login admin",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": true,
+        "token_length": 223
+      }
+    },
+    {
+      "step": "Create role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/",
+      "status": 200,
+      "request": {
+        "description": "",
+        "permissions": [],
+        "status": "Active",
+        "name": "auto_area_role_TC73_1783645636588"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-10T01:07:17.199329+00:00",
+          "description": "",
+          "id": "8f33e914-6e9e-4076-b66d-ad611f80adb3",
+          "is_system_admin": false,
+          "name": "auto_area_role_TC73_1783645636588",
+          "permissions": [],
+          "status": "Active",
+          "updated_at": "2026-07-10T01:07:17.199329+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:17.204431526+00:00"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_area_user_TC73_20260710_080717_3dbzze",
+        "email": "auto_area_user_TC73_20260710_080717_3dbzze@auto-test.local",
+        "password": "Auto@456",
+        "display_name": "Auto Area User",
+        "phone": "+84945637469"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto Area User",
+          "email": "auto_area_user_tc73_20260710_080717_3dbzze@auto-test.local",
+          "phone": "+84945637469",
+          "role": null,
+          "user_id": "3d95fa81-5735-45f2-882d-03a91c5da209",
+          "user_name": "auto_area_user_TC73_20260710_080717_3dbzze"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:18.168616994+00:00"
+      }
+    },
+    {
+      "step": "Assign role",
+      "method": "POST",
+      "endpoint": "/api/v0/roles/8f33e914-6e9e-4076-b66d-ad611f80adb3/assignments",
+      "status": 200,
+      "request": {
+        "userId": "3d95fa81-5735-45f2-882d-03a91c5da209"
+      },
+      "response": {
+        "data": {
+          "assigned_at": "2026-07-10T01:07:19.006706+00:00",
+          "id": "3d8c11a8-9c48-48f9-82f8-f4d0dab8a05e",
+          "revoked_at": null,
+          "roleId": "8f33e914-6e9e-4076-b66d-ad611f80adb3",
+          "userId": "3d95fa81-5735-45f2-882d-03a91c5da209"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:19.009208003+00:00"
+      }
+    },
+    {
+      "step": "List areas",
+      "method": "GET",
+      "endpoint": "/api/v0/areas?page=1&limit=10",
+      "status": 200,
+      "response": {
+        "data": {
+          "items": [
+            {
+              "code": "AREA-4BF9DA5A",
+              "created_at": "2026-07-10T01:04:21.695182+00:00",
+              "direct_devices": 0,
+              "floor_plan_url": null,
+              "id": "570388ce-36a5-4bf3-a7e8-cbae02e28eba",
+              "image_url": null,
+              "name": "auto_area_TC14_20260710_080420_de9a",
+              "parent_id": null,
+              "path": "AREA_4BF9DA5A",
+              "total_devices": 0,
+              "total_sub_areas": 0,
+              "updated_at": "2026-07-10T01:04:21.695182+00:00"
+            },
+            {
+              "code": "AREA-0825D0F3",
+              "created_at": "2026-07-09T08:27:24.967549+00:00",
+              "direct_devices": 0,
+              "floor_plan_url": null,
+              "id": "6a0d98aa-ec95-4945-9e8b-a24ed9111043",
+              "image_url": null,
+              "name": "auto_area_TC14_20260709_152723_frt3",
+              "parent_id": null,
+              "path": "AREA_0825D0F3",
+              "total_devices": 0,
+              "total_sub_areas": 0,
+              "updated_at": "2026-07-09T08:27:24.967549+00:00"
+            },
+            {
+              "code": "AREA-56A18F6A",
+              "created_at": "2026-07-08T10:03:30.257258+00:00",
+              "direct_devices": 5,
+              "floor_plan_url": null,
+              "id": "a56366dc-263d-445f-8f23-ee2c8aab6063",
+              "image_url": null,
+              "name": "Ô",
+              "parent_id": "59e89a91-0132-4a1e-bc48-1480e9c10920",
+              "path": "AREA_C5AEEE85.AREA_07D03DBF.AREA_56A18F6A",
+              "total_devices": 5,
+              "total_sub_areas": 0,
+              "updated_at": "2026-07-08T10:03:51.630281+00:00"
+            },
+            {
+              "code": "AREA-6D67BF5A",
+              "created_at": "2026-07-06T08:02:17.040990+00:00",
+              "direct_devices": 0,
+              "floor_plan_url": "area/d8aaf1cb-9395-4131-acb9-95f85d64434f_1783326307.png",
+              "id": "1a85f685-7fe0-4e51-afdc-4b6c29e4e2f2",
+              "image_url": null,
+              "name": "Khu tiếp khách",
+              "parent_id": "50226672-b304-444b-a4e5-04f51f1e92d7",
+              "path": "AREA_C5AEEE85.AREA_6D67BF5A",
+              "total_devices": 0,
+              "total_sub_areas": 0,
+              "updated_at": "2026-07-06T08:25:13.273510+00:00"
+            },
+            {
+              "code": "AREA-718FF13D",
+              "created_at": "2026-07-06T08:02:05.969272+00:00",
+              "direct_devices": 3,
+              "floor_plan_url": "area/c5d1fd71-6856-45e3-a92b-24e3cfce0781_1783326336.png",
+              "id": "b9391050-a75f-4ce4-bb18-5c766e28e283",
+              "image_url": null,
+              "name": "Khu lễ tân",
+              "parent_id": "50226672-b304-444b-a4e5-04f51f1e92d7",
+              "path": "AREA_C5AEEE85.AREA_718FF13D",
+              "total_devices": 3,
+              "total_sub_areas": 0,
+              "updated_at": "2026-07-06T08:25:38.351515+00:00"
+            },
+            {
+              "code": "AREA-07D03DBF",
+              "created_at": "2026-07-06T08:01:54.194963+00:00",
+              "direct_devices": 2,
+              "floor_plan_url": "area/9f99df24-2f60-4314-a69b-977ce9347758_1783325629.png",
+              "id": "59e89a91-0132-4a1e-bc48-1480e9c10920",
+              "image_url": null,
+              "name": "Khu vui chơi",
+              "parent_id": "50226672-b304-444b-a4e5-04f51f1e92d7",
+              "path": "AREA_C5AEEE85.AREA_07D03DBF",
+              "total_devices": 7,
+              "total_sub_areas": 1,
+              "updated_at": "2026-07-06T08:20:01.515749+00:00"
+            },
+            {
+              "code": "AREA-4B89E439",
+              "created_at": "2026-06-24T03:41:22.318931+00:00",
+              "direct_devices": 5,
+              "floor_plan_url": "area/312cb68e-21fc-4241-917e-de892b945a7d_1783326208.png",
+              "id": "cc498330-94b7-4168-9dc8-d6e54f62d963",
+              "image_url": null,
+              "name": "Khu thương mại",
+              "parent_id": "50226672-b304-444b-a4e5-04f51f1e92d7",
+              "path": "AREA_C5AEEE85.AREA_4B89E439",
+              "total_devices": 5,
+              "total_sub_areas": 0,
+              "updated_at": "2026-07-06T08:23:33.961378+00:00"
+            },
+            {
+              "code": "AREA-C5AEEE85",
+              "created_at": "2026-06-24T03:40:57.807737+00:00",
+              "direct_devices": 0,
+              "floor_plan_url": "area/5b6cf736-daae-4d3c-9326-a9182303e0d4_1783325213.png",
+              "id": "50226672-b304-444b-a4e5-04f51f1e92d7",
+              "image_url": null,
+              "name": "Sảnh chính",
+              "parent_id": null,
+              "path": "AREA_C5AEEE85",
+              "total_devices": 15,
+              "total_sub_areas": 5,
+              "updated_at": "2026-07-06T08:06:56.001138+00:00"
+            },
+            {
+              "code": "AREA-DC6EC265",
+              "created_at": "2026-06-13T02:42:45.722273+00:00",
+              "direct_devices": 0,
+              "floor_plan_url": null,
+              "id": "ad136896-b79e-49e8-a185-3e1d319f6353",
+              "image_url": null,
+              "name": "Tầng 1 tòa nhà văn phòng",
+              "parent_id": null,
+              "path": "AREA_DC6EC265",
+              "total_devices": 0,
+              "total_sub_areas": 0,
+              "updated_at": "2026-06-13T02:42:45.722273+00:00"
+            },
+            {
+              "code": "AREA-B7DF4E13",
+              "created_at": "2026-05-25T11:01:25.282438+00:00",
+              "direct_devices": 0,
+              "floor_plan_url": null,
+              "id": "44248bd2-f4e6-46e4-8fa4-c8055a340ca2",
+              "image_url": null,
+              "name": "KV1",
+              "parent_id": "f38770e3-8a32-4b7e-b094-411e6906e62c",
+              "path": "AREA_F229594D.AREA_B7DF4E13",
+              "total_devices": 0,
+              "total_sub_areas": 0,
+              "updated_at": "2026-05-25T11:01:28.583087+00:00"
+            }
+          ],
+          "limit": 10,
+          "page": 1,
+          "total": 25
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:20.823522724+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "/api/v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "3d95fa81-5735-45f2-882d-03a91c5da209"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:21.704533409+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/8f33e914-6e9e-4076-b66d-ad611f80adb3",
+      "status": 400,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "ROLE_HAS_ASSIGNMENTS",
+          "message": "Không thể thay đổi tên hoặc xóa vai trò đã được gán cho người dùng"
+        },
+        "timestamp": "2026-07-10T01:07:22.603340721+00:00"
+      }
+    },
+    {
+      "step": "Update role",
+      "method": "PATCH",
+      "endpoint": "/api/v0/roles/8f33e914-6e9e-4076-b66d-ad611f80adb3",
+      "status": 200,
+      "request": {
+        "status": "Disabled"
+      },
+      "response": {
+        "data": {
+          "created_at": "2026-07-10T01:07:17.199329+00:00",
+          "description": "",
+          "id": "8f33e914-6e9e-4076-b66d-ad611f80adb3",
+          "is_system_admin": false,
+          "name": "auto_area_role_TC73_1783645636588",
+          "permissions": [],
+          "status": "Disabled",
+          "updated_at": "2026-07-10T01:07:23.502420+00:00",
+          "user_count": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-10T01:07:23.504985119+00:00"
+      }
+    },
+    {
+      "step": "Delete role",
+      "method": "DELETE",
+      "endpoint": "/api/v0/roles/8f33e914-6e9e-4076-b66d-ad611f80adb3",
+      "status": 404,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "NOT_FOUND",
+          "message": "Không tìm thấy"
+        },
+        "timestamp": "2026-07-10T01:07:24.400105839+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "TODO_CONFIRM_SECURITY backend allows area view without policy"
+  ],
+  "cleanup": {
+    "area_deleted": false,
+    "users_deleted": 1,
+    "roles_deleted": 1,
+    "warnings": []
+  },
+  "finished_at": "2026-07-10T01:07:24.668Z"
+}
