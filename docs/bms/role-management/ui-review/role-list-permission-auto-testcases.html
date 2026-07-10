@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Role Management UI Auto Testcases</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f6f7f9;
+        --panel: #ffffff;
+        --text: #18202a;
+        --muted: #5c6674;
+        --line: #d8dde5;
+        --accent: #0f766e;
+        --accent-weak: #e6f4f1;
+        --warn: #9a5b00;
+        --warn-bg: #fff4d7;
+        --skip: #6b7280;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+
+      header {
+        border-bottom: 1px solid var(--line);
+        background: var(--panel);
+        padding: 18px 28px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 22px;
+        letter-spacing: 0;
+      }
+
+      .subtitle {
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      main {
+        display: grid;
+        grid-template-columns: 320px minmax(0, 1fr);
+        min-height: calc(100vh - 78px);
+      }
+
+      aside {
+        border-right: 1px solid var(--line);
+        background: #fbfcfd;
+        padding: 18px;
+        overflow: auto;
+      }
+
+      .content {
+        padding: 24px;
+        overflow: auto;
+      }
+
+      .toolbar {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      button {
+        border: 1px solid var(--line);
+        background: var(--panel);
+        color: var(--text);
+        border-radius: 6px;
+        cursor: pointer;
+        font: inherit;
+        padding: 8px 12px;
+      }
+
+      button.active {
+        border-color: var(--accent);
+        background: var(--accent-weak);
+        color: var(--accent);
+        font-weight: 650;
+      }
+
+      .case-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .case-item {
+        border: 1px solid var(--line);
+        background: var(--panel);
+        border-radius: 6px;
+        padding: 10px;
+        text-align: left;
+      }
+
+      .case-item.active {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 2px var(--accent-weak);
+      }
+
+      .case-id {
+        font-weight: 750;
+        font-size: 13px;
+      }
+
+      .case-title {
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      .card {
+        max-width: 980px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        border-radius: 8px;
+        padding: 22px;
+      }
+
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .pill {
+        border-radius: 999px;
+        background: #eef1f5;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 650;
+        padding: 5px 9px;
+      }
+
+      .pill.priority {
+        background: var(--accent-weak);
+        color: var(--accent);
+      }
+
+      .pill.todo {
+        background: var(--warn-bg);
+        color: var(--warn);
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        font-size: 24px;
+        letter-spacing: 0;
+      }
+
+      section {
+        border-top: 1px solid var(--line);
+        padding-top: 14px;
+        margin-top: 14px;
+      }
+
+      h3 {
+        margin: 0 0 8px;
+        font-size: 14px;
+        letter-spacing: 0;
+      }
+
+      p,
+      li {
+        color: var(--text);
+        line-height: 1.5;
+        font-size: 14px;
+      }
+
+      ul,
+      ol {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      .code {
+        border: 1px solid var(--line);
+        background: #f8fafc;
+        border-radius: 6px;
+        padding: 10px;
+        font-family:
+          ui-monospace,
+          SFMono-Regular,
+          Menlo,
+          Consolas,
+          monospace;
+        font-size: 13px;
+        overflow: auto;
+        white-space: pre-wrap;
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        max-width: 980px;
+        margin-top: 14px;
+      }
+
+      .nav button {
+        min-width: 120px;
+      }
+
+      @media (max-width: 860px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+
+        aside {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+          max-height: 320px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Role Management UI Auto Testcases</h1>
+      <div class="subtitle">
+        Review list generated from manual testcase attachment. Use Next/Previous
+        to inspect one testcase at a time.
+      </div>
+    </header>
+    <main>
+      <aside>
+        <div class="toolbar">
+          <button id="allFilter" class="active" type="button">All</button>
+          <button id="listFilter" type="button">Role List</button>
+          <button id="permissionFilter" type="button">Phân quyền</button>
+        </div>
+        <div id="caseList" class="case-list"></div>
+      </aside>
+      <div class="content">
+        <article class="card" id="caseCard"></article>
+        <div class="nav">
+          <button id="prevBtn" type="button">Previous</button>
+          <button id="nextBtn" type="button">Next</button>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const testcases = [
+        {
+          id: "UI-RL-001",
+          group: "Role List",
+          priority: "P0",
+          title: "Hiển thị bảng danh sách vai trò khi có dữ liệu",
+          precondition:
+            "Hệ thống có ít nhất 10 vai trò hoặc test setup tạo đủ dữ liệu auto_role_ui_list_*.",
+          steps: [
+            "Login bằng tài khoản admin.",
+            "Mở màn hình Quản lý vai trò.",
+            "Chờ API danh sách vai trò trả về thành công.",
+            "Quan sát bảng danh sách vai trò.",
+          ],
+          expected: [
+            "Bảng hiển thị các cột: tên vai trò, mô tả, số user đang gán, thời gian tạo.",
+            "Có dữ liệu trong bảng.",
+            "Không có lỗi console nghiêm trọng.",
+          ],
+          automation:
+            "Playwright UI kiểm tra heading/table headers/row count. Có thể mock hoặc setup qua API trước test.",
+        },
+        {
+          id: "UI-RL-002",
+          group: "Role List",
+          priority: "P0",
+          title: "Hiển thị trạng thái danh sách trống hoặc chỉ còn role hệ thống",
+          precondition:
+            "Không tạo thêm role automation; hệ thống tối thiểu có role admin mặc định.",
+          steps: [
+            "Login bằng tài khoản admin.",
+            "Mở màn hình Quản lý vai trò.",
+            "Search một từ khóa chắc chắn không khớp dữ liệu.",
+          ],
+          expected: [
+            "Nếu không có kết quả, UI hiển thị empty state phù hợp.",
+            "Role admin/system mặc định nếu xuất hiện thì không có nút sửa/xóa.",
+          ],
+          automation:
+            "Không xóa dữ liệu thật. Dùng search keyword ngẫu nhiên để kiểm empty state an toàn.",
+        },
+        {
+          id: "UI-RL-003",
+          group: "Role List",
+          priority: "P0",
+          title: "Ô tìm kiếm giới hạn tối đa 100 ký tự",
+          precondition: "Đang ở màn hình Quản lý vai trò.",
+          steps: [
+            "Focus vào ô tìm kiếm.",
+            "Nhập chuỗi dài 101 ký tự.",
+            "Đọc lại value của input.",
+          ],
+          expected: ["Input chỉ giữ tối đa 100 ký tự."],
+          automation:
+            "locator search input -> fill long text -> expect inputValue length <= 100.",
+        },
+        {
+          id: "UI-RL-004",
+          group: "Role List",
+          priority: "P1",
+          title: "Chặn tìm kiếm chỉ gồm khoảng trắng",
+          precondition: "Danh sách vai trò đang hiển thị.",
+          steps: [
+            "Nhập chuỗi chỉ gồm dấu cách vào ô tìm kiếm.",
+            "Chờ debounce nếu có.",
+          ],
+          expected: [
+            "UI không gửi keyword toàn khoảng trắng hoặc tự trim về rỗng.",
+            "Danh sách trở về trạng thái mặc định.",
+          ],
+          automation:
+            "Theo dõi request list role; search query không được là chuỗi toàn space.",
+        },
+        {
+          id: "UI-RL-005",
+          group: "Role List",
+          priority: "P1",
+          title: "Chặn ký tự đặc biệt trong ô tìm kiếm",
+          precondition: "Đang ở màn hình Quản lý vai trò.",
+          steps: ["Nhập @#$%!*. vào ô tìm kiếm."],
+          expected: [
+            "Input không nhận ký tự đặc biệt hoặc hiển thị validation theo thiết kế.",
+          ],
+          automation:
+            "fill special chars -> assert input value sanitized hoặc validation visible. TODO_CONFIRM nếu UI hiện cho phép.",
+          todo: true,
+        },
+        {
+          id: "UI-RL-006",
+          group: "Role List",
+          priority: "P0",
+          title: "Tìm kiếm chính xác theo tên vai trò",
+          precondition:
+            "Test setup tạo role auto_role_ui_exact_<time> qua API.",
+          steps: [
+            "Nhập chính xác tên role vừa tạo vào ô tìm kiếm.",
+            "Chờ debounce/API hoàn tất.",
+          ],
+          expected: [
+            "Danh sách chỉ hiển thị role khớp tên.",
+            "Tên role trong row đúng với role setup.",
+          ],
+          automation:
+            "Setup/cleanup role qua API. UI assert row text và row count phù hợp.",
+        },
+        {
+          id: "UI-RL-007",
+          group: "Role List",
+          priority: "P0",
+          title: "Tìm kiếm tương đối theo một phần tên role",
+          precondition:
+            "Test setup tạo 2 role cùng prefix auto_role_ui_tech_* và 1 role khác prefix.",
+          steps: [
+            "Nhập keyword prefix chung vào ô tìm kiếm.",
+            "Chờ danh sách cập nhật.",
+          ],
+          expected: [
+            "Hiển thị các role chứa keyword.",
+            "Role không chứa keyword không xuất hiện.",
+          ],
+          automation:
+            "Setup 3 role qua API, search prefix, assert included/excluded rows.",
+        },
+        {
+          id: "UI-RL-008",
+          group: "Role List",
+          priority: "P1",
+          title: "Tìm kiếm không phân biệt hoa thường",
+          precondition: "Có role tên auto_role_ui_CASE_<time>.",
+          steps: ["Nhập keyword lowercase tương ứng vào ô tìm kiếm."],
+          expected: ["UI vẫn hiển thị role có tên uppercase/mixed-case."],
+          automation:
+            "Setup role mixed-case qua API, search lowercase, assert row visible.",
+        },
+        {
+          id: "UI-RL-009",
+          group: "Role List",
+          priority: "P0",
+          title: "Tìm kiếm không có kết quả",
+          precondition: "Đang ở màn hình Quản lý vai trò.",
+          steps: ["Nhập keyword ngẫu nhiên không tồn tại: no_role_<timestamp>."],
+          expected: [
+            "Danh sách role bị ẩn hoặc row count bằng 0.",
+            "Hiển thị thông báo: Không tìm thấy vai trò phù hợp.",
+          ],
+          automation:
+            "Không cần setup dữ liệu. Search random keyword và assert empty state.",
+        },
+        {
+          id: "UI-RL-010",
+          group: "Role List",
+          priority: "P1",
+          title: "Tìm kiếm với ký tự số",
+          precondition: "Có role chứa số, ví dụ auto_role_ui_tech_1_<time>.",
+          steps: ["Nhập số 1 hoặc keyword chứa số vào ô tìm kiếm."],
+          expected: ["Danh sách hiển thị role có chứa số trong tên."],
+          automation:
+            "Setup role qua API, search số hoặc keyword chứa số, assert visible.",
+        },
+        {
+          id: "UI-RL-011",
+          group: "Role List",
+          priority: "P2",
+          title: "Tìm kiếm không dấu",
+          precondition: 'Có role tên "Quản lý" hoặc dữ liệu tương đương.',
+          steps: ['Nhập keyword không dấu "quan ly".'],
+          expected: ['UI vẫn tìm được role "Quản lý".'],
+          automation:
+            "TODO_CONFIRM vì backend/UI hiện chưa xác nhận hỗ trợ normalize tiếng Việt.",
+          todo: true,
+        },
+        {
+          id: "UI-RL-012",
+          group: "Role List",
+          priority: "P0",
+          title: "Tìm kiếm real-time sau debounce",
+          precondition: "Danh sách role đang hiển thị.",
+          steps: [
+            "Nhập keyword vào ô tìm kiếm nhưng không nhấn Enter.",
+            "Chờ 300-500ms.",
+          ],
+          expected: ["UI tự gọi API và cập nhật danh sách."],
+          automation:
+            "page.waitForResponse role list API sau fill input; assert URL/query chứa search.",
+        },
+        {
+          id: "UI-RL-013",
+          group: "Role List",
+          priority: "P0",
+          title: "Xóa tìm kiếm để quay lại danh sách mặc định",
+          precondition: "Đang có kết quả search trên màn hình.",
+          steps: [
+            "Click icon clear hoặc xóa sạch input search.",
+            "Chờ debounce/API hoàn tất.",
+          ],
+          expected: [
+            "Input search rỗng.",
+            "Danh sách role mặc định được tải lại.",
+          ],
+          automation:
+            "Search keyword -> clear -> wait response -> assert rows default visible.",
+        },
+        {
+          id: "UI-PERM-001",
+          group: "Phân quyền",
+          priority: "P0",
+          title: 'Chọn "Không có quyền"',
+          precondition: "Một dòng module đang có quyền bất kỳ.",
+          steps: ['Click radio "Không có quyền".'],
+          expected: [
+            'Radio "Không có quyền" được chọn.',
+            "Các radio còn lại trên cùng dòng bị bỏ chọn.",
+          ],
+          automation:
+            "Locator theo row module + radio label; assert checked state single-select.",
+        },
+        {
+          id: "UI-PERM-002",
+          group: "Phân quyền",
+          priority: "P0",
+          title: 'Chọn quyền "Xem"',
+          precondition: 'Dòng module đang ở "Không có quyền".',
+          steps: ['Click radio "Xem".'],
+          expected: [
+            'Chỉ radio "Xem" được chọn.',
+            "Không chọn Sửa/Điều khiển/Toàn quyền.",
+          ],
+          automation:
+            "Assert checked state trong cùng row. Business effect cần test bằng API/PBAC riêng.",
+        },
+        {
+          id: "UI-PERM-003",
+          group: "Phân quyền",
+          priority: "P0",
+          title: 'Chọn quyền "Sửa"',
+          precondition: 'Dòng module đang ở "Xem".',
+          steps: ['Click radio "Sửa".'],
+          expected: [
+            'Chỉ radio "Sửa" được chọn trên UI.',
+            "Quyền lưu xuống payload tương ứng write/read theo contract.",
+          ],
+          automation:
+            "UI assert checked; khi save thì intercept payload actions để xác nhận mapping.",
+        },
+        {
+          id: "UI-PERM-004",
+          group: "Phân quyền",
+          priority: "P1",
+          title: 'Chọn quyền "Điều khiển"',
+          precondition: "Module có hỗ trợ quyền điều khiển.",
+          steps: ['Click radio "Điều khiển".'],
+          expected: [
+            'Chỉ radio "Điều khiển" được chọn.',
+            "Payload lưu quyền chứa action execute/control tương ứng.",
+          ],
+          automation:
+            "Chỉ chạy với module có radio điều khiển; nếu không có fixture module thì skip có lý do.",
+        },
+        {
+          id: "UI-PERM-005",
+          group: "Phân quyền",
+          priority: "P0",
+          title: 'Chọn "Toàn quyền"',
+          precondition: "Module có đủ quyền Xem/Sửa/Điều khiển.",
+          steps: ['Click radio "Toàn quyền".'],
+          expected: [
+            'Chỉ radio "Toàn quyền" được chọn.',
+            "Payload lưu quyền chứa full actions theo contract.",
+          ],
+          automation:
+            "Assert checked state và intercept save payload actions=7 nếu contract PBAC dùng bitmask.",
+        },
+        {
+          id: "UI-PERM-006",
+          group: "Phân quyền",
+          priority: "P0",
+          title: "Radio là single-select trong cùng một module",
+          precondition: 'Dòng module đang chọn "Toàn quyền".',
+          steps: ['Click radio "Xem".'],
+          expected: [
+            '"Toàn quyền" tự bỏ chọn.',
+            'Chỉ "Xem" còn checked.',
+          ],
+          automation:
+            "Click lần lượt 2 radio trong cùng row; assert radio group chỉ có 1 checked.",
+        },
+        {
+          id: "UI-PERM-007",
+          group: "Phân quyền",
+          priority: "P1",
+          title: "Hiển thị option quyền theo từng module",
+          precondition:
+            "Có module chỉ hỗ trợ Xem và module hỗ trợ đủ Xem/Sửa/Điều khiển.",
+          steps: [
+            "Quan sát row module chỉ xem.",
+            "Quan sát row module đầy đủ quyền.",
+          ],
+          expected: [
+            "Module chỉ xem hiển thị Không có quyền/Xem.",
+            "Module đầy đủ hiển thị Không/Xem/Sửa/Điều khiển/Toàn quyền.",
+          ],
+          automation:
+            "Assert radio labels theo từng row module fixture. TODO_CONFIRM tên module thực tế.",
+          todo: true,
+        },
+        {
+          id: "UI-PERM-008",
+          group: "Phân quyền",
+          priority: "P1",
+          title: "Checked state đổi tức thì khi click",
+          precondition: "Đang ở form phân quyền.",
+          steps: ["Click qua lại nhiều radio trên cùng row."],
+          expected: ["Checked dot cập nhật ngay sau mỗi click, không delay rõ rệt."],
+          automation:
+            "Click radio và assert checked ngay, không cần wait API trước khi UI state đổi.",
+        },
+        {
+          id: "UI-PERM-009",
+          group: "Phân quyền",
+          priority: "P0",
+          title: 'Phạm vi "Tất cả khu vực"',
+          precondition: 'Đang mở modal chọn phạm vi ở tab "Tất cả khu vực".',
+          steps: ['Click xác nhận "Tất cả khu vực".'],
+          expected: [
+            "Modal đóng.",
+            'Bảng quyền hiển thị nhãn phạm vi "Tất cả".',
+            "Payload lưu policy dùng resource_scope=all.",
+          ],
+          automation:
+            "UI assert modal close/label; intercept save payload để xác nhận resource_scope.",
+        },
+        {
+          id: "UI-PERM-010",
+          group: "Phân quyền",
+          priority: "P1",
+          title: "Tìm kiếm trong modal khu vực",
+          precondition: "Cây khu vực có nhiều node.",
+          steps: ['Nhập keyword vào ô "Tìm kiếm khu vực".'],
+          expected: [
+            "Tree lọc đúng node khớp keyword.",
+            "Node cha được expand để thấy node con khớp.",
+          ],
+          automation:
+            "Cần fixture area/resource tree ổn định. Nếu chưa có, đánh dấu skip.",
+          todo: true,
+        },
+        {
+          id: "UI-PERM-011",
+          group: "Phân quyền",
+          priority: "P1",
+          title: "Số bản ghi trong modal khu vực",
+          precondition: "Modal khu vực có phân trang hoặc page size.",
+          steps: ['Chọn page size 10/20 trong modal khu vực.'],
+          expected: ["Danh sách khu vực hiển thị đúng số lượng theo page size."],
+          automation:
+            "Chỉ chạy nếu UI thật có pagination/page size trong modal. TODO_CONFIRM.",
+          todo: true,
+        },
+      ];
+
+      let activeFilter = "All";
+      let activeIndex = 0;
+
+      const caseList = document.getElementById("caseList");
+      const caseCard = document.getElementById("caseCard");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const filters = {
+        All: document.getElementById("allFilter"),
+        "Role List": document.getElementById("listFilter"),
+        "Phân quyền": document.getElementById("permissionFilter"),
+      };
+
+      const filtered = () =>
+        activeFilter === "All"
+          ? testcases
+          : testcases.filter((testcase) => testcase.group === activeFilter);
+
+      const renderList = () => {
+        const items = filtered();
+        caseList.innerHTML = "";
+        items.forEach((testcase, index) => {
+          const button = document.createElement("button");
+          button.className = `case-item ${index === activeIndex ? "active" : ""}`;
+          button.type = "button";
+          button.innerHTML = `<div class="case-id">${testcase.id}</div><div class="case-title">${testcase.title}</div>`;
+          button.addEventListener("click", () => {
+            activeIndex = index;
+            render();
+          });
+          caseList.appendChild(button);
+        });
+      };
+
+      const renderCard = () => {
+        const items = filtered();
+        const testcase = items[activeIndex] ?? items[0];
+        if (!testcase) {
+          caseCard.innerHTML = "<p>No testcase.</p>";
+          return;
+        }
+
+        caseCard.innerHTML = `
+          <div class="meta">
+            <span class="pill priority">${testcase.priority}</span>
+            <span class="pill">${testcase.group}</span>
+            <span class="pill">${activeIndex + 1}/${items.length}</span>
+            ${testcase.todo ? '<span class="pill todo">TODO_CONFIRM</span>' : ""}
+          </div>
+          <h2>${testcase.id} - ${testcase.title}</h2>
+          <section>
+            <h3>Tiền điều kiện</h3>
+            <p>${testcase.precondition}</p>
+          </section>
+          <section>
+            <h3>Bước thực hiện</h3>
+            <ol>${testcase.steps.map((step) => `<li>${step}</li>`).join("")}</ol>
+          </section>
+          <section>
+            <h3>Kết quả mong đợi</h3>
+            <ul>${testcase.expected.map((item) => `<li>${item}</li>`).join("")}</ul>
+          </section>
+          <section>
+            <h3>Hướng auto test</h3>
+            <div class="code">${testcase.automation}</div>
+          </section>
+        `;
+      };
+
+      const renderFilters = () => {
+        Object.entries(filters).forEach(([name, button]) => {
+          button.classList.toggle("active", name === activeFilter);
+          button.onclick = () => {
+            activeFilter = name;
+            activeIndex = 0;
+            render();
+          };
+        });
+      };
+
+      const render = () => {
+        const items = filtered();
+        if (activeIndex < 0) activeIndex = 0;
+        if (activeIndex >= items.length) activeIndex = items.length - 1;
+        renderFilters();
+        renderList();
+        renderCard();
+        prevBtn.disabled = activeIndex <= 0;
+        nextBtn.disabled = activeIndex >= items.length - 1;
+      };
+
+      prevBtn.addEventListener("click", () => {
+        activeIndex -= 1;
+        render();
+      });
+
+      nextBtn.addEventListener("click", () => {
+        activeIndex += 1;
+        render();
+      });
+
+      render();
+    </script>
+  </body>
+</html>

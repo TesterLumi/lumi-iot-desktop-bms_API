@@ -1,0 +1,324 @@
+[
+  {
+    "id": 1,
+    "cells": [
+      {
+        "input": [
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "IsOnline",
+            "description": "A boolean value indicating whether the device is currently online.",
+            "icon": "wifi",
+            "component": "toggle"
+          },
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "cells": [
+      {
+        "input": [
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "IsOnline",
+            "description": "A boolean value indicating whether the device is currently online.",
+            "icon": "wifi",
+            "component": "toggle"
+          },
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "cells": [
+      {
+        "input": [
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "IsOnline",
+            "description": "A boolean value indicating whether the device is currently online.",
+            "icon": "wifi",
+            "component": "toggle"
+          },
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ]
+      },
+      {
+        "input": [
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "IsOnline",
+            "description": "A boolean value indicating whether the device is currently online.",
+            "icon": "wifi",
+            "component": "toggle"
+          },
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "cells": [
+      {
+        "input": [
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "IsOnline",
+            "description": "A boolean value indicating whether the device is currently online.",
+            "icon": "wifi",
+            "component": "toggle"
+          },
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ]
+      },
+      {
+        "input": [
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "IsOnline",
+            "description": "A boolean value indicating whether the device is currently online.",
+            "icon": "wifi",
+            "component": "toggle"
+          },
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ]
+      },
+      {
+        "input": [
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "IsOnline",
+            "description": "A boolean value indicating whether the device is currently online.",
+            "icon": "wifi",
+            "component": "toggle"
+          },
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "cells": [
+      {
+        "input": [
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "IsOnline",
+            "description": "A boolean value indicating whether the device is currently online.",
+            "icon": "wifi",
+            "component": "toggle"
+          },
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ]
+      },
+      {
+        "input": [
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "IsOnline",
+            "description": "A boolean value indicating whether the device is currently online.",
+            "icon": "wifi",
+            "component": "toggle"
+          },
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ]
+      },
+      {
+        "input": [
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "IsOnline",
+            "description": "A boolean value indicating whether the device is currently online.",
+            "icon": "wifi",
+            "component": "toggle"
+          },
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ]
+      },
+      {
+        "input": [
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "IsOnline",
+            "description": "A boolean value indicating whether the device is currently online.",
+            "icon": "wifi",
+            "component": "toggle"
+          },
+          {
+            "idx": 1,
+            "name": "OnOff",
+            "description": "A boolean value representing the on/off state of the device.",
+            "icon": "power",
+            "component": "toggle"
+          }
+        ]
+      }
+    ]
+  }
+]

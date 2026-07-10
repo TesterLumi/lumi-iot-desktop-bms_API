@@ -1,0 +1,45 @@
+import { expect, test } from '@playwright/test'
+
+type ExpectToEqual<T> = {
+  actual: T
+  expected: T
+  description: string
+}
+
+type ExpectStatusCode = { api: string } & Omit<
+  ExpectToEqual<number>,
+  'description'
+>
+
+export const expectToEqual = async <T>({
+  actual,
+  expected,
+  description,
+}: ExpectToEqual<T>) => {
+  await test.step(`Checking that "${description}" is equal to "${expected}"`, async () => {
+    expect(actual).toBe(expected)
+  })
+}
+
+export const expectNotNull = async <T>({
+  actual,
+  description,
+}: Omit<ExpectToEqual<T>, 'expected'>) => {
+  await test.step(`Checking that "${description}" is not null`, async () => {
+    expect(actual).not.toBeNull()
+  })
+}
+
+export const expectStatusCode = async ({
+  actual,
+  expected,
+  api,
+}: ExpectStatusCode): Promise<void> => {
+  await test.step(`Checking that response status code for API "${api}" equal to ${expected}`, async () => {
+    await expectToEqual({
+      actual,
+      expected,
+      description: 'Response Status code',
+    })
+  })
+}

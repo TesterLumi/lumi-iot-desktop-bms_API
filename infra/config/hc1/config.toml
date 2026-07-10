@@ -1,0 +1,31 @@
+mac_file = "/app/macfile"
+script_dir = "/app/scripts"
+sleep_sec = 30
+
+[ble]
+serial_port = "/dev/cu.usbserial-0001"
+serial_baud = 115200
+
+[runtime]
+interval_tick_ms = 100
+buffer = 64
+max_inputs_per_poll = 64
+max_outputs_capacity = 256
+max_cells = 2048
+
+[metrics_collector]
+capacity = 1000
+batch_size = 50
+
+[log_collector]
+capacity = 100
+batch_size = 10
+
+[http]
+http_addr = "0.0.0.0:8080"
+
+[cluster]
+database = "http://iot-console:3333"
+automation_database="http://iot-console:3333"
+mqtt = "mqtt://emqx:1883"
+cert_path = ""

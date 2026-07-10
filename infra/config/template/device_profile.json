@@ -1,0 +1,1440 @@
+[
+  {
+    "id": 1,
+    "model_id": "virtual",
+    "protocol": "virtual",
+    "cells": [
+      {
+        "encoder": [],
+        "decoder": [],
+        "config": []
+      }
+    ],
+    "pid": 0
+  },
+  {
+    "id": 2,
+    "model_id": "lumi.switch.1g",
+    "protocol": "ble",
+    "cells": [
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8210;type=bool"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          },
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x824E;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8211;type=bool"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x21;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x23;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0x24;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x22;type=u8"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0x25;type=u8"
+          }
+        ]
+      }
+    ],
+    "pid": 2049
+  },
+  {
+    "id": 3,
+    "model_id": "lumi.switch.2g",
+    "protocol": "ble",
+    "cells": [
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8210;type=bool"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          },
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x824E;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8211;type=bool"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x21;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x23;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0x24;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x22;type=u8"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0x25;type=u8"
+          }
+        ]
+      },
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8210;type=bool"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          },
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x824E;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8211;type=bool"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x21;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x23;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0x24;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x22;type=u8"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0x25;type=u8"
+          }
+        ]
+      }
+    ],
+    "pid": 2050
+  },
+  {
+    "id": 4,
+    "model_id": "lumi.switch.3g",
+    "protocol": "ble",
+    "cells": [
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8210;type=bool"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          },
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x824E;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8211;type=bool"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x21;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x23;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0x24;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x22;type=u8"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0x25;type=u8"
+          }
+        ]
+      },
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8210;type=bool"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          },
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x824E;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8211;type=bool"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x21;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x23;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0x24;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x22;type=u8"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0x25;type=u8"
+          }
+        ]
+      },
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8210;type=bool"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          },
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x824E;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8211;type=bool"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x21;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x23;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0x24;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x22;type=u8"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0x25;type=u8"
+          }
+        ]
+      }
+    ],
+    "pid": 2051
+  },
+  {
+    "id": 5,
+    "model_id": "lumi.switch.4g",
+    "protocol": "ble",
+    "cells": [
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8210;type=bool"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          },
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x824E;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8211;type=bool"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x21;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x23;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0x24;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x22;type=u8"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0x25;type=u8"
+          }
+        ]
+      },
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8210;type=bool"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          },
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x824E;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8211;type=bool"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x21;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x23;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0x24;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x22;type=u8"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0x25;type=u8"
+          }
+        ]
+      },
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8210;type=bool"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          },
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x824E;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8211;type=bool"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x21;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x23;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0x24;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x22;type=u8"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0x25;type=u8"
+          },
+          {
+            "cell_ref": "config[6]",
+            "protocol_ref": "config_op=0x29;type=u16",
+            "endpoint": true
+          }
+        ]
+      },
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8210;type=bool"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          },
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x824E;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8211;type=bool"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x21;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x23;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0x24;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x22;type=u8"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0x25;type=u8"
+          },
+          {
+            "cell_ref": "config[6]",
+            "protocol_ref": "config_op=0x29;type=u16",
+            "endpoint": true
+          }
+        ]
+      }
+    ],
+    "pid": 2052
+  },
+  {
+    "id": 6,
+    "model_id": "lumi.sensor.pir",
+    "protocol": "ble",
+    "cells": [
+      {
+        "encoder": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8212;type=u8"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8208;type=bool"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x00;type=u16"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x01;type=u8"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x11;type=bool"
+          }
+        ]
+      },
+      {
+        "encoder": [],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x820A;type=u16"
+          }
+        ],
+        "config": []
+      }
+    ],
+    "pid": 398
+  },
+  {
+    "id": 7,
+    "model_id": "lumi.sensor.presence",
+    "protocol": "ble",
+    "cells": [
+      {
+        "encoder": [],
+        "decoder": [],
+        "config": []
+      },
+      {
+        "encoder": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8212;type=u8"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8208;type=bool"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x01;type=u8"
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x11;type=bool"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0xD0;type=u16"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0xD4;type=u8"
+          },
+          {
+            "cell_ref": "config[6]",
+            "protocol_ref": "config_op=0xD8;type=u16"
+          },
+          {
+            "cell_ref": "config[7]",
+            "protocol_ref": "config_op=0xD9;type=bool"
+          },
+          {
+            "cell_ref": "config[8]",
+            "protocol_ref": "config_op=0x00;type=u16"
+          },
+          {
+            "cell_ref": "config[9]",
+            "protocol_ref": "config_op=0xD1;type=schedule"
+          },
+          {
+            "cell_ref": "config[10]",
+            "protocol_ref": "config_op=0xD3;type=u16"
+          },
+          {
+            "cell_ref": "config[11]",
+            "protocol_ref": "config_op=0xD5;type=u16"
+          }
+        ]
+      },
+      {
+        "encoder": [],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x820A;type=u16"
+          }
+        ],
+        "config": []
+      },
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          }
+        ],
+        "config": []
+      }
+    ],
+    "pid": 2192
+  },
+  {
+    "model_id": "lumi.lumesMSB.2g",
+    "protocol": "ble",
+    "cells": [
+      {
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0xC01102;type=u8;offset=1"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xC8;type=ignore"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xAD;type=ignore"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x2D;type=ignore"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x2E;type=ignore"
+          }
+        ]
+      },
+      {
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0xC01102;type=u8;offset=1"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xC8;type=ignore"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xAD;type=ignore"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x2D;type=ignore"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x2E;type=ignore"
+          }
+        ]
+      },
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8210;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          },
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x824E;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8211;type=bool"
+          },
+          {
+            "cell_ref": "state[2]",
+            "protocol_ref": "op=0xEB1102;type=u16;offset=2;scale=0.1",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[3]",
+            "protocol_ref": "op=0xEB1102;type=u16;offset=0",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[4]",
+            "protocol_ref": "op=0xEB1102;type=u24;offset=4;scale=0.001",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[5]",
+            "protocol_ref": "op=0xEA1102;type=u32;offset=0",
+            "endpoint": true
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x21;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x23;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0x24;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x22;type=u8"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0x25;type=u8"
+          },
+          {
+            "cell_ref": "config[6]",
+            "protocol_ref": "config_op=0x29;type=u8"
+          },
+          {
+            "cell_ref": "config[7]",
+            "protocol_ref": "config_op=0x2A;type=telink_pw_on"
+          },
+          {
+            "cell_ref": "config[8]",
+            "protocol_ref": "config_op=0x2D;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[9]",
+            "protocol_ref": "config_op=0x2E;type=bool"
+          },
+          {
+            "cell_ref": "state[5]",
+            "protocol_ref": "config_op=0xEA;type=u32"
+          },
+          {
+            "cell_ref": "state[4]",
+            "protocol_ref": "config_op=0xEC;type=u32"
+          },
+          {
+            "cell_ref": "config[12]",
+            "protocol_ref": "config_op=0xAD;type=ignore"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xC8;type=ignore"
+          }
+        ]
+      },
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8210;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          },
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x824E;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8211;type=bool"
+          },
+          {
+            "cell_ref": "state[2]",
+            "protocol_ref": "op=0xEB1102;type=u16;offset=2;scale=0.1",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[3]",
+            "protocol_ref": "op=0xEB1102;type=u16;offset=0",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[4]",
+            "protocol_ref": "op=0xEB1102;type=u24;offset=4;scale=0.001",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[5]",
+            "protocol_ref": "op=0xEA1102;type=u32;offset=0",
+            "endpoint": true
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x21;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x23;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0x24;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x22;type=u8"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0x25;type=u8"
+          },
+          {
+            "cell_ref": "config[6]",
+            "protocol_ref": "config_op=0x29;type=u8"
+          },
+          {
+            "cell_ref": "config[7]",
+            "protocol_ref": "config_op=0x2A;type=telink_pw_on"
+          },
+          {
+            "cell_ref": "config[8]",
+            "protocol_ref": "config_op=0x2D;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[9]",
+            "protocol_ref": "config_op=0x2E;type=bool"
+          },
+          {
+            "cell_ref": "state[5]",
+            "protocol_ref": "config_op=0xEA;type=u32"
+          },
+          {
+            "cell_ref": "state[4]",
+            "protocol_ref": "config_op=0xEC;type=u32"
+          },
+          {
+            "cell_ref": "config[12]",
+            "protocol_ref": "config_op=0xAD;type=ignore"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xC8;type=ignore"
+          }
+        ]
+      }
+    ],
+    "pid": 2230
+  },
+  {
+    "model_id": "lumi.lumesMSB.1g",
+    "protocol": "ble",
+    "cells": [
+      {
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0xC01102;type=u8;offset=1"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xC8;type=ignore"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xAD;type=ignore"
+          }
+        ]
+      },
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8210;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          },
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x824E;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8211;type=bool"
+          },
+          {
+            "cell_ref": "state[2]",
+            "protocol_ref": "op=0xEB1102;type=u16;offset=2;scale=0.1",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[3]",
+            "protocol_ref": "op=0xEB1102;type=u16;offset=0",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[4]",
+            "protocol_ref": "op=0xEB1102;type=u24;offset=4;scale=0.001",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[5]",
+            "protocol_ref": "op=0xEA1102;type=u32;offset=0",
+            "endpoint": true
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x21;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x23;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0x24;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x22;type=u8"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0x25;type=u8"
+          },
+          {
+            "cell_ref": "config[6]",
+            "protocol_ref": "config_op=0x29;type=u8"
+          },
+          {
+            "cell_ref": "config[7]",
+            "protocol_ref": "config_op=0x2A;type=telink_pw_on"
+          },
+          {
+            "cell_ref": "config[8]",
+            "protocol_ref": "config_op=0x2D;type=telink_link"
+          },
+          {
+            "cell_ref": "config[9]",
+            "protocol_ref": "config_op=0x2E;type=bool"
+          },
+          {
+            "cell_ref": "state[5]",
+            "protocol_ref": "config_op=0xEA;type=u32"
+          },
+          {
+            "cell_ref": "state[4]",
+            "protocol_ref": "config_op=0xEC;type=u32"
+          },
+          {
+            "cell_ref": "config[12]",
+            "protocol_ref": "config_op=0xAD;type=ignore"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xC8;type=ignore"
+          }
+        ]
+      }
+    ],
+    "pid": 2229
+  },
+  {
+    "model_id": "lumi.lumesMSB.3g",
+    "protocol": "ble",
+    "cells": [
+      {
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0xC01102;type=u8;offset=1"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xC8;type=ignore"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xAD;type=ignore"
+          }
+        ]
+      },
+      {
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0xC01102;type=u8;offset=1"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xC8;type=ignore"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xAD;type=ignore"
+          }
+        ]
+      },
+      {
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0xC01102;type=u8;offset=1"
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xC8;type=ignore"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xAD;type=ignore"
+          }
+        ]
+      },
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8210;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          },
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x824E;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8211;type=bool"
+          },
+          {
+            "cell_ref": "state[2]",
+            "protocol_ref": "op=0xEB1102;type=u16;offset=2;scale=0.1",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[3]",
+            "protocol_ref": "op=0xEB1102;type=u16;offset=0",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[4]",
+            "protocol_ref": "op=0xEB1102;type=u24;offset=4;scale=0.001",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[5]",
+            "protocol_ref": "op=0xEA1102;type=u32;offset=0",
+            "endpoint": true
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x21;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x23;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0x24;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x22;type=u8"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0x25;type=u8"
+          },
+          {
+            "cell_ref": "config[6]",
+            "protocol_ref": "config_op=0x29;type=u8"
+          },
+          {
+            "cell_ref": "config[7]",
+            "protocol_ref": "config_op=0x2A;type=telink_pw_on"
+          },
+          {
+            "cell_ref": "config[8]",
+            "protocol_ref": "config_op=0x2D;type=telink_link"
+          },
+          {
+            "cell_ref": "config[9]",
+            "protocol_ref": "config_op=0x2E;type=bool"
+          },
+          {
+            "cell_ref": "state[5]",
+            "protocol_ref": "config_op=0xEA;type=u32"
+          },
+          {
+            "cell_ref": "state[4]",
+            "protocol_ref": "config_op=0xEC;type=u32"
+          },
+          {
+            "cell_ref": "config[12]",
+            "protocol_ref": "config_op=0xAD;type=ignore"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xC8;type=ignore"
+          }
+        ]
+      },
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8210;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          },
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x824E;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8211;type=bool"
+          },
+          {
+            "cell_ref": "state[2]",
+            "protocol_ref": "op=0xEB1102;type=u16;offset=2;scale=0.1",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[3]",
+            "protocol_ref": "op=0xEB1102;type=u16;offset=0",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[4]",
+            "protocol_ref": "op=0xEB1102;type=u24;offset=4;scale=0.001",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[5]",
+            "protocol_ref": "op=0xEA1102;type=u32;offset=0",
+            "endpoint": true
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x21;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x23;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0x24;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x22;type=u8"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0x25;type=u8"
+          },
+          {
+            "cell_ref": "config[6]",
+            "protocol_ref": "config_op=0x29;type=u8"
+          },
+          {
+            "cell_ref": "config[7]",
+            "protocol_ref": "config_op=0x2A;type=telink_pw_on"
+          },
+          {
+            "cell_ref": "config[8]",
+            "protocol_ref": "config_op=0x2D;type=telink_link"
+          },
+          {
+            "cell_ref": "config[9]",
+            "protocol_ref": "config_op=0x2E;type=bool"
+          },
+          {
+            "cell_ref": "state[5]",
+            "protocol_ref": "config_op=0xEA;type=u32"
+          },
+          {
+            "cell_ref": "state[4]",
+            "protocol_ref": "config_op=0xEC;type=u32"
+          },
+          {
+            "cell_ref": "config[12]",
+            "protocol_ref": "config_op=0xAD;type=ignore"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xC8;type=ignore"
+          }
+        ]
+      },
+      {
+        "encoder": [
+          {
+            "cell_ref": "input[1]",
+            "protocol_ref": "op=0x8202;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8210;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+          }
+        ],
+        "decoder": [
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x8204;type=bool"
+          },
+          {
+            "cell_ref": "output[1]",
+            "protocol_ref": "op=0x824E;type=bool"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "op=0x8211;type=bool"
+          },
+          {
+            "cell_ref": "state[2]",
+            "protocol_ref": "op=0xEB1102;type=u16;offset=2;scale=0.1",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[3]",
+            "protocol_ref": "op=0xEB1102;type=u16;offset=0",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[4]",
+            "protocol_ref": "op=0xEB1102;type=u24;offset=4;scale=0.001",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "state[5]",
+            "protocol_ref": "op=0xEA1102;type=u32;offset=0",
+            "endpoint": true
+          }
+        ],
+        "config": [
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0x21;type=u8",
+            "endpoint": true
+          },
+          {
+            "cell_ref": "config[2]",
+            "protocol_ref": "config_op=0x23;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[3]",
+            "protocol_ref": "config_op=0x24;type=bitmask1"
+          },
+          {
+            "cell_ref": "config[4]",
+            "protocol_ref": "config_op=0x22;type=u8"
+          },
+          {
+            "cell_ref": "config[5]",
+            "protocol_ref": "config_op=0x25;type=u8"
+          },
+          {
+            "cell_ref": "config[6]",
+            "protocol_ref": "config_op=0x29;type=u8"
+          },
+          {
+            "cell_ref": "config[7]",
+            "protocol_ref": "config_op=0x2A;type=telink_pw_on"
+          },
+          {
+            "cell_ref": "config[8]",
+            "protocol_ref": "config_op=0x2D;type=telink_link"
+          },
+          {
+            "cell_ref": "config[9]",
+            "protocol_ref": "config_op=0x2E;type=bool"
+          },
+          {
+            "cell_ref": "state[5]",
+            "protocol_ref": "config_op=0xEA;type=u32"
+          },
+          {
+            "cell_ref": "state[4]",
+            "protocol_ref": "config_op=0xEC;type=u32"
+          },
+          {
+            "cell_ref": "config[12]",
+            "protocol_ref": "config_op=0xAD;type=ignore"
+          },
+          {
+            "cell_ref": "config[1]",
+            "protocol_ref": "config_op=0xC8;type=ignore"
+          }
+        ]
+      }
+    ],
+    "pid": 2231
+  }
+]

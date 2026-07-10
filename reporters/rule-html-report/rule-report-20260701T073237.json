@@ -1,0 +1,301 @@
+{
+  "command": "cmd /c npx playwright test tests/e2e/automation-rules/rule-ui-evidence.spec.ts -g RULE-UI-DISABLED --config=playwright.config.ts --reporter=json --workers=1",
+  "exitCode": 0,
+  "startedAt": "2026-07-01T07:32:37.231Z",
+  "endedAt": "2026-07-01T07:33:04.191Z",
+  "summary": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "startedAt": "2026-07-01T07:32:37.231Z",
+    "endedAt": "2026-07-01T07:33:04.191Z",
+    "durationMs": 24609
+  },
+  "cases": [
+    {
+      "file": "e2e/automation-rules/rule-ui-evidence.spec.ts",
+      "title": "e2e\\automation-rules\\rule-ui-evidence.spec.ts > Automation rules UI evidence data > RULE-UI-DISABLED edits rule to disabled and verifies output is not activated",
+      "status": "passed",
+      "durationMs": 22323,
+      "retryCount": 0,
+      "error": "",
+      "stdout": "{\"retained_disabled_rule_check\":{\"rule\":{\"automation_id\":\"158243759575139857\",\"automation_name\":\"thuy_rule_9_disabled_edit\",\"execution_id\":\"3525220905143547889\",\"execution_type\":\"And\",\"start_time\":null,\"end_time\":null,\"identity\":{\"id\":\"158243759575139857\",\"name\":\"thuy_rule_9_disabled_edit\"},\"trigger_device_id\":\"120416080507841538\",\"action_device_id\":\"118431939276353282\",\"input_slot\":1,\"output_slot\":1,\"enable_after_edit\":false},\"expectation\":\"rule is disabled, output should remain false\",\"trigger\":{\"device_id\":\"120416080507841538\",\"slot\":1,\"value\":true},\"output\":{\"device_id\":\"118431939276353282\",\"slot\":1,\"expected_value\":false},\"inputResetMatched\":true,\"outputResetMatched\":true,\"beforeStatuses\":[{\"id\":\"118431939276353282\",\"status\":[{\"idx\":3,\"value\":0},{\"idx\":4,\"value\":0},{\"idx\":1,\"value\":false},{\"idx\":2,\"value\":219},{\"idx\":6,\"value\":152946},{\"idx\":0,\"value\":true},{\"idx\":5,\"value\":0}]},{\"id\":\"120416080507841538\",\"status\":[{\"idx\":0,\"value\":true},{\"idx\":1,\"value\":false}]}],\"afterStatuses\":[{\"id\":\"118431939276353282\",\"status\":[{\"idx\":3,\"value\":0},{\"idx\":4,\"value\":0},{\"idx\":1,\"value\":false},{\"idx\":2,\"value\":219},{\"idx\":6,\"value\":152946},{\"idx\":0,\"value\":true},{\"idx\":5,\"value\":0}]},{\"id\":\"120416080507841538\",\"status\":[{\"idx\":0,\"value\":true},{\"idx\":1,\"value\":true}]}],\"outputMatched\":false}}\n",
+      "stderr": "",
+      "evidence": [
+        {
+          "retained_disabled_rule_check": {
+            "rule": {
+              "automation_id": "158243759575139857",
+              "automation_name": "thuy_rule_9_disabled_edit",
+              "execution_id": "3525220905143547889",
+              "execution_type": "And",
+              "start_time": null,
+              "end_time": null,
+              "identity": {
+                "id": "158243759575139857",
+                "name": "thuy_rule_9_disabled_edit"
+              },
+              "trigger_device_id": "120416080507841538",
+              "action_device_id": "118431939276353282",
+              "input_slot": 1,
+              "output_slot": 1,
+              "enable_after_edit": false
+            },
+            "expectation": "rule is disabled, output should remain false",
+            "trigger": {
+              "device_id": "120416080507841538",
+              "slot": 1,
+              "value": true
+            },
+            "output": {
+              "device_id": "118431939276353282",
+              "slot": 1,
+              "expected_value": false
+            },
+            "inputResetMatched": true,
+            "outputResetMatched": true,
+            "beforeStatuses": [
+              {
+                "id": "118431939276353282",
+                "status": [
+                  {
+                    "idx": 3,
+                    "value": 0
+                  },
+                  {
+                    "idx": 4,
+                    "value": 0
+                  },
+                  {
+                    "idx": 1,
+                    "value": false
+                  },
+                  {
+                    "idx": 2,
+                    "value": 219
+                  },
+                  {
+                    "idx": 6,
+                    "value": 152946
+                  },
+                  {
+                    "idx": 0,
+                    "value": true
+                  },
+                  {
+                    "idx": 5,
+                    "value": 0
+                  }
+                ]
+              },
+              {
+                "id": "120416080507841538",
+                "status": [
+                  {
+                    "idx": 0,
+                    "value": true
+                  },
+                  {
+                    "idx": 1,
+                    "value": false
+                  }
+                ]
+              }
+            ],
+            "afterStatuses": [
+              {
+                "id": "118431939276353282",
+                "status": [
+                  {
+                    "idx": 3,
+                    "value": 0
+                  },
+                  {
+                    "idx": 4,
+                    "value": 0
+                  },
+                  {
+                    "idx": 1,
+                    "value": false
+                  },
+                  {
+                    "idx": 2,
+                    "value": 219
+                  },
+                  {
+                    "idx": 6,
+                    "value": 152946
+                  },
+                  {
+                    "idx": 0,
+                    "value": true
+                  },
+                  {
+                    "idx": 5,
+                    "value": 0
+                  }
+                ]
+              },
+              {
+                "id": "120416080507841538",
+                "status": [
+                  {
+                    "idx": 0,
+                    "value": true
+                  },
+                  {
+                    "idx": 1,
+                    "value": true
+                  }
+                ]
+              }
+            ],
+            "outputMatched": false
+          }
+        }
+      ]
+    }
+  ],
+  "rawPlaywright": {
+    "config": {
+      "configFile": "C:\\Users\\thuyv\\Downloads\\bms-e2e-test-main_api\\bms-e2e-test-main\\playwright.config.ts",
+      "rootDir": "C:/Users/thuyv/Downloads/bms-e2e-test-main_api/bms-e2e-test-main/tests",
+      "forbidOnly": false,
+      "fullyParallel": false,
+      "globalSetup": null,
+      "globalTeardown": "C:\\Users\\thuyv\\Downloads\\bms-e2e-test-main_api\\bms-e2e-test-main\\src\\utils\\reporters\\global_teardown.ts",
+      "globalTimeout": 0,
+      "grep": {},
+      "grepInvert": null,
+      "maxFailures": 0,
+      "metadata": {
+        "actualWorkers": 1
+      },
+      "preserveOutput": "always",
+      "projects": [
+        {
+          "outputDir": "C:/Users/thuyv/Downloads/bms-e2e-test-main_api/bms-e2e-test-main/test-results",
+          "repeatEach": 1,
+          "retries": 0,
+          "metadata": {
+            "actualWorkers": 1
+          },
+          "id": "",
+          "name": "",
+          "testDir": "C:/Users/thuyv/Downloads/bms-e2e-test-main_api/bms-e2e-test-main/tests",
+          "testIgnore": [],
+          "testMatch": [
+            "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+          ],
+          "timeout": 30000
+        }
+      ],
+      "quiet": false,
+      "reporter": [
+        [
+          "json"
+        ]
+      ],
+      "reportSlowTests": {
+        "max": 5,
+        "threshold": 300000
+      },
+      "shard": null,
+      "tags": [],
+      "updateSnapshots": "missing",
+      "updateSourceMethod": "patch",
+      "version": "1.60.0",
+      "workers": 1,
+      "webServer": null
+    },
+    "suites": [
+      {
+        "title": "e2e\\automation-rules\\rule-ui-evidence.spec.ts",
+        "file": "e2e/automation-rules/rule-ui-evidence.spec.ts",
+        "column": 0,
+        "line": 0,
+        "specs": [],
+        "suites": [
+          {
+            "title": "Automation rules UI evidence data",
+            "file": "e2e/automation-rules/rule-ui-evidence.spec.ts",
+            "line": 259,
+            "column": 6,
+            "specs": [
+              {
+                "title": "RULE-UI-DISABLED edits rule to disabled and verifies output is not activated",
+                "ok": true,
+                "tags": [],
+                "tests": [
+                  {
+                    "timeout": 120000,
+                    "annotations": [],
+                    "expectedStatus": "passed",
+                    "projectId": "",
+                    "projectName": "",
+                    "results": [
+                      {
+                        "workerIndex": 0,
+                        "parallelIndex": 0,
+                        "status": "passed",
+                        "duration": 22323,
+                        "errors": [],
+                        "stdout": [
+                          {
+                            "text": "{\"retained_disabled_rule_check\":{\"rule\":{\"automation_id\":\"158243759575139857\",\"automation_name\":\"thuy_rule_9_disabled_edit\",\"execution_id\":\"3525220905143547889\",\"execution_type\":\"And\",\"start_time\":null,\"end_time\":null,\"identity\":{\"id\":\"158243759575139857\",\"name\":\"thuy_rule_9_disabled_edit\"},\"trigger_device_id\":\"120416080507841538\",\"action_device_id\":\"118431939276353282\",\"input_slot\":1,\"output_slot\":1,\"enable_after_edit\":false},\"expectation\":\"rule is disabled, output should remain false\",\"trigger\":{\"device_id\":\"120416080507841538\",\"slot\":1,\"value\":true},\"output\":{\"device_id\":\"118431939276353282\",\"slot\":1,\"expected_value\":false},\"inputResetMatched\":true,\"outputResetMatched\":true,\"beforeStatuses\":[{\"id\":\"118431939276353282\",\"status\":[{\"idx\":3,\"value\":0},{\"idx\":4,\"value\":0},{\"idx\":1,\"value\":false},{\"idx\":2,\"value\":219},{\"idx\":6,\"value\":152946},{\"idx\":0,\"value\":true},{\"idx\":5,\"value\":0}]},{\"id\":\"120416080507841538\",\"status\":[{\"idx\":0,\"value\":true},{\"idx\":1,\"value\":false}]}],\"afterStatuses\":[{\"id\":\"118431939276353282\",\"status\":[{\"idx\":3,\"value\":0},{\"idx\":4,\"value\":0},{\"idx\":1,\"value\":false},{\"idx\":2,\"value\":219},{\"idx\":6,\"value\":152946},{\"idx\":0,\"value\":true},{\"idx\":5,\"value\":0}]},{\"id\":\"120416080507841538\",\"status\":[{\"idx\":0,\"value\":true},{\"idx\":1,\"value\":true}]}],\"outputMatched\":false}}\n"
+                          }
+                        ],
+                        "stderr": [],
+                        "retry": 0,
+                        "steps": [
+                          {
+                            "title": "Listing automations",
+                            "duration": 55
+                          },
+                          {
+                            "title": "Creating automation detail",
+                            "duration": 24
+                          },
+                          {
+                            "title": "Getting automation detail 158243759575139857",
+                            "duration": 25
+                          },
+                          {
+                            "title": "Updating automation 158243759575139857",
+                            "duration": 11
+                          },
+                          {
+                            "title": "Getting automation detail 158243759575139857",
+                            "duration": 18
+                          }
+                        ],
+                        "startTime": "2026-07-01T07:32:41.607Z",
+                        "annotations": [],
+                        "attachments": []
+                      }
+                    ],
+                    "status": "expected"
+                  }
+                ],
+                "id": "5942a265f8f4df90c1f0-909ea107d64af4132d3b",
+                "file": "e2e/automation-rules/rule-ui-evidence.spec.ts",
+                "line": 545,
+                "column": 3
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "stats": {
+      "startTime": "2026-07-01T07:32:39.474Z",
+      "duration": 24608.608,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  }
+}

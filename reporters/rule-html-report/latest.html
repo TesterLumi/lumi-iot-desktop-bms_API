@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Automation Rule Test Report</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; color: #1f2937; background: #f8fafc; }
+    main { max-width: 1280px; margin: 0 auto; padding: 28px; }
+    h1 { margin: 0 0 16px; font-size: 28px; }
+    .summary { display: grid; grid-template-columns: repeat(5, minmax(120px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; }
+    .card .label { color: #64748b; font-size: 12px; text-transform: uppercase; }
+    .card .value { font-size: 24px; font-weight: 700; margin-top: 6px; }
+    .meta { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; margin-bottom: 20px; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e5e7eb; }
+    th, td { border-bottom: 1px solid #e5e7eb; padding: 10px; text-align: left; vertical-align: top; }
+    th { background: #f1f5f9; font-size: 12px; text-transform: uppercase; color: #475569; }
+    pre { white-space: pre-wrap; word-break: break-word; margin: 0; font-size: 12px; background: #0f172a; color: #e2e8f0; border-radius: 6px; padding: 10px; max-height: 360px; overflow: auto; }
+    details { margin-bottom: 8px; }
+    summary { cursor: pointer; font-weight: 600; }
+    .case-title { font-weight: 700; }
+    .case-file { color: #64748b; font-size: 12px; margin-top: 4px; }
+    .badge { display: inline-block; border-radius: 999px; padding: 4px 8px; font-size: 12px; font-weight: 700; }
+    .passed { background: #dcfce7; color: #166534; }
+    .failed, .timedOut, .interrupted { background: #fee2e2; color: #991b1b; }
+    .skipped { background: #e2e8f0; color: #475569; }
+    .unknown { background: #fef3c7; color: #92400e; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Automation Rule Test Report</h1>
+    <section class="summary">
+      <div class="card"><div class="label">Total</div><div class="value">1</div></div>
+      <div class="card"><div class="label">Passed</div><div class="value">1</div></div>
+      <div class="card"><div class="label">Failed</div><div class="value">0</div></div>
+      <div class="card"><div class="label">Skipped</div><div class="value">0</div></div>
+      <div class="card"><div class="label">Duration</div><div class="value">24.6 s</div></div>
+    </section>
+    <section class="meta">
+      <p><strong>Started:</strong> 2026-07-01T07:32:37.231Z</p>
+      <p><strong>Ended:</strong> 2026-07-01T07:33:04.191Z</p>
+      <p><strong>Command:</strong></p>
+      <pre>cmd /c npx playwright test tests/e2e/automation-rules/rule-ui-evidence.spec.ts -g RULE-UI-DISABLED --config=playwright.config.ts --reporter=json --workers=1</pre>
+    </section>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Test case</th>
+          <th>Result</th>
+          <th>Time</th>
+          <th>Command da chay</th>
+          <th>Evidence JSON / Error</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>
+            <div class="case-title">e2e\automation-rules\rule-ui-evidence.spec.ts &gt; Automation rules UI evidence data &gt; RULE-UI-DISABLED edits rule to disabled and verifies output is not activated</div>
+            <div class="case-file">e2e/automation-rules/rule-ui-evidence.spec.ts</div>
+          </td>
+          <td><span class="badge passed">passed</span></td>
+          <td>22.3 s</td>
+          <td><pre>cmd /c npx playwright test tests/e2e/automation-rules/rule-ui-evidence.spec.ts -g RULE-UI-DISABLED --config=playwright.config.ts --reporter=json --workers=1</pre></td>
+          <td>
+        <details open>
+          <summary>Evidence 1</summary>
+          <pre>{
+  &quot;retained_disabled_rule_check&quot;: {
+    &quot;rule&quot;: {
+      &quot;automation_id&quot;: &quot;158243759575139857&quot;,
+      &quot;automation_name&quot;: &quot;thuy_rule_9_disabled_edit&quot;,
+      &quot;execution_id&quot;: &quot;3525220905143547889&quot;,
+      &quot;execution_type&quot;: &quot;And&quot;,
+      &quot;start_time&quot;: null,
+      &quot;end_time&quot;: null,
+      &quot;identity&quot;: {
+        &quot;id&quot;: &quot;158243759575139857&quot;,
+        &quot;name&quot;: &quot;thuy_rule_9_disabled_edit&quot;
+      },
+      &quot;trigger_device_id&quot;: &quot;120416080507841538&quot;,
+      &quot;action_device_id&quot;: &quot;118431939276353282&quot;,
+      &quot;input_slot&quot;: 1,
+      &quot;output_slot&quot;: 1,
+      &quot;enable_after_edit&quot;: false
+    },
+    &quot;expectation&quot;: &quot;rule is disabled, output should remain false&quot;,
+    &quot;trigger&quot;: {
+      &quot;device_id&quot;: &quot;120416080507841538&quot;,
+      &quot;slot&quot;: 1,
+      &quot;value&quot;: true
+    },
+    &quot;output&quot;: {
+      &quot;device_id&quot;: &quot;118431939276353282&quot;,
+      &quot;slot&quot;: 1,
+      &quot;expected_value&quot;: false
+    },
+    &quot;inputResetMatched&quot;: true,
+    &quot;outputResetMatched&quot;: true,
+    &quot;beforeStatuses&quot;: [
+      {
+        &quot;id&quot;: &quot;118431939276353282&quot;,
+        &quot;status&quot;: [
+          {
+            &quot;idx&quot;: 3,
+            &quot;value&quot;: 0
+          },
+          {
+            &quot;idx&quot;: 4,
+            &quot;value&quot;: 0
+          },
+          {
+            &quot;idx&quot;: 1,
+            &quot;value&quot;: false
+          },
+          {
+            &quot;idx&quot;: 2,
+            &quot;value&quot;: 219
+          },
+          {
+            &quot;idx&quot;: 6,
+            &quot;value&quot;: 152946
+          },
+          {
+            &quot;idx&quot;: 0,
+            &quot;value&quot;: true
+          },
+          {
+            &quot;idx&quot;: 5,
+            &quot;value&quot;: 0
+          }
+        ]
+      },
+      {
+        &quot;id&quot;: &quot;120416080507841538&quot;,
+        &quot;status&quot;: [
+          {
+            &quot;idx&quot;: 0,
+            &quot;value&quot;: true
+          },
+          {
+            &quot;idx&quot;: 1,
+            &quot;value&quot;: false
+          }
+        ]
+      }
+    ],
+    &quot;afterStatuses&quot;: [
+      {
+        &quot;id&quot;: &quot;118431939276353282&quot;,
+        &quot;status&quot;: [
+          {
+            &quot;idx&quot;: 3,
+            &quot;value&quot;: 0
+          },
+          {
+            &quot;idx&quot;: 4,
+            &quot;value&quot;: 0
+          },
+          {
+            &quot;idx&quot;: 1,
+            &quot;value&quot;: false
+          },
+          {
+            &quot;idx&quot;: 2,
+            &quot;value&quot;: 219
+          },
+          {
+            &quot;idx&quot;: 6,
+            &quot;value&quot;: 152946
+          },
+          {
+            &quot;idx&quot;: 0,
+            &quot;value&quot;: true
+          },
+          {
+            &quot;idx&quot;: 5,
+            &quot;value&quot;: 0
+          }
+        ]
+      },
+      {
+        &quot;id&quot;: &quot;120416080507841538&quot;,
+        &quot;status&quot;: [
+          {
+            &quot;idx&quot;: 0,
+            &quot;value&quot;: true
+          },
+          {
+            &quot;idx&quot;: 1,
+            &quot;value&quot;: true
+          }
+        ]
+      }
+    ],
+    &quot;outputMatched&quot;: false
+  }
+}</pre>
+        </details></td>
+        </tr></tbody>
+    </table>
+  </main>
+</body>
+</html>

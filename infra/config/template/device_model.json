@@ -1,0 +1,1868 @@
+[
+  {
+    "id": 1,
+    "model_id": "virtual",
+    "name": "switch 1 gang",
+    "manufacturer_id": "lumi",
+    "version": "1.0.0",
+    "cells": [
+      {
+        "name": "switch 1",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "touch_mode": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "model_id": "lumi.switch.1g",
+    "name": "switch 1 gang",
+    "manufacturer_id": "lumi",
+    "version": "1.0.0",
+    "cells": [
+      {
+        "name": "switch 1",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "touch_mode": {
+            "type": "number",
+            "sematic": {
+              "enum_variants": [0, 1, 2, 3]
+            }
+          },
+          "lock_touch": {
+            "type": "boolean"
+          },
+          "group_all": {
+            "type": "boolean"
+          },
+          "led_level": {
+            "type": "number"
+          },
+          "output_mode": {
+            "type": "number"
+          },
+          "delay": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "model_id": "lumi.switch.2g",
+    "name": "switch 2 gang",
+    "manufacturer_id": "lumi",
+    "version": "1.0.0",
+    "cells": [
+      {
+        "name": "switch 1",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "touch_mode": {
+            "type": "number",
+            "sematic": {
+              "enum_variants": [0, 1, 2, 3]
+            }
+          },
+          "lock_touch": {
+            "type": "boolean"
+          },
+          "group_all": {
+            "type": "boolean"
+          },
+          "led_level": {
+            "type": "number"
+          },
+          "output_mode": {
+            "type": "number"
+          },
+          "delay": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "switch 2",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "touch_mode": {
+            "type": "number",
+            "sematic": {
+              "enum_variants": [0, 1, 2, 3]
+            }
+          },
+          "lock_touch": {
+            "type": "boolean"
+          },
+          "group_all": {
+            "type": "boolean"
+          },
+          "led_level": {
+            "type": "number"
+          },
+          "output_mode": {
+            "type": "number"
+          },
+          "delay": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "model_id": "lumi.switch.3g",
+    "name": "switch 3 gang",
+    "manufacturer_id": "lumi",
+    "version": "1.0.0",
+    "cells": [
+      {
+        "name": "switch 1",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "touch_mode": {
+            "type": "number",
+            "sematic": {
+              "enum_variants": [0, 1, 2, 3]
+            }
+          },
+          "lock_touch": {
+            "type": "boolean"
+          },
+          "group_all": {
+            "type": "boolean"
+          },
+          "led_level": {
+            "type": "number"
+          },
+          "output_mode": {
+            "type": "number"
+          },
+          "delay": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "switch 2",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "touch_mode": {
+            "type": "number",
+            "sematic": {
+              "enum_variants": [0, 1, 2, 3]
+            }
+          },
+          "lock_touch": {
+            "type": "boolean"
+          },
+          "group_all": {
+            "type": "boolean"
+          },
+          "led_level": {
+            "type": "number"
+          },
+          "output_mode": {
+            "type": "number"
+          },
+          "delay": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "switch 3",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "touch_mode": {
+            "type": "number",
+            "sematic": {
+              "enum_variants": [0, 1, 2, 3]
+            }
+          },
+          "lock_touch": {
+            "type": "boolean"
+          },
+          "group_all": {
+            "type": "boolean"
+          },
+          "led_level": {
+            "type": "number"
+          },
+          "output_mode": {
+            "type": "number"
+          },
+          "delay": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "model_id": "lumi.switch.4g",
+    "name": "switch 4 gang",
+    "manufacturer_id": "lumi",
+    "version": "1.0.0",
+    "cells": [
+      {
+        "name": "switch 1",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "touch_mode": {
+            "type": "number",
+            "sematic": {
+              "enum_variants": [0, 1, 2, 3]
+            }
+          },
+          "lock_touch": {
+            "type": "boolean"
+          },
+          "group_all": {
+            "type": "boolean"
+          },
+          "led_level": {
+            "type": "number"
+          },
+          "output_mode": {
+            "type": "number"
+          },
+          "delay": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "switch 2",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "touch_mode": {
+            "type": "number",
+            "sematic": {
+              "enum_variants": [0, 1, 2, 3]
+            }
+          },
+          "lock_touch": {
+            "type": "boolean"
+          },
+          "group_all": {
+            "type": "boolean"
+          },
+          "led_level": {
+            "type": "number"
+          },
+          "output_mode": {
+            "type": "number"
+          },
+          "delay": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "switch 3",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "touch_mode": {
+            "type": "number",
+            "sematic": {
+              "enum_variants": [0, 1, 2, 3]
+            }
+          },
+          "lock_touch": {
+            "type": "boolean"
+          },
+          "group_all": {
+            "type": "boolean"
+          },
+          "led_level": {
+            "type": "number"
+          },
+          "output_mode": {
+            "type": "number"
+          },
+          "delay": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "switch 4",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "touch_mode": {
+            "type": "number",
+            "sematic": {
+              "enum_variants": [0, 1, 2, 3]
+            }
+          },
+          "lock_touch": {
+            "type": "boolean"
+          },
+          "group_all": {
+            "type": "boolean"
+          },
+          "led_level": {
+            "type": "number"
+          },
+          "output_mode": {
+            "type": "number"
+          },
+          "delay": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "model_id": "lumi.sensor.pir",
+    "name": "pir sensor",
+    "manufacturer_id": "lumi",
+    "version": "1.0.0",
+    "cells": [
+      {
+        "name": "pir",
+        "input": [],
+        "state": [
+          {
+            "idx": 0,
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "sensitivity": {
+            "type": "number",
+            "sematic": {
+              "unit": "percentage"
+            }
+          },
+          "time": {
+            "type": "number",
+            "sematic": {
+              "unit": "seconds",
+              "min": 10,
+              "max": 3600
+            }
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "luminance",
+        "input": [],
+        "state": [
+          {
+            "idx": 0,
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "lux"
+              }
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "lux"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "model_id": "lumi.sensor.presence",
+    "name": "presence sensor",
+    "manufacturer_id": "lumi",
+    "version": "1.0.0",
+    "cells": [
+      {
+        "name": "presence",
+        "input": [],
+        "state": [
+          {
+            "idx": 0,
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "sensitivity": {
+            "type": "number",
+            "sematic": {
+              "unit": "percentage"
+            }
+          },
+          "time": {
+            "type": "number",
+            "sematic": {
+              "unit": "seconds",
+              "min": 10,
+              "max": 3600
+            }
+          },
+          "presence_mode": {
+            "type": "enum",
+            "sematic": {
+              "enum_variant_names": ["pir & radars", "pir", "radars"]
+            }
+          },
+          "link_state": {
+            "type": "boolean"
+          },
+          "distance": {
+            "type": "number",
+            "sematic": {
+              "min": 75,
+              "max": 600,
+              "step": 75,
+              "unit": "centimeter"
+            }
+          },
+          "pir_time": {
+            "type": "number",
+            "sematic": {
+              "min": 0,
+              "max": 1800,
+              "step": 1
+            }
+          },
+          "environment_volatile": {
+            "type": "number",
+            "sematic": {
+              "min": 180,
+              "max": 14400,
+              "step": 1
+            }
+          },
+          "auto_calib": {
+            "type": "number",
+            "sematic": {
+              "min": 120,
+              "max": 600,
+              "step": 1
+            }
+          },
+          "lux_threshold": {
+            "type": "number",
+            "sematic": {
+              "min": 1,
+              "max": 65535,
+              "step": 1
+            }
+          },
+          "schedule": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      {
+        "name": "luminance",
+        "input": [],
+        "state": [
+          {
+            "idx": 0,
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "lux"
+              }
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "lux"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "output",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "group_ble": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "model_id": "lumi.lumesMSB.2g",
+    "manufacturer": "Lumi",
+    "mac_prefix": "A4C138",
+    "cells": [
+      {
+        "name": "scene switch 1",
+        "input": [],
+        "state": [
+          {
+            "idx": 0,
+            "name": "status",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "name": "action",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "action",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "action",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "configs": {
+          "name": {
+            "type": "string"
+          },
+          "lock_schedule": {
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "name": "scene switch 2",
+        "input": [],
+        "state": [
+          {
+            "idx": 0,
+            "name": "status",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "name": "action",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "action",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "action",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "configs": {
+          "name": {
+            "type": "string"
+          },
+          "lock_schedule": {
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "name": "switch 1",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "online status",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "name": "relay",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 2,
+            "name": "voltage",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "V",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 3,
+            "name": "current",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "mA",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 4,
+            "name": "power",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "W",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 5,
+            "name": "energy",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "Wh",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "name": {
+            "type": "string"
+          },
+          "state_default": {
+            "type": "number"
+          },
+          "group_all": {
+            "type": "boolean"
+          },
+          "touch_mode": {
+            "type": "number",
+            "sematic": {
+              "nullable": false,
+              "enum_variants": [0, 1, 2]
+            }
+          },
+          "delay": {
+            "type": "number"
+          },
+          "output_mode": {
+            "type": "number"
+          },
+          "lock_schedule": {
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "name": "switch 2",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "online status",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "name": "relay",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 2,
+            "name": "voltage",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "V",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 3,
+            "name": "current",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "mA",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 4,
+            "name": "power",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "W",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 5,
+            "name": "energy",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "Wh",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "name": {
+            "type": "string"
+          },
+          "state_default": {
+            "type": "number"
+          },
+          "group_all": {
+            "type": "boolean"
+          },
+          "touch_mode": {
+            "type": "number",
+            "sematic": {
+              "nullable": false,
+              "enum_variants": [0, 1, 2]
+            }
+          },
+          "delay": {
+            "type": "number"
+          },
+          "output_mode": {
+            "type": "number"
+          },
+          "lock_schedule": {
+            "type": "boolean"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "model_id": "lumi.lumesMSB.1g",
+    "manufacturer": "Lumi",
+    "mac_prefix": "A4C138",
+    "cells": [
+      {
+        "name": "scene switch 1",
+        "input": [],
+        "state": [
+          {
+            "idx": 0,
+            "name": "status",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "name": "action",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "action",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "action",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "configs": {
+          "name": {
+            "type": "string"
+          },
+          "lock_schedule": {
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "name": "switch 1",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "online status",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "name": "relay",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 2,
+            "name": "voltage",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "V",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 3,
+            "name": "current",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "mA",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 4,
+            "name": "power",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "W",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 5,
+            "name": "energy",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "Wh",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "name": {
+            "type": "string"
+          },
+          "state_default": {
+            "type": "number"
+          },
+          "group_all": {
+            "type": "boolean"
+          },
+          "touch_mode": {
+            "type": "number",
+            "sematic": {
+              "nullable": false,
+              "enum_variants": [0, 1, 2]
+            }
+          },
+          "delay": {
+            "type": "number"
+          },
+          "output_mode": {
+            "type": "number"
+          },
+          "lock_schedule": {
+            "type": "boolean"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "model_id": "lumi.lumesMSB.3g",
+    "manufacturer": "Lumi",
+    "mac_prefix": "A4C138",
+    "cells": [
+      {
+        "name": "scene switch 1",
+        "input": [],
+        "state": [
+          {
+            "idx": 0,
+            "name": "status",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "name": "action",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "action",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "action",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "configs": {
+          "name": {
+            "type": "string"
+          },
+          "lock_schedule": {
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "name": "scene switch 2",
+        "input": [],
+        "state": [
+          {
+            "idx": 0,
+            "name": "status",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "name": "action",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "action",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "action",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "configs": {
+          "name": {
+            "type": "string"
+          },
+          "lock_schedule": {
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "name": "scene switch 3",
+        "input": [],
+        "state": [
+          {
+            "idx": 0,
+            "name": "status",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "name": "action",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "action",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "action",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "configs": {
+          "name": {
+            "type": "string"
+          },
+          "lock_schedule": {
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "name": "switch 1",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "online status",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "name": "relay",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 2,
+            "name": "voltage",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "V",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 3,
+            "name": "current",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "mA",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 4,
+            "name": "power",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "W",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 5,
+            "name": "energy",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "Wh",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "name": {
+            "type": "string"
+          },
+          "state_default": {
+            "type": "number"
+          },
+          "group_all": {
+            "type": "boolean"
+          },
+          "touch_mode": {
+            "type": "number",
+            "sematic": {
+              "nullable": false,
+              "enum_variants": [0, 1, 2]
+            }
+          },
+          "delay": {
+            "type": "number"
+          },
+          "output_mode": {
+            "type": "number"
+          },
+          "lock_schedule": {
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "name": "switch 2",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "online status",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "name": "relay",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 2,
+            "name": "voltage",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "V",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 3,
+            "name": "current",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "mA",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 4,
+            "name": "power",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "W",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 5,
+            "name": "energy",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "Wh",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "name": {
+            "type": "string"
+          },
+          "state_default": {
+            "type": "number"
+          },
+          "group_all": {
+            "type": "boolean"
+          },
+          "touch_mode": {
+            "type": "number",
+            "sematic": {
+              "nullable": false,
+              "enum_variants": [0, 1, 2]
+            }
+          },
+          "delay": {
+            "type": "number"
+          },
+          "output_mode": {
+            "type": "number"
+          },
+          "lock_schedule": {
+            "type": "boolean"
+          }
+        }
+      },
+      {
+        "name": "switch 3",
+        "input": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "state": [
+          {
+            "idx": 0,
+            "name": "online status",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 1,
+            "name": "relay",
+            "data_type": {
+              "type": "boolean"
+            }
+          },
+          {
+            "idx": 2,
+            "name": "voltage",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "V",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 3,
+            "name": "current",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "mA",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 4,
+            "name": "power",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "W",
+                "nullable": false
+              }
+            }
+          },
+          {
+            "idx": 5,
+            "name": "energy",
+            "data_type": {
+              "type": "number",
+              "sematic": {
+                "unit": "Wh",
+                "nullable": false
+              }
+            }
+          }
+        ],
+        "output": [
+          {
+            "idx": 1,
+            "data_type": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "configs": {
+          "name": {
+            "type": "string"
+          },
+          "state_default": {
+            "type": "number"
+          },
+          "group_all": {
+            "type": "boolean"
+          },
+          "touch_mode": {
+            "type": "number",
+            "sematic": {
+              "nullable": false,
+              "enum_variants": [0, 1, 2]
+            }
+          },
+          "delay": {
+            "type": "number"
+          },
+          "output_mode": {
+            "type": "number"
+          },
+          "lock_schedule": {
+            "type": "boolean"
+          }
+        }
+      }
+    ]
+  }
+]
