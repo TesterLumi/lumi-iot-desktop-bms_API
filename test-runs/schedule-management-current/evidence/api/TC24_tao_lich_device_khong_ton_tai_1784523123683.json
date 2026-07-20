@@ -1,0 +1,40 @@
+{
+  "tc_id": "TC24",
+  "tc_name": "Tao lich device khong ton tai",
+  "status": "PASSED",
+  "started_at": "2026-07-20T04:52:03.642Z",
+  "finished_at": "2026-07-20T04:52:03.683Z",
+  "endpoints": {
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080",
+    "scheduler_base": "/api/devices/scheduler",
+    "device_status": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Set scheduler for non-existing device",
+      "method": "POST",
+      "endpoint": "/api/devices/scheduler/999999999999999999",
+      "request": [
+        {
+          "cron": "0 30 18 * * 1,2,3,4,5,6,7 *",
+          "enable": true,
+          "snapshot": {
+            "1": true
+          }
+        }
+      ],
+      "response_status": 400,
+      "response": null
+    }
+  ],
+  "assertions": [
+    "Device khong ton tai duoc kiem tra theo response backend thuc te"
+  ],
+  "cleanup": {
+    "scheduler_restored": false,
+    "scheduler_cleared": false,
+    "device_reset": false,
+    "warnings": []
+  }
+}

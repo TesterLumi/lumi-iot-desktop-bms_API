@@ -1,0 +1,1053 @@
+{
+  "tc_id": "TC9",
+  "tc_name": "Thiet bi ngoai khu vuc khong bi anh huong",
+  "status": "PASSED",
+  "started_at": "2026-07-20T04:23:27.561Z",
+  "finished_at": "2026-07-20T04:23:43.593Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "gateway_base_url": "http://10.10.0.198:8081",
+  "endpoints": {
+    "area_api_base": "/api/v0/areas",
+    "device_service_base": "http://10.10.0.198:3333",
+    "device_control_api": "/api/devices/control",
+    "device_status_api": "/api/devices/status",
+    "area_control_api": "/api/v0/areas"
+  },
+  "steps": [
+    {
+      "step": "List area devices",
+      "method": "GET",
+      "endpoint": "/api/v0/areas/e5e66538-b820-44c8-adc9-7b192c866787/devices?page=1&limit=100",
+      "response": {
+        "data": {
+          "items": [
+            {
+              "assigned_at": "2026-07-20T04:23:18.017028+00:00",
+              "child_points": null,
+              "device_code": null,
+              "device_id": "120416080507841538",
+              "device_name": "thiết bị_EA2C_2",
+              "device_status": false,
+              "pos_x": null,
+              "pos_y": null
+            },
+            {
+              "assigned_at": "2026-07-20T04:23:15.982543+00:00",
+              "child_points": null,
+              "device_code": null,
+              "device_id": "87903193043180544",
+              "device_name": "thiết bị_F61C_0",
+              "device_status": false,
+              "pos_x": null,
+              "pos_y": null
+            },
+            {
+              "assigned_at": "2026-07-20T04:23:15.982543+00:00",
+              "child_points": null,
+              "device_code": null,
+              "device_id": "87903193043180545",
+              "device_name": "thiết bị_F61C_1",
+              "device_status": false,
+              "pos_x": null,
+              "pos_y": null
+            },
+            {
+              "assigned_at": "2026-07-20T04:23:15.982543+00:00",
+              "child_points": null,
+              "device_code": null,
+              "device_id": "87903193043180546",
+              "device_name": "thiết bị_F61C_2",
+              "device_status": false,
+              "pos_x": null,
+              "pos_y": null
+            },
+            {
+              "assigned_at": "2026-07-20T04:23:15.982543+00:00",
+              "child_points": null,
+              "device_code": null,
+              "device_id": "87903193043180547",
+              "device_name": "thiết bị_F61C_3",
+              "device_status": false,
+              "pos_x": null,
+              "pos_y": null
+            }
+          ],
+          "limit": 100,
+          "page": 1,
+          "total": 5
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-20T04:23:25.825441034+00:00"
+      },
+      "status": 200,
+      "base_url": "http://10.10.0.198:3332/api"
+    },
+    {
+      "step": "Create automation area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas",
+      "request": {
+        "name": "auto_area_control_outside_guard_20260720042327_jp6w",
+        "parent_id": null
+      },
+      "response": {
+        "data": {
+          "code": "AREA-A2C4990B",
+          "created_at": "2026-07-20T04:23:25.928462+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "5b13a06e-4939-4a37-978b-ac2ab65c4f96",
+          "image_url": null,
+          "name": "auto_area_control_outside_guard_20260720042327_jp6w",
+          "parent_id": null,
+          "path": "AREA_A2C4990B",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-20T04:23:25.928462+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-20T04:23:25.931216399+00:00"
+      },
+      "status": 200,
+      "base_url": "http://10.10.0.198:3332/api"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=120416080507841538",
+      "response": [
+        {
+          "id": "120416080507841538",
+          "status": [
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Assign devices to automation area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/5b13a06e-4939-4a37-978b-ac2ab65c4f96/devices",
+      "request": {
+        "device_ids": [
+          "120416080507841538"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-20T04:23:26.061349226+00:00"
+      },
+      "status": 200,
+      "base_url": "http://10.10.0.198:3332/api"
+    },
+    {
+      "step": "List area devices",
+      "method": "GET",
+      "endpoint": "/api/v0/areas/5b13a06e-4939-4a37-978b-ac2ab65c4f96/devices?page=1&limit=100",
+      "response": {
+        "data": {
+          "items": [
+            {
+              "assigned_at": "2026-07-20T04:23:26.060010+00:00",
+              "child_points": null,
+              "device_code": null,
+              "device_id": "120416080507841538",
+              "device_name": "thiết bị_EA2C_2",
+              "device_status": false,
+              "pos_x": null,
+              "pos_y": null
+            }
+          ],
+          "limit": 100,
+          "page": 1,
+          "total": 1
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-20T04:23:26.165089537+00:00"
+      },
+      "status": 200,
+      "base_url": "http://10.10.0.198:3332/api"
+    },
+    {
+      "step": "Pre-set outside device OFF targets",
+      "response": {
+        "target_count": 1,
+        "target_ids": [
+          "87903193043180547"
+        ],
+        "value": false
+      }
+    },
+    {
+      "step": "Pre-set outside device OFF: control 87903193043180547",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "device_id": "87903193043180547",
+        "states": [
+          {
+            "idx": 1,
+            "value": false
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200,
+      "base_url": "http://10.10.0.198:8081"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Polling device status matched",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Inside temporary area ON targets",
+      "response": {
+        "target_count": 1,
+        "target_ids": [
+          "120416080507841538"
+        ],
+        "value": true
+      }
+    },
+    {
+      "step": "Inside temporary area ON: control 120416080507841538",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "device_id": "120416080507841538",
+        "states": [
+          {
+            "idx": 1,
+            "value": true
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200,
+      "base_url": "http://10.10.0.198:8081"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=120416080507841538",
+      "response": [
+        {
+          "id": "120416080507841538",
+          "status": [
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Polling device status matched",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=120416080507841538",
+      "response": [
+        {
+          "id": "120416080507841538",
+          "status": [
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Get device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "base_url": "http://10.10.30.154:8080"
+    },
+    {
+      "step": "Reset device to initial state",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "device_id": "120416080507841538",
+        "states": [
+          {
+            "idx": 1,
+            "value": true
+          },
+          {
+            "idx": 0,
+            "value": true
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200,
+      "base_url": "http://10.10.0.198:8081"
+    },
+    {
+      "step": "Reset device to initial state",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "device_id": "87903193043180547",
+        "states": [
+          {
+            "idx": 1,
+            "value": true
+          },
+          {
+            "idx": 0,
+            "value": true
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200,
+      "base_url": "http://10.10.0.198:8081"
+    },
+    {
+      "step": "Unassign devices from automation area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/5b13a06e-4939-4a37-978b-ac2ab65c4f96/devices",
+      "request": {
+        "device_ids": [
+          "120416080507841538"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-20T04:23:41.517067830+00:00"
+      },
+      "status": 200,
+      "base_url": "http://10.10.0.198:3332/api"
+    },
+    {
+      "step": "Delete automation area",
+      "method": "DELETE",
+      "endpoint": "/api/v0/areas/5b13a06e-4939-4a37-978b-ac2ab65c4f96",
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-20T04:23:41.634901951+00:00"
+      },
+      "status": 200,
+      "base_url": "http://10.10.0.198:3332/api"
+    },
+    {
+      "step": "Assign devices to automation area",
+      "method": "POST",
+      "endpoint": "/api/v0/areas/e5e66538-b820-44c8-adc9-7b192c866787/devices",
+      "request": {
+        "device_ids": [
+          "120416080507841538"
+        ]
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-20T04:23:41.745807711+00:00"
+      },
+      "status": 200,
+      "base_url": "http://10.10.0.198:3332/api"
+    }
+  ],
+  "assertions": [
+    "Pre-set outside device OFF: verified 1 device(s) slot 1 = false",
+    "Inside temporary area ON: verified 1 device(s) slot 1 = true",
+    "Device ngoai khu vuc 87903193043180547 khong bi doi trang thai"
+  ],
+  "hc_logs": [],
+  "cleanup": {
+    "device_reset": true,
+    "warnings": []
+  }
+}

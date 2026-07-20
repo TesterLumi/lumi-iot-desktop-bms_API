@@ -1,0 +1,24 @@
+{
+  "tc_id": "TC8",
+  "tc_name": "Dieu khien khu vuc co thiet bi offline",
+  "status": "SKIPPED",
+  "started_at": "2026-07-20T04:23:27.540Z",
+  "finished_at": "2026-07-20T04:23:27.541Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "gateway_base_url": "http://10.10.0.198:8081",
+  "endpoints": {
+    "area_api_base": "/api/v0/areas",
+    "device_service_base": "http://10.10.0.198:3333",
+    "device_control_api": "/api/devices/control",
+    "device_status_api": "/api/devices/status",
+    "area_control_api": "/api/v0/areas"
+  },
+  "steps": [],
+  "assertions": [],
+  "hc_logs": [],
+  "cleanup": {
+    "device_reset": false,
+    "warnings": []
+  },
+  "error_message": "Test is skipped: TEST_OFFLINE_DEVICE_ID is not configured"
+}

@@ -1,0 +1,52 @@
+{
+  "tc_id": "TC6",
+  "tc_name": "Khu vuc rong khong goi API control",
+  "status": "PASSED",
+  "started_at": "2026-07-20T04:23:19.896Z",
+  "finished_at": "2026-07-20T04:23:20.024Z",
+  "base_url": "http://10.10.0.198:3332/api",
+  "gateway_base_url": "http://10.10.0.198:8081",
+  "endpoints": {
+    "area_api_base": "/api/v0/areas",
+    "device_service_base": "http://10.10.0.198:3333",
+    "device_control_api": "/api/devices/control",
+    "device_status_api": "/api/devices/status",
+    "area_control_api": "/api/v0/areas"
+  },
+  "steps": [
+    {
+      "step": "List area devices",
+      "method": "GET",
+      "endpoint": "/api/v0/areas/70541be8-a07f-4ab3-87f4-5df4e7eb2f57/devices?page=1&limit=100",
+      "response": {
+        "data": {
+          "items": [],
+          "limit": 100,
+          "page": 1,
+          "total": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-20T04:23:18.159638033+00:00"
+      },
+      "status": 200,
+      "base_url": "http://10.10.0.198:3332/api"
+    },
+    {
+      "step": "Skip control API because empty area has no target devices",
+      "response": {
+        "area_id": "70541be8-a07f-4ab3-87f4-5df4e7eb2f57",
+        "device_count": 0,
+        "control_api_called": false
+      }
+    }
+  ],
+  "assertions": [
+    "Khu vuc rong khong goi API control"
+  ],
+  "hc_logs": [],
+  "cleanup": {
+    "device_reset": false,
+    "warnings": []
+  }
+}

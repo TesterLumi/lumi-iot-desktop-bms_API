@@ -1,0 +1,68 @@
+{
+  "tc_id": "TC12",
+  "tc_name": "Xoa toan bo lich cua thiet bi",
+  "status": "PASSED",
+  "started_at": "2026-07-20T04:45:22.710Z",
+  "finished_at": "2026-07-20T04:45:22.834Z",
+  "endpoints": {
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080",
+    "scheduler_base": "/api/devices/scheduler",
+    "device_status": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Set scheduler",
+      "method": "POST",
+      "endpoint": "/api/devices/scheduler/118431937308523266",
+      "request": [
+        {
+          "cron": "0 30 18 * * 1,2,3,4,5,6,7 *",
+          "enable": true,
+          "snapshot": {
+            "1": true
+          }
+        }
+      ],
+      "response_status": 200,
+      "response": {
+        "status": true
+      }
+    },
+    {
+      "step": "Get scheduler after save",
+      "method": "GET",
+      "endpoint": "/api/devices/scheduler/118431937308523266",
+      "response_status": 405,
+      "response": null
+    },
+    {
+      "step": "Set scheduler",
+      "method": "POST",
+      "endpoint": "/api/devices/scheduler/118431937308523266",
+      "request": [],
+      "response_status": 200,
+      "response": {
+        "status": true
+      }
+    },
+    {
+      "step": "Get scheduler after save",
+      "method": "GET",
+      "endpoint": "/api/devices/scheduler/118431937308523266",
+      "response_status": 405,
+      "response": null
+    }
+  ],
+  "assertions": [
+    "GET scheduler is not supported by this real HC contract, status=405",
+    "GET scheduler is not supported by this real HC contract, status=405",
+    "Scheduler cua thiet bi duoc xoa rong"
+  ],
+  "cleanup": {
+    "scheduler_restored": false,
+    "scheduler_cleared": false,
+    "device_reset": false,
+    "warnings": []
+  }
+}

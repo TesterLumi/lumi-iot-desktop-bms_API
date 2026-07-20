@@ -1,0 +1,81 @@
+{
+  "tc_id": "TC17",
+  "tc_name": "Lich van ton tai sau khi Home Controller restart",
+  "status": "PASSED",
+  "started_at": "2026-07-20T04:48:03.240Z",
+  "finished_at": "2026-07-20T04:50:05.047Z",
+  "endpoints": {
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080",
+    "scheduler_base": "/api/devices/scheduler",
+    "device_status": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Probe Home Controller SSH",
+      "method": "SSH",
+      "endpoint": "root@10.10.30.154",
+      "request": {
+        "auth_method": "private_key_passphrase",
+        "key_path": "C:\\Users\\thuyv\\Downloads\\key ssh\\hcg1_Lumi"
+      },
+      "response_status": 0,
+      "response": {
+        "ok": true,
+        "reason": "SSH probe succeeded",
+        "details": {
+          "exitCode": 0,
+          "stdout": "ok\nHCG2_2E4D\n/etc/init.d/S90service-manager\n",
+          "stderr": ""
+        }
+      }
+    },
+    {
+      "step": "Set scheduler",
+      "method": "POST",
+      "endpoint": "/api/devices/scheduler/118431937308523266",
+      "request": [
+        {
+          "cron": "0 50 11 * * 1,2,3,4,5,6,7 *",
+          "enable": true,
+          "snapshot": {
+            "1": true
+          }
+        }
+      ],
+      "response_status": 200,
+      "response": {
+        "status": true
+      }
+    },
+    {
+      "step": "Get scheduler after save",
+      "method": "GET",
+      "endpoint": "/api/devices/scheduler/118431937308523266",
+      "response_status": 405,
+      "response": null
+    },
+    {
+      "step": "Restart Home Controller via SSH",
+      "method": "SSH",
+      "endpoint": "root@10.10.30.154",
+      "request": "auto-detect S90process-manager/S90service-manager",
+      "response_status": 0,
+      "response": {
+        "stdout": "restart-dispatched\n",
+        "stderr": ""
+      }
+    }
+  ],
+  "assertions": [
+    "GET scheduler is not supported by this real HC contract, status=405",
+    "Home Controller online lai sau restart",
+    "Lich tao truoc restart van kich hoat device dung snapshot sau restart"
+  ],
+  "cleanup": {
+    "scheduler_restored": false,
+    "scheduler_cleared": false,
+    "device_reset": false,
+    "warnings": []
+  }
+}

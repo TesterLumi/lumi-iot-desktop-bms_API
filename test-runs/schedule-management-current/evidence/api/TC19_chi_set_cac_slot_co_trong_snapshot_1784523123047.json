@@ -1,0 +1,125 @@
+{
+  "tc_id": "TC19",
+  "tc_name": "Chi set cac slot co trong snapshot",
+  "status": "PASSED",
+  "started_at": "2026-07-20T04:51:03.125Z",
+  "finished_at": "2026-07-20T04:52:03.047Z",
+  "endpoints": {
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080",
+    "scheduler_base": "/api/devices/scheduler",
+    "device_status": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Set scheduler",
+      "method": "POST",
+      "endpoint": "/api/devices/scheduler/118431937308523266",
+      "request": [
+        {
+          "cron": "0 52 11 * * 1,2,3,4,5,6,7 *",
+          "enable": true,
+          "snapshot": {
+            "1": true
+          }
+        }
+      ],
+      "response_status": 200,
+      "response": {
+        "status": true
+      }
+    },
+    {
+      "step": "Get scheduler after save",
+      "method": "GET",
+      "endpoint": "/api/devices/scheduler/118431937308523266",
+      "response_status": 405,
+      "response": null
+    },
+    {
+      "step": "Compare multi-slot status before and after schedule",
+      "response": {
+        "before": [
+          {
+            "id": "118431937308523266",
+            "status": [
+              {
+                "idx": 1,
+                "value": true
+              },
+              {
+                "idx": 5,
+                "value": null
+              },
+              {
+                "idx": 6,
+                "value": 1037001
+              },
+              {
+                "idx": 2,
+                "value": 219.1
+              },
+              {
+                "idx": 4,
+                "value": 0
+              },
+              {
+                "idx": 0,
+                "value": true
+              },
+              {
+                "idx": 3,
+                "value": 0
+              }
+            ]
+          }
+        ],
+        "after": [
+          {
+            "id": "118431937308523266",
+            "status": [
+              {
+                "idx": 1,
+                "value": true
+              },
+              {
+                "idx": 5,
+                "value": null
+              },
+              {
+                "idx": 6,
+                "value": 1037001
+              },
+              {
+                "idx": 2,
+                "value": 219.5
+              },
+              {
+                "idx": 4,
+                "value": 0
+              },
+              {
+                "idx": 0,
+                "value": true
+              },
+              {
+                "idx": 3,
+                "value": 0
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "assertions": [
+    "GET scheduler is not supported by this real HC contract, status=405",
+    "Scheduler chi gui slot co trong snapshot, cac slot khac khong duoc dua vao payload lich"
+  ],
+  "cleanup": {
+    "scheduler_restored": false,
+    "scheduler_cleared": false,
+    "device_reset": false,
+    "warnings": []
+  }
+}

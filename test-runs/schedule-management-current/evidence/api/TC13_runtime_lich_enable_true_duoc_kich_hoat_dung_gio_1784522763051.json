@@ -1,0 +1,90 @@
+{
+  "tc_id": "TC13",
+  "tc_name": "Runtime lich enable=true duoc kich hoat dung gio",
+  "status": "PASSED",
+  "started_at": "2026-07-20T04:45:22.883Z",
+  "finished_at": "2026-07-20T04:46:03.051Z",
+  "endpoints": {
+    "device_control": "http://10.10.0.198:8081",
+    "hc_direct": "http://10.10.30.154:8080",
+    "scheduler_base": "/api/devices/scheduler",
+    "device_status": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Set scheduler",
+      "method": "POST",
+      "endpoint": "/api/devices/scheduler/118431937308523266",
+      "request": [
+        {
+          "cron": "0 46 11 * * 1,2,3,4,5,6,7 *",
+          "enable": true,
+          "snapshot": {
+            "1": true
+          }
+        }
+      ],
+      "response_status": 200,
+      "response": {
+        "status": true
+      }
+    },
+    {
+      "step": "Get scheduler after save",
+      "method": "GET",
+      "endpoint": "/api/devices/scheduler/118431937308523266",
+      "response_status": 405,
+      "response": null
+    },
+    {
+      "step": "Poll device status after cron due",
+      "method": "GET",
+      "endpoint": "/api/devices/status",
+      "response": [
+        {
+          "id": "118431937308523266",
+          "status": [
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 5,
+              "value": null
+            },
+            {
+              "idx": 6,
+              "value": null
+            },
+            {
+              "idx": 2,
+              "value": 214.7
+            },
+            {
+              "idx": 4,
+              "value": 0
+            },
+            {
+              "idx": 0,
+              "value": true
+            },
+            {
+              "idx": 3,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    "GET scheduler is not supported by this real HC contract, status=405",
+    "Device state doi sang true khi lich den han"
+  ],
+  "cleanup": {
+    "scheduler_restored": false,
+    "scheduler_cleared": false,
+    "device_reset": false,
+    "warnings": []
+  }
+}
