@@ -1,0 +1,51 @@
+{
+  "tc_id": "TC18",
+  "tc_name": "Khong cho them nhom voi device type khong hop le",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:16.286Z",
+  "finished_at": "2026-07-23T09:12:16.365Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Create lighting validation case",
+      "method": "POST",
+      "endpoint": "/api/v0/groups",
+      "request": {
+        "name": "auto_group_TC18_normal_20260723091210_96ir",
+        "type": "Lighting",
+        "device_ids": [
+          "118431937308523266"
+        ]
+      },
+      "response": {
+        "error": {
+          "code": "VALIDATION_ERROR",
+          "details": {
+            "reason": "Failed to deserialize the JSON body into the target type: type: unknown field `type`, expected one of `hc_id`, `device_type`, `name`, `icon`, `attr` at line 1 column 59"
+          },
+          "message": "Dữ liệu đầu vào không hợp lệ"
+        },
+        "success": false,
+        "timestamp": "2026-07-23T09:12:15.946838716+00:00"
+      },
+      "status": 400
+    }
+  ],
+  "assertions": [
+    "Lighting validation checked with real backend behavior"
+  ],
+  "cleanup": {
+    "group_deleted": false,
+    "device_reset": false,
+    "warnings": []
+  }
+}

@@ -1,0 +1,253 @@
+{
+  "tc_id": "TC87",
+  "tc_name": "Xoa mot thiet bi khoi group lighting",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:55.796Z",
+  "finished_at": "2026-07-23T09:12:56.023Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Create group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups",
+      "request": {
+        "hc_id": "4932308540097724437",
+        "device_type": 10000,
+        "name": "auto_group_TC87_lighting_20260723091255_h7ko",
+        "icon": "group-auto",
+        "attr": {
+          "automation_tc_id": "TC87",
+          "requested_type": "Lighting",
+          "requested_device_ids": [
+            "118431937308523266"
+          ]
+        }
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "id": "308953994263470343",
+          "hc_id": "4932308540097724437",
+          "hc": {
+            "id": "4932308540097724437",
+            "name": "Tester",
+            "mac": "88:e6:28:f8:2e:4d"
+          },
+          "area": null,
+          "device_type": {
+            "id": 10000,
+            "name": "Nhóm Lighting Công tắc",
+            "type": "group",
+            "sub_type": "lighting"
+          },
+          "name": "auto_group_TC87_lighting_20260723091255_h7ko",
+          "icon": "group-auto",
+          "spec": {
+            "input": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              },
+              {
+                "data_type": {
+                  "semantic": {
+                    "max": 100,
+                    "min": 0
+                  },
+                  "type": "number"
+                },
+                "idx": 2
+              }
+            ],
+            "name": "group lighting dimmer",
+            "state": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              },
+              {
+                "data_type": {
+                  "semantic": {
+                    "max": 100,
+                    "min": 0
+                  },
+                  "type": "number"
+                },
+                "idx": 2
+              }
+            ]
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8203;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+              },
+              {
+                "cell_ref": "input[2]",
+                "protocol_ref": "op=0x824C;type=u8;payload_tmpl={val:u8}_{tid}_00_00"
+              }
+            ]
+          },
+          "attr": {
+            "automation_tc_id": "TC87",
+            "requested_device_ids": [
+              "118431937308523266"
+            ],
+            "requested_type": "Lighting"
+          },
+          "mesh_group_index": 4,
+          "members": [],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:55.440627688+00:00"
+      },
+      "status": 201
+    },
+    {
+      "step": "Attach requested devices to group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups/308953994263470343/members",
+      "request": {
+        "device_ids": [
+          "118431937308523266"
+        ]
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "group_id": "308953994263470343",
+          "members": [
+            {
+              "cell_id": "118431937308523266",
+              "state": "activated"
+            }
+          ],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:55.487315889+00:00"
+      },
+      "status": 202
+    },
+    {
+      "step": "remove lighting members",
+      "method": "DELETE",
+      "endpoint": "/api/v0/groups/308953994263470343/members",
+      "request": {
+        "members": [
+          "118431937308523266"
+        ]
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "group_id": "308953994263470343",
+          "members": [
+            {
+              "cell_id": "118431937308523266",
+              "state": "removing"
+            }
+          ],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:55.532690746+00:00"
+      },
+      "status": 202
+    },
+    {
+      "step": "Cleanup group",
+      "method": "DELETE",
+      "endpoint": "/api/v0/groups/308953994263470343",
+      "status": 409,
+      "response": {
+        "error": {
+          "code": "IOT_GROUP_DELETE_CONFLICT",
+          "details": {
+            "reason": "cannot delete group while members or bindings are active or removing"
+          },
+          "message": "Không thể xóa nhóm khi còn member hoặc binding đang hoạt động hoặc đang xóa"
+        },
+        "success": false,
+        "timestamp": "2026-07-23T09:12:55.537915989+00:00"
+      }
+    },
+    {
+      "step": "Get group members before cleanup retry",
+      "method": "GET",
+      "endpoint": "/api/v0/groups/308953994263470343/members",
+      "response": {
+        "success": true,
+        "data": {
+          "items": [
+            {
+              "cell_id": "118431937308523266",
+              "state": "removing"
+            }
+          ],
+          "total": 1,
+          "page": 1,
+          "limit": 20
+        },
+        "timestamp": "2026-07-23T09:12:55.542284840+00:00"
+      },
+      "status": 200
+    },
+    {
+      "step": "Remove group members before cleanup retry",
+      "method": "POST",
+      "endpoint": "/api/v0/groups/308953994263470343/members",
+      "request": {
+        "members": [
+          "118431937308523266"
+        ]
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "group_id": "308953994263470343",
+          "members": [
+            {
+              "cell_id": "118431937308523266",
+              "state": "removed"
+            }
+          ],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:55.582795898+00:00"
+      },
+      "status": 202
+    },
+    {
+      "step": "Cleanup group retry after removing members",
+      "method": "DELETE",
+      "endpoint": "/api/v0/groups/308953994263470343",
+      "status": 200,
+      "response": {
+        "success": true,
+        "data": {
+          "status": true
+        },
+        "timestamp": "2026-07-23T09:12:55.611286929+00:00"
+      }
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": true,
+    "device_reset": false,
+    "warnings": []
+  }
+}

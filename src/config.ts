@@ -17,6 +17,29 @@ export const DEVICE_CONTROL_ENDPOINT =
 
 export const AUTOMATION_CLOUD_ENDPOINT = AUTOMATION_SERVICE_ENDPOINT
 
+export const GROUP_BASE_URL =
+  process.env.GROUP_BASE_URL ||
+  process.env.BASE_URL ||
+  DEVICE_SERVICE_ENDPOINT
+
+export const GROUP_API_BASE = process.env.GROUP_API_BASE || '/api/v0/groups'
+export const GROUP_AUTH_LOGIN_API =
+  process.env.GROUP_AUTH_LOGIN_API || '/api/v0/auth/login'
+export const GROUP_DEVICE_CONTROL_API =
+  process.env.GROUP_DEVICE_CONTROL_API ||
+  process.env.DEVICE_CONTROL_API ||
+  '/api/devices/control'
+export const GROUP_DEVICE_STATUS_API =
+  process.env.GROUP_DEVICE_STATUS_API ||
+  process.env.DEVICE_STATUS_API ||
+  '/api/devices/status'
+export const GROUP_HC_API_BASE =
+  process.env.GROUP_HC_API_BASE || process.env.HC_GROUP_API_BASE || '/api/groups'
+export const GROUP_ALLOW_DEVICE_CONTROL =
+  process.env.GROUP_ALLOW_DEVICE_CONTROL === 'true' ||
+  process.env.AUTOMATION_ALLOW_DEVICE_CONTROL === 'true'
+export const GROUP_REQUIRE_AUTH = process.env.GROUP_REQUIRE_AUTH === 'true'
+
 export const AUTOMATION_HC_ID =
   process.env.AUTOMATION_HC_ID || '4932308540097724437'
 

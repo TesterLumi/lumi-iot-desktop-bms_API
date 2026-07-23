@@ -1,0 +1,306 @@
+{
+  "tc_id": "TC81",
+  "tc_name": "Xoa nhieu group lighting thanh cong",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:54.711Z",
+  "finished_at": "2026-07-23T09:12:54.867Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Create group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups",
+      "request": {
+        "hc_id": "4932308540097724437",
+        "device_type": 10000,
+        "name": "auto_group_TC81_a_lighting_20260723091254_alqs",
+        "icon": "group-auto",
+        "attr": {
+          "automation_tc_id": "TC81_a",
+          "requested_type": "Lighting",
+          "requested_device_ids": []
+        }
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "id": "308953994179587521",
+          "hc_id": "4932308540097724437",
+          "hc": {
+            "id": "4932308540097724437",
+            "name": "Tester",
+            "mac": "88:e6:28:f8:2e:4d"
+          },
+          "area": null,
+          "device_type": {
+            "id": 10000,
+            "name": "Nhóm Lighting Công tắc",
+            "type": "group",
+            "sub_type": "lighting"
+          },
+          "name": "auto_group_TC81_a_lighting_20260723091254_alqs",
+          "icon": "group-auto",
+          "spec": {
+            "input": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              },
+              {
+                "data_type": {
+                  "semantic": {
+                    "max": 100,
+                    "min": 0
+                  },
+                  "type": "number"
+                },
+                "idx": 2
+              }
+            ],
+            "name": "group lighting dimmer",
+            "state": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              },
+              {
+                "data_type": {
+                  "semantic": {
+                    "max": 100,
+                    "min": 0
+                  },
+                  "type": "number"
+                },
+                "idx": 2
+              }
+            ]
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8203;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+              },
+              {
+                "cell_ref": "input[2]",
+                "protocol_ref": "op=0x824C;type=u8;payload_tmpl={val:u8}_{tid}_00_00"
+              }
+            ]
+          },
+          "attr": {
+            "automation_tc_id": "TC81_a",
+            "requested_device_ids": [],
+            "requested_type": "Lighting"
+          },
+          "mesh_group_index": 4,
+          "members": [],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:54.356493219+00:00"
+      },
+      "status": 201
+    },
+    {
+      "step": "Create group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups",
+      "request": {
+        "hc_id": "4932308540097724437",
+        "device_type": 10000,
+        "name": "auto_group_TC81_b_lighting_20260723091254_r967",
+        "icon": "group-auto",
+        "attr": {
+          "automation_tc_id": "TC81_b",
+          "requested_type": "Lighting",
+          "requested_device_ids": []
+        }
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "id": "308953994240065355",
+          "hc_id": "4932308540097724437",
+          "hc": {
+            "id": "4932308540097724437",
+            "name": "Tester",
+            "mac": "88:e6:28:f8:2e:4d"
+          },
+          "area": null,
+          "device_type": {
+            "id": 10000,
+            "name": "Nhóm Lighting Công tắc",
+            "type": "group",
+            "sub_type": "lighting"
+          },
+          "name": "auto_group_TC81_b_lighting_20260723091254_r967",
+          "icon": "group-auto",
+          "spec": {
+            "input": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              },
+              {
+                "data_type": {
+                  "semantic": {
+                    "max": 100,
+                    "min": 0
+                  },
+                  "type": "number"
+                },
+                "idx": 2
+              }
+            ],
+            "name": "group lighting dimmer",
+            "state": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              },
+              {
+                "data_type": {
+                  "semantic": {
+                    "max": 100,
+                    "min": 0
+                  },
+                  "type": "number"
+                },
+                "idx": 2
+              }
+            ]
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8203;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+              },
+              {
+                "cell_ref": "input[2]",
+                "protocol_ref": "op=0x824C;type=u8;payload_tmpl={val:u8}_{tid}_00_00"
+              }
+            ]
+          },
+          "attr": {
+            "automation_tc_id": "TC81_b",
+            "requested_device_ids": [],
+            "requested_type": "Lighting"
+          },
+          "mesh_group_index": 6,
+          "members": [],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:54.419507480+00:00"
+      },
+      "status": 201
+    },
+    {
+      "step": "Get lighting group bindings before batch delete",
+      "method": "GET",
+      "endpoint": "/api/v0/groups/308953994179587521/bindings?page=1&limit=100&state=pending&state=activated&state=failed&state=removing",
+      "response": {
+        "success": true,
+        "data": {
+          "items": [],
+          "total": 0,
+          "page": 1,
+          "limit": 100
+        },
+        "timestamp": "2026-07-23T09:12:54.426686065+00:00"
+      },
+      "status": 200
+    },
+    {
+      "step": "Get lighting group members before batch delete",
+      "method": "GET",
+      "endpoint": "/api/v0/groups/308953994179587521/members?page=1&limit=100&state=pending&state=activated&state=failed&state=removing",
+      "response": {
+        "success": true,
+        "data": {
+          "items": [],
+          "total": 0,
+          "page": 1,
+          "limit": 100
+        },
+        "timestamp": "2026-07-23T09:12:54.431390953+00:00"
+      },
+      "status": 200
+    },
+    {
+      "step": "Get lighting group bindings before batch delete",
+      "method": "GET",
+      "endpoint": "/api/v0/groups/308953994240065355/bindings?page=1&limit=100&state=pending&state=activated&state=failed&state=removing",
+      "response": {
+        "success": true,
+        "data": {
+          "items": [],
+          "total": 0,
+          "page": 1,
+          "limit": 100
+        },
+        "timestamp": "2026-07-23T09:12:54.437470553+00:00"
+      },
+      "status": 200
+    },
+    {
+      "step": "Get lighting group members before batch delete",
+      "method": "GET",
+      "endpoint": "/api/v0/groups/308953994240065355/members?page=1&limit=100&state=pending&state=activated&state=failed&state=removing",
+      "response": {
+        "success": true,
+        "data": {
+          "items": [],
+          "total": 0,
+          "page": 1,
+          "limit": 100
+        },
+        "timestamp": "2026-07-23T09:12:54.441881938+00:00"
+      },
+      "status": 200
+    },
+    {
+      "step": "Delete batch lighting groups",
+      "method": "DELETE",
+      "endpoint": "/api/v0/groups/delete-batch",
+      "request": {
+        "group_ids": [
+          "308953994179587521",
+          "308953994240065355"
+        ]
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "deleted_count": 2,
+          "failed_count": 0,
+          "errors": []
+        },
+        "timestamp": "2026-07-23T09:12:54.454504037+00:00"
+      },
+      "status": 200
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": true,
+    "device_reset": false,
+    "warnings": []
+  }
+}

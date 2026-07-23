@@ -1,0 +1,801 @@
+{
+  "tc_id": "TC69",
+  "tc_name": "Filter group lighting theo khu vuc",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:52.952Z",
+  "finished_at": "2026-07-23T09:12:53.111Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "List/filter lighting groups",
+      "method": "GET",
+      "endpoint": "/api/v0/groups?sub_type=lighting&area_id=undefined&page=1&limit=20",
+      "response": {
+        "success": true,
+        "data": {
+          "items": [
+            {
+              "id": "308953994858900200",
+              "hc_id": "4932308540097724437",
+              "hc": {
+                "id": "4932308540097724437",
+                "name": "Tester",
+                "mac": "88:e6:28:f8:2e:4d"
+              },
+              "area": null,
+              "device_type": {
+                "id": 10000,
+                "name": "Nhóm Lighting Công tắc",
+                "type": "group",
+                "sub_type": "lighting"
+              },
+              "name": "auto_group_TC93_lighting_20260723090048_ppl9",
+              "icon": "group-auto",
+              "spec": {
+                "input": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  },
+                  {
+                    "data_type": {
+                      "semantic": {
+                        "max": 100,
+                        "min": 0
+                      },
+                      "type": "number"
+                    },
+                    "idx": 2
+                  }
+                ],
+                "name": "group lighting dimmer",
+                "state": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  },
+                  {
+                    "data_type": {
+                      "semantic": {
+                        "max": 100,
+                        "min": 0
+                      },
+                      "type": "number"
+                    },
+                    "idx": 2
+                  }
+                ]
+              },
+              "profile": {
+                "encoder": [
+                  {
+                    "cell_ref": "input[1]",
+                    "protocol_ref": "op=0x8203;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+                  },
+                  {
+                    "cell_ref": "input[2]",
+                    "protocol_ref": "op=0x824C;type=u8;payload_tmpl={val:u8}_{tid}_00_00"
+                  }
+                ]
+              },
+              "attr": {
+                "automation_tc_id": "TC93",
+                "requested_device_ids": [],
+                "requested_type": "Lighting"
+              },
+              "mesh_group_index": 5,
+              "members": {},
+              "bindings": {
+                "activated": 1
+              }
+            },
+            {
+              "id": "308953994148900229",
+              "hc_id": "4932308540097724437",
+              "hc": {
+                "id": "4932308540097724437",
+                "name": "Tester",
+                "mac": "88:e6:28:f8:2e:4d"
+              },
+              "area": null,
+              "device_type": {
+                "id": 10000,
+                "name": "Nhóm Lighting Công tắc",
+                "type": "group",
+                "sub_type": "lighting"
+              },
+              "name": "auto_group_TC91_lighting_20260723090037_88xw",
+              "icon": "group-auto",
+              "spec": {
+                "input": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  },
+                  {
+                    "data_type": {
+                      "semantic": {
+                        "max": 100,
+                        "min": 0
+                      },
+                      "type": "number"
+                    },
+                    "idx": 2
+                  }
+                ],
+                "name": "group lighting dimmer",
+                "state": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  },
+                  {
+                    "data_type": {
+                      "semantic": {
+                        "max": 100,
+                        "min": 0
+                      },
+                      "type": "number"
+                    },
+                    "idx": 2
+                  }
+                ]
+              },
+              "profile": {
+                "encoder": [
+                  {
+                    "cell_ref": "input[1]",
+                    "protocol_ref": "op=0x8203;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+                  },
+                  {
+                    "cell_ref": "input[2]",
+                    "protocol_ref": "op=0x824C;type=u8;payload_tmpl={val:u8}_{tid}_00_00"
+                  }
+                ]
+              },
+              "attr": {
+                "automation_tc_id": "TC91",
+                "requested_device_ids": [],
+                "requested_type": "Lighting"
+              },
+              "mesh_group_index": 2,
+              "members": {},
+              "bindings": {
+                "activated": 1
+              }
+            },
+            {
+              "id": "308953993947283104",
+              "hc_id": "4932308540097724437",
+              "hc": {
+                "id": "4932308540097724437",
+                "name": "Tester",
+                "mac": "88:e6:28:f8:2e:4d"
+              },
+              "area": null,
+              "device_type": {
+                "id": 10000,
+                "name": "Nhóm Lighting Công tắc",
+                "type": "group",
+                "sub_type": "lighting"
+              },
+              "name": "auto_group_TC93_lighting_20260723083926_ddjo",
+              "icon": "group-auto",
+              "spec": {
+                "input": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  },
+                  {
+                    "data_type": {
+                      "semantic": {
+                        "max": 100,
+                        "min": 0
+                      },
+                      "type": "number"
+                    },
+                    "idx": 2
+                  }
+                ],
+                "name": "group lighting dimmer",
+                "state": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  },
+                  {
+                    "data_type": {
+                      "semantic": {
+                        "max": 100,
+                        "min": 0
+                      },
+                      "type": "number"
+                    },
+                    "idx": 2
+                  }
+                ]
+              },
+              "profile": {
+                "encoder": [
+                  {
+                    "cell_ref": "input[1]",
+                    "protocol_ref": "op=0x8203;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+                  },
+                  {
+                    "cell_ref": "input[2]",
+                    "protocol_ref": "op=0x824C;type=u8;payload_tmpl={val:u8}_{tid}_00_00"
+                  }
+                ]
+              },
+              "attr": {
+                "automation_tc_id": "TC93",
+                "requested_device_ids": [],
+                "requested_type": "Lighting"
+              },
+              "mesh_group_index": 3,
+              "members": {},
+              "bindings": {
+                "activated": 1
+              }
+            },
+            {
+              "id": "308953994481499071",
+              "hc_id": "4932308540097724437",
+              "hc": {
+                "id": "4932308540097724437",
+                "name": "Tester",
+                "mac": "88:e6:28:f8:2e:4d"
+              },
+              "area": null,
+              "device_type": {
+                "id": 10000,
+                "name": "Nhóm Lighting Công tắc",
+                "type": "group",
+                "sub_type": "lighting"
+              },
+              "name": "auto_group_TC91_lighting_20260723083916_7lq1",
+              "icon": "group-auto",
+              "spec": {
+                "input": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  },
+                  {
+                    "data_type": {
+                      "semantic": {
+                        "max": 100,
+                        "min": 0
+                      },
+                      "type": "number"
+                    },
+                    "idx": 2
+                  }
+                ],
+                "name": "group lighting dimmer",
+                "state": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  },
+                  {
+                    "data_type": {
+                      "semantic": {
+                        "max": 100,
+                        "min": 0
+                      },
+                      "type": "number"
+                    },
+                    "idx": 2
+                  }
+                ]
+              },
+              "profile": {
+                "encoder": [
+                  {
+                    "cell_ref": "input[1]",
+                    "protocol_ref": "op=0x8203;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+                  },
+                  {
+                    "cell_ref": "input[2]",
+                    "protocol_ref": "op=0x824C;type=u8;payload_tmpl={val:u8}_{tid}_00_00"
+                  }
+                ]
+              },
+              "attr": {
+                "automation_tc_id": "TC91",
+                "requested_device_ids": [],
+                "requested_type": "Lighting"
+              },
+              "mesh_group_index": 1,
+              "members": {},
+              "bindings": {
+                "activated": 1
+              }
+            },
+            {
+              "id": "312191246965906083",
+              "hc_id": "5476913196169462051",
+              "hc": {
+                "id": "5476913196169462051",
+                "name": "Thuy",
+                "mac": "98:03:cf:11:66:a9"
+              },
+              "area": null,
+              "device_type": {
+                "id": 10000,
+                "name": "Nhóm Lighting Công tắc",
+                "type": "group",
+                "sub_type": "lighting"
+              },
+              "name": "Lighting",
+              "icon": "lighting_downlight",
+              "spec": {
+                "input": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  },
+                  {
+                    "data_type": {
+                      "semantic": {
+                        "max": 100,
+                        "min": 0
+                      },
+                      "type": "number"
+                    },
+                    "idx": 2
+                  }
+                ],
+                "name": "group lighting dimmer",
+                "state": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  },
+                  {
+                    "data_type": {
+                      "semantic": {
+                        "max": 100,
+                        "min": 0
+                      },
+                      "type": "number"
+                    },
+                    "idx": 2
+                  }
+                ]
+              },
+              "profile": {
+                "encoder": [
+                  {
+                    "cell_ref": "input[1]",
+                    "protocol_ref": "op=0x8203;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+                  },
+                  {
+                    "cell_ref": "input[2]",
+                    "protocol_ref": "op=0x824C;type=u8;payload_tmpl={val:u8}_{tid}_00_00"
+                  }
+                ]
+              },
+              "attr": {
+                "transition_ms": 1000
+              },
+              "mesh_group_index": 2,
+              "members": {
+                "activated": 3,
+                "removed": 1
+              },
+              "bindings": {}
+            },
+            {
+              "id": "308953994354406089",
+              "hc_id": "4932308540097724437",
+              "hc": {
+                "id": "4932308540097724437",
+                "name": "Tester",
+                "mac": "88:e6:28:f8:2e:4d"
+              },
+              "area": null,
+              "device_type": {
+                "id": 9999,
+                "name": "BLE Group",
+                "type": "group",
+                "sub_type": "lighting"
+              },
+              "name": "BLE_2E4D",
+              "icon": "",
+              "spec": {
+                "input": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ],
+                "name": "onoff",
+                "output": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ],
+                "state": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ]
+              },
+              "profile": {
+                "encoder": [
+                  {
+                    "cell_ref": "input[1]",
+                    "protocol_ref": "op=0x8203;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+                  }
+                ]
+              },
+              "attr": null,
+              "mesh_group_index": 0,
+              "members": {},
+              "bindings": {}
+            },
+            {
+              "id": "312191246731390010",
+              "hc_id": "5476913196169462051",
+              "hc": {
+                "id": "5476913196169462051",
+                "name": "Thuy",
+                "mac": "98:03:cf:11:66:a9"
+              },
+              "area": null,
+              "device_type": {
+                "id": 10000,
+                "name": "Nhóm Lighting Công tắc",
+                "type": "group",
+                "sub_type": "lighting"
+              },
+              "name": "thuy lighting",
+              "icon": "lighting_droplight_1",
+              "spec": {
+                "input": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  },
+                  {
+                    "data_type": {
+                      "semantic": {
+                        "max": 100,
+                        "min": 0
+                      },
+                      "type": "number"
+                    },
+                    "idx": 2
+                  }
+                ],
+                "name": "group lighting dimmer",
+                "state": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  },
+                  {
+                    "data_type": {
+                      "semantic": {
+                        "max": 100,
+                        "min": 0
+                      },
+                      "type": "number"
+                    },
+                    "idx": 2
+                  }
+                ]
+              },
+              "profile": {
+                "encoder": [
+                  {
+                    "cell_ref": "input[1]",
+                    "protocol_ref": "op=0x8203;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+                  },
+                  {
+                    "cell_ref": "input[2]",
+                    "protocol_ref": "op=0x824C;type=u8;payload_tmpl={val:u8}_{tid}_00_00"
+                  }
+                ]
+              },
+              "attr": {
+                "transition_ms": 2000
+              },
+              "mesh_group_index": 1,
+              "members": {
+                "removed": 3,
+                "removing": 2
+              },
+              "bindings": {
+                "removed": 5
+              }
+            },
+            {
+              "id": "308883752677884189",
+              "hc_id": "4932308540097659019",
+              "hc": {
+                "id": "4932308540097659019",
+                "name": "QUYND",
+                "mac": "88:e6:28:f8:2e:4b"
+              },
+              "area": null,
+              "device_type": {
+                "id": 9999,
+                "name": "BLE Group",
+                "type": "group",
+                "sub_type": "lighting"
+              },
+              "name": "BLE_2E4B",
+              "icon": "",
+              "spec": {
+                "input": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ],
+                "name": "onoff",
+                "output": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ],
+                "state": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ]
+              },
+              "profile": {
+                "encoder": [
+                  {
+                    "cell_ref": "input[1]",
+                    "protocol_ref": "op=0x8203;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+                  }
+                ]
+              },
+              "attr": null,
+              "mesh_group_index": 0,
+              "members": {},
+              "bindings": {}
+            },
+            {
+              "id": "319298326912383603",
+              "hc_id": "972665919261737099",
+              "hc": {
+                "id": "972665919261737099",
+                "name": "HC HiêuNM",
+                "mac": "1a:ff:35:00:15:73"
+              },
+              "area": null,
+              "device_type": {
+                "id": 9999,
+                "name": "BLE Group",
+                "type": "group",
+                "sub_type": "lighting"
+              },
+              "name": "BLE_1573",
+              "icon": "",
+              "spec": {
+                "input": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ],
+                "name": "onoff",
+                "output": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ],
+                "state": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ]
+              },
+              "profile": {
+                "encoder": [
+                  {
+                    "cell_ref": "input[1]",
+                    "protocol_ref": "op=0x8203;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+                  }
+                ]
+              },
+              "attr": null,
+              "mesh_group_index": 0,
+              "members": {},
+              "bindings": {}
+            },
+            {
+              "id": "320529893577482275",
+              "hc_id": "9084295406225654005",
+              "hc": {
+                "id": "9084295406225654005",
+                "name": "Pp",
+                "mac": "fc:23:cd:15:25:96"
+              },
+              "area": null,
+              "device_type": {
+                "id": 9999,
+                "name": "BLE Group",
+                "type": "group",
+                "sub_type": "lighting"
+              },
+              "name": "group ble default",
+              "icon": "",
+              "spec": {
+                "input": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ],
+                "name": "onoff",
+                "output": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ],
+                "state": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ]
+              },
+              "profile": {
+                "encoder": [
+                  {
+                    "cell_ref": "input[1]",
+                    "protocol_ref": "op=0x8203;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+                  }
+                ]
+              },
+              "attr": null,
+              "mesh_group_index": 0,
+              "members": {},
+              "bindings": {}
+            },
+            {
+              "id": "312191246073542365",
+              "hc_id": "5476913196169462051",
+              "hc": {
+                "id": "5476913196169462051",
+                "name": "Thuy",
+                "mac": "98:03:cf:11:66:a9"
+              },
+              "area": null,
+              "device_type": {
+                "id": 9999,
+                "name": "BLE Group",
+                "type": "group",
+                "sub_type": "lighting"
+              },
+              "name": "BLE_66A9",
+              "icon": "",
+              "spec": {
+                "input": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ],
+                "name": "onoff",
+                "output": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ],
+                "state": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ]
+              },
+              "profile": {
+                "encoder": [
+                  {
+                    "cell_ref": "input[1]",
+                    "protocol_ref": "op=0x8203;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+                  }
+                ]
+              },
+              "attr": null,
+              "mesh_group_index": 0,
+              "members": {},
+              "bindings": {}
+            }
+          ],
+          "total": 11,
+          "page": 1,
+          "limit": 20
+        },
+        "timestamp": "2026-07-23T09:12:52.696305573+00:00"
+      },
+      "status": 200
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": false,
+    "device_reset": false,
+    "warnings": []
+  }
+}

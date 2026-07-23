@@ -1,0 +1,160 @@
+{
+  "tc_id": "TC35",
+  "tc_name": "Lay danh sach thiet bi trong nhom",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:21.831Z",
+  "finished_at": "2026-07-23T09:12:22.338Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Create group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups",
+      "request": {
+        "device_type": 10001,
+        "name": "auto_group_TC35_normal_20260723091221_0dh5",
+        "icon": "group-auto",
+        "attr": {
+          "automation_tc_id": "TC35",
+          "requested_type": "Normal",
+          "requested_device_ids": [
+            "118431937308523266"
+          ]
+        }
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "id": "288230377754512347",
+          "hc_id": null,
+          "hc": null,
+          "area": null,
+          "device_type": {
+            "id": 10001,
+            "name": "Nhóm thường Công tắc",
+            "type": "group",
+            "sub_type": "normal"
+          },
+          "name": "auto_group_TC35_normal_20260723091221_0dh5",
+          "icon": "group-auto",
+          "spec": {
+            "input": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "name": "group normal onoff",
+            "output": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "state": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ]
+          },
+          "profile": {},
+          "attr": {
+            "automation_tc_id": "TC35",
+            "requested_device_ids": [
+              "118431937308523266"
+            ],
+            "requested_type": "Normal"
+          },
+          "enable": true,
+          "members": [],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:21.559131121+00:00"
+      },
+      "status": 201
+    },
+    {
+      "step": "Attach requested devices to group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups/288230377754512347/members",
+      "request": {
+        "device_ids": [
+          "118431937308523266"
+        ]
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "group_id": "288230377754512347",
+          "members": [
+            {
+              "cell_id": "118431937308523266",
+              "state": "activated"
+            }
+          ],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:21.696791665+00:00"
+      },
+      "status": 202
+    },
+    {
+      "step": "List devices in normal group",
+      "method": "GET",
+      "endpoint": "/api/v0/groups/288230377754512347/members?page=1&limit=20",
+      "response": {
+        "success": true,
+        "data": {
+          "items": [
+            {
+              "cell_id": "118431937308523266",
+              "state": "activated"
+            }
+          ],
+          "total": 1,
+          "page": 1,
+          "limit": 20
+        },
+        "timestamp": "2026-07-23T09:12:21.800005150+00:00"
+      },
+      "status": 200
+    },
+    {
+      "step": "Cleanup group",
+      "method": "DELETE",
+      "endpoint": "/api/v0/groups/288230377754512347",
+      "status": 200,
+      "response": {
+        "success": true,
+        "data": {
+          "status": true
+        },
+        "timestamp": "2026-07-23T09:12:21.922401329+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Group members API returns device list with pagination fields when available"
+  ],
+  "cleanup": {
+    "group_deleted": true,
+    "device_reset": false,
+    "warnings": []
+  }
+}

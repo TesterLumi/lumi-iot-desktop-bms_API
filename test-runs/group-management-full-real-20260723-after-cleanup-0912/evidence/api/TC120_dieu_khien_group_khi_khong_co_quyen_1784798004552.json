@@ -1,0 +1,25 @@
+{
+  "tc_id": "TC120",
+  "tc_name": "Dieu khien group khi khong co quyen",
+  "status": "SKIPPED",
+  "started_at": "2026-07-23T09:13:24.551Z",
+  "finished_at": "2026-07-23T09:13:24.552Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": false,
+    "device_reset": false,
+    "warnings": []
+  },
+  "error_message": "Test is skipped: Viewer or no-permission token is required"
+}

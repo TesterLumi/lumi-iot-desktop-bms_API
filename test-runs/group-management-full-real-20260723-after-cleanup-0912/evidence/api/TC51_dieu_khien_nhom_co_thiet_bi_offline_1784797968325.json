@@ -1,0 +1,25 @@
+{
+  "tc_id": "TC51",
+  "tc_name": "Dieu khien nhom co thiet bi offline",
+  "status": "SKIPPED",
+  "started_at": "2026-07-23T09:12:48.324Z",
+  "finished_at": "2026-07-23T09:12:48.325Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": false,
+    "device_reset": false,
+    "warnings": []
+  },
+  "error_message": "Test is skipped: SKIP_WITH_REASON: Chua co fixture an toan de dua thiet bi that ve offline trong moi truong HC that"
+}

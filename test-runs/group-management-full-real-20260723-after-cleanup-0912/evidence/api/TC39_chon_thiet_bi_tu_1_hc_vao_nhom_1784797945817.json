@@ -1,0 +1,425 @@
+{
+  "tc_id": "TC39",
+  "tc_name": "Chon thiet bi tu 1 HC vao nhom",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:24.923Z",
+  "finished_at": "2026-07-23T09:12:25.817Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Create group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups",
+      "request": {
+        "device_type": 10001,
+        "name": "auto_group_TC39_normal_20260723091224_66s3",
+        "icon": "group-auto",
+        "attr": {
+          "automation_tc_id": "TC39",
+          "requested_type": "Normal",
+          "requested_device_ids": [
+            "118431937308523266",
+            "118431937308523267"
+          ]
+        }
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "id": "288230377845266465",
+          "hc_id": null,
+          "hc": null,
+          "area": null,
+          "device_type": {
+            "id": 10001,
+            "name": "Nhóm thường Công tắc",
+            "type": "group",
+            "sub_type": "normal"
+          },
+          "name": "auto_group_TC39_normal_20260723091224_66s3",
+          "icon": "group-auto",
+          "spec": {
+            "input": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "name": "group normal onoff",
+            "output": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "state": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ]
+          },
+          "profile": {},
+          "attr": {
+            "automation_tc_id": "TC39",
+            "requested_device_ids": [
+              "118431937308523266",
+              "118431937308523267"
+            ],
+            "requested_type": "Normal"
+          },
+          "enable": true,
+          "members": [],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:24.652172907+00:00"
+      },
+      "status": 201
+    },
+    {
+      "step": "Attach requested devices to group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups/288230377845266465/members",
+      "request": {
+        "device_ids": [
+          "118431937308523266",
+          "118431937308523267"
+        ]
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "group_id": "288230377845266465",
+          "members": [
+            {
+              "cell_id": "118431937308523266",
+              "state": "activated"
+            },
+            {
+              "cell_id": "118431937308523267",
+              "state": "activated"
+            }
+          ],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:24.767041778+00:00"
+      },
+      "status": 202
+    },
+    {
+      "step": "Get initial device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status",
+      "response": [
+        {
+          "id": "118431937308523267",
+          "status": [
+            {
+              "idx": 0,
+              "value": true
+            },
+            {
+              "idx": 2,
+              "value": 221.6
+            },
+            {
+              "idx": 4,
+              "value": 0
+            },
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 3,
+              "value": 0
+            },
+            {
+              "idx": 5,
+              "value": 0
+            },
+            {
+              "idx": 6,
+              "value": 1025254
+            }
+          ]
+        },
+        {
+          "id": "118431937308523266",
+          "status": [
+            {
+              "idx": 6,
+              "value": 1076158
+            },
+            {
+              "idx": 0,
+              "value": true
+            },
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 2,
+              "value": 221.2
+            },
+            {
+              "idx": 3,
+              "value": 0
+            },
+            {
+              "idx": 5,
+              "value": 0
+            },
+            {
+              "idx": 4,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": "Control group mode=device_fallback",
+      "method": "POST",
+      "endpoint": "/api/v0/groups/288230377845266465/control",
+      "request": {
+        "states": [
+          {
+            "idx": 1,
+            "value": true
+          }
+        ]
+      },
+      "response": null,
+      "status": 404
+    },
+    {
+      "step": "Fallback control device",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "states": [
+          {
+            "idx": 1,
+            "value": true
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    },
+    {
+      "step": "Fallback control device",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "states": [
+          {
+            "idx": 1,
+            "value": true
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    },
+    {
+      "step": "Get device status after group control",
+      "method": "GET",
+      "endpoint": "/api/devices/status",
+      "response": [
+        {
+          "id": "118431937308523267",
+          "status": [
+            {
+              "idx": 0,
+              "value": true
+            },
+            {
+              "idx": 2,
+              "value": 221.6
+            },
+            {
+              "idx": 4,
+              "value": 0
+            },
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 3,
+              "value": 0
+            },
+            {
+              "idx": 5,
+              "value": 0
+            },
+            {
+              "idx": 6,
+              "value": 1025254
+            }
+          ]
+        },
+        {
+          "id": "118431937308523266",
+          "status": [
+            {
+              "idx": 6,
+              "value": 1076158
+            },
+            {
+              "idx": 0,
+              "value": true
+            },
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 2,
+              "value": 221.2
+            },
+            {
+              "idx": 3,
+              "value": 0
+            },
+            {
+              "idx": 5,
+              "value": 0
+            },
+            {
+              "idx": 4,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "step": "Reset device state",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "device_id": "118431937308523266",
+        "states": [
+          {
+            "idx": 6,
+            "value": 1076158
+          },
+          {
+            "idx": 0,
+            "value": true
+          },
+          {
+            "idx": 1,
+            "value": true
+          },
+          {
+            "idx": 2,
+            "value": 221.2
+          },
+          {
+            "idx": 3,
+            "value": 0
+          },
+          {
+            "idx": 5,
+            "value": 0
+          },
+          {
+            "idx": 4,
+            "value": 0
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    },
+    {
+      "step": "Reset device state",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "device_id": "118431937308523267",
+        "states": [
+          {
+            "idx": 0,
+            "value": true
+          },
+          {
+            "idx": 2,
+            "value": 221.6
+          },
+          {
+            "idx": 4,
+            "value": 0
+          },
+          {
+            "idx": 1,
+            "value": true
+          },
+          {
+            "idx": 3,
+            "value": 0
+          },
+          {
+            "idx": 5,
+            "value": 0
+          },
+          {
+            "idx": 6,
+            "value": 1025254
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    },
+    {
+      "step": "Cleanup group",
+      "method": "DELETE",
+      "endpoint": "/api/v0/groups/288230377845266465",
+      "status": 200,
+      "response": {
+        "success": true,
+        "data": {
+          "status": true
+        },
+        "timestamp": "2026-07-23T09:12:25.401633460+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "All devices have slot 1=true after group control"
+  ],
+  "cleanup": {
+    "group_deleted": true,
+    "device_reset": true,
+    "warnings": []
+  }
+}

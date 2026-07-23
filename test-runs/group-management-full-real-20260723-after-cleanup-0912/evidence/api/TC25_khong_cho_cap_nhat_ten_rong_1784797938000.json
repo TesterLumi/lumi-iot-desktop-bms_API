@@ -1,0 +1,45 @@
+{
+  "tc_id": "TC25",
+  "tc_name": "Khong cho cap nhat ten rong",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:17.919Z",
+  "finished_at": "2026-07-23T09:12:18.000Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Update invalid group",
+      "method": "PATCH",
+      "endpoint": "/api/v0/groups/abc",
+      "request": {
+        "name": "auto_group_TC25_normal_20260723091210_vle1"
+      },
+      "response": {
+        "error": {
+          "code": "VALIDATION_ERROR",
+          "details": {
+            "reason": "Invalid URL: Cannot parse `abc` to a `u64`"
+          },
+          "message": "Dữ liệu đầu vào không hợp lệ"
+        },
+        "success": false,
+        "timestamp": "2026-07-23T09:12:17.583767125+00:00"
+      },
+      "status": 400
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": false,
+    "device_reset": false,
+    "warnings": []
+  }
+}

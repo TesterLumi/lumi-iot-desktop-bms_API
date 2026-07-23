@@ -1,0 +1,40 @@
+{
+  "tc_id": "TC117",
+  "tc_name": "Dieu khien group voi idx khong ton tai",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:13:24.142Z",
+  "finished_at": "2026-07-23T09:13:24.147Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Lighting runtime edge control",
+      "method": "POST",
+      "endpoint": "/api/v0/groups/999999999999999999/control",
+      "request": {
+        "states": [
+          {
+            "idx": 1,
+            "value": true
+          }
+        ]
+      },
+      "response": null,
+      "status": 404
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": false,
+    "device_reset": false,
+    "warnings": []
+  }
+}

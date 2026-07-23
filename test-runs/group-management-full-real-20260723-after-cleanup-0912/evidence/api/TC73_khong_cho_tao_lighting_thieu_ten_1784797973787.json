@@ -1,0 +1,47 @@
+{
+  "tc_id": "TC73",
+  "tc_name": "Khong cho tao lighting thieu ten",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:53.781Z",
+  "finished_at": "2026-07-23T09:12:53.787Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Create invalid lighting group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups",
+      "request": {
+        "hc_id": "4932308540097724437",
+        "device_type": 10000,
+        "icon": "group-auto"
+      },
+      "response": {
+        "error": {
+          "code": "VALIDATION_ERROR",
+          "details": {
+            "reason": "Failed to deserialize the JSON body into the target type: missing field `name` at line 1 column 71"
+          },
+          "message": "Dữ liệu đầu vào không hợp lệ"
+        },
+        "success": false,
+        "timestamp": "2026-07-23T09:12:53.373695272+00:00"
+      },
+      "status": 400
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": false,
+    "device_reset": false,
+    "warnings": []
+  }
+}

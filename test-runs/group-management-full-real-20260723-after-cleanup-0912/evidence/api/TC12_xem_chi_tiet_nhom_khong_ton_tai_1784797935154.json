@@ -1,0 +1,187 @@
+{
+  "tc_id": "TC12",
+  "tc_name": "Xem chi tiet nhom khong ton tai",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:14.091Z",
+  "finished_at": "2026-07-23T09:12:15.154Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Create group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups",
+      "request": {
+        "device_type": 10001,
+        "name": "auto_group_TC12_duplicate_20260723091214_nk45",
+        "icon": "group-auto",
+        "attr": {
+          "automation_tc_id": "TC12",
+          "requested_type": "Normal",
+          "requested_device_ids": []
+        }
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "id": "288230378003908781",
+          "hc_id": null,
+          "hc": null,
+          "area": null,
+          "device_type": {
+            "id": 10001,
+            "name": "Nhóm thường Công tắc",
+            "type": "group",
+            "sub_type": "normal"
+          },
+          "name": "auto_group_TC12_duplicate_20260723091214_nk45",
+          "icon": "group-auto",
+          "spec": {
+            "input": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "name": "group normal onoff",
+            "output": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "state": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ]
+          },
+          "profile": {},
+          "attr": {
+            "automation_tc_id": "TC12",
+            "requested_device_ids": [],
+            "requested_type": "Normal"
+          },
+          "enable": true,
+          "members": [],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:13.811893208+00:00"
+      },
+      "status": 201
+    },
+    {
+      "step": "Create duplicate group name",
+      "method": "POST",
+      "endpoint": "/api/v0/groups",
+      "request": {
+        "name": "auto_group_TC12_duplicate_20260723091214_nk45",
+        "type": "Normal"
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "id": "288230378151352064",
+          "hc_id": null,
+          "hc": null,
+          "area": null,
+          "device_type": {
+            "id": 10001,
+            "name": "Nhóm thường Công tắc",
+            "type": "group",
+            "sub_type": "normal"
+          },
+          "name": "auto_group_TC12_duplicate_20260723091214_nk45",
+          "icon": "group-auto",
+          "spec": {
+            "input": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "name": "group normal onoff",
+            "output": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "state": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ]
+          },
+          "profile": {},
+          "attr": {
+            "automation_tc_id": "TC12",
+            "requested_device_ids": [],
+            "requested_type": "Normal"
+          },
+          "enable": true,
+          "members": [],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:13.959633323+00:00"
+      },
+      "status": 201
+    },
+    {
+      "step": "Cleanup group",
+      "method": "DELETE",
+      "endpoint": "/api/v0/groups/288230378151352064",
+      "status": 200,
+      "response": {
+        "success": true,
+        "data": {
+          "status": true
+        },
+        "timestamp": "2026-07-23T09:12:14.045778934+00:00"
+      }
+    },
+    {
+      "step": "Cleanup group",
+      "method": "DELETE",
+      "endpoint": "/api/v0/groups/288230378003908781",
+      "status": 200,
+      "response": {
+        "success": true,
+        "data": {
+          "status": true
+        },
+        "timestamp": "2026-07-23T09:12:14.738225445+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Duplicate name behavior is documented by real backend status"
+  ],
+  "cleanup": {
+    "group_deleted": true,
+    "device_reset": false,
+    "warnings": []
+  }
+}

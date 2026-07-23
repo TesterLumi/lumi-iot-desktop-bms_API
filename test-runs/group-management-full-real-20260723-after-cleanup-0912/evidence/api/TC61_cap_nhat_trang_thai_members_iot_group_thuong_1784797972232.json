@@ -1,0 +1,45 @@
+{
+  "tc_id": "TC61",
+  "tc_name": "Cap nhat trang thai members IoT group thuong",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:52.225Z",
+  "finished_at": "2026-07-23T09:12:52.232Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "IoT normal group update",
+      "method": "PATCH",
+      "endpoint": "/api/v0/groups/999999999999999999",
+      "request": {
+        "members": [
+          {
+            "cell_id": "118431937308523266",
+            "state": "actived"
+          }
+        ]
+      },
+      "response": {
+        "error": {
+          "code": "NOT_FOUND",
+          "message": "iot group '999999999999999999' not found"
+        }
+      },
+      "status": 404
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": false,
+    "device_reset": false,
+    "warnings": []
+  }
+}

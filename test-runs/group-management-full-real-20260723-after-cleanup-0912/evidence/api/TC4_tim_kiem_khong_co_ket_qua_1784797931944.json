@@ -1,0 +1,177 @@
+{
+  "tc_id": "TC4",
+  "tc_name": "Tim kiem khong co ket qua",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:11.652Z",
+  "finished_at": "2026-07-23T09:12:11.944Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Create group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups",
+      "request": {
+        "device_type": 10001,
+        "name": "auto_group_TC4_search_20260723091211_u4ck",
+        "icon": "group-auto",
+        "attr": {
+          "automation_tc_id": "TC4",
+          "requested_type": "Normal",
+          "requested_device_ids": []
+        }
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "id": "288230377553338273",
+          "hc_id": null,
+          "hc": null,
+          "area": null,
+          "device_type": {
+            "id": 10001,
+            "name": "Nhóm thường Công tắc",
+            "type": "group",
+            "sub_type": "normal"
+          },
+          "name": "auto_group_TC4_search_20260723091211_u4ck",
+          "icon": "group-auto",
+          "spec": {
+            "input": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "name": "group normal onoff",
+            "output": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "state": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ]
+          },
+          "profile": {},
+          "attr": {
+            "automation_tc_id": "TC4",
+            "requested_device_ids": [],
+            "requested_type": "Normal"
+          },
+          "enable": true,
+          "members": [],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:11.358139886+00:00"
+      },
+      "status": 201
+    },
+    {
+      "step": "Search group by name",
+      "method": "GET",
+      "endpoint": "/api/v0/groups?search=auto_group_TC4_search_20260723091211_u4ck",
+      "response": {
+        "success": true,
+        "data": {
+          "items": [
+            {
+              "id": "288230377553338273",
+              "hc_id": null,
+              "hc": null,
+              "area": null,
+              "device_type": {
+                "id": 10001,
+                "name": "Nhóm thường Công tắc",
+                "type": "group",
+                "sub_type": "normal"
+              },
+              "name": "auto_group_TC4_search_20260723091211_u4ck",
+              "icon": "group-auto",
+              "spec": {
+                "input": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ],
+                "name": "group normal onoff",
+                "output": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ],
+                "state": [
+                  {
+                    "data_type": {
+                      "type": "boolean"
+                    },
+                    "idx": 1
+                  }
+                ]
+              },
+              "profile": {},
+              "attr": {
+                "automation_tc_id": "TC4",
+                "requested_device_ids": [],
+                "requested_type": "Normal"
+              },
+              "enable": true,
+              "members": {},
+              "bindings": {}
+            }
+          ],
+          "total": 1,
+          "page": 1,
+          "limit": 20
+        },
+        "timestamp": "2026-07-23T09:12:11.429840465+00:00"
+      },
+      "status": 200
+    },
+    {
+      "step": "Cleanup group",
+      "method": "DELETE",
+      "endpoint": "/api/v0/groups/288230377553338273",
+      "status": 200,
+      "response": {
+        "success": true,
+        "data": {
+          "status": true
+        },
+        "timestamp": "2026-07-23T09:12:11.526559668+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Search response contains created group when backend returns matched item"
+  ],
+  "cleanup": {
+    "group_deleted": true,
+    "device_reset": false,
+    "warnings": []
+  }
+}

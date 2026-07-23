@@ -1,0 +1,45 @@
+{
+  "tc_id": "TC24",
+  "tc_name": "Enable lai nhom thuong",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:17.811Z",
+  "finished_at": "2026-07-23T09:12:17.905Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Update invalid group",
+      "method": "PATCH",
+      "endpoint": "/api/v0/groups/999999999999999999",
+      "request": {
+        "name": "auto_group_TC24_normal_20260723091210_bb9z"
+      },
+      "response": {
+        "error": {
+          "code": "NOT_FOUND",
+          "details": {
+            "reason": "iot group '999999999999999999' not found"
+          },
+          "message": "Không tìm thấy"
+        },
+        "success": false,
+        "timestamp": "2026-07-23T09:12:17.488141839+00:00"
+      },
+      "status": 404
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": false,
+    "device_reset": false,
+    "warnings": []
+  }
+}

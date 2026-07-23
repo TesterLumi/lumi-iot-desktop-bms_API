@@ -1,0 +1,49 @@
+{
+  "tc_id": "TC62",
+  "tc_name": "Lay danh sach device type group lighting",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:52.251Z",
+  "finished_at": "2026-07-23T09:12:52.261Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "List lighting group device types",
+      "method": "GET",
+      "endpoint": "/api/v0/device-types?type=group&sub_type=lighting",
+      "response": {
+        "success": true,
+        "data": [
+          {
+            "id": 10000,
+            "name": "Nhóm Lighting Công tắc",
+            "type": "group",
+            "sub_type": "lighting"
+          },
+          {
+            "id": 9999,
+            "name": "BLE Group",
+            "type": "group",
+            "sub_type": "lighting"
+          }
+        ],
+        "timestamp": "2026-07-23T09:12:51.847695239+00:00"
+      },
+      "status": 200
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": false,
+    "device_reset": false,
+    "warnings": []
+  }
+}

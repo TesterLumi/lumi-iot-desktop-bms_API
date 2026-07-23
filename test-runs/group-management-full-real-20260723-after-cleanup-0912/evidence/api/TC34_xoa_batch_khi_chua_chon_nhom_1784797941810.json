@@ -1,0 +1,47 @@
+{
+  "tc_id": "TC34",
+  "tc_name": "Xoa batch khi chua chon nhom",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:21.704Z",
+  "finished_at": "2026-07-23T09:12:21.810Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "remove invalid devices",
+      "method": "DELETE",
+      "endpoint": "/api/v0/groups/999999999999999999/members",
+      "request": {
+        "device_ids": [
+          "118431937308523266"
+        ]
+      },
+      "response": {
+        "error": {
+          "code": "NOT_FOUND",
+          "details": {
+            "reason": "iot group not found"
+          },
+          "message": "Không tìm thấy"
+        },
+        "success": false,
+        "timestamp": "2026-07-23T09:12:21.392934864+00:00"
+      },
+      "status": 404
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": false,
+    "device_reset": false,
+    "warnings": []
+  }
+}

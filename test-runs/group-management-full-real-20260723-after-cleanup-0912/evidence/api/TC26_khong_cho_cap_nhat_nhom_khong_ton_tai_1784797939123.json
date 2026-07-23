@@ -1,0 +1,187 @@
+{
+  "tc_id": "TC26",
+  "tc_name": "Khong cho cap nhat nhom khong ton tai",
+  "status": "FAILED",
+  "started_at": "2026-07-23T09:12:18.018Z",
+  "finished_at": "2026-07-23T09:12:18.399Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Create group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups",
+      "request": {
+        "device_type": 10001,
+        "name": "auto_group_TC26_normal_20260723091218_sg9o",
+        "icon": "group-auto",
+        "attr": {
+          "automation_tc_id": "TC26",
+          "requested_type": "Normal",
+          "requested_device_ids": []
+        }
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "id": "288230377932710357",
+          "hc_id": null,
+          "hc": null,
+          "area": null,
+          "device_type": {
+            "id": 10001,
+            "name": "Nhóm thường Công tắc",
+            "type": "group",
+            "sub_type": "normal"
+          },
+          "name": "auto_group_TC26_normal_20260723091218_sg9o",
+          "icon": "group-auto",
+          "spec": {
+            "input": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "name": "group normal onoff",
+            "output": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "state": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ]
+          },
+          "profile": {},
+          "attr": {
+            "automation_tc_id": "TC26",
+            "requested_device_ids": [],
+            "requested_type": "Normal"
+          },
+          "enable": true,
+          "members": [],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:17.735664310+00:00"
+      },
+      "status": 201
+    },
+    {
+      "step": "Update invalid group",
+      "method": "PATCH",
+      "endpoint": "/api/v0/groups/288230377932710357",
+      "request": {
+        "name": ""
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "id": "288230377932710357",
+          "hc_id": null,
+          "hc": null,
+          "area": null,
+          "device_type": {
+            "id": 10001,
+            "name": "Nhóm thường Công tắc",
+            "type": "group",
+            "sub_type": "normal"
+          },
+          "name": "",
+          "icon": "group-auto",
+          "spec": {
+            "input": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "name": "group normal onoff",
+            "output": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "state": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ]
+          },
+          "profile": {},
+          "attr": {
+            "automation_tc_id": "TC26",
+            "requested_device_ids": [],
+            "requested_type": "Normal"
+          },
+          "enable": true,
+          "members": [],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:17.859710732+00:00"
+      },
+      "status": 200
+    },
+    {
+      "step": "Cleanup group",
+      "method": "DELETE",
+      "endpoint": "/api/v0/groups/288230377932710357",
+      "status": 200,
+      "response": {
+        "success": true,
+        "data": {
+          "status": true
+        },
+        "timestamp": "2026-07-23T09:12:17.980966527+00:00"
+      }
+    },
+    {
+      "step": "Home Controller log window on failure",
+      "method": "SSH",
+      "endpoint": "root@10.10.30.154:/tmp/log/home-controller.log",
+      "request": "awk '$0 ~ /^[0-9]{4}-[0-9]{2}-[0-9]{2} / { ts=substr($0,1,19); if (ts >= \"2026-07-23 16:12:18\" && ts <= \"2026-07-23 16:12:18\") print }' '/tmp/log/home-controller.log' | tail -n 300",
+      "status": 0,
+      "response": {
+        "log_window_start": "2026-07-23 16:12:18",
+        "log_window_end": "2026-07-23 16:12:18",
+        "testcase_started_at": "2026-07-23T09:12:18.018Z",
+        "testcase_finished_at": "2026-07-23T09:12:18.399Z",
+        "stdout_tail": "",
+        "stderr_tail": ""
+      }
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": true,
+    "device_reset": false,
+    "warnings": []
+  },
+  "error_message": "Expected status 200 in 400,422\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m200\u001b[39m\nReceived array: \u001b[31m[400, 422]\u001b[39m"
+}

@@ -1,0 +1,51 @@
+{
+  "tc_id": "TC13",
+  "tc_name": "Them nhom thuong thanh cong",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:15.169Z",
+  "finished_at": "2026-07-23T09:12:15.224Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Create invalid normal group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups",
+      "request": {
+        "name": "auto_group_TC13_normal_20260723091210_pux8",
+        "type": "Normal",
+        "device_ids": [
+          "999999999999999998"
+        ]
+      },
+      "response": {
+        "error": {
+          "code": "VALIDATION_ERROR",
+          "details": {
+            "reason": "Failed to deserialize the JSON body into the target type: type: unknown field `type`, expected one of `hc_id`, `device_type`, `name`, `icon`, `attr` at line 1 column 59"
+          },
+          "message": "Dữ liệu đầu vào không hợp lệ"
+        },
+        "success": false,
+        "timestamp": "2026-07-23T09:12:14.808075672+00:00"
+      },
+      "status": 400
+    }
+  ],
+  "assertions": [
+    "Invalid create group is rejected by backend"
+  ],
+  "cleanup": {
+    "group_deleted": false,
+    "device_reset": false,
+    "warnings": []
+  }
+}

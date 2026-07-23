@@ -1,0 +1,152 @@
+{
+  "tc_id": "TC82",
+  "tc_name": "Lay danh sach member cua group lighting",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:54.883Z",
+  "finished_at": "2026-07-23T09:12:54.973Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Create group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups",
+      "request": {
+        "hc_id": "4932308540097724437",
+        "device_type": 10000,
+        "name": "auto_group_TC82_lighting_20260723091254_4ths",
+        "icon": "group-auto",
+        "attr": {
+          "automation_tc_id": "TC82",
+          "requested_type": "Lighting",
+          "requested_device_ids": []
+        }
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "id": "308953994351805837",
+          "hc_id": "4932308540097724437",
+          "hc": {
+            "id": "4932308540097724437",
+            "name": "Tester",
+            "mac": "88:e6:28:f8:2e:4d"
+          },
+          "area": null,
+          "device_type": {
+            "id": 10000,
+            "name": "Nhóm Lighting Công tắc",
+            "type": "group",
+            "sub_type": "lighting"
+          },
+          "name": "auto_group_TC82_lighting_20260723091254_4ths",
+          "icon": "group-auto",
+          "spec": {
+            "input": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              },
+              {
+                "data_type": {
+                  "semantic": {
+                    "max": 100,
+                    "min": 0
+                  },
+                  "type": "number"
+                },
+                "idx": 2
+              }
+            ],
+            "name": "group lighting dimmer",
+            "state": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              },
+              {
+                "data_type": {
+                  "semantic": {
+                    "max": 100,
+                    "min": 0
+                  },
+                  "type": "number"
+                },
+                "idx": 2
+              }
+            ]
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8203;type=bool;payload_tmpl={val:bool}_{tid}_00_00"
+              },
+              {
+                "cell_ref": "input[2]",
+                "protocol_ref": "op=0x824C;type=u8;payload_tmpl={val:u8}_{tid}_00_00"
+              }
+            ]
+          },
+          "attr": {
+            "automation_tc_id": "TC82",
+            "requested_device_ids": [],
+            "requested_type": "Lighting"
+          },
+          "mesh_group_index": 4,
+          "members": [],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:54.530467579+00:00"
+      },
+      "status": 201
+    },
+    {
+      "step": "list lighting members",
+      "method": "GET",
+      "endpoint": "/api/v0/groups/308953994351805837/members",
+      "response": {
+        "success": true,
+        "data": {
+          "items": [],
+          "total": 0,
+          "page": 1,
+          "limit": 20
+        },
+        "timestamp": "2026-07-23T09:12:54.537615222+00:00"
+      },
+      "status": 200
+    },
+    {
+      "step": "Cleanup group",
+      "method": "DELETE",
+      "endpoint": "/api/v0/groups/308953994351805837",
+      "status": 200,
+      "response": {
+        "success": true,
+        "data": {
+          "status": true
+        },
+        "timestamp": "2026-07-23T09:12:54.561700670+00:00"
+      }
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": true,
+    "device_reset": false,
+    "warnings": []
+  }
+}

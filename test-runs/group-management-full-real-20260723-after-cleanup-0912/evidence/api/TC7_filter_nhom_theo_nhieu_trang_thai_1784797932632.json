@@ -1,0 +1,44 @@
+{
+  "tc_id": "TC7",
+  "tc_name": "Filter nhom theo nhieu trang thai",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:12.556Z",
+  "finished_at": "2026-07-23T09:12:12.632Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Get invalid group detail",
+      "method": "GET",
+      "endpoint": "/api/v0/groups/abc",
+      "response": {
+        "error": {
+          "code": "VALIDATION_ERROR",
+          "details": {
+            "reason": "Invalid URL: Cannot parse `abc` to a `u64`"
+          },
+          "message": "Dữ liệu đầu vào không hợp lệ"
+        },
+        "success": false,
+        "timestamp": "2026-07-23T09:12:12.215690067+00:00"
+      },
+      "status": 400
+    }
+  ],
+  "assertions": [
+    "Backend rejects invalid detail id with status 400"
+  ],
+  "cleanup": {
+    "group_deleted": false,
+    "device_reset": false,
+    "warnings": []
+  }
+}

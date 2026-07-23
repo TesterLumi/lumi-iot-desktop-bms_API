@@ -1,0 +1,262 @@
+{
+  "tc_id": "TC53",
+  "tc_name": "Dieu khien thiet bi ngoai nhom khong lam thay doi nhom",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:48.350Z",
+  "finished_at": "2026-07-23T09:12:48.564Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Create group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups",
+      "request": {
+        "device_type": 10001,
+        "name": "auto_group_TC53_normal_20260723091248_hq6d",
+        "icon": "group-auto",
+        "attr": {
+          "automation_tc_id": "TC53",
+          "requested_type": "Normal",
+          "requested_device_ids": [
+            "118431937308523266"
+          ]
+        }
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "id": "288230378182705505",
+          "hc_id": null,
+          "hc": null,
+          "area": null,
+          "device_type": {
+            "id": 10001,
+            "name": "Nhóm thường Công tắc",
+            "type": "group",
+            "sub_type": "normal"
+          },
+          "name": "auto_group_TC53_normal_20260723091248_hq6d",
+          "icon": "group-auto",
+          "spec": {
+            "input": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "name": "group normal onoff",
+            "output": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "state": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ]
+          },
+          "profile": {},
+          "attr": {
+            "automation_tc_id": "TC53",
+            "requested_device_ids": [
+              "118431937308523266"
+            ],
+            "requested_type": "Normal"
+          },
+          "enable": true,
+          "members": [],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:47.985197696+00:00"
+      },
+      "status": 201
+    },
+    {
+      "step": "Attach requested devices to group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups/288230378182705505/members",
+      "request": {
+        "device_ids": [
+          "118431937308523266"
+        ]
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "group_id": "288230378182705505",
+          "members": [
+            {
+              "cell_id": "118431937308523266",
+              "state": "activated"
+            }
+          ],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:48.037883726+00:00"
+      },
+      "status": 202
+    },
+    {
+      "step": "Control outside device",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "device_id": "118431937308523267",
+        "states": [
+          {
+            "idx": 1,
+            "value": true
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    },
+    {
+      "step": "Get group members after outside control",
+      "method": "GET",
+      "endpoint": "/api/v0/groups/288230378182705505/members?page=1&limit=20",
+      "response": {
+        "success": true,
+        "data": {
+          "items": [
+            {
+              "cell_id": "118431937308523266",
+              "state": "activated"
+            }
+          ],
+          "total": 1,
+          "page": 1,
+          "limit": 20
+        },
+        "timestamp": "2026-07-23T09:12:48.086222073+00:00"
+      },
+      "status": 200
+    },
+    {
+      "step": "Reset device state",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "device_id": "118431937308523267",
+        "states": [
+          {
+            "idx": 0,
+            "value": true
+          },
+          {
+            "idx": 2,
+            "value": 220.6
+          },
+          {
+            "idx": 4,
+            "value": 0
+          },
+          {
+            "idx": 1,
+            "value": true
+          },
+          {
+            "idx": 3,
+            "value": 0
+          },
+          {
+            "idx": 5,
+            "value": 0
+          },
+          {
+            "idx": 6,
+            "value": 1025254
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    },
+    {
+      "step": "Reset device state",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "device_id": "118431937308523266",
+        "states": [
+          {
+            "idx": 6,
+            "value": 1076158
+          },
+          {
+            "idx": 0,
+            "value": true
+          },
+          {
+            "idx": 1,
+            "value": false
+          },
+          {
+            "idx": 2,
+            "value": 220.6
+          },
+          {
+            "idx": 3,
+            "value": 0
+          },
+          {
+            "idx": 5,
+            "value": 0
+          },
+          {
+            "idx": 4,
+            "value": 0
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    },
+    {
+      "step": "Cleanup group",
+      "method": "DELETE",
+      "endpoint": "/api/v0/groups/288230378182705505",
+      "status": 200,
+      "response": {
+        "success": true,
+        "data": {
+          "status": true
+        },
+        "timestamp": "2026-07-23T09:12:48.147966295+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Outside device control does not call group control API for the tested group"
+  ],
+  "cleanup": {
+    "group_deleted": true,
+    "device_reset": true,
+    "warnings": []
+  }
+}

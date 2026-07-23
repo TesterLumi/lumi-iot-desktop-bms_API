@@ -1,0 +1,25 @@
+{
+  "tc_id": "TC123",
+  "tc_name": "Khong cho xoa nhom BLE mac dinh sau khi dieu khien",
+  "status": "SKIPPED",
+  "started_at": "2026-07-23T09:13:25.108Z",
+  "finished_at": "2026-07-23T09:13:25.109Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": false,
+    "device_reset": false,
+    "warnings": []
+  },
+  "error_message": "Test is skipped: Skip destructive default BLE delete check unless explicitly allowed"
+}

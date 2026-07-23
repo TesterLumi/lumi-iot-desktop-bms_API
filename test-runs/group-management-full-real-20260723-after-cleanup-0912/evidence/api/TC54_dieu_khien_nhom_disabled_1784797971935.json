@@ -1,0 +1,522 @@
+{
+  "tc_id": "TC54",
+  "tc_name": "Dieu khien nhom disabled",
+  "status": "PASSED",
+  "started_at": "2026-07-23T09:12:48.633Z",
+  "finished_at": "2026-07-23T09:12:51.935Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Create group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups",
+      "request": {
+        "device_type": 10001,
+        "name": "auto_group_TC54_normal_20260723091248_wvkn",
+        "icon": "group-auto",
+        "attr": {
+          "automation_tc_id": "TC54",
+          "requested_type": "Normal",
+          "requested_device_ids": [
+            "118431937308523266",
+            "118431937308523267"
+          ]
+        }
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "id": "288230377469336878",
+          "hc_id": null,
+          "hc": null,
+          "area": null,
+          "device_type": {
+            "id": 10001,
+            "name": "Nhóm thường Công tắc",
+            "type": "group",
+            "sub_type": "normal"
+          },
+          "name": "auto_group_TC54_normal_20260723091248_wvkn",
+          "icon": "group-auto",
+          "spec": {
+            "input": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "name": "group normal onoff",
+            "output": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "state": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ]
+          },
+          "profile": {},
+          "attr": {
+            "automation_tc_id": "TC54",
+            "requested_device_ids": [
+              "118431937308523266",
+              "118431937308523267"
+            ],
+            "requested_type": "Normal"
+          },
+          "enable": true,
+          "members": [],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:48.273548807+00:00"
+      },
+      "status": 201
+    },
+    {
+      "step": "Attach requested devices to group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups/288230377469336878/members",
+      "request": {
+        "device_ids": [
+          "118431937308523266",
+          "118431937308523267"
+        ]
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "group_id": "288230377469336878",
+          "members": [
+            {
+              "cell_id": "118431937308523266",
+              "state": "activated"
+            },
+            {
+              "cell_id": "118431937308523267",
+              "state": "activated"
+            }
+          ],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:48.329746712+00:00"
+      },
+      "status": 202
+    },
+    {
+      "step": "Disable normal group before control",
+      "method": "PATCH",
+      "endpoint": "/api/v0/groups/288230377469336878",
+      "request": {
+        "enable": false
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "id": "288230377469336878",
+          "hc_id": null,
+          "hc": null,
+          "area": null,
+          "device_type": {
+            "id": 10001,
+            "name": "Nhóm thường Công tắc",
+            "type": "group",
+            "sub_type": "normal"
+          },
+          "name": "auto_group_TC54_normal_20260723091248_wvkn",
+          "icon": "group-auto",
+          "spec": {
+            "input": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "name": "group normal onoff",
+            "output": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "state": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ]
+          },
+          "profile": {},
+          "attr": {
+            "automation_tc_id": "TC54",
+            "requested_device_ids": [
+              "118431937308523266",
+              "118431937308523267"
+            ],
+            "requested_type": "Normal"
+          },
+          "enable": false,
+          "members": [
+            {
+              "cell_id": "118431937308523266",
+              "state": "activated"
+            },
+            {
+              "cell_id": "118431937308523267",
+              "state": "activated"
+            }
+          ],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:48.389396877+00:00"
+      },
+      "status": 200
+    },
+    {
+      "step": "Get disabled group members before member control",
+      "method": "GET",
+      "endpoint": "/api/v0/groups/288230377469336878/members?page=1&limit=20",
+      "response": {
+        "success": true,
+        "data": {
+          "items": [
+            {
+              "cell_id": "118431937308523266",
+              "state": "activated"
+            },
+            {
+              "cell_id": "118431937308523267",
+              "state": "activated"
+            }
+          ],
+          "total": 2,
+          "page": 1,
+          "limit": 20
+        },
+        "timestamp": "2026-07-23T09:12:48.405244570+00:00"
+      },
+      "status": 200
+    },
+    {
+      "step": "Control one member in disabled group",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "device_id": "118431937308523266",
+        "states": [
+          {
+            "idx": 1,
+            "value": false
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    },
+    {
+      "step": "Get disabled group members after member control",
+      "method": "GET",
+      "endpoint": "/api/v0/groups/288230377469336878/members?page=1&limit=20",
+      "response": {
+        "success": true,
+        "data": {
+          "items": [
+            {
+              "cell_id": "118431937308523266",
+              "state": "activated"
+            },
+            {
+              "cell_id": "118431937308523267",
+              "state": "activated"
+            }
+          ],
+          "total": 2,
+          "page": 1,
+          "limit": 20
+        },
+        "timestamp": "2026-07-23T09:12:51.454465189+00:00"
+      },
+      "status": 200
+    },
+    {
+      "step": "Verify disabled group does not sync controlled member state to another member",
+      "method": "GET",
+      "endpoint": "/api/devices/status",
+      "request": {
+        "ids": [
+          "118431937308523266",
+          "118431937308523267"
+        ]
+      },
+      "response": {
+        "initialStates": [
+          {
+            "id": "118431937308523266",
+            "status": [
+              {
+                "idx": 6,
+                "value": 1076158
+              },
+              {
+                "idx": 0,
+                "value": true
+              },
+              {
+                "idx": 1,
+                "value": false
+              },
+              {
+                "idx": 2,
+                "value": 220.5
+              },
+              {
+                "idx": 3,
+                "value": 0
+              },
+              {
+                "idx": 5,
+                "value": 0
+              },
+              {
+                "idx": 4,
+                "value": 0
+              }
+            ]
+          },
+          {
+            "id": "118431937308523267",
+            "status": [
+              {
+                "idx": 0,
+                "value": true
+              },
+              {
+                "idx": 2,
+                "value": 220.6
+              },
+              {
+                "idx": 4,
+                "value": 0
+              },
+              {
+                "idx": 1,
+                "value": true
+              },
+              {
+                "idx": 3,
+                "value": 0
+              },
+              {
+                "idx": 5,
+                "value": 0
+              },
+              {
+                "idx": 6,
+                "value": 1025254
+              }
+            ]
+          }
+        ],
+        "afterStates": [
+          {
+            "id": "118431937308523266",
+            "status": [
+              {
+                "idx": 6,
+                "value": 1076158
+              },
+              {
+                "idx": 0,
+                "value": true
+              },
+              {
+                "idx": 1,
+                "value": true
+              },
+              {
+                "idx": 2,
+                "value": 220.5
+              },
+              {
+                "idx": 3,
+                "value": 0
+              },
+              {
+                "idx": 5,
+                "value": 0
+              },
+              {
+                "idx": 4,
+                "value": 0
+              }
+            ]
+          },
+          {
+            "id": "118431937308523267",
+            "status": [
+              {
+                "idx": 0,
+                "value": true
+              },
+              {
+                "idx": 2,
+                "value": 220.6
+              },
+              {
+                "idx": 4,
+                "value": 0
+              },
+              {
+                "idx": 1,
+                "value": true
+              },
+              {
+                "idx": 3,
+                "value": 0
+              },
+              {
+                "idx": 5,
+                "value": 0
+              },
+              {
+                "idx": 6,
+                "value": 1025254
+              }
+            ]
+          }
+        ],
+        "checked_device_id": "118431937308523267",
+        "expected_value": true
+      }
+    },
+    {
+      "step": "Reset device state",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "device_id": "118431937308523266",
+        "states": [
+          {
+            "idx": 6,
+            "value": 1076158
+          },
+          {
+            "idx": 0,
+            "value": true
+          },
+          {
+            "idx": 1,
+            "value": false
+          },
+          {
+            "idx": 2,
+            "value": 220.5
+          },
+          {
+            "idx": 3,
+            "value": 0
+          },
+          {
+            "idx": 5,
+            "value": 0
+          },
+          {
+            "idx": 4,
+            "value": 0
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    },
+    {
+      "step": "Reset device state",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "device_id": "118431937308523267",
+        "states": [
+          {
+            "idx": 0,
+            "value": true
+          },
+          {
+            "idx": 2,
+            "value": 220.6
+          },
+          {
+            "idx": 4,
+            "value": 0
+          },
+          {
+            "idx": 1,
+            "value": true
+          },
+          {
+            "idx": 3,
+            "value": 0
+          },
+          {
+            "idx": 5,
+            "value": 0
+          },
+          {
+            "idx": 6,
+            "value": 1025254
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    },
+    {
+      "step": "Cleanup group",
+      "method": "DELETE",
+      "endpoint": "/api/v0/groups/288230377469336878",
+      "status": 200,
+      "response": {
+        "success": true,
+        "data": {
+          "status": true
+        },
+        "timestamp": "2026-07-23T09:12:51.523089275+00:00"
+      }
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": true,
+    "device_reset": true,
+    "warnings": []
+  }
+}

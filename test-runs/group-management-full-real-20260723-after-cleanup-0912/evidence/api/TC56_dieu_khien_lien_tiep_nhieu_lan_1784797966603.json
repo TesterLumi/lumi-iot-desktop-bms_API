@@ -1,0 +1,259 @@
+{
+  "tc_id": "TC56",
+  "tc_name": "Dieu khien lien tiep nhieu lan",
+  "status": "FAILED",
+  "started_at": "2026-07-23T09:12:45.901Z",
+  "finished_at": "2026-07-23T09:12:46.059Z",
+  "endpoints": {
+    "group_base_url": "http://10.10.0.198:3333",
+    "group_api_base": "/api/v0/groups",
+    "hc_base_url": "http://10.10.30.154:8080",
+    "hc_group_api_base": "/api/groups",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Create group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups",
+      "request": {
+        "device_type": 10001,
+        "name": "auto_group_TC56_normal_20260723091245_ccq3",
+        "icon": "group-auto",
+        "attr": {
+          "automation_tc_id": "TC56",
+          "requested_type": "Normal",
+          "requested_device_ids": [
+            "118431937308523266",
+            "118431937308523267"
+          ]
+        }
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "id": "288230377731206878",
+          "hc_id": null,
+          "hc": null,
+          "area": null,
+          "device_type": {
+            "id": 10001,
+            "name": "Nhóm thường Công tắc",
+            "type": "group",
+            "sub_type": "normal"
+          },
+          "name": "auto_group_TC56_normal_20260723091245_ccq3",
+          "icon": "group-auto",
+          "spec": {
+            "input": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "name": "group normal onoff",
+            "output": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ],
+            "state": [
+              {
+                "data_type": {
+                  "type": "boolean"
+                },
+                "idx": 1
+              }
+            ]
+          },
+          "profile": {},
+          "attr": {
+            "automation_tc_id": "TC56",
+            "requested_device_ids": [
+              "118431937308523266",
+              "118431937308523267"
+            ],
+            "requested_type": "Normal"
+          },
+          "enable": true,
+          "members": [],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:45.534885112+00:00"
+      },
+      "status": 201
+    },
+    {
+      "step": "Attach requested devices to group",
+      "method": "POST",
+      "endpoint": "/api/v0/groups/288230377731206878/members",
+      "request": {
+        "device_ids": [
+          "118431937308523266",
+          "118431937308523267"
+        ]
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "group_id": "288230377731206878",
+          "members": [
+            {
+              "cell_id": "118431937308523266",
+              "state": "activated"
+            },
+            {
+              "cell_id": "118431937308523267",
+              "state": "activated"
+            }
+          ],
+          "bindings": []
+        },
+        "timestamp": "2026-07-23T09:12:45.577218487+00:00"
+      },
+      "status": 202
+    },
+    {
+      "step": "Control normal group first request",
+      "method": "POST",
+      "endpoint": "/api/v0/groups/288230377731206878/control",
+      "request": {
+        "states": [
+          {
+            "idx": 1,
+            "value": true
+          }
+        ]
+      },
+      "response": null,
+      "status": 404
+    },
+    {
+      "step": "Reset device state",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "device_id": "118431937308523266",
+        "states": [
+          {
+            "idx": 6,
+            "value": 1076158
+          },
+          {
+            "idx": 0,
+            "value": true
+          },
+          {
+            "idx": 1,
+            "value": true
+          },
+          {
+            "idx": 2,
+            "value": 220.6
+          },
+          {
+            "idx": 3,
+            "value": 0
+          },
+          {
+            "idx": 5,
+            "value": 0
+          },
+          {
+            "idx": 4,
+            "value": 0
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    },
+    {
+      "step": "Reset device state",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "request": {
+        "device_id": "118431937308523267",
+        "states": [
+          {
+            "idx": 0,
+            "value": true
+          },
+          {
+            "idx": 2,
+            "value": 220.6
+          },
+          {
+            "idx": 4,
+            "value": 0
+          },
+          {
+            "idx": 1,
+            "value": true
+          },
+          {
+            "idx": 3,
+            "value": 0
+          },
+          {
+            "idx": 5,
+            "value": 0
+          },
+          {
+            "idx": 6,
+            "value": 1025254
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    },
+    {
+      "step": "Cleanup group",
+      "method": "DELETE",
+      "endpoint": "/api/v0/groups/288230377731206878",
+      "status": 200,
+      "response": {
+        "success": true,
+        "data": {
+          "status": true
+        },
+        "timestamp": "2026-07-23T09:12:45.644310161+00:00"
+      }
+    },
+    {
+      "step": "Home Controller log window on failure",
+      "method": "SSH",
+      "endpoint": "root@10.10.30.154:/tmp/log/home-controller.log",
+      "request": "awk '$0 ~ /^[0-9]{4}-[0-9]{2}-[0-9]{2} / { ts=substr($0,1,19); if (ts >= \"2026-07-23 16:12:45\" && ts <= \"2026-07-23 16:12:46\") print }' '/tmp/log/home-controller.log' | tail -n 300",
+      "status": 0,
+      "response": {
+        "log_window_start": "2026-07-23 16:12:45",
+        "log_window_end": "2026-07-23 16:12:46",
+        "testcase_started_at": "2026-07-23T09:12:45.901Z",
+        "testcase_finished_at": "2026-07-23T09:12:46.059Z",
+        "stdout_tail": "2026-07-23 16:12:45.174510+07:00 INFO  [group_cell] GROUP_SYNC group=288230377552597050 origin=118431937308523266 slots=7 fanout=1/1 queued=false kind=physical\n2026-07-23 16:12:45.175349+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(6)' not found in encoder or config mapping for node_id=0x0199\n2026-07-23 16:12:45.175449+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(6, Number(1076158.0)) for device_id=118431937308523266\n2026-07-23 16:12:45.175895+07:00 INFO  [device_manager/tokio-rt-worker] Mesh Sending: [118431937308523266] --> [00, 00, 00, 00, 02, 00, 99, 01, 82, 02, 00, 40, 00, 00]\n2026-07-23 16:12:45.176337+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(2)' not found in encoder or config mapping for node_id=0x0199\n2026-07-23 16:12:45.176421+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(2, Number(220.89999389648438)) for device_id=118431937308523266\n2026-07-23 16:12:45.176837+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(3)' not found in encoder or config mapping for node_id=0x0199\n2026-07-23 16:12:45.176917+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(3, Number(0.0)) for device_id=118431937308523266\n2026-07-23 16:12:45.177297+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(5)' not found in encoder or config mapping for node_id=0x0199\n2026-07-23 16:12:45.177381+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(5, Number(0.0)) for device_id=118431937308523266\n2026-07-23 16:12:45.177772+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(4)' not found in encoder or config mapping for node_id=0x0199\n2026-07-23 16:12:45.178065+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(4, Number(0.0)) for device_id=118431937308523266\n2026-07-23 16:12:45.178494+07:00 INFO  [device_manager/tokio-rt-worker] Mesh Sending: [118431937308523267] --> [00, 00, 00, 00, 02, 00, 9A, 01, 82, 02, 00, 45, 00, 00]\n2026-07-23 16:12:45.178860+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(2)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.178921+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(2, Number(220.89999389648438)) for device_id=118431937308523267\n2026-07-23 16:12:45.179243+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(3)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.179300+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(3, Number(0.0)) for device_id=118431937308523267\n2026-07-23 16:12:45.179609+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(4)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.179664+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(4, Number(0.0)) for device_id=118431937308523267\n2026-07-23 16:12:45.179972+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(5)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.180026+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(5, Number(0.0)) for device_id=118431937308523267\n2026-07-23 16:12:45.180331+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(6)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.180386+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(6, Number(1076158.0)) for device_id=118431937308523267\n2026-07-23 16:12:45.184454+07:00 INFO  [group_cell] GROUP_SYNC group=288230377552597050 origin=118431937308523267 slots=7 fanout=0/1 queued=true kind=transient\n2026-07-23 16:12:45.185370+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(2)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.185464+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(2, Number(220.60000610351562)) for device_id=118431937308523267\n2026-07-23 16:12:45.185816+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(4)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.185880+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(4, Number(0.0)) for device_id=118431937308523267\n2026-07-23 16:12:45.186249+07:00 INFO  [device_manager/tokio-rt-worker] Mesh Sending: [118431937308523267] --> [00, 00, 00, 00, 02, 00, 9A, 01, 82, 02, 00, 4D, 00, 00]\n2026-07-23 16:12:45.186586+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(3)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.186644+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(3, Number(0.0)) for device_id=118431937308523267\n2026-07-23 16:12:45.186953+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(5)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.187008+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(5, Number(0.0)) for device_id=118431937308523267\n2026-07-23 16:12:45.187318+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(6)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.187373+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(6, Number(1025254.0)) for device_id=118431937308523267\n2026-07-23 16:12:45.208330+07:00 INFO  [group_cell] [GroupCell id=288230377552597050] clean / destroy command\n2026-07-23 16:12:45.208632+07:00 INFO  [group/tokio-rt-worker] [GroupCellStorage] deleted group id=288230377552597050\n2026-07-23 16:12:45.208854+07:00 INFO  [group_cell] [GroupCell id=288230377552597050] gracefully shut down\n2026-07-23 16:12:45.315536+07:00 INFO  [serve] [serve] Cell At0micCellId(288230377501470279) of type Group is added to runtime\n2026-07-23 16:12:45.388966+07:00 INFO  [device_manager/tokio-rt-worker] Mesh Received: [99, 01, 01, 00, 82, 04, 01] (src=0x0199, opcode=0x8204, params=[01])\n2026-07-23 16:12:45.389277+07:00 INFO  [device_manager/tokio-rt-worker] [118431937308523266 | A4C1383155FB-3] --> State(1), SyncState(At0micIdx(1), Bool(true))\n2026-07-23 16:12:45.390088+07:00 INFO  [device_manager/tokio-rt-worker] Mesh Sending: [118431937308523266] --> [00, 00, 00, 00, 02, 00, 99, 01, 82, 02, 01, 51, 00, 00]\n2026-07-23 16:12:45.397090+07:00 INFO  [group_cell] GROUP_SYNC group=288230377501470279 origin=118431937308523266 slots=1 fanout=0/0 queued=false kind=physical\n2026-07-23 16:12:45.414013+07:00 INFO  [group_cell] GROUP_SYNC group=288230377501470279 origin=118431937308523266 slots=7 fanout=0/0 queued=true kind=physical\n2026-07-23 16:12:45.415868+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(6)' not found in encoder or config mapping for node_id=0x0199\n2026-07-23 16:12:45.416064+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(6, Number(1076158.0)) for device_id=118431937308523266\n2026-07-23 16:12:45.416461+07:00 INFO  [device_manager/tokio-rt-worker] Mesh Sending: [118431937308523266] --> [00, 00, 00, 00, 02, 00, 99, 01, 82, 02, 01, 53, 00, 00]\n2026-07-23 16:12:45.416887+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(2)' not found in encoder or config mapping for node_id=0x0199\n2026-07-23 16:12:45.416953+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(2, Number(220.60000610351562)) for device_id=118431937308523266\n2026-07-23 16:12:45.417678+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(3)' not found in encoder or config mapping for node_id=0x0199\n2026-07-23 16:12:45.417757+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(3, Number(0.0)) for device_id=118431937308523266\n2026-07-23 16:12:45.418429+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(5)' not found in encoder or config mapping for node_id=0x0199\n2026-07-23 16:12:45.418503+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(5, Number(0.0)) for device_id=118431937308523266\n2026-07-23 16:12:45.418952+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(4)' not found in encoder or config mapping for node_id=0x0199\n2026-07-23 16:12:45.419036+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(4, Number(0.0)) for device_id=118431937308523266\n2026-07-23 16:12:45.439826+07:00 INFO  [group_cell] [GroupCell id=288230377501470279] clean / destroy command\n2026-07-23 16:12:45.440286+07:00 INFO  [group/tokio-rt-worker] [GroupCellStorage] deleted group id=288230377501470279\n2026-07-23 16:12:45.440444+07:00 INFO  [group_cell] [GroupCell id=288230377501470279] gracefully shut down\n2026-07-23 16:12:45.544861+07:00 INFO  [serve] [serve] Cell At0micCellId(288230377731206878) of type Group is added to runtime\n2026-07-23 16:12:45.583464+07:00 INFO  [group_cell] GROUP_SYNC group=288230377731206878 origin=118431937308523266 slots=7 fanout=1/1 queued=false kind=physical\n2026-07-23 16:12:45.584512+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(6)' not found in encoder or config mapping for node_id=0x0199\n2026-07-23 16:12:45.584617+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(6, Number(1076158.0)) for device_id=118431937308523266\n2026-07-23 16:12:45.585059+07:00 INFO  [device_manager/tokio-rt-worker] Mesh Sending: [118431937308523266] --> [00, 00, 00, 00, 02, 00, 99, 01, 82, 02, 01, 59, 00, 00]\n2026-07-23 16:12:45.585566+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(2)' not found in encoder or config mapping for node_id=0x0199\n2026-07-23 16:12:45.585644+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(2, Number(220.60000610351562)) for device_id=118431937308523266\n2026-07-23 16:12:45.586018+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(3)' not found in encoder or config mapping for node_id=0x0199\n2026-07-23 16:12:45.586079+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(3, Number(0.0)) for device_id=118431937308523266\n2026-07-23 16:12:45.586518+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(5)' not found in encoder or config mapping for node_id=0x0199\n2026-07-23 16:12:45.586586+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(5, Number(0.0)) for device_id=118431937308523266\n2026-07-23 16:12:45.586921+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(4)' not found in encoder or config mapping for node_id=0x0199\n2026-07-23 16:12:45.586979+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(4, Number(0.0)) for device_id=118431937308523266\n2026-07-23 16:12:45.587346+07:00 INFO  [device_manager/tokio-rt-worker] Mesh Sending: [118431937308523267] --> [00, 00, 00, 00, 02, 00, 9A, 01, 82, 02, 01, 5E, 00, 00]\n2026-07-23 16:12:45.587694+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(2)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.587753+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(2, Number(220.60000610351562)) for device_id=118431937308523267\n2026-07-23 16:12:45.588163+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(3)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.588231+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(3, Number(0.0)) for device_id=118431937308523267\n2026-07-23 16:12:45.588547+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(4)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.588604+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(4, Number(0.0)) for device_id=118431937308523267\n2026-07-23 16:12:45.588916+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(5)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.588970+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(5, Number(0.0)) for device_id=118431937308523267\n2026-07-23 16:12:45.589308+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(6)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.589366+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(6, Number(1076158.0)) for device_id=118431937308523267\n2026-07-23 16:12:45.599110+07:00 INFO  [group_cell] GROUP_SYNC group=288230377731206878 origin=118431937308523267 slots=7 fanout=0/1 queued=true kind=transient\n2026-07-23 16:12:45.600123+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(2)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.600221+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(2, Number(220.60000610351562)) for device_id=118431937308523267\n2026-07-23 16:12:45.600581+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(4)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.600644+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(4, Number(0.0)) for device_id=118431937308523267\n2026-07-23 16:12:45.600996+07:00 INFO  [device_manager/tokio-rt-worker] Mesh Sending: [118431937308523267] --> [00, 00, 00, 00, 02, 00, 9A, 01, 82, 02, 01, 66, 00, 00]\n2026-07-23 16:12:45.601430+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(3)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.601495+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(3, Number(0.0)) for device_id=118431937308523267\n2026-07-23 16:12:45.601811+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(5)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.601867+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(5, Number(0.0)) for device_id=118431937308523267\n2026-07-23 16:12:45.602200+07:00 WARN  [encoder/tokio-rt-worker] encode_config_from_profile: cell_ref 'Input(6)' not found in encoder or config mapping for node_id=0x019A\n2026-07-23 16:12:45.602258+07:00 WARN  [device_manager/tokio-rt-worker]  Could not encode command Input(6, Number(1025254.0)) for device_id=118431937308523267\n2026-07-23 16:12:45.625965+07:00 INFO  [group_cell] [GroupCell id=288230377731206878] clean / destroy command\n2026-07-23 16:12:45.626262+07:00 INFO  [group/tokio-rt-worker] [GroupCellStorage] deleted group id=288230377731206878\n2026-07-23 16:12:45.626390+07:00 INFO  [group_cell] [GroupCell id=288230377731206878] gracefully shut down\n2026-07-23 16:12:46.019019+07:00 INFO  [device_manager/tokio-rt-worker] Mesh Received: [99, 01, 01, 00, 82, 04, 01] (src=0x0199, opcode=0x8204, params=[01])\n2026-07-23 16:12:46.019300+07:00 INFO  [device_manager/tokio-rt-worker] [118431937308523266 | A4C1383155FB-3] --> State(1), SyncState(At0micIdx(1), Bool(true))\n2026-07-23 16:12:46.020371+07:00 INFO  [device_manager/tokio-rt-worker] Mesh Received: [99, 01, 01, 00, 82, 04, 01] (src=0x0199, opcode=0x8204, params=[01])\n2026-07-23 16:12:46.020610+07:00 INFO  [device_manager/tokio-rt-worker] [118431937308523266 | A4C1383155FB-3] --> State(1), SyncState(At0micIdx(1), Bool(true))\n",
+        "stderr_tail": ""
+      }
+    }
+  ],
+  "assertions": [],
+  "cleanup": {
+    "group_deleted": true,
+    "device_reset": true,
+    "warnings": []
+  },
+  "error_message": "Expected status 404 in 200,202\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected value: \u001b[32m404\u001b[39m\nReceived array: \u001b[31m[200, 202]\u001b[39m"
+}
