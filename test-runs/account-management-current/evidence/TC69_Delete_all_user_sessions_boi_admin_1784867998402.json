@@ -1,0 +1,82 @@
+{
+  "tc_id": "TC69",
+  "tc_name": "Delete all user sessions boi admin",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:39:57.075Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC69_20260724_113957_thizlg",
+        "email": "auto_user_TC69_20260724_113957_thizlg@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967997076"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc69_20260724_113957_thizlg@auto-test.local",
+          "phone": "+84967997076",
+          "role": null,
+          "user_id": "613f99c1-c09e-4279-8ac4-af0eb7327732",
+          "user_name": "auto_user_TC69_20260724_113957_thizlg"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:57.195695936+00:00"
+      }
+    },
+    {
+      "step": "Delete all user sessions",
+      "method": "DELETE",
+      "endpoint": "v0/auth/613f99c1-c09e-4279-8ac4-af0eb7327732/sessions",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:57.835313506+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "613f99c1-c09e-4279-8ac4-af0eb7327732"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:58.192329167+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Admin can delete all user sessions"
+  ],
+  "cleanup": {
+    "users_deleted": 1,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:39:58.402Z"
+}

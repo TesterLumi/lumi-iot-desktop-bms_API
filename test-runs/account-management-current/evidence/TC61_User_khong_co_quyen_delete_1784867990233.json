@@ -1,0 +1,128 @@
+{
+  "tc_id": "TC61",
+  "tc_name": "User khong co quyen delete",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:39:48.254Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC61_target_20260724_113948_svh5yt",
+        "email": "auto_user_TC61_target_20260724_113948_svh5yt@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967988254"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc61_target_20260724_113948_svh5yt@auto-test.local",
+          "phone": "+84967988254",
+          "role": null,
+          "user_id": "8ddc9d9a-1b0b-4599-adce-52dc77c834f8",
+          "user_name": "auto_user_TC61_target_20260724_113948_svh5yt"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:48.207779988+00:00"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC61_noperm_20260724_113948_b0phee",
+        "email": "auto_user_TC61_noperm_20260724_113948_b0phee@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967988416"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc61_noperm_20260724_113948_b0phee@auto-test.local",
+          "phone": "+84967988416",
+          "role": null,
+          "user_id": "1ce57a1e-c46a-48ff-a764-b8464c210532",
+          "user_name": "auto_user_TC61_noperm_20260724_113948_b0phee"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:48.575703111+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 403,
+      "request": {
+        "user_id": "8ddc9d9a-1b0b-4599-adce-52dc77c834f8"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "FORBIDDEN",
+          "message": "Không có quyền thực hiện thao tác"
+        },
+        "timestamp": "2026-07-24T04:39:49.205645378+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "1ce57a1e-c46a-48ff-a764-b8464c210532"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:49.558609835+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "8ddc9d9a-1b0b-4599-adce-52dc77c834f8"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:50.018748007+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Viewer cannot delete user"
+  ],
+  "cleanup": {
+    "users_deleted": 2,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:39:50.233Z"
+}

@@ -1,0 +1,128 @@
+{
+  "tc_id": "TC75",
+  "tc_name": "Viewer khong duoc delete user",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:40:04.689Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC75_target_20260724_114004_k4mu38",
+        "email": "auto_user_TC75_target_20260724_114004_k4mu38@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84968004689"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc75_target_20260724_114004_k4mu38@auto-test.local",
+          "phone": "+84968004689",
+          "role": null,
+          "user_id": "faa2c233-6802-4ace-bfe7-f5e8b88f2bce",
+          "user_name": "auto_user_TC75_target_20260724_114004_k4mu38"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:40:04.650976452+00:00"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC75_noperm_20260724_114004_4s3rkv",
+        "email": "auto_user_TC75_noperm_20260724_114004_4s3rkv@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84968004864"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc75_noperm_20260724_114004_4s3rkv@auto-test.local",
+          "phone": "+84968004864",
+          "role": null,
+          "user_id": "a22b38d7-59b2-4e7f-91b1-7ac3b7d40792",
+          "user_name": "auto_user_TC75_noperm_20260724_114004_4s3rkv"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:40:05.002318621+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 403,
+      "request": {
+        "user_id": "faa2c233-6802-4ace-bfe7-f5e8b88f2bce"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "FORBIDDEN",
+          "message": "Không có quyền thực hiện thao tác"
+        },
+        "timestamp": "2026-07-24T04:40:05.639461712+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "a22b38d7-59b2-4e7f-91b1-7ac3b7d40792"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:40:06.107685513+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "faa2c233-6802-4ace-bfe7-f5e8b88f2bce"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:40:06.473806641+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Viewer cannot delete user"
+  ],
+  "cleanup": {
+    "users_deleted": 2,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:40:06.685Z"
+}

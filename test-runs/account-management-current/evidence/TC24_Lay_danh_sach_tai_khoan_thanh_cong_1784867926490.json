@@ -1,0 +1,246 @@
+{
+  "tc_id": "TC24",
+  "tc_name": "Lay danh sach tai khoan thanh cong",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:38:46.066Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "List users",
+      "method": "GET",
+      "endpoint": "v0/auth/list?page=1&limit=20",
+      "status": 200,
+      "response": {
+        "data": {
+          "items": [
+            {
+              "active": true,
+              "avatar": null,
+              "created_at": "2026-07-09T04:42:26.527373+00:00",
+              "display_name": "Auto User Role",
+              "email": "auto_user_mtc45_20260709_114225_hdkro1@auto-test.local",
+              "id": "2ab64986-7046-4e21-91ae-7b3bdf333a23",
+              "locked_until": null,
+              "phone": "+84972145357",
+              "role": null,
+              "user_name": "auto_user_MTC45_20260709_114225_hdkro1"
+            },
+            {
+              "active": true,
+              "avatar": null,
+              "created_at": "2026-07-06T02:06:28.488897+00:00",
+              "display_name": null,
+              "email": null,
+              "id": "ae4648c8-789f-4966-a7f1-d05daf00c6cf",
+              "locked_until": null,
+              "phone": null,
+              "role": {
+                "description": "",
+                "id": "9d482c3a-3910-448f-8ffd-17c88356c8ec",
+                "is_system_admin": false,
+                "name": "Nhân viên phòng kinh doanh"
+              },
+              "user_name": "thuyth"
+            },
+            {
+              "active": true,
+              "avatar": null,
+              "created_at": "2026-06-26T09:07:33.022893+00:00",
+              "display_name": "Auto Flow Edit geiecejb",
+              "email": "auto_flow_edit_1782464842491@test.com",
+              "id": "1e0a5306-25bc-4e50-934d-e7533b5f8408",
+              "locked_until": null,
+              "phone": "0864842491",
+              "role": {
+                "description": "",
+                "id": "9d482c3a-3910-448f-8ffd-17c88356c8ec",
+                "is_system_admin": false,
+                "name": "Nhân viên phòng kinh doanh"
+              },
+              "user_name": "auto_flow_user_1782464842472"
+            },
+            {
+              "active": true,
+              "avatar": null,
+              "created_at": "2026-06-25T04:54:36.590847+00:00",
+              "display_name": "Auto List User",
+              "email": "auto_list_user_1782363275686@test.com",
+              "id": "f499681e-01ff-4048-86d6-8a9be8fc18bd",
+              "locked_until": null,
+              "phone": "0963275686",
+              "role": {
+                "description": "",
+                "id": "9d482c3a-3910-448f-8ffd-17c88356c8ec",
+                "is_system_admin": false,
+                "name": "Nhân viên phòng kinh doanh"
+              },
+              "user_name": "auto_list_user_63275686"
+            },
+            {
+              "active": true,
+              "avatar": null,
+              "created_at": "2026-06-24T04:42:39.452347+00:00",
+              "display_name": "Tester",
+              "email": null,
+              "id": "1b4075f7-5b0a-4229-a14e-6efae5f5a018",
+              "locked_until": null,
+              "phone": null,
+              "role": {
+                "description": "",
+                "id": "48d05274-28dd-43f4-808a-025359e80a1c",
+                "is_system_admin": false,
+                "name": "kỹ thuật viên"
+              },
+              "user_name": "tester"
+            },
+            {
+              "active": true,
+              "avatar": null,
+              "created_at": "2026-06-04T07:30:53.759667+00:00",
+              "display_name": "Truong Manh",
+              "email": null,
+              "id": "a7263f53-b5e3-48ce-9c93-54e09c638672",
+              "locked_until": null,
+              "phone": "0123456789",
+              "role": {
+                "description": "",
+                "id": "9d482c3a-3910-448f-8ffd-17c88356c8ec",
+                "is_system_admin": false,
+                "name": "Nhân viên phòng kinh doanh"
+              },
+              "user_name": "nguyenvana"
+            },
+            {
+              "active": true,
+              "avatar": null,
+              "created_at": "2026-06-03T02:13:44.431579+00:00",
+              "display_name": "thuy",
+              "email": null,
+              "id": "1bd456b1-9b99-45e8-90d3-bc0145ca837b",
+              "locked_until": null,
+              "phone": null,
+              "role": {
+                "description": "",
+                "id": "48d05274-28dd-43f4-808a-025359e80a1c",
+                "is_system_admin": false,
+                "name": "kỹ thuật viên"
+              },
+              "user_name": "thuy"
+            },
+            {
+              "active": true,
+              "avatar": null,
+              "created_at": "2026-05-29T07:01:47.426041+00:00",
+              "display_name": "tan đô",
+              "email": null,
+              "id": "c1e189f3-c776-469b-af1d-a3f8c88bf731",
+              "locked_until": null,
+              "phone": null,
+              "role": {
+                "description": "",
+                "id": "48d05274-28dd-43f4-808a-025359e80a1c",
+                "is_system_admin": false,
+                "name": "kỹ thuật viên"
+              },
+              "user_name": "tandt"
+            },
+            {
+              "active": true,
+              "avatar": null,
+              "created_at": "2026-05-28T07:50:21.364313+00:00",
+              "display_name": null,
+              "email": null,
+              "id": "7c3eee3f-03d3-4536-88b5-134d1457c07b",
+              "locked_until": null,
+              "phone": null,
+              "role": {
+                "description": "",
+                "id": "48d05274-28dd-43f4-808a-025359e80a1c",
+                "is_system_admin": false,
+                "name": "kỹ thuật viên"
+              },
+              "user_name": "NguyenHieu"
+            },
+            {
+              "active": true,
+              "avatar": null,
+              "created_at": "2026-05-19T02:27:56.923679+00:00",
+              "display_name": null,
+              "email": null,
+              "id": "643118ce-fa40-4bd2-a1a0-309affaf35a2",
+              "locked_until": "2026-07-17T10:45:46.105554+00:00",
+              "phone": null,
+              "role": {
+                "description": "",
+                "id": "48d05274-28dd-43f4-808a-025359e80a1c",
+                "is_system_admin": false,
+                "name": "kỹ thuật viên"
+              },
+              "user_name": "Admin"
+            },
+            {
+              "active": true,
+              "avatar": null,
+              "created_at": "2026-05-12T01:34:37.792965+00:00",
+              "display_name": "Vu thi thủy",
+              "email": "thuy@gmail.com",
+              "id": "f256c907-21dd-4b8a-b84b-c2e99d7f5232",
+              "locked_until": null,
+              "phone": null,
+              "role": {
+                "description": "",
+                "id": "48d05274-28dd-43f4-808a-025359e80a1c",
+                "is_system_admin": false,
+                "name": "kỹ thuật viên"
+              },
+              "user_name": "thuyvt"
+            },
+            {
+              "active": true,
+              "avatar": "avatar/fe581312-5eff-45d0-8e79-090293fbafbd_1782978546.png",
+              "created_at": "2026-05-05T09:51:43.839601+00:00",
+              "display_name": "Qqh",
+              "email": null,
+              "id": "7472b66e-2693-4c1a-9188-bc645d0eb1c9",
+              "locked_until": null,
+              "phone": "0111111114",
+              "role": {
+                "description": "",
+                "id": "48d05274-28dd-43f4-808a-025359e80a1c",
+                "is_system_admin": false,
+                "name": "kỹ thuật viên"
+              },
+              "user_name": "quynd"
+            }
+          ],
+          "limit": 20,
+          "page": 1,
+          "total": 12
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:46.259724191+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "List users returns pagination envelope"
+  ],
+  "cleanup": {
+    "users_deleted": 0,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:38:46.490Z"
+}

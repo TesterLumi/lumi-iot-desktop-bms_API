@@ -1,0 +1,130 @@
+{
+  "tc_id": "TC46",
+  "tc_name": "Unlock user",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:39:07.467Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC46_20260724_113907_4rhwqs",
+        "email": "auto_user_TC46_20260724_113907_4rhwqs@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967947467"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc46_20260724_113907_4rhwqs@auto-test.local",
+          "phone": "+84967947467",
+          "role": null,
+          "user_id": "3480b0a6-2518-4ea6-be0b-5375258f6490",
+          "user_name": "auto_user_TC46_20260724_113907_4rhwqs"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:07.423050305+00:00"
+      }
+    },
+    {
+      "step": "Update user status",
+      "method": "POST",
+      "endpoint": "v0/auth/status",
+      "status": 200,
+      "request": {
+        "user_id": "3480b0a6-2518-4ea6-be0b-5375258f6490",
+        "lock_minutes": 10
+      },
+      "response": {
+        "data": {
+          "user": {
+            "active": true,
+            "avatar": null,
+            "created_at": "2026-07-24T04:39:07.419558+00:00",
+            "display_name": "Auto User Role",
+            "email": "auto_user_tc46_20260724_113907_4rhwqs@auto-test.local",
+            "id": "3480b0a6-2518-4ea6-be0b-5375258f6490",
+            "locked_until": "2026-07-24T04:49:07.722322+00:00",
+            "phone": "+84967947467",
+            "role": null,
+            "user_name": "auto_user_TC46_20260724_113907_4rhwqs"
+          }
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:07.726152763+00:00"
+      }
+    },
+    {
+      "step": "Update user status",
+      "method": "POST",
+      "endpoint": "v0/auth/status",
+      "status": 200,
+      "request": {
+        "user_id": "3480b0a6-2518-4ea6-be0b-5375258f6490",
+        "active": true,
+        "lock_minutes": null,
+        "unlock": true
+      },
+      "response": {
+        "data": {
+          "user": {
+            "active": true,
+            "avatar": null,
+            "created_at": "2026-07-24T04:39:07.419558+00:00",
+            "display_name": "Auto User Role",
+            "email": "auto_user_tc46_20260724_113907_4rhwqs@auto-test.local",
+            "id": "3480b0a6-2518-4ea6-be0b-5375258f6490",
+            "locked_until": "2026-07-24T04:49:07.722322+00:00",
+            "phone": "+84967947467",
+            "role": null,
+            "user_name": "auto_user_TC46_20260724_113907_4rhwqs"
+          }
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:08.202003377+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "3480b0a6-2518-4ea6-be0b-5375258f6490"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:08.549908130+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "TODO_CONFIRM_UNLOCK_BEHAVIOR backend returns 200 but locked_until remains set"
+  ],
+  "cleanup": {
+    "users_deleted": 1,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:39:08.701Z"
+}

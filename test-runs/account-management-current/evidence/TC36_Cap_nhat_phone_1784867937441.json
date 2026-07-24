@@ -1,0 +1,99 @@
+{
+  "tc_id": "TC36",
+  "tc_name": "Cap nhat phone",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:38:56.435Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC36_20260724_113856_qrrfoe",
+        "email": "auto_user_TC36_20260724_113856_qrrfoe@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967936435"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc36_20260724_113856_qrrfoe@auto-test.local",
+          "phone": "+84967936435",
+          "role": null,
+          "user_id": "c7e6bd2f-a395-425a-93f0-1185247da307",
+          "user_name": "auto_user_TC36_20260724_113856_qrrfoe"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:56.606238442+00:00"
+      }
+    },
+    {
+      "step": "Update user",
+      "method": "POST",
+      "endpoint": "v0/auth/update",
+      "status": 200,
+      "request": {
+        "user_id": "c7e6bd2f-a395-425a-93f0-1185247da307",
+        "phone": "+84867936816"
+      },
+      "response": {
+        "data": {
+          "user": {
+            "active": true,
+            "avatar": null,
+            "created_at": "2026-07-24T04:38:56.602854+00:00",
+            "display_name": "Auto User Role",
+            "email": "auto_user_tc36_20260724_113856_qrrfoe@auto-test.local",
+            "id": "c7e6bd2f-a395-425a-93f0-1185247da307",
+            "locked_until": null,
+            "phone": "+84867936816",
+            "role": null,
+            "user_name": "auto_user_TC36_20260724_113856_qrrfoe"
+          }
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:56.889324709+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "c7e6bd2f-a395-425a-93f0-1185247da307"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:57.241026920+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "phone is updated"
+  ],
+  "cleanup": {
+    "users_deleted": 1,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:38:57.441Z"
+}

@@ -1,0 +1,152 @@
+{
+  "tc_id": "TC68",
+  "tc_name": "Delete session khong thuoc user bi chan",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:39:54.091Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC68_A_20260724_113954_awfi6h",
+        "email": "auto_user_TC68_A_20260724_113954_awfi6h@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967994091"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc68_a_20260724_113954_awfi6h@auto-test.local",
+          "phone": "+84967994091",
+          "role": null,
+          "user_id": "e9acbea7-d053-4894-b4a9-9bf8bd6b73a7",
+          "user_name": "auto_user_TC68_A_20260724_113954_awfi6h"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:54.284876210+00:00"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC68_B_20260724_113954_8ffpy4",
+        "email": "auto_user_TC68_B_20260724_113954_8ffpy4@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967994505"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc68_b_20260724_113954_8ffpy4@auto-test.local",
+          "phone": "+84967994505",
+          "role": null,
+          "user_id": "de8d0d59-8f48-4c8c-8e0a-08403357f78f",
+          "user_name": "auto_user_TC68_B_20260724_113954_8ffpy4"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:54.635065294+00:00"
+      }
+    },
+    {
+      "step": "List my sessions",
+      "method": "GET",
+      "endpoint": "v0/auth/sessions?page=1&limit=20",
+      "status": 200,
+      "response": {
+        "data": {
+          "items": [
+            {
+              "client_id": "client-001",
+              "client_os": "windows",
+              "created_at": "2026-07-24T04:39:54.982017+00:00",
+              "id": "ebd393b0-cdfe-48c6-bced-645397b425e6",
+              "last_active_at": "2026-07-24T04:39:54.982017+00:00",
+              "status": "online",
+              "user_agent": "Playwright/1.60.0 (x64; windows 10.0) node/24.16"
+            }
+          ],
+          "limit": 20,
+          "page": 1,
+          "total": 1
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:55.629863317+00:00"
+      }
+    },
+    {
+      "step": "Delete session",
+      "method": "DELETE",
+      "endpoint": "v0/auth/sessions/ebd393b0-cdfe-48c6-bced-645397b425e6",
+      "status": 403,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "FORBIDDEN",
+          "message": "Không có quyền thực hiện thao tác"
+        },
+        "timestamp": "2026-07-24T04:39:56.087885131+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "de8d0d59-8f48-4c8c-8e0a-08403357f78f"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:56.447484971+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "e9acbea7-d053-4894-b4a9-9bf8bd6b73a7"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:56.800795205+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "User cannot delete another user session"
+  ],
+  "cleanup": {
+    "users_deleted": 2,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:39:57.015Z"
+}

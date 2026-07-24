@@ -1,0 +1,91 @@
+{
+  "tc_id": "TC21",
+  "tc_name": "Tao tai khoan trung email",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:38:43.222Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC21_20260724_113843_byjm7f",
+        "email": "auto_user_TC21_20260724_113843_byjm7f@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967923222"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc21_20260724_113843_byjm7f@auto-test.local",
+          "phone": "+84967923222",
+          "role": null,
+          "user_id": "bfad90cf-6197-42dc-81fc-bf152134b9e8",
+          "user_name": "auto_user_TC21_20260724_113843_byjm7f"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:43.502442151+00:00"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 400,
+      "request": {
+        "user_name": "auto_user_TC21_dup_20260724_113843_e4wt37",
+        "email": "auto_user_TC21_20260724_113843_byjm7f@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967923667"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "EMAIL_EXISTS",
+          "message": "Email đã tồn tại"
+        },
+        "timestamp": "2026-07-24T04:38:43.785057359+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "bfad90cf-6197-42dc-81fc-bf152134b9e8"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:44.140611845+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Duplicate email is rejected"
+  ],
+  "cleanup": {
+    "users_deleted": 1,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:38:44.308Z"
+}

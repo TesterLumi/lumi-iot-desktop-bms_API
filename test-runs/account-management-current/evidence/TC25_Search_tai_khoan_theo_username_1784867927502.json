@@ -1,0 +1,100 @@
+{
+  "tc_id": "TC25",
+  "tc_name": "Search tai khoan theo username",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:38:46.507Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC25_20260724_113846_2zcpgz",
+        "email": "auto_user_TC25_20260724_113846_2zcpgz@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967926507"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc25_20260724_113846_2zcpgz@auto-test.local",
+          "phone": "+84967926507",
+          "role": null,
+          "user_id": "006eb9b1-780d-426d-a97c-5c6d9fc05dc4",
+          "user_name": "auto_user_TC25_20260724_113846_2zcpgz"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:46.645942128+00:00"
+      }
+    },
+    {
+      "step": "List users",
+      "method": "GET",
+      "endpoint": "v0/auth/list?search=auto_user_TC25_20260724_113846_2zcpgz&page=1&limit=20",
+      "status": 200,
+      "response": {
+        "data": {
+          "items": [
+            {
+              "active": true,
+              "avatar": null,
+              "created_at": "2026-07-24T04:38:46.643040+00:00",
+              "display_name": "Auto User Role",
+              "email": "auto_user_tc25_20260724_113846_2zcpgz@auto-test.local",
+              "id": "006eb9b1-780d-426d-a97c-5c6d9fc05dc4",
+              "locked_until": null,
+              "phone": "+84967926507",
+              "role": null,
+              "user_name": "auto_user_TC25_20260724_113846_2zcpgz"
+            }
+          ],
+          "limit": 20,
+          "page": 1,
+          "total": 1
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:46.947440244+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "006eb9b1-780d-426d-a97c-5c6d9fc05dc4"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:47.289293359+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Created user can be found by list users search"
+  ],
+  "cleanup": {
+    "users_deleted": 1,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:38:47.502Z"
+}

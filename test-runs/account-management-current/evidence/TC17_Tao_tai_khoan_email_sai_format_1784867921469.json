@@ -1,0 +1,50 @@
+{
+  "tc_id": "TC17",
+  "tc_name": "Tao tai khoan email sai format",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:38:41.437Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 400,
+      "request": {
+        "user_name": "auto_user_TC17_20260724_113841_w6bpzw",
+        "email": "abc",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967921437"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "INVALID_EMAIL",
+          "message": "Email không đúng định dạng"
+        },
+        "timestamp": "2026-07-24T04:38:41.330280489+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Invalid email format returns 400"
+  ],
+  "cleanup": {
+    "users_deleted": 0,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:38:41.469Z"
+}

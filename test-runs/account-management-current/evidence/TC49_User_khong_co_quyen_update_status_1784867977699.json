@@ -1,0 +1,129 @@
+{
+  "tc_id": "TC49",
+  "tc_name": "User khong co quyen update status",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:39:35.647Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC49_target_20260724_113935_258vnx",
+        "email": "auto_user_TC49_target_20260724_113935_258vnx@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967975647"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc49_target_20260724_113935_258vnx@auto-test.local",
+          "phone": "+84967975647",
+          "role": null,
+          "user_id": "2068b0b6-b988-424b-9450-9b7616555df6",
+          "user_name": "auto_user_TC49_target_20260724_113935_258vnx"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:35.807818525+00:00"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC49_noperm_20260724_113936_s8zhc4",
+        "email": "auto_user_TC49_noperm_20260724_113936_s8zhc4@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967976020"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc49_noperm_20260724_113936_s8zhc4@auto-test.local",
+          "phone": "+84967976020",
+          "role": null,
+          "user_id": "6afa0608-9c12-4cf9-b8bc-218879128e74",
+          "user_name": "auto_user_TC49_noperm_20260724_113936_s8zhc4"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:36.148752461+00:00"
+      }
+    },
+    {
+      "step": "Update user status",
+      "method": "POST",
+      "endpoint": "v0/auth/status",
+      "status": 403,
+      "request": {
+        "user_id": "2068b0b6-b988-424b-9450-9b7616555df6",
+        "active": false
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "FORBIDDEN",
+          "message": "Không có quyền thực hiện thao tác"
+        },
+        "timestamp": "2026-07-24T04:39:36.784803621+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "6afa0608-9c12-4cf9-b8bc-218879128e74"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:37.143268973+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "2068b0b6-b988-424b-9450-9b7616555df6"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:37.484738989+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Viewer cannot update user status or request is rate limited by real system"
+  ],
+  "cleanup": {
+    "users_deleted": 2,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:39:37.699Z"
+}

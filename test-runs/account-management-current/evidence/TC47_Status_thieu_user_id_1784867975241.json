@@ -1,0 +1,46 @@
+{
+  "tc_id": "TC47",
+  "tc_name": "Status thieu user_id",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:39:08.780Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Update user status",
+      "method": "POST",
+      "endpoint": "v0/auth/status",
+      "status": 400,
+      "request": {
+        "active": false
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "VALIDATION_ERROR",
+          "message": "parse request payload error: Expected input type \"string\", found null. (occurred while parsing \"UpdateStatusRequest\")"
+        },
+        "timestamp": "2026-07-24T04:39:35.026868381+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Missing user_id is rejected or rate limited by real system"
+  ],
+  "cleanup": {
+    "users_deleted": 0,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:39:35.241Z"
+}

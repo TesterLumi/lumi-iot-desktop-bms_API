@@ -1,0 +1,49 @@
+{
+  "tc_id": "TC7",
+  "tc_name": "Refresh token thanh cong",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:38:35.531Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Refresh token",
+      "method": "POST",
+      "endpoint": "v0/auth/refresh",
+      "status": 200,
+      "request": {
+        "refresh_token": "ey***aU",
+        "rotate": true
+      },
+      "response": {
+        "data": {
+          "access_token": "ey***64",
+          "refresh_token": "ey***5w",
+          "token_type": "Be***er"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:36.008371+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Refresh token returns access_token"
+  ],
+  "cleanup": {
+    "users_deleted": 0,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:38:36.214Z"
+}

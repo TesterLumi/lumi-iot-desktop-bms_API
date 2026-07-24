@@ -1,0 +1,40 @@
+{
+  "tc_id": "TC6",
+  "tc_name": "Login thieu client header",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:38:35.122Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Login",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 400,
+      "request": {
+        "user_name": "root",
+        "password": "Lu***56"
+      },
+      "response": "failed to parse parameter `x-client-api-key`: Type \"string\" expects an input value."
+    }
+  ],
+  "assertions": [
+    "Login without x-client-api-key is rejected"
+  ],
+  "cleanup": {
+    "users_deleted": 0,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:38:35.512Z"
+}

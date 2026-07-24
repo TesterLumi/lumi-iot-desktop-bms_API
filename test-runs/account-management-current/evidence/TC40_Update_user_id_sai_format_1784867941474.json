@@ -1,0 +1,47 @@
+{
+  "tc_id": "TC40",
+  "tc_name": "Update user_id sai format",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:39:01.199Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Update user",
+      "method": "POST",
+      "endpoint": "v0/auth/update",
+      "status": 500,
+      "request": {
+        "user_id": "abc",
+        "display_name": "Invalid"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "INTERNAL_ERROR",
+          "message": "Lỗi máy chủ nội bộ"
+        },
+        "timestamp": "2026-07-24T04:39:01.262420952+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Invalid user_id format is rejected"
+  ],
+  "cleanup": {
+    "users_deleted": 0,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:39:01.474Z"
+}

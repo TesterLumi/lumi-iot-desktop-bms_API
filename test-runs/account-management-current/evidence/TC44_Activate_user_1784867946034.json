@@ -1,0 +1,128 @@
+{
+  "tc_id": "TC44",
+  "tc_name": "Activate user",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:39:04.652Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC44_20260724_113904_i4we4m",
+        "email": "auto_user_TC44_20260724_113904_i4we4m@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967944652"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc44_20260724_113904_i4we4m@auto-test.local",
+          "phone": "+84967944652",
+          "role": null,
+          "user_id": "a375b8d3-f8cf-4e4b-ba25-263a56309a09",
+          "user_name": "auto_user_TC44_20260724_113904_i4we4m"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:04.832082543+00:00"
+      }
+    },
+    {
+      "step": "Update user status",
+      "method": "POST",
+      "endpoint": "v0/auth/status",
+      "status": 200,
+      "request": {
+        "user_id": "a375b8d3-f8cf-4e4b-ba25-263a56309a09",
+        "active": false
+      },
+      "response": {
+        "data": {
+          "user": {
+            "active": false,
+            "avatar": null,
+            "created_at": "2026-07-24T04:39:04.828476+00:00",
+            "display_name": "Auto User Role",
+            "email": "auto_user_tc44_20260724_113904_i4we4m@auto-test.local",
+            "id": "a375b8d3-f8cf-4e4b-ba25-263a56309a09",
+            "locked_until": null,
+            "phone": "+84967944652",
+            "role": null,
+            "user_name": "auto_user_TC44_20260724_113904_i4we4m"
+          }
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:05.126135512+00:00"
+      }
+    },
+    {
+      "step": "Update user status",
+      "method": "POST",
+      "endpoint": "v0/auth/status",
+      "status": 200,
+      "request": {
+        "user_id": "a375b8d3-f8cf-4e4b-ba25-263a56309a09",
+        "active": true
+      },
+      "response": {
+        "data": {
+          "user": {
+            "active": true,
+            "avatar": null,
+            "created_at": "2026-07-24T04:39:04.828476+00:00",
+            "display_name": "Auto User Role",
+            "email": "auto_user_tc44_20260724_113904_i4we4m@auto-test.local",
+            "id": "a375b8d3-f8cf-4e4b-ba25-263a56309a09",
+            "locked_until": null,
+            "phone": "+84967944652",
+            "role": null,
+            "user_name": "auto_user_TC44_20260724_113904_i4we4m"
+          }
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:05.471013079+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "a375b8d3-f8cf-4e4b-ba25-263a56309a09"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:05.825623503+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "User active is set back to true"
+  ],
+  "cleanup": {
+    "users_deleted": 1,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:39:06.034Z"
+}

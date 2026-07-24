@@ -1,0 +1,129 @@
+{
+  "tc_id": "TC41",
+  "tc_name": "User khong co quyen update user khac",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:39:01.510Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC41_target_20260724_113901_wssp2h",
+        "email": "auto_user_TC41_target_20260724_113901_wssp2h@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967941510"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc41_target_20260724_113901_wssp2h@auto-test.local",
+          "phone": "+84967941510",
+          "role": null,
+          "user_id": "d7d5d865-c859-44c2-9542-40c4d43fec29",
+          "user_name": "auto_user_TC41_target_20260724_113901_wssp2h"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:01.685942421+00:00"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC41_noperm_20260724_113901_jcov54",
+        "email": "auto_user_TC41_noperm_20260724_113901_jcov54@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967941901"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc41_noperm_20260724_113901_jcov54@auto-test.local",
+          "phone": "+84967941901",
+          "role": null,
+          "user_id": "b8cd7710-289f-4382-98db-df1b1bdc82d8",
+          "user_name": "auto_user_TC41_noperm_20260724_113901_jcov54"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:02.040012270+00:00"
+      }
+    },
+    {
+      "step": "Update user",
+      "method": "POST",
+      "endpoint": "v0/auth/update",
+      "status": 403,
+      "request": {
+        "user_id": "d7d5d865-c859-44c2-9542-40c4d43fec29",
+        "display_name": "Blocked"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "FORBIDDEN",
+          "message": "Không có quyền thực hiện thao tác"
+        },
+        "timestamp": "2026-07-24T04:39:02.674963983+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "b8cd7710-289f-4382-98db-df1b1bdc82d8"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:03.032348362+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "d7d5d865-c859-44c2-9542-40c4d43fec29"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:03.378707725+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "No-permission user cannot update another user"
+  ],
+  "cleanup": {
+    "users_deleted": 2,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:39:03.600Z"
+}

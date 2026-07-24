@@ -1,0 +1,43 @@
+{
+  "tc_id": "TC72",
+  "tc_name": "Token sai voi API can auth",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:39:59.623Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Invalid token request",
+      "method": "GET",
+      "endpoint": "v0/auth/list?page=1&limit=20",
+      "status": 401,
+      "response": {
+        "success": false,
+        "error": {
+          "code": "UNAUTHORIZED",
+          "message": "Unauthorized"
+        },
+        "timestamp": "2026-07-24T04:39:59.751327304+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Admin API with invalid token returns 401"
+  ],
+  "cleanup": {
+    "users_deleted": 0,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:39:59.963Z"
+}

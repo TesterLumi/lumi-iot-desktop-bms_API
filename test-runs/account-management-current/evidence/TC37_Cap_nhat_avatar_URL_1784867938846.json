@@ -1,0 +1,99 @@
+{
+  "tc_id": "TC37",
+  "tc_name": "Cap nhat avatar URL",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:38:57.458Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC37_20260724_113857_vivdq5",
+        "email": "auto_user_TC37_20260724_113857_vivdq5@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967937458"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc37_20260724_113857_vivdq5@auto-test.local",
+          "phone": "+84967937458",
+          "role": null,
+          "user_id": "f527db26-1e7f-4c36-a801-cdcb4bb3387e",
+          "user_name": "auto_user_TC37_20260724_113857_vivdq5"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:57.650849564+00:00"
+      }
+    },
+    {
+      "step": "Update user",
+      "method": "POST",
+      "endpoint": "v0/auth/update",
+      "status": 200,
+      "request": {
+        "user_id": "f527db26-1e7f-4c36-a801-cdcb4bb3387e",
+        "avatar": "https://example.com/avatar-1784867937861.jpg"
+      },
+      "response": {
+        "data": {
+          "user": {
+            "active": true,
+            "avatar": "https://example.com/avatar-1784867937861.jpg",
+            "created_at": "2026-07-24T04:38:57.647689+00:00",
+            "display_name": "Auto User Role",
+            "email": "auto_user_tc37_20260724_113857_vivdq5@auto-test.local",
+            "id": "f527db26-1e7f-4c36-a801-cdcb4bb3387e",
+            "locked_until": null,
+            "phone": "+84967937458",
+            "role": null,
+            "user_name": "auto_user_TC37_20260724_113857_vivdq5"
+          }
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:58.287832047+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "f527db26-1e7f-4c36-a801-cdcb4bb3387e"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:58.640278830+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "User can update own avatar"
+  ],
+  "cleanup": {
+    "users_deleted": 1,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:38:58.846Z"
+}

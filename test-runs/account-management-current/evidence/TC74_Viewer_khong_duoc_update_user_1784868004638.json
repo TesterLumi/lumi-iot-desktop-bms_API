@@ -1,0 +1,129 @@
+{
+  "tc_id": "TC74",
+  "tc_name": "Viewer khong duoc update user",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:40:01.417Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC74_target_20260724_114001_golyit",
+        "email": "auto_user_TC74_target_20260724_114001_golyit@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84968001417"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc74_target_20260724_114001_golyit@auto-test.local",
+          "phone": "+84968001417",
+          "role": null,
+          "user_id": "ab7014a7-f31e-4547-b5d2-3c4825538017",
+          "user_name": "auto_user_TC74_target_20260724_114001_golyit"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:40:01.570315979+00:00"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC74_noperm_20260724_114001_muvmpi",
+        "email": "auto_user_TC74_noperm_20260724_114001_muvmpi@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84968001788"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc74_noperm_20260724_114001_muvmpi@auto-test.local",
+          "phone": "+84968001788",
+          "role": null,
+          "user_id": "b145e9a8-c9b3-465d-bf9c-abeb30d1c5ba",
+          "user_name": "auto_user_TC74_noperm_20260724_114001_muvmpi"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:40:01.924293361+00:00"
+      }
+    },
+    {
+      "step": "Update user",
+      "method": "POST",
+      "endpoint": "v0/auth/update",
+      "status": 403,
+      "request": {
+        "user_id": "ab7014a7-f31e-4547-b5d2-3c4825538017",
+        "display_name": "Viewer Blocked"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "FORBIDDEN",
+          "message": "Không có quyền thực hiện thao tác"
+        },
+        "timestamp": "2026-07-24T04:40:02.550279367+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "b145e9a8-c9b3-465d-bf9c-abeb30d1c5ba"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:40:03.361929908+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "ab7014a7-f31e-4547-b5d2-3c4825538017"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:40:03.723320324+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Viewer cannot update user"
+  ],
+  "cleanup": {
+    "users_deleted": 2,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:40:04.638Z"
+}

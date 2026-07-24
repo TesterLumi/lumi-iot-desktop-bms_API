@@ -1,0 +1,91 @@
+{
+  "tc_id": "TC73",
+  "tc_name": "Viewer khong duoc create user",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:39:59.985Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC73_noperm_20260724_113959_6yoele",
+        "email": "auto_user_TC73_noperm_20260724_113959_6yoele@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967999986"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc73_noperm_20260724_113959_6yoele@auto-test.local",
+          "phone": "+84967999986",
+          "role": null,
+          "user_id": "1ec41494-017e-4426-acae-d9f43f760cc3",
+          "user_name": "auto_user_TC73_noperm_20260724_113959_6yoele"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:40:00.165991487+00:00"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 403,
+      "request": {
+        "user_name": "auto_user_TC73_target_20260724_114000_qy7ngm",
+        "email": "auto_user_TC73_target_20260724_114000_qy7ngm@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84968000767"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "FORBIDDEN",
+          "message": "Không có quyền thực hiện thao tác"
+        },
+        "timestamp": "2026-07-24T04:40:00.801863712+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "1ec41494-017e-4426-acae-d9f43f760cc3"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:40:01.163808941+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Viewer cannot create user"
+  ],
+  "cleanup": {
+    "users_deleted": 1,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:40:01.383Z"
+}

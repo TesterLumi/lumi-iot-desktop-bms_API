@@ -1,0 +1,67 @@
+{
+  "tc_id": "TC2",
+  "tc_name": "Login thanh cong voi admin",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:38:33.699Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Login",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "request": {
+        "user_name": "root",
+        "password": "Lu***56"
+      },
+      "response": {
+        "data": {
+          "access_token": "ey***8Q",
+          "expires_in": 86400,
+          "refresh_token": "ey***S4",
+          "token_type": "Be***er",
+          "user": {
+            "active": true,
+            "avatar": "avatar/02fb489c-5064-4f90-a633-56d103e291ed_1782278437.png",
+            "created_at": "2026-04-16T05:01:34.459545+00:00",
+            "display_name": "Admin",
+            "email": "lumivn@gmail.com",
+            "id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f",
+            "locked_until": null,
+            "phone": "0568794123",
+            "role": {
+              "description": "System Administrator - có tất cả quyền trong hệ thống",
+              "id": "00000000-0000-0000-0000-000000000001",
+              "is_system_admin": true,
+              "name": "Quản trị hệ thống"
+            },
+            "user_name": "root"
+          }
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:33.818793402+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Admin login returns access_token, refresh_token, user"
+  ],
+  "cleanup": {
+    "users_deleted": 0,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:38:34.041Z"
+}

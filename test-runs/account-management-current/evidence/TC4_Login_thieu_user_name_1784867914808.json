@@ -1,0 +1,46 @@
+{
+  "tc_id": "TC4",
+  "tc_name": "Login thieu user_name",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:38:34.704Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Login",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 400,
+      "request": {
+        "password": "Lu***56"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "VALIDATION_ERROR",
+          "message": "parse request payload error: Expected input type \"string\", found null. (occurred while parsing \"LoginRequest\")"
+        },
+        "timestamp": "2026-07-24T04:38:34.592263277+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Missing user_name returns 400"
+  ],
+  "cleanup": {
+    "users_deleted": 0,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:38:34.808Z"
+}

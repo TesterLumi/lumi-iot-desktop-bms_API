@@ -1,0 +1,36 @@
+{
+  "tc_id": "TC71",
+  "tc_name": "Khong truyen token voi API can auth",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:39:59.494Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "List users",
+      "method": "GET",
+      "endpoint": "v0/auth/list?page=1&limit=20",
+      "status": 400,
+      "response": "failed to parse parameter `authorization`: Type \"string\" expects an input value."
+    }
+  ],
+  "assertions": [
+    "Admin API without token is rejected"
+  ],
+  "cleanup": {
+    "users_deleted": 0,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:39:59.602Z"
+}

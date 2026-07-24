@@ -1,0 +1,129 @@
+{
+  "tc_id": "TC38",
+  "tc_name": "Update email trung user khac",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:38:58.861Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC38_A_20260724_113858_m3mtcp",
+        "email": "auto_user_TC38_A_20260724_113858_m3mtcp@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967938861"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc38_a_20260724_113858_m3mtcp@auto-test.local",
+          "phone": "+84967938861",
+          "role": null,
+          "user_id": "6dca1e35-04a3-40f6-a149-c6192efea7a1",
+          "user_name": "auto_user_TC38_A_20260724_113858_m3mtcp"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:59.051355041+00:00"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC38_B_20260724_113859_pwzb1m",
+        "email": "auto_user_TC38_B_20260724_113859_pwzb1m@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967939264"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc38_b_20260724_113859_pwzb1m@auto-test.local",
+          "phone": "+84967939264",
+          "role": null,
+          "user_id": "b70ac6ea-343c-47d5-b10a-285bab66a5ed",
+          "user_name": "auto_user_TC38_B_20260724_113859_pwzb1m"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:59.402605253+00:00"
+      }
+    },
+    {
+      "step": "Update user",
+      "method": "POST",
+      "endpoint": "v0/auth/update",
+      "status": 409,
+      "request": {
+        "user_id": "b70ac6ea-343c-47d5-b10a-285bab66a5ed",
+        "email": "auto_user_TC38_A_20260724_113858_m3mtcp@auto-test.local"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "EMAIL_EXISTS",
+          "message": "Email đã tồn tại"
+        },
+        "timestamp": "2026-07-24T04:38:59.859367660+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "b70ac6ea-343c-47d5-b10a-285bab66a5ed"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:00.233851150+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "6dca1e35-04a3-40f6-a149-c6192efea7a1"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:00.580689716+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Duplicate email update is rejected"
+  ],
+  "cleanup": {
+    "users_deleted": 2,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:39:00.790Z"
+}

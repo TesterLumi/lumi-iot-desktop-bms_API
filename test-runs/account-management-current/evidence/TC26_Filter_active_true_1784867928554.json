@@ -1,0 +1,100 @@
+{
+  "tc_id": "TC26",
+  "tc_name": "Filter active true",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:38:47.516Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC26_20260724_113847_fo8zhg",
+        "email": "auto_user_TC26_20260724_113847_fo8zhg@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967927516"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc26_20260724_113847_fo8zhg@auto-test.local",
+          "phone": "+84967927516",
+          "role": null,
+          "user_id": "78447cc4-4144-4b65-b12a-f5d336999933",
+          "user_name": "auto_user_TC26_20260724_113847_fo8zhg"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:47.716622527+00:00"
+      }
+    },
+    {
+      "step": "List users",
+      "method": "GET",
+      "endpoint": "v0/auth/list?search=auto_user_TC26_20260724_113847_fo8zhg&active=true&page=1&limit=20",
+      "status": 200,
+      "response": {
+        "data": {
+          "items": [
+            {
+              "active": true,
+              "avatar": null,
+              "created_at": "2026-07-24T04:38:47.713225+00:00",
+              "display_name": "Auto User Role",
+              "email": "auto_user_tc26_20260724_113847_fo8zhg@auto-test.local",
+              "id": "78447cc4-4144-4b65-b12a-f5d336999933",
+              "locked_until": null,
+              "phone": "+84967927516",
+              "role": null,
+              "user_name": "auto_user_TC26_20260724_113847_fo8zhg"
+            }
+          ],
+          "limit": 20,
+          "page": 1,
+          "total": 1
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:47.990968472+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "78447cc4-4144-4b65-b12a-f5d336999933"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:48.341616731+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "active=true filter returns active automation user"
+  ],
+  "cleanup": {
+    "users_deleted": 1,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:38:48.554Z"
+}

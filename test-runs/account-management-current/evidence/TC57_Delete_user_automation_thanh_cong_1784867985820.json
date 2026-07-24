@@ -1,0 +1,70 @@
+{
+  "tc_id": "TC57",
+  "tc_name": "Delete user automation thanh cong",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:39:44.790Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC57_20260724_113944_hsolnz",
+        "email": "auto_user_TC57_20260724_113944_hsolnz@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967984790"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc57_20260724_113944_hsolnz@auto-test.local",
+          "phone": "+84967984790",
+          "role": null,
+          "user_id": "84f1d45a-176b-4c65-a568-df534f2ea258",
+          "user_name": "auto_user_TC57_20260724_113944_hsolnz"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:44.948750046+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "84f1d45a-176b-4c65-a568-df534f2ea258"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:39:45.247697975+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Automation user is deleted successfully"
+  ],
+  "cleanup": {
+    "users_deleted": 1,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:39:45.819Z"
+}

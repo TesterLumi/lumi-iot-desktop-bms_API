@@ -1,0 +1,29 @@
+{
+  "tc_id": "TC62",
+  "tc_name": "Khong cho delete chinh minh",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:39:50.273Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    }
+  ],
+  "assertions": [
+    "SKIPPED_DANGEROUS_GUARD: not deleting real admin user by default"
+  ],
+  "cleanup": {
+    "users_deleted": 0,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:39:50.273Z"
+}

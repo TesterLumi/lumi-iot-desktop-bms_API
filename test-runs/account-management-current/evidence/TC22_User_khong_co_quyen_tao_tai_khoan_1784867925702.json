@@ -1,0 +1,91 @@
+{
+  "tc_id": "TC22",
+  "tc_name": "User khong co quyen tao tai khoan",
+  "status": "PASSED",
+  "started_at": "2026-07-24T04:38:44.323Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***",
+        "user_id": "d3f8a9c0-7c9b-4e62-9c3a-1a2b3c4d5e6f"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 200,
+      "request": {
+        "user_name": "auto_user_TC22_noperm_20260724_113844_o0s1zs",
+        "email": "auto_user_TC22_noperm_20260724_113844_o0s1zs@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967924323"
+      },
+      "response": {
+        "data": {
+          "display_name": "Auto User Role",
+          "email": "auto_user_tc22_noperm_20260724_113844_o0s1zs@auto-test.local",
+          "phone": "+84967924323",
+          "role": null,
+          "user_id": "98b7c10f-d73b-463a-af45-5e5d7b0c1de5",
+          "user_name": "auto_user_TC22_noperm_20260724_113844_o0s1zs"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:44.553507205+00:00"
+      }
+    },
+    {
+      "step": "Register user",
+      "method": "POST",
+      "endpoint": "v0/auth/register",
+      "status": 403,
+      "request": {
+        "user_name": "auto_user_TC22_target_20260724_113845_5try7s",
+        "email": "auto_user_TC22_target_20260724_113845_5try7s@auto-test.local",
+        "password": "Au***56",
+        "display_name": "Auto User Role",
+        "phone": "+84967925068"
+      },
+      "response": {
+        "success": false,
+        "error": {
+          "code": "FORBIDDEN",
+          "message": "Không có quyền thực hiện thao tác"
+        },
+        "timestamp": "2026-07-24T04:38:45.184501025+00:00"
+      }
+    },
+    {
+      "step": "Delete user",
+      "method": "POST",
+      "endpoint": "v0/auth/delete",
+      "status": 200,
+      "request": {
+        "user_id": "98b7c10f-d73b-463a-af45-5e5d7b0c1de5"
+      },
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-24T04:38:45.537079532+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "No-permission user cannot create user"
+  ],
+  "cleanup": {
+    "users_deleted": 1,
+    "sessions_deleted": 0,
+    "warnings": []
+  },
+  "finished_at": "2026-07-24T04:38:45.702Z"
+}
