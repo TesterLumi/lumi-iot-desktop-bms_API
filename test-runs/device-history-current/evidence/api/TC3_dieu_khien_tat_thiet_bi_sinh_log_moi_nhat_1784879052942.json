@@ -1,0 +1,3575 @@
+{
+  "tc_id": "TC3",
+  "tc_name": "Dieu khien tat thiet bi sinh log moi nhat",
+  "status": "PASSED",
+  "started_at": "2026-07-24T07:44:06.172Z",
+  "finished_at": "2026-07-24T07:44:12.942Z",
+  "endpoints": {
+    "device_history_base_url": "http://10.10.0.198:4420",
+    "device_history_api": "/api/device_logs",
+    "device_service_base_url": "http://10.10.0.198:3333",
+    "device_control_base_url": "http://10.10.0.198:8081",
+    "device_control_api": "/api/devices/control",
+    "device_status_base_url": "http://10.10.30.154:8080",
+    "device_status_api": "/api/devices/status"
+  },
+  "steps": [
+    {
+      "step": "Capture initial device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "base_url": "http://10.10.30.154:8080",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200
+    },
+    {
+      "step": "List device logs",
+      "method": "GET",
+      "endpoint": "/api/device_logs?device_id=87903193043180547&limit=1",
+      "base_url": "http://10.10.0.198:4420",
+      "response": {
+        "data": [
+          {
+            "timestamp": "1784879042033797839",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784879043,
+            "finished_at": 1784879043,
+            "request_id": "6522809741744688697",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          }
+        ],
+        "next_cursor": "1784879042033797839"
+      },
+      "status": 200
+    },
+    {
+      "step": "Control device ON before latest check - newest log before control",
+      "response": {
+        "newest_log": {
+          "timestamp": "1784879042033797839",
+          "hc_id": "4932308540097724437",
+          "mac": "38:4b:7d:03:f6:1c",
+          "started_at": 1784879043,
+          "finished_at": 1784879043,
+          "request_id": "6522809741744688697",
+          "device_id": "87903193043180547",
+          "action": "control",
+          "params": [
+            [
+              1,
+              true
+            ]
+          ],
+          "prev_state": {
+            "config": {
+              "delay": 0,
+              "group_all": false,
+              "ignore_23": null,
+              "ignore_29": null,
+              "ignore_AD": null,
+              "led_disable": false,
+              "led_level": 1,
+              "lock_touch": false,
+              "output_mode": 0,
+              "switch_type": 0,
+              "touch_mode": {
+                "delay": 1,
+                "mode": 0,
+                "output_mode": 0
+              }
+            },
+            "state": [
+              false,
+              true
+            ]
+          },
+          "curr_state": {
+            "config": {
+              "delay": 0,
+              "group_all": false,
+              "ignore_23": null,
+              "ignore_29": null,
+              "ignore_AD": null,
+              "led_disable": false,
+              "led_level": 1,
+              "lock_touch": false,
+              "output_mode": 0,
+              "switch_type": 0,
+              "touch_mode": {
+                "delay": 1,
+                "mode": 0,
+                "output_mode": 0
+              }
+            },
+            "state": [
+              true,
+              true
+            ]
+          },
+          "status": "success",
+          "error": null,
+          "source_type": "user",
+          "source_id": "user:automation-test/app:bms-e2e-test",
+          "source_metadata": null
+        },
+        "newest_cursor": "1784879042033797839"
+      }
+    },
+    {
+      "step": "Control device ON before latest check",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "base_url": "http://10.10.0.198:8081",
+      "request": {
+        "device_id": "87903193043180547",
+        "states": [
+          {
+            "idx": 1,
+            "value": true
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    },
+    {
+      "step": "Poll device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "base_url": "http://10.10.30.154:8080",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200
+    },
+    {
+      "step": "Poll device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "base_url": "http://10.10.30.154:8080",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200
+    },
+    {
+      "step": "List device logs",
+      "method": "GET",
+      "endpoint": "/api/device_logs?device_id=87903193043180547&limit=10",
+      "base_url": "http://10.10.0.198:4420",
+      "response": {
+        "data": [
+          {
+            "timestamp": "1784879042033797839",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784879043,
+            "finished_at": 1784879043,
+            "request_id": "6522809741744688697",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878827089284503",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878828,
+            "finished_at": 1784878828,
+            "request_id": "10652992268920566922",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ],
+              [
+                0,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878823994129336",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878825,
+            "finished_at": 1784878825,
+            "request_id": "2028286122621368243",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878822602376503",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878823,
+            "finished_at": 1784878823,
+            "request_id": "8240095730985310960",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ],
+              [
+                0,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878819794114169",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878820,
+            "finished_at": 1784878820,
+            "request_id": "4382778903890064700",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878817294171835",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878818,
+            "finished_at": 1784878818,
+            "request_id": "17045377081178728106",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878816730311002",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878818,
+            "finished_at": 1784878818,
+            "request_id": "4375228582992633120",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ],
+              [
+                0,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878813894137335",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878814,
+            "finished_at": 1784878814,
+            "request_id": "3786986550227997163",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878770046084670",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878771,
+            "finished_at": 1784878771,
+            "request_id": "11133735032854813417",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ],
+              [
+                0,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878767511480670",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878768,
+            "finished_at": 1784878768,
+            "request_id": "12537489254215221050",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          }
+        ],
+        "next_cursor": "1784878767511480670"
+      },
+      "status": 200
+    },
+    {
+      "step": "List device logs",
+      "method": "GET",
+      "endpoint": "/api/device_logs?device_id=87903193043180547&limit=10",
+      "base_url": "http://10.10.0.198:4420",
+      "response": {
+        "data": [
+          {
+            "timestamp": "1784879046933758340",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784879047,
+            "finished_at": 1784879047,
+            "request_id": "17571507129567776999",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784879045991211339",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784879047,
+            "finished_at": 1784879047,
+            "request_id": "7803202041591608271",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ],
+              [
+                0,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784879042033797839",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784879043,
+            "finished_at": 1784879043,
+            "request_id": "6522809741744688697",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878827089284503",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878828,
+            "finished_at": 1784878828,
+            "request_id": "10652992268920566922",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ],
+              [
+                0,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878823994129336",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878825,
+            "finished_at": 1784878825,
+            "request_id": "2028286122621368243",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878822602376503",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878823,
+            "finished_at": 1784878823,
+            "request_id": "8240095730985310960",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ],
+              [
+                0,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878819794114169",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878820,
+            "finished_at": 1784878820,
+            "request_id": "4382778903890064700",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878817294171835",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878818,
+            "finished_at": 1784878818,
+            "request_id": "17045377081178728106",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878816730311002",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878818,
+            "finished_at": 1784878818,
+            "request_id": "4375228582992633120",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ],
+              [
+                0,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878813894137335",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878814,
+            "finished_at": 1784878814,
+            "request_id": "3786986550227997163",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          }
+        ],
+        "next_cursor": "1784878813894137335"
+      },
+      "status": 200
+    },
+    {
+      "step": "Control device ON before latest check - newest log after control",
+      "response": {
+        "newest_log": {
+          "timestamp": "1784879046933758340",
+          "hc_id": "4932308540097724437",
+          "mac": "38:4b:7d:03:f6:1c",
+          "started_at": 1784879047,
+          "finished_at": 1784879047,
+          "request_id": "17571507129567776999",
+          "device_id": "87903193043180547",
+          "action": "control",
+          "params": [
+            [
+              1,
+              true
+            ]
+          ],
+          "prev_state": {
+            "config": {
+              "delay": 0,
+              "group_all": false,
+              "ignore_23": null,
+              "ignore_29": null,
+              "ignore_AD": null,
+              "led_disable": false,
+              "led_level": 1,
+              "lock_touch": false,
+              "output_mode": 0,
+              "switch_type": 0,
+              "touch_mode": {
+                "delay": 1,
+                "mode": 0,
+                "output_mode": 0
+              }
+            },
+            "state": [
+              false,
+              true
+            ]
+          },
+          "curr_state": {
+            "config": {
+              "delay": 0,
+              "group_all": false,
+              "ignore_23": null,
+              "ignore_29": null,
+              "ignore_AD": null,
+              "led_disable": false,
+              "led_level": 1,
+              "lock_touch": false,
+              "output_mode": 0,
+              "switch_type": 0,
+              "touch_mode": {
+                "delay": 1,
+                "mode": 0,
+                "output_mode": 0
+              }
+            },
+            "state": [
+              true,
+              true
+            ]
+          },
+          "status": "success",
+          "error": null,
+          "source_type": "user",
+          "source_id": "user:automation-test/app:bms-e2e-test",
+          "source_metadata": null
+        },
+        "previous_newest_log": {
+          "timestamp": "1784879042033797839",
+          "hc_id": "4932308540097724437",
+          "mac": "38:4b:7d:03:f6:1c",
+          "started_at": 1784879043,
+          "finished_at": 1784879043,
+          "request_id": "6522809741744688697",
+          "device_id": "87903193043180547",
+          "action": "control",
+          "params": [
+            [
+              1,
+              true
+            ]
+          ],
+          "prev_state": {
+            "config": {
+              "delay": 0,
+              "group_all": false,
+              "ignore_23": null,
+              "ignore_29": null,
+              "ignore_AD": null,
+              "led_disable": false,
+              "led_level": 1,
+              "lock_touch": false,
+              "output_mode": 0,
+              "switch_type": 0,
+              "touch_mode": {
+                "delay": 1,
+                "mode": 0,
+                "output_mode": 0
+              }
+            },
+            "state": [
+              false,
+              true
+            ]
+          },
+          "curr_state": {
+            "config": {
+              "delay": 0,
+              "group_all": false,
+              "ignore_23": null,
+              "ignore_29": null,
+              "ignore_AD": null,
+              "led_disable": false,
+              "led_level": 1,
+              "lock_touch": false,
+              "output_mode": 0,
+              "switch_type": 0,
+              "touch_mode": {
+                "delay": 1,
+                "mode": 0,
+                "output_mode": 0
+              }
+            },
+            "state": [
+              true,
+              true
+            ]
+          },
+          "status": "success",
+          "error": null,
+          "source_type": "user",
+          "source_id": "user:automation-test/app:bms-e2e-test",
+          "source_metadata": null
+        }
+      }
+    },
+    {
+      "step": "List device logs",
+      "method": "GET",
+      "endpoint": "/api/device_logs?device_id=87903193043180547&limit=1",
+      "base_url": "http://10.10.0.198:4420",
+      "response": {
+        "data": [
+          {
+            "timestamp": "1784879046933758340",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784879047,
+            "finished_at": 1784879047,
+            "request_id": "17571507129567776999",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          }
+        ],
+        "next_cursor": "1784879046933758340"
+      },
+      "status": 200
+    },
+    {
+      "step": "Control device OFF and verify latest log - newest log before control",
+      "response": {
+        "newest_log": {
+          "timestamp": "1784879046933758340",
+          "hc_id": "4932308540097724437",
+          "mac": "38:4b:7d:03:f6:1c",
+          "started_at": 1784879047,
+          "finished_at": 1784879047,
+          "request_id": "17571507129567776999",
+          "device_id": "87903193043180547",
+          "action": "control",
+          "params": [
+            [
+              1,
+              true
+            ]
+          ],
+          "prev_state": {
+            "config": {
+              "delay": 0,
+              "group_all": false,
+              "ignore_23": null,
+              "ignore_29": null,
+              "ignore_AD": null,
+              "led_disable": false,
+              "led_level": 1,
+              "lock_touch": false,
+              "output_mode": 0,
+              "switch_type": 0,
+              "touch_mode": {
+                "delay": 1,
+                "mode": 0,
+                "output_mode": 0
+              }
+            },
+            "state": [
+              false,
+              true
+            ]
+          },
+          "curr_state": {
+            "config": {
+              "delay": 0,
+              "group_all": false,
+              "ignore_23": null,
+              "ignore_29": null,
+              "ignore_AD": null,
+              "led_disable": false,
+              "led_level": 1,
+              "lock_touch": false,
+              "output_mode": 0,
+              "switch_type": 0,
+              "touch_mode": {
+                "delay": 1,
+                "mode": 0,
+                "output_mode": 0
+              }
+            },
+            "state": [
+              true,
+              true
+            ]
+          },
+          "status": "success",
+          "error": null,
+          "source_type": "user",
+          "source_id": "user:automation-test/app:bms-e2e-test",
+          "source_metadata": null
+        },
+        "newest_cursor": "1784879046933758340"
+      }
+    },
+    {
+      "step": "Control device OFF and verify latest log",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "base_url": "http://10.10.0.198:8081",
+      "request": {
+        "device_id": "87903193043180547",
+        "states": [
+          {
+            "idx": 1,
+            "value": false
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    },
+    {
+      "step": "Poll device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "base_url": "http://10.10.30.154:8080",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": true
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200
+    },
+    {
+      "step": "Poll device status",
+      "method": "GET",
+      "endpoint": "/api/devices/status?ids=87903193043180547",
+      "base_url": "http://10.10.30.154:8080",
+      "response": [
+        {
+          "id": "87903193043180547",
+          "status": [
+            {
+              "idx": 1,
+              "value": false
+            },
+            {
+              "idx": 0,
+              "value": true
+            }
+          ]
+        }
+      ],
+      "status": 200
+    },
+    {
+      "step": "List device logs",
+      "method": "GET",
+      "endpoint": "/api/device_logs?device_id=87903193043180547&limit=10",
+      "base_url": "http://10.10.0.198:4420",
+      "response": {
+        "data": [
+          {
+            "timestamp": "1784879046933758340",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784879047,
+            "finished_at": 1784879047,
+            "request_id": "17571507129567776999",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784879045991211339",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784879047,
+            "finished_at": 1784879047,
+            "request_id": "7803202041591608271",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ],
+              [
+                0,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784879042033797839",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784879043,
+            "finished_at": 1784879043,
+            "request_id": "6522809741744688697",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878827089284503",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878828,
+            "finished_at": 1784878828,
+            "request_id": "10652992268920566922",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ],
+              [
+                0,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878823994129336",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878825,
+            "finished_at": 1784878825,
+            "request_id": "2028286122621368243",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878822602376503",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878823,
+            "finished_at": 1784878823,
+            "request_id": "8240095730985310960",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ],
+              [
+                0,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878819794114169",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878820,
+            "finished_at": 1784878820,
+            "request_id": "4382778903890064700",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878817294171835",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878818,
+            "finished_at": 1784878818,
+            "request_id": "17045377081178728106",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878816730311002",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878818,
+            "finished_at": 1784878818,
+            "request_id": "4375228582992633120",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ],
+              [
+                0,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878813894137335",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878814,
+            "finished_at": 1784878814,
+            "request_id": "3786986550227997163",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          }
+        ],
+        "next_cursor": "1784878813894137335"
+      },
+      "status": 200
+    },
+    {
+      "step": "List device logs",
+      "method": "GET",
+      "endpoint": "/api/device_logs?device_id=87903193043180547&limit=10",
+      "base_url": "http://10.10.0.198:4420",
+      "response": {
+        "data": [
+          {
+            "timestamp": "1784879049433863506",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784879050,
+            "finished_at": 1784879050,
+            "request_id": "2461624600850395483",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784879046933758340",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784879047,
+            "finished_at": 1784879047,
+            "request_id": "17571507129567776999",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784879045991211339",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784879047,
+            "finished_at": 1784879047,
+            "request_id": "7803202041591608271",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ],
+              [
+                0,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784879042033797839",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784879043,
+            "finished_at": 1784879043,
+            "request_id": "6522809741744688697",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878827089284503",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878828,
+            "finished_at": 1784878828,
+            "request_id": "10652992268920566922",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ],
+              [
+                0,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878823994129336",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878825,
+            "finished_at": 1784878825,
+            "request_id": "2028286122621368243",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878822602376503",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878823,
+            "finished_at": 1784878823,
+            "request_id": "8240095730985310960",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ],
+              [
+                0,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878819794114169",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878820,
+            "finished_at": 1784878820,
+            "request_id": "4382778903890064700",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878817294171835",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878818,
+            "finished_at": 1784878818,
+            "request_id": "17045377081178728106",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                false,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          },
+          {
+            "timestamp": "1784878816730311002",
+            "hc_id": "4932308540097724437",
+            "mac": "38:4b:7d:03:f6:1c",
+            "started_at": 1784878818,
+            "finished_at": 1784878818,
+            "request_id": "4375228582992633120",
+            "device_id": "87903193043180547",
+            "action": "control",
+            "params": [
+              [
+                1,
+                false
+              ],
+              [
+                0,
+                true
+              ]
+            ],
+            "prev_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "curr_state": {
+              "config": {
+                "delay": 0,
+                "group_all": false,
+                "ignore_23": null,
+                "ignore_29": null,
+                "ignore_AD": null,
+                "led_disable": false,
+                "led_level": 1,
+                "lock_touch": false,
+                "output_mode": 0,
+                "switch_type": 0,
+                "touch_mode": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 0
+                }
+              },
+              "state": [
+                true,
+                true
+              ]
+            },
+            "status": "success",
+            "error": null,
+            "source_type": "user",
+            "source_id": "user:automation-test/app:bms-e2e-test",
+            "source_metadata": null
+          }
+        ],
+        "next_cursor": "1784878816730311002"
+      },
+      "status": 200
+    },
+    {
+      "step": "Control device OFF and verify latest log - newest log after control",
+      "response": {
+        "newest_log": {
+          "timestamp": "1784879049433863506",
+          "hc_id": "4932308540097724437",
+          "mac": "38:4b:7d:03:f6:1c",
+          "started_at": 1784879050,
+          "finished_at": 1784879050,
+          "request_id": "2461624600850395483",
+          "device_id": "87903193043180547",
+          "action": "control",
+          "params": [
+            [
+              1,
+              false
+            ]
+          ],
+          "prev_state": {
+            "config": {
+              "delay": 0,
+              "group_all": false,
+              "ignore_23": null,
+              "ignore_29": null,
+              "ignore_AD": null,
+              "led_disable": false,
+              "led_level": 1,
+              "lock_touch": false,
+              "output_mode": 0,
+              "switch_type": 0,
+              "touch_mode": {
+                "delay": 1,
+                "mode": 0,
+                "output_mode": 0
+              }
+            },
+            "state": [
+              true,
+              true
+            ]
+          },
+          "curr_state": {
+            "config": {
+              "delay": 0,
+              "group_all": false,
+              "ignore_23": null,
+              "ignore_29": null,
+              "ignore_AD": null,
+              "led_disable": false,
+              "led_level": 1,
+              "lock_touch": false,
+              "output_mode": 0,
+              "switch_type": 0,
+              "touch_mode": {
+                "delay": 1,
+                "mode": 0,
+                "output_mode": 0
+              }
+            },
+            "state": [
+              false,
+              true
+            ]
+          },
+          "status": "success",
+          "error": null,
+          "source_type": "user",
+          "source_id": "user:automation-test/app:bms-e2e-test",
+          "source_metadata": null
+        },
+        "previous_newest_log": {
+          "timestamp": "1784879046933758340",
+          "hc_id": "4932308540097724437",
+          "mac": "38:4b:7d:03:f6:1c",
+          "started_at": 1784879047,
+          "finished_at": 1784879047,
+          "request_id": "17571507129567776999",
+          "device_id": "87903193043180547",
+          "action": "control",
+          "params": [
+            [
+              1,
+              true
+            ]
+          ],
+          "prev_state": {
+            "config": {
+              "delay": 0,
+              "group_all": false,
+              "ignore_23": null,
+              "ignore_29": null,
+              "ignore_AD": null,
+              "led_disable": false,
+              "led_level": 1,
+              "lock_touch": false,
+              "output_mode": 0,
+              "switch_type": 0,
+              "touch_mode": {
+                "delay": 1,
+                "mode": 0,
+                "output_mode": 0
+              }
+            },
+            "state": [
+              false,
+              true
+            ]
+          },
+          "curr_state": {
+            "config": {
+              "delay": 0,
+              "group_all": false,
+              "ignore_23": null,
+              "ignore_29": null,
+              "ignore_AD": null,
+              "led_disable": false,
+              "led_level": 1,
+              "lock_touch": false,
+              "output_mode": 0,
+              "switch_type": 0,
+              "touch_mode": {
+                "delay": 1,
+                "mode": 0,
+                "output_mode": 0
+              }
+            },
+            "state": [
+              true,
+              true
+            ]
+          },
+          "status": "success",
+          "error": null,
+          "source_type": "user",
+          "source_id": "user:automation-test/app:bms-e2e-test",
+          "source_metadata": null
+        }
+      }
+    },
+    {
+      "step": "Reset device to initial state",
+      "method": "POST",
+      "endpoint": "/api/devices/control",
+      "base_url": "http://10.10.0.198:8081",
+      "request": {
+        "device_id": "87903193043180547",
+        "states": [
+          {
+            "idx": 1,
+            "value": true
+          },
+          {
+            "idx": 0,
+            "value": true
+          }
+        ]
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    }
+  ],
+  "assertions": [
+    "Device 87903193043180547 slot 1 reached true",
+    "Newest device log belongs to controlled device 87903193043180547",
+    "Device 87903193043180547 slot 1 reached false",
+    "Newest device log belongs to controlled device 87903193043180547",
+    "Second control creates a different newest log entry"
+  ],
+  "hc_logs": [],
+  "cleanup": {
+    "device_reset": true,
+    "warnings": []
+  }
+}
