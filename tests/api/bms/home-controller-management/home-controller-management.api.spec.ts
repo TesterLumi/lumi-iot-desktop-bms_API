@@ -267,8 +267,8 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC7',
-    name: 'Pagination page limit',
+    id: 'TC10',
+    name: 'Pagination page/limit',
     goal: 'Kiem tra pagination list HC',
     precondition: 'Admin token hop le',
     expected: 'HTTP 200 va limit khong vuot qua request',
@@ -281,7 +281,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC8',
+    id: 'TC11',
     name: 'Limit vuot max',
     goal: 'Kiem tra validation/cap limit lon',
     precondition: 'Admin token hop le',
@@ -297,7 +297,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC9',
+    id: 'TC12',
     name: 'Lay chi tiet HC thanh cong',
     goal: 'Kiem tra get detail HC',
     precondition: 'HC automation ton tai',
@@ -317,7 +317,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC10',
+    id: 'TC13',
     name: 'Lay detail HC khong ton tai',
     goal: 'Kiem tra get detail fake id',
     precondition: 'Admin token hop le',
@@ -333,7 +333,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC11',
+    id: 'TC14',
     name: 'Lay detail id sai format',
     goal: 'Kiem tra validation id format',
     precondition: 'Admin token hop le',
@@ -349,7 +349,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC12',
+    id: 'TC15',
     name: 'Lay connection events thanh cong',
     goal: 'Kiem tra connection-events API',
     precondition: 'HC automation ton tai',
@@ -370,26 +370,29 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC13',
-    name: 'Connection events id sai format',
-    goal: 'Kiem tra validation connection-events id',
+    id: 'TC19',
+    name: 'Connection events from am',
+    goal: 'Kiem tra validation connection-events from am',
     precondition: 'Admin token hop le',
-    expected: 'HTTP 400 hoac 404',
+    expected: 'HTTP 400',
     run: async (api, evidence) => {
-      const response = await api.getConnectionEvents('abc', {
-        page: 1,
-        limit: 10,
+      await withAutomationHc(api, evidence, 'TC19', async ({ hcId }) => {
+        const response = await api.getConnectionEvents(hcId, {
+          from: -1,
+          page: 1,
+          limit: 10,
+        })
+        expectStatus(
+          response.status(),
+          [400],
+          evidence,
+          'Negative from for connection events is rejected',
+        )
       })
-      expectStatus(
-        response.status(),
-        [400, 404],
-        evidence,
-        'Invalid HC id for connection events is rejected',
-      )
     },
   },
   {
-    id: 'TC14',
+    id: 'TC20',
     name: 'Tao HC thanh cong',
     goal: 'Kiem tra create HC hop le',
     precondition: 'Admin token hop le va MAC unique',
@@ -402,7 +405,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC15',
+    id: 'TC21',
     name: 'Tao HC voi hc_type ssd202d',
     goal: 'Kiem tra create voi hc_type khac',
     precondition: 'MAC unique',
@@ -428,7 +431,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC16',
+    id: 'TC22',
     name: 'Tao HC thieu mac',
     goal: 'Kiem tra validation missing mac',
     precondition: 'Admin token hop le',
@@ -441,7 +444,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC17',
+    id: 'TC23',
     name: 'Tao HC mac sai format',
     goal: 'Kiem tra validation mac format',
     precondition: 'Admin token hop le',
@@ -459,7 +462,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC18',
+    id: 'TC24',
     name: 'Tao HC trung MAC',
     goal: 'Kiem tra duplicate MAC',
     precondition: 'Da tao HC A',
@@ -477,7 +480,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC19',
+    id: 'TC25',
     name: 'Tao HC hc_type sai enum',
     goal: 'Kiem tra validation hc_type',
     precondition: 'Admin token hop le',
@@ -495,7 +498,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC20',
+    id: 'TC27',
     name: 'Tao HC co field la',
     goal: 'Kiem tra unknown field',
     precondition: 'Admin token hop le',
@@ -522,7 +525,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC21',
+    id: 'TC28',
     name: 'Cap nhat notes HC thanh cong',
     goal: 'Kiem tra update notes an toan',
     precondition: 'HC automation ton tai',
@@ -539,7 +542,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC22',
+    id: 'TC29',
     name: 'Update body rong no-op',
     goal: 'Kiem tra PATCH body rong',
     precondition: 'HC automation ton tai',
@@ -557,7 +560,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC23',
+    id: 'TC30',
     name: 'Update HC khong ton tai',
     goal: 'Kiem tra update fake id',
     precondition: 'Admin token hop le',
@@ -573,7 +576,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC24',
+    id: 'TC31',
     name: 'Update id sai format',
     goal: 'Kiem tra validation update id',
     precondition: 'Admin token hop le',
@@ -589,7 +592,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC25',
+    id: 'TC32',
     name: 'Update co field la',
     goal: 'Kiem tra unknown update field',
     precondition: 'HC automation ton tai',
@@ -611,8 +614,8 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC26',
-    name: 'Xoa HC automation thanh cong',
+    id: 'TC34+TC38',
+    name: 'Xoa HC automation thanh cong va khong con trong list active',
     goal: 'Kiem tra delete don voi HC do testcase tao',
     precondition: 'HC automation vua tao',
     expected: 'HTTP 200 va get lai khong active',
@@ -629,7 +632,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC27',
+    id: 'TC35',
     name: 'Xoa HC khong ton tai',
     goal: 'Kiem tra delete fake id',
     precondition: 'Admin token hop le',
@@ -645,7 +648,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC28',
+    id: 'TC36',
     name: 'Xoa HC id sai format',
     goal: 'Kiem tra delete invalid id',
     precondition: 'Admin token hop le',
@@ -661,7 +664,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC29',
+    id: 'TC57',
     name: 'IoT list HC thanh cong',
     goal: 'Kiem tra IoT list HC read-only',
     precondition: 'Admin token hop le',
@@ -677,7 +680,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC30',
+    id: 'TC58',
     name: 'IoT get HC theo id thanh cong',
     goal: 'Kiem tra IoT get HC read-only',
     precondition: 'HC automation ton tai',
@@ -695,7 +698,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC31',
+    id: 'TC59',
     name: 'IoT get HC khong ton tai',
     goal: 'Kiem tra IoT get fake id',
     precondition: 'Admin token hop le',
@@ -711,7 +714,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC32',
+    id: 'TC60',
     name: 'Sync-time thanh cong',
     goal: 'Kiem tra sync-time voi MAC automation',
     precondition: 'HC automation ton tai',
@@ -729,7 +732,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC33',
+    id: 'TC61',
     name: 'Sync-time MAC khong ton tai',
     goal: 'Kiem tra sync-time fake MAC',
     precondition: 'Admin token hop le',
@@ -745,7 +748,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC34',
+    id: 'TC62',
     name: 'Get link upload thanh cong',
     goal: 'Kiem tra get-link-upload voi API key neu co',
     precondition: 'IOT_HC_LOG_UPLOAD_API_KEY cau hinh',
@@ -773,7 +776,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC35',
+    id: 'TC63',
     name: 'Get link upload thieu API key',
     goal: 'Kiem tra guard API key get-link-upload',
     precondition: 'HC automation ton tai',
@@ -794,7 +797,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC36',
+    id: 'TC65',
     name: 'Version-info update thanh cong',
     goal: 'Kiem tra version-info safe mutation',
     precondition: 'HC automation ton tai',
@@ -823,7 +826,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC37',
+    id: 'TC66',
     name: 'Version-info duplicate component',
     goal: 'Kiem tra validation duplicate component',
     precondition: 'HC automation ton tai',
@@ -851,7 +854,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC38',
+    id: 'TC75',
     name: 'List BLE gateway thanh cong',
     goal: 'Kiem tra BLE gateway list read-only',
     precondition: 'Admin token hop le',
@@ -867,7 +870,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC39',
+    id: 'TC77',
     name: 'Get BLE gateway HC khong ton tai',
     goal: 'Kiem tra get BLE fake hc_id',
     precondition: 'Admin token hop le',
@@ -883,7 +886,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC40',
+    id: 'TC78+TC81+TC83',
     name: 'Create update delete BLE gateway voi HC automation',
     goal: 'Kiem tra BLE CRUD an toan voi HC do testcase tao',
     precondition: 'HC automation ton tai',
@@ -919,7 +922,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC41',
+    id: 'TC84',
     name: 'Khong token list HC',
     goal: 'Kiem tra auth guard list HC',
     precondition: 'Khong Authorization',
@@ -944,7 +947,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC42',
+    id: 'TC85',
     name: 'Token sai list HC',
     goal: 'Kiem tra invalid bearer token',
     precondition: 'Bearer invalid_token',
@@ -965,7 +968,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC43',
+    id: 'TC86',
     name: 'User khong co quyen view HC',
     goal: 'Kiem tra permission view HC',
     precondition: 'NO_PERMISSION_USERNAME/PASSWORD neu co',
@@ -995,7 +998,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC44',
+    id: 'TC87',
     name: 'User khong co quyen create HC',
     goal: 'Kiem tra permission create HC',
     precondition: 'VIEWER hoac NO_PERMISSION user neu co',
@@ -1029,7 +1032,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC45',
+    id: 'TC88+TC89',
     name: 'User khong co quyen update va delete HC',
     goal: 'Kiem tra permission update/delete HC',
     precondition: 'VIEWER hoac NO_PERMISSION user va HC automation',
