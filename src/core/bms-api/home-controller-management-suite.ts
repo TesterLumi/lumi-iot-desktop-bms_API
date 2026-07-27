@@ -475,7 +475,7 @@ export class HomeControllerSuiteApi {
 }
 
 export const clearHomeControllerEvidenceDir = async (env: HcSuiteEnv) => {
-  await rm(env.runDir, { recursive: true, force: true })
+  await rm(env.evidenceDir, { recursive: true, force: true })
   await mkdir(env.evidenceDir, { recursive: true })
 }
 
