@@ -158,26 +158,12 @@ const loginOptionalUserApi = async (
 const cases: HcTc[] = [
   {
     id: 'TC1',
-    name: 'Health check he thong thanh cong',
-    goal: 'Kiem tra API health truoc khi chay suite',
-    precondition: 'BASE_URL hop le',
-    expected: 'HTTP 200 va response healthy',
+    name: 'Xem danh sach HC thanh cong',
+    goal: 'Kiem tra man danh sach HC goi dung API list',
+    precondition: 'User da dang nhap va co quyen xem HC',
+    expected: 'HTTP 200 va danh sach HC hien thi dung du lieu API',
     run: async (api, evidence) => {
-      const response = await api.healthCheck()
-      const body = await responseBody(response)
-      expect(response.status()).toBe(200)
-      expect(body).toBeTruthy()
-      evidence.addAssertion('Health check returns HTTP 200')
-    },
-  },
-  {
-    id: 'TC2',
-    name: 'Lay danh sach HC thanh cong',
-    goal: 'Kiem tra list HC co pagination hoac array data',
-    precondition: 'Admin token hop le',
-    expected: 'HTTP 200 va co danh sach HC',
-    run: async (api, evidence) => {
-      const response = await api.listHomeControllers({ page: 1, limit: 10 })
+      const response = await api.listHomeControllers({ page: 1, limit: 20 })
       const body = await responseBody(response)
       expect(response.status()).toBe(200)
       expect(Array.isArray(listItems(body))).toBe(true)
@@ -185,18 +171,84 @@ const cases: HcTc[] = [
     },
   },
   {
+    id: 'TC2',
+    name: 'Danh sach HC rong',
+    goal: 'Kiem tra trang thai khong co du lieu bang filter khong match',
+    precondition: 'He thong hoat dong, filter khong co HC phu hop',
+    expected: 'HTTP 200 va khong co item match keyword automation',
+    run: async (api, evidence) => {
+      const response = await api.listHomeControllers({
+        page: 1,
+        limit: 20,
+        search: `auto_no_result_${Date.now()}`,
+      })
+      const body = await responseBody(response)
+      expect(response.status()).toBe(200)
+      expect(listItems(body).length).toBe(0)
+      evidence.addAssertion('No-result filter returns empty HC collection')
+    },
+  },
+  {
     id: 'TC3',
-    name: 'Loc HC theo MAC chinh xac',
-    goal: 'Kiem tra filter mac',
+    name: 'Phan trang danh sach HC',
+    goal: 'Kiem tra list HC voi page=2 limit=20',
+    precondition: 'User da dang nhap va co quyen xem HC',
+    expected: 'HTTP 200 va response pagination hop le',
+    run: async (api, evidence) => {
+      const response = await api.listHomeControllers({ page: 2, limit: 20 })
+      const body = await responseBody(response)
+      expect(response.status()).toBe(200)
+      expect(Array.isArray(listItems(body))).toBe(true)
+      evidence.addAssertion('Pagination page=2 returns readable collection')
+    },
+  },
+  {
+    id: 'TC4',
+    name: 'Thay doi so ban ghi moi trang',
+    goal: 'Kiem tra thay doi limit hien thi danh sach HC',
+    precondition: 'User da dang nhap va co quyen xem HC',
+    expected: 'HTTP 200 va so item khong vuot limit',
+    run: async (api, evidence) => {
+      const response = await api.listHomeControllers({ page: 1, limit: 5 })
+      const body = await responseBody(response)
+      expect(response.status()).toBe(200)
+      expect(listItems(body).length).toBeLessThanOrEqual(5)
+      evidence.addAssertion('List HC respects selected page size')
+    },
+  },
+  {
+    id: 'TC5',
+    name: 'Tim kiem HC theo ten',
+    goal: 'Kiem tra search theo ten HC',
+    precondition: 'Co HC automation voi ten unique',
+    expected: 'HTTP 200 va response chua ten HC vua tao',
+    run: async (api, evidence) => {
+      await withAutomationHc(api, evidence, 'TC5', async ({ payload }) => {
+        const response = await api.listHomeControllers({
+          search: String(payload.name),
+          page: 1,
+          limit: 20,
+        })
+        const body = await responseBody(response)
+        expect(response.status()).toBe(200)
+        expect(JSON.stringify(body)).toContain(String(payload.name))
+        evidence.addAssertion('Search by HC name returns matching HC')
+      })
+    },
+  },
+  {
+    id: 'TC6',
+    name: 'Tim kiem HC theo MAC',
+    goal: 'Kiem tra filter mac chinh xac',
     precondition: 'Co HC automation',
     expected: 'HTTP 200 va items khop MAC',
     run: async (api, evidence) => {
-      await withAutomationHc(api, evidence, 'TC3', async ({ payload }) => {
+      await withAutomationHc(api, evidence, 'TC6', async ({ payload }) => {
         const mac = String(payload.mac)
         const response = await api.listHomeControllers({
           mac,
           page: 1,
-          limit: 10,
+          limit: 20,
         })
         const body = await responseBody(response)
         expect(response.status()).toBe(200)
@@ -206,40 +258,59 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC4',
-    name: 'Search HC theo MAC contains',
-    goal: 'Kiem tra search partial MAC',
-    precondition: 'HC automation ton tai',
-    expected: 'HTTP 200 va response chua MAC',
+    id: 'TC7',
+    name: 'Tim kiem khong co ket qua',
+    goal: 'Kiem tra search keyword khong ton tai',
+    precondition: 'Khong co HC khop keyword automation',
+    expected: 'HTTP 200 va data rong',
     run: async (api, evidence) => {
-      await withAutomationHc(api, evidence, 'TC4', async ({ payload }) => {
-        const partial = String(payload.mac).split(':').slice(0, 3).join(':')
-        const response = await api.listHomeControllers({
-          search: partial,
-          page: 1,
-          limit: 10,
-        })
-        const body = await responseBody(response)
-        expect(response.status()).toBe(200)
-        expect(JSON.stringify(body).toLowerCase()).toContain(
-          partial.toLowerCase(),
-        )
-        evidence.addAssertion('Search by partial MAC returns matching HC')
+      const response = await api.listHomeControllers({
+        page: 1,
+        limit: 20,
+        search: `auto_hc_not_found_${Date.now()}`,
       })
+      const body = await responseBody(response)
+      expect(response.status()).toBe(200)
+      expect(listItems(body).length).toBe(0)
+      evidence.addAssertion('Search with nonexistent keyword returns no items')
     },
   },
   {
-    id: 'TC5',
-    name: 'Loc HC theo hc_type',
+    id: 'TC8',
+    name: 'Xoa keyword tim kiem',
+    goal: 'Kiem tra clear search goi lai list khong keyword',
+    precondition: 'Dang co keyword search',
+    expected: 'HTTP 200 va danh sach quay ve trang thai khong filter',
+    run: async (api, evidence) => {
+      const filteredResponse = await api.listHomeControllers({
+        page: 1,
+        limit: 20,
+        search: `auto_hc_clear_${Date.now()}`,
+      })
+      expect(filteredResponse.status()).toBe(200)
+      const clearedResponse = await api.listHomeControllers({
+        page: 1,
+        limit: 20,
+        search: '',
+      })
+      const body = await responseBody(clearedResponse)
+      expect(clearedResponse.status()).toBe(200)
+      expect(Array.isArray(listItems(body))).toBe(true)
+      evidence.addAssertion('Clearing search reloads HC list successfully')
+    },
+  },
+  {
+    id: 'TC9',
+    name: 'Loc theo loai HC',
     goal: 'Kiem tra filter hc_type',
-    precondition: 'HC automation ton tai',
+    precondition: 'Co HC automation voi hc_type hop le',
     expected: 'HTTP 200 va co hc_type trong response',
     run: async (api, evidence) => {
-      await withAutomationHc(api, evidence, 'TC5', async ({ payload }) => {
+      await withAutomationHc(api, evidence, 'TC9', async ({ payload }) => {
         const response = await api.listHomeControllers({
           hc_type: String(payload.hc_type),
           page: 1,
-          limit: 10,
+          limit: 20,
         })
         const body = await responseBody(response)
         expect(response.status()).toBe(200)
@@ -249,17 +320,17 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC6',
-    name: 'Loc HC theo version',
+    id: 'TC10',
+    name: 'Loc theo version',
     goal: 'Kiem tra filter version',
-    precondition: 'HC automation ton tai',
+    precondition: 'Co HC automation ton tai',
     expected: 'HTTP 200',
     run: async (api, evidence) => {
-      await withAutomationHc(api, evidence, 'TC6', async ({ payload }) => {
+      await withAutomationHc(api, evidence, 'TC10', async ({ payload }) => {
         const response = await api.listHomeControllers({
           version: String(payload.version),
           page: 1,
-          limit: 10,
+          limit: 20,
         })
         expect(response.status()).toBe(200)
         evidence.addAssertion('Filter by version returns HTTP 200')
@@ -267,37 +338,71 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC10',
-    name: 'Pagination page/limit',
-    goal: 'Kiem tra pagination list HC',
-    precondition: 'Admin token hop le',
-    expected: 'HTTP 200 va limit khong vuot qua request',
-    run: async (api, evidence) => {
-      const response = await api.listHomeControllers({ page: 1, limit: 10 })
-      const body = await responseBody(response)
-      expect(response.status()).toBe(200)
-      expect(listItems(body).length).toBeLessThanOrEqual(10)
-      evidence.addAssertion('List HC respects limit=10 or returns paginated data')
-    },
-  },
-  {
     id: 'TC11',
-    name: 'Limit vuot max',
-    goal: 'Kiem tra validation/cap limit lon',
-    precondition: 'Admin token hop le',
-    expected: 'HTTP 200 cap ve max hoac 400 validation',
+    name: 'Loc theo network interface',
+    goal: 'Kiem tra filter network_interface=LAN',
+    precondition: 'Co HC dung LAN neu moi truong co du lieu',
+    expected: 'HTTP 200 va backend tra response filter hop le',
     run: async (api, evidence) => {
-      const response = await api.listHomeControllers({ page: 1, limit: 101 })
-      expectStatus(
-        response.status(),
-        [200, 400],
-        evidence,
-        'Limit greater than max is capped or rejected',
-      )
+      const response = await api.listHomeControllers({
+        page: 1,
+        limit: 20,
+        network_interface: 'LAN',
+      })
+      expect(response.status()).toBe(200)
+      evidence.addAssertion('Filter by network_interface=LAN returns HTTP 200')
     },
   },
   {
     id: 'TC12',
+    name: 'Loc theo trang thai connected',
+    goal: 'Kiem tra filter connected=true',
+    precondition: 'Co HC online neu moi truong co du lieu',
+    expected: 'HTTP 200 va backend tra response filter hop le',
+    run: async (api, evidence) => {
+      const response = await api.listHomeControllers({
+        page: 1,
+        limit: 20,
+        connected: true,
+      })
+      expect(response.status()).toBe(200)
+      evidence.addAssertion('Filter by connected=true returns HTTP 200')
+    },
+  },
+  {
+    id: 'TC13',
+    name: 'Loc theo trang thai disconnected',
+    goal: 'Kiem tra filter connected=false',
+    precondition: 'Co HC offline neu moi truong co du lieu',
+    expected: 'HTTP 200 va backend tra response filter hop le',
+    run: async (api, evidence) => {
+      const response = await api.listHomeControllers({
+        page: 1,
+        limit: 20,
+        connected: false,
+      })
+      expect(response.status()).toBe(200)
+      evidence.addAssertion('Filter by connected=false returns HTTP 200')
+    },
+  },
+  {
+    id: 'TC14',
+    name: 'Loc theo lifecycle state active',
+    goal: 'Kiem tra filter lifecycle_state=active',
+    precondition: 'Co HC active trong he thong',
+    expected: 'HTTP 200 va backend tra response filter hop le',
+    run: async (api, evidence) => {
+      const response = await api.listHomeControllers({
+        page: 1,
+        limit: 20,
+        lifecycle_state: 'active',
+      })
+      expect(response.status()).toBe(200)
+      evidence.addAssertion('Filter by lifecycle_state=active returns HTTP 200')
+    },
+  },
+  {
+    id: 'TC18',
     name: 'Lay chi tiet HC thanh cong',
     goal: 'Kiem tra get detail HC',
     precondition: 'HC automation ton tai',
@@ -317,7 +422,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC13',
+    id: 'TC19',
     name: 'Lay detail HC khong ton tai',
     goal: 'Kiem tra get detail fake id',
     precondition: 'Admin token hop le',
@@ -333,7 +438,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC14',
+    id: 'TC19_API',
     name: 'Lay detail id sai format',
     goal: 'Kiem tra validation id format',
     precondition: 'Admin token hop le',
@@ -349,7 +454,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC15',
+    id: 'TC20',
     name: 'Lay connection events thanh cong',
     goal: 'Kiem tra connection-events API',
     precondition: 'HC automation ton tai',
@@ -370,7 +475,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC19',
+    id: 'TC20_API',
     name: 'Connection events from am',
     goal: 'Kiem tra validation connection-events from am',
     precondition: 'Admin token hop le',
@@ -392,7 +497,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC20',
+    id: 'TC24',
     name: 'Tao HC thanh cong',
     goal: 'Kiem tra create HC hop le',
     precondition: 'Admin token hop le va MAC unique',
@@ -405,7 +510,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC21',
+    id: 'TC24_API',
     name: 'Tao HC voi hc_type ssd202d',
     goal: 'Kiem tra create voi hc_type khac',
     precondition: 'MAC unique',
@@ -431,7 +536,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC22',
+    id: 'TC25',
     name: 'Tao HC thieu mac',
     goal: 'Kiem tra validation missing mac',
     precondition: 'Admin token hop le',
@@ -444,7 +549,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC23',
+    id: 'TC26',
     name: 'Tao HC mac sai format',
     goal: 'Kiem tra validation mac format',
     precondition: 'Admin token hop le',
@@ -462,7 +567,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC24',
+    id: 'TC27',
     name: 'Tao HC trung MAC',
     goal: 'Kiem tra duplicate MAC',
     precondition: 'Da tao HC A',
@@ -480,7 +585,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC25',
+    id: 'TC29_API',
     name: 'Tao HC hc_type sai enum',
     goal: 'Kiem tra validation hc_type',
     precondition: 'Admin token hop le',
@@ -498,7 +603,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC27',
+    id: 'TC33_API',
     name: 'Tao HC co field la',
     goal: 'Kiem tra unknown field',
     precondition: 'Admin token hop le',
@@ -525,7 +630,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC28',
+    id: 'TC36',
     name: 'Cap nhat notes HC thanh cong',
     goal: 'Kiem tra update notes an toan',
     precondition: 'HC automation ton tai',
@@ -542,7 +647,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC29',
+    id: 'TC36_API',
     name: 'Update body rong no-op',
     goal: 'Kiem tra PATCH body rong',
     precondition: 'HC automation ton tai',
@@ -560,7 +665,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC30',
+    id: 'TC39',
     name: 'Update HC khong ton tai',
     goal: 'Kiem tra update fake id',
     precondition: 'Admin token hop le',
@@ -576,7 +681,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC31',
+    id: 'TC39_API',
     name: 'Update id sai format',
     goal: 'Kiem tra validation update id',
     precondition: 'Admin token hop le',
@@ -592,7 +697,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC32',
+    id: 'TC37_API',
     name: 'Update co field la',
     goal: 'Kiem tra unknown update field',
     precondition: 'HC automation ton tai',
@@ -614,8 +719,8 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC34+TC38',
-    name: 'Xoa HC automation thanh cong va khong con trong list active',
+    id: 'TC41+TC82',
+    name: 'Xoa HC automation thanh cong va refresh danh sach',
     goal: 'Kiem tra delete don voi HC do testcase tao',
     precondition: 'HC automation vua tao',
     expected: 'HTTP 200 va get lai khong active',
@@ -632,7 +737,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC35',
+    id: 'TC43',
     name: 'Xoa HC khong ton tai',
     goal: 'Kiem tra delete fake id',
     precondition: 'Admin token hop le',
@@ -648,7 +753,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC36',
+    id: 'TC43_API',
     name: 'Xoa HC id sai format',
     goal: 'Kiem tra delete invalid id',
     precondition: 'Admin token hop le',
@@ -664,7 +769,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC57',
+    id: 'TC65_API',
     name: 'IoT list HC thanh cong',
     goal: 'Kiem tra IoT list HC read-only',
     precondition: 'Admin token hop le',
@@ -680,7 +785,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC58',
+    id: 'TC72_API',
     name: 'IoT get HC theo id thanh cong',
     goal: 'Kiem tra IoT get HC read-only',
     precondition: 'HC automation ton tai',
@@ -698,7 +803,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC59',
+    id: 'TC72_API_NEGATIVE',
     name: 'IoT get HC khong ton tai',
     goal: 'Kiem tra IoT get fake id',
     precondition: 'Admin token hop le',
@@ -714,7 +819,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC60',
+    id: 'TC65',
     name: 'Sync-time thanh cong',
     goal: 'Kiem tra sync-time voi MAC automation',
     precondition: 'HC automation ton tai',
@@ -732,7 +837,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC61',
+    id: 'TC65_API_NEGATIVE',
     name: 'Sync-time MAC khong ton tai',
     goal: 'Kiem tra sync-time fake MAC',
     precondition: 'Admin token hop le',
@@ -748,7 +853,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC62',
+    id: 'TC69',
     name: 'Get link upload thanh cong',
     goal: 'Kiem tra get-link-upload voi API key neu co',
     precondition: 'IOT_HC_LOG_UPLOAD_API_KEY cau hinh',
@@ -776,7 +881,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC63',
+    id: 'TC70',
     name: 'Get link upload thieu API key',
     goal: 'Kiem tra guard API key get-link-upload',
     precondition: 'HC automation ton tai',
@@ -797,7 +902,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC65',
+    id: 'TC66',
     name: 'Version-info update thanh cong',
     goal: 'Kiem tra version-info safe mutation',
     precondition: 'HC automation ton tai',
@@ -826,7 +931,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC66',
+    id: 'TC67_API',
     name: 'Version-info duplicate component',
     goal: 'Kiem tra validation duplicate component',
     precondition: 'HC automation ton tai',
@@ -854,7 +959,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC75',
+    id: 'TC72_API_LIST',
     name: 'List BLE gateway thanh cong',
     goal: 'Kiem tra BLE gateway list read-only',
     precondition: 'Admin token hop le',
@@ -870,7 +975,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC77',
+    id: 'TC72_NEGATIVE',
     name: 'Get BLE gateway HC khong ton tai',
     goal: 'Kiem tra get BLE fake hc_id',
     precondition: 'Admin token hop le',
@@ -886,7 +991,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC78+TC81+TC83',
+    id: 'TC72+TC73+TC74',
     name: 'Create update delete BLE gateway voi HC automation',
     goal: 'Kiem tra BLE CRUD an toan voi HC do testcase tao',
     precondition: 'HC automation ton tai',
@@ -922,7 +1027,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC84',
+    id: 'TC75_API_NO_TOKEN',
     name: 'Khong token list HC',
     goal: 'Kiem tra auth guard list HC',
     precondition: 'Khong Authorization',
@@ -947,7 +1052,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC85',
+    id: 'TC75_API_INVALID_TOKEN',
     name: 'Token sai list HC',
     goal: 'Kiem tra invalid bearer token',
     precondition: 'Bearer invalid_token',
@@ -968,7 +1073,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC86',
+    id: 'TC75',
     name: 'User khong co quyen view HC',
     goal: 'Kiem tra permission view HC',
     precondition: 'NO_PERMISSION_USERNAME/PASSWORD neu co',
@@ -998,7 +1103,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC87',
+    id: 'TC76',
     name: 'User khong co quyen create HC',
     goal: 'Kiem tra permission create HC',
     precondition: 'VIEWER hoac NO_PERMISSION user neu co',
@@ -1032,7 +1137,7 @@ const cases: HcTc[] = [
     },
   },
   {
-    id: 'TC88+TC89',
+    id: 'TC77+TC78',
     name: 'User khong co quyen update va delete HC',
     goal: 'Kiem tra permission update/delete HC',
     precondition: 'VIEWER hoac NO_PERMISSION user va HC automation',
@@ -1074,7 +1179,7 @@ const cases: HcTc[] = [
   },
 ]
 
-test.describe('Home Controller Management API suite TC1-TC45', () => {
+test.describe('Home Controller Management API suite aligned with manual sheet', () => {
   test.describe.configure({ mode: 'serial' })
 
   test.beforeAll(async () => {
