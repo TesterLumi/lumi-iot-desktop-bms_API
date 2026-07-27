@@ -1,6 +1,7 @@
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 evidence/role-management/
+test-runs/home-controller-management-current/
 
 # Dependency directories
 node_modules/
