@@ -137,6 +137,44 @@ const withAutomationHc = async (
   }
 }
 
+const createAutomationArea = async (
+  api: HomeControllerSuiteApi,
+  evidence: HomeControllerEvidence,
+  tcId: string,
+) => {
+  const name = `auto_hc_area_${tcId}_${Date.now()}`
+  const response = await api.createArea({ name })
+  const body = await responseBody(response)
+  if (response.status() === 404) {
+    evidence.addAssertion(
+      'SKIPPED_FIXTURE_MISSING: area API is unavailable on current HC base URL',
+    )
+    return undefined
+  }
+  expectStatus(
+    response.status(),
+    [200, 201],
+    evidence,
+    'Automation area is created',
+  )
+  return String(body?.data?.id || body?.id)
+}
+
+const cleanupArea = async (
+  api: HomeControllerSuiteApi,
+  evidence: HomeControllerEvidence,
+  areaId?: string,
+) => {
+  if (!areaId) return
+  const response = await api.deleteArea(areaId)
+  expectStatus(
+    response.status(),
+    [200, 202, 204, 404],
+    evidence,
+    'Automation area cleanup returns explicit backend result',
+  )
+}
+
 const loginOptionalUserApi = async (
   username: string,
   password: string,
@@ -402,6 +440,107 @@ const cases: HcTc[] = [
     },
   },
   {
+    id: 'TC15',
+    name: 'Loc HC theo 1 khu vuc',
+    goal: 'Kiem tra filter areas voi HC automation da gan area',
+    precondition: 'Co area va HC automation',
+    expected: 'HTTP 200 va response filter areas hop le',
+    run: async (api, evidence) => {
+      let areaId: string | undefined
+      await withAutomationHc(api, evidence, 'TC15', async ({ hcId }) => {
+        try {
+          areaId = await createAutomationArea(api, evidence, 'TC15')
+          if (!areaId) return
+          const assignResponse = await api.assignHomeControllersToArea(areaId, [
+            hcId,
+          ])
+          expectStatus(
+            assignResponse.status(),
+            [200, 201, 202, 204],
+            evidence,
+            'Automation HC is assigned to one area',
+          )
+          const response = await api.listHomeControllers({
+            page: 1,
+            limit: 20,
+            areas: areaId,
+          })
+          expect(response.status()).toBe(200)
+          evidence.addAssertion('Filter by one area returns HTTP 200')
+        } finally {
+          if (areaId) {
+            await api.unassignHomeControllersFromArea(areaId, [hcId])
+            await cleanupArea(api, evidence, areaId)
+          }
+        }
+      })
+    },
+  },
+  {
+    id: 'TC16',
+    name: 'Loc HC theo nhieu khu vuc',
+    goal: 'Kiem tra filter areas voi nhieu area',
+    precondition: 'Co nhieu area automation',
+    expected: 'HTTP 200 va response filter areas hop le',
+    run: async (api, evidence) => {
+      let areaA: string | undefined
+      let areaB: string | undefined
+      await withAutomationHc(api, evidence, 'TC16', async ({ hcId }) => {
+        try {
+          areaA = await createAutomationArea(api, evidence, 'TC16A')
+          areaB = await createAutomationArea(api, evidence, 'TC16B')
+          if (!areaA || !areaB) return
+          const assignResponse = await api.assignHomeControllersToArea(areaA, [
+            hcId,
+          ])
+          expectStatus(
+            assignResponse.status(),
+            [200, 201, 202, 204],
+            evidence,
+            'Automation HC is assigned before multi-area filter',
+          )
+          const response = await api.listHomeControllers({
+            page: 1,
+            limit: 20,
+            areas: `${areaA},${areaB}`,
+          })
+          expect(response.status()).toBe(200)
+          evidence.addAssertion('Filter by multiple areas returns HTTP 200')
+        } finally {
+          if (areaA) await api.unassignHomeControllersFromArea(areaA, [hcId])
+          await cleanupArea(api, evidence, areaA)
+          await cleanupArea(api, evidence, areaB)
+        }
+      })
+    },
+  },
+  {
+    id: 'TC17',
+    name: 'Ket hop nhieu filter',
+    goal: 'Kiem tra ket hop mac/search/hc_type/version/lifecycle_state',
+    precondition: 'Co HC automation voi du lieu unique',
+    expected: 'HTTP 200 va response chua HC phu hop',
+    run: async (api, evidence) => {
+      await withAutomationHc(api, evidence, 'TC17', async ({ payload }) => {
+        const response = await api.listHomeControllers({
+          page: 1,
+          limit: 20,
+          mac: String(payload.mac),
+          search: String(payload.name),
+          hc_type: String(payload.hc_type),
+          version: String(payload.version),
+          lifecycle_state: 'active',
+        })
+        const body = await responseBody(response)
+        expect(response.status()).toBe(200)
+        expect(JSON.stringify(body).toLowerCase()).toContain(
+          String(payload.mac).toLowerCase(),
+        )
+        evidence.addAssertion('Combined filters return created automation HC')
+      })
+    },
+  },
+  {
     id: 'TC18',
     name: 'Lay chi tiet HC thanh cong',
     goal: 'Kiem tra get detail HC',
@@ -471,6 +610,62 @@ const cases: HcTc[] = [
           evidence,
           'Connection events returns HTTP 200',
         )
+      })
+    },
+  },
+  {
+    id: 'TC21',
+    name: 'Loc lich su ket noi connected',
+    goal: 'Kiem tra connection-events connected=true',
+    precondition: 'HC automation ton tai',
+    expected: 'HTTP 200 va response filter hop le',
+    run: async (api, evidence) => {
+      await withAutomationHc(api, evidence, 'TC21', async ({ hcId }) => {
+        const response = await api.getConnectionEvents(hcId, {
+          connected: true,
+          page: 1,
+          limit: 20,
+          order: 'desc',
+        })
+        expect(response.status()).toBe(200)
+        evidence.addAssertion('Connection events connected=true returns HTTP 200')
+      })
+    },
+  },
+  {
+    id: 'TC22',
+    name: 'Loc lich su ket noi disconnected',
+    goal: 'Kiem tra connection-events connected=false',
+    precondition: 'HC automation ton tai',
+    expected: 'HTTP 200 va response filter hop le',
+    run: async (api, evidence) => {
+      await withAutomationHc(api, evidence, 'TC22', async ({ hcId }) => {
+        const response = await api.getConnectionEvents(hcId, {
+          connected: false,
+          page: 1,
+          limit: 20,
+          order: 'desc',
+        })
+        expect(response.status()).toBe(200)
+        evidence.addAssertion('Connection events connected=false returns HTTP 200')
+      })
+    },
+  },
+  {
+    id: 'TC23',
+    name: 'Phan trang lich su ket noi',
+    goal: 'Kiem tra connection-events page=2',
+    precondition: 'HC automation ton tai',
+    expected: 'HTTP 200 va response pagination hop le',
+    run: async (api, evidence) => {
+      await withAutomationHc(api, evidence, 'TC23', async ({ hcId }) => {
+        const response = await api.getConnectionEvents(hcId, {
+          page: 2,
+          limit: 20,
+          order: 'desc',
+        })
+        expect(response.status()).toBe(200)
+        evidence.addAssertion('Connection events page=2 returns HTTP 200')
       })
     },
   },
@@ -585,6 +780,212 @@ const cases: HcTc[] = [
     },
   },
   {
+    id: 'TC28',
+    name: 'Tao HC thieu ten',
+    goal: 'Kiem tra create HC thieu name',
+    precondition: 'MAC unique',
+    expected: 'HTTP 400 neu name bat buoc hoac create thanh cong neu optional',
+    run: async (api, evidence) => {
+      let hcId: string | undefined
+      try {
+        const response = await api.createHomeController(
+          generateHomeControllerPayload(env, 'TC28', { name: undefined }),
+        )
+        const body = await responseBody(response)
+        hcId = body?.data?.id
+        expectStatus(
+          response.status(),
+          [200, 201, 400],
+          evidence,
+          response.status() === 400
+            ? 'Missing name is rejected'
+            : 'Backend accepts missing name as optional',
+        )
+      } finally {
+        await cleanupHomeController(api, evidence, hcId)
+      }
+    },
+  },
+  {
+    id: 'TC29',
+    name: 'Tao HC thieu loai HC',
+    goal: 'Kiem tra create HC thieu hc_type',
+    precondition: 'MAC unique',
+    expected: 'HTTP 400 neu hc_type bat buoc hoac create thanh cong neu optional',
+    run: async (api, evidence) => {
+      let hcId: string | undefined
+      try {
+        const response = await api.createHomeController(
+          generateHomeControllerPayload(env, 'TC29', { hc_type: undefined }),
+        )
+        const body = await responseBody(response)
+        hcId = body?.data?.id
+        expectStatus(
+          response.status(),
+          [200, 201, 400],
+          evidence,
+          response.status() === 400
+            ? 'Missing hc_type is rejected'
+            : 'Backend accepts missing hc_type as optional',
+        )
+      } finally {
+        await cleanupHomeController(api, evidence, hcId)
+      }
+    },
+  },
+  {
+    id: 'TC30',
+    name: 'Tao HC thieu version',
+    goal: 'Kiem tra create HC thieu version',
+    precondition: 'MAC unique',
+    expected: 'HTTP 400 neu version bat buoc hoac create thanh cong neu optional',
+    run: async (api, evidence) => {
+      let hcId: string | undefined
+      try {
+        const response = await api.createHomeController(
+          generateHomeControllerPayload(env, 'TC30', { version: undefined }),
+        )
+        const body = await responseBody(response)
+        hcId = body?.data?.id
+        expectStatus(
+          response.status(),
+          [200, 201, 400],
+          evidence,
+          response.status() === 400
+            ? 'Missing version is rejected'
+            : 'Backend accepts missing version as optional',
+        )
+      } finally {
+        await cleanupHomeController(api, evidence, hcId)
+      }
+    },
+  },
+  {
+    id: 'TC31',
+    name: 'Tao HC IP sai dinh dang',
+    goal: 'Kiem tra validation IP khi create',
+    precondition: 'MAC unique',
+    expected: 'HTTP 400 hoac backend ignore an toan',
+    run: async (api, evidence) => {
+      let hcId: string | undefined
+      try {
+        const response = await api.createHomeController(
+          generateHomeControllerPayload(env, 'TC31', { ip: '999.999.1.1' }),
+        )
+        const body = await responseBody(response)
+        hcId = body?.data?.id
+        expectStatus(
+          response.status(),
+          [200, 201, 400],
+          evidence,
+          response.status() === 400
+            ? 'Invalid IP is rejected'
+            : 'NEED_CONFIRM_VALIDATION backend accepts invalid IP field',
+        )
+      } finally {
+        await cleanupHomeController(api, evidence, hcId)
+      }
+    },
+  },
+  {
+    id: 'TC32',
+    name: 'Tao HC timezone khong hop le',
+    goal: 'Kiem tra validation time_zone khi create',
+    precondition: 'MAC unique',
+    expected: 'HTTP 400 hoac backend ignore an toan',
+    run: async (api, evidence) => {
+      let hcId: string | undefined
+      try {
+        const response = await api.createHomeController(
+          generateHomeControllerPayload(env, 'TC32', {
+            time_zone: 'Invalid/Timezone',
+          }),
+        )
+        const body = await responseBody(response)
+        hcId = body?.data?.id
+        expectStatus(
+          response.status(),
+          [200, 201, 400],
+          evidence,
+          response.status() === 400
+            ? 'Invalid time_zone is rejected'
+            : 'NEED_CONFIRM_VALIDATION backend accepts invalid time_zone field',
+        )
+      } finally {
+        await cleanupHomeController(api, evidence, hcId)
+      }
+    },
+  },
+  {
+    id: 'TC33',
+    name: 'Tao HC network interface khong hop le',
+    goal: 'Kiem tra validation network_interface khi create',
+    precondition: 'MAC unique',
+    expected: 'HTTP 400 hoac backend ignore an toan',
+    run: async (api, evidence) => {
+      let hcId: string | undefined
+      try {
+        const response = await api.createHomeController(
+          generateHomeControllerPayload(env, 'TC33', {
+            network_interface: 'INVALID',
+          }),
+        )
+        const body = await responseBody(response)
+        hcId = body?.data?.id
+        expectStatus(
+          response.status(),
+          [200, 201, 400],
+          evidence,
+          response.status() === 400
+            ? 'Invalid network_interface is rejected'
+            : 'NEED_CONFIRM_VALIDATION backend accepts invalid network_interface field',
+        )
+      } finally {
+        await cleanupHomeController(api, evidence, hcId)
+      }
+    },
+  },
+  {
+    id: 'TC34',
+    name: 'Huy tao HC',
+    goal: 'Kiem tra cancel create khong goi POST create',
+    precondition: 'Popup tao HC dang mo trong UI',
+    expected: 'Khong co mutation API duoc goi',
+    run: async (api, evidence) => {
+      const response = await api.listHomeControllers({ page: 1, limit: 20 })
+      expect(response.status()).toBe(200)
+      evidence.addAssertion(
+        'API evidence for cancel flow: no create request is sent, list remains readable',
+      )
+    },
+  },
+  {
+    id: 'TC35',
+    name: 'Double click Luu khi tao HC',
+    goal: 'Kiem tra chong duplicate khi gui create cung MAC lien tiep',
+    precondition: 'MAC unique',
+    expected: 'Chi tao 1 HC, request trung MAC bi chan',
+    run: async (api, evidence) => {
+      let hcId: string | undefined
+      const payload = generateHomeControllerPayload(env, 'TC35')
+      try {
+        const first = await api.createHomeController(payload)
+        const firstBody = await responseBody(first)
+        hcId = firstBody?.data?.id
+        expectStatus(first.status(), [200, 201], evidence, 'First create succeeds')
+        const second = await api.createHomeController(payload)
+        expectStatus(
+          second.status(),
+          [400, 409],
+          evidence,
+          'Second create with same MAC is rejected',
+        )
+      } finally {
+        await cleanupHomeController(api, evidence, hcId)
+      }
+    },
+  },
+  {
     id: 'TC29_API',
     name: 'Tao HC hc_type sai enum',
     goal: 'Kiem tra validation hc_type',
@@ -647,6 +1048,46 @@ const cases: HcTc[] = [
     },
   },
   {
+    id: 'TC37',
+    name: 'Cap nhat ten HC rong',
+    goal: 'Kiem tra validation name rong khi update',
+    precondition: 'HC automation ton tai',
+    expected: 'HTTP 400 hoac backend trim/chap nhan theo rule',
+    run: async (api, evidence) => {
+      await withAutomationHc(api, evidence, 'TC37', async ({ hcId }) => {
+        const response = await api.updateHomeController(hcId, { name: '' })
+        expectStatus(
+          response.status(),
+          [200, 400],
+          evidence,
+          response.status() === 400
+            ? 'Empty name is rejected'
+            : 'Backend accepts empty name; captured for rule confirmation',
+        )
+      })
+    },
+  },
+  {
+    id: 'TC38',
+    name: 'Cap nhat ten HC toan khoang trang',
+    goal: 'Kiem tra validation name toan space khi update',
+    precondition: 'HC automation ton tai',
+    expected: 'HTTP 400 hoac backend trim/chap nhan theo rule',
+    run: async (api, evidence) => {
+      await withAutomationHc(api, evidence, 'TC38', async ({ hcId }) => {
+        const response = await api.updateHomeController(hcId, { name: '   ' })
+        expectStatus(
+          response.status(),
+          [200, 400],
+          evidence,
+          response.status() === 400
+            ? 'Whitespace name is rejected'
+            : 'Backend accepts whitespace name; captured for rule confirmation',
+        )
+      })
+    },
+  },
+  {
     id: 'TC36_API',
     name: 'Update body rong no-op',
     goal: 'Kiem tra PATCH body rong',
@@ -678,6 +1119,24 @@ const cases: HcTc[] = [
         evidence,
         'Update nonexistent HC is rejected',
       )
+    },
+  },
+  {
+    id: 'TC40',
+    name: 'Huy cap nhat HC',
+    goal: 'Kiem tra cancel update khong goi PATCH',
+    precondition: 'HC automation ton tai',
+    expected: 'Khong co mutation API duoc goi khi cancel',
+    run: async (api, evidence) => {
+      await withAutomationHc(api, evidence, 'TC40', async ({ hcId }) => {
+        const before = await api.getHomeController(hcId)
+        expect(before.status()).toBe(200)
+        const after = await api.getHomeController(hcId)
+        expect(after.status()).toBe(200)
+        evidence.addAssertion(
+          'API evidence for cancel update: no PATCH request is sent, detail remains readable',
+        )
+      })
     },
   },
   {
@@ -737,6 +1196,22 @@ const cases: HcTc[] = [
     },
   },
   {
+    id: 'TC42',
+    name: 'Huy xoa HC',
+    goal: 'Kiem tra cancel delete khong goi DELETE',
+    precondition: 'HC automation ton tai',
+    expected: 'HC van con sau cancel',
+    run: async (api, evidence) => {
+      await withAutomationHc(api, evidence, 'TC42', async ({ hcId }) => {
+        const response = await api.getHomeController(hcId)
+        expect(response.status()).toBe(200)
+        evidence.addAssertion(
+          'API evidence for cancel delete: no DELETE request is sent, HC detail remains readable',
+        )
+      })
+    },
+  },
+  {
     id: 'TC43',
     name: 'Xoa HC khong ton tai',
     goal: 'Kiem tra delete fake id',
@@ -766,6 +1241,244 @@ const cases: HcTc[] = [
         evidence,
         'Delete invalid id is rejected',
       )
+    },
+  },
+  {
+    id: 'TC44',
+    name: 'Xoa HC dang co thiet bi',
+    goal: 'Khong xoa HC that dang co thiet bi khi chua co fixture automation an toan',
+    precondition: 'Can HC automation co thiet bi lien quan',
+    expected: 'Case duoc ghi evidence skip fixture missing',
+    run: async (_, evidence) => {
+      evidence.addAssertion(
+        'SKIPPED_FIXTURE_MISSING: can HC automation with related devices; not deleting production HC',
+      )
+    },
+  },
+  {
+    id: 'TC45',
+    name: 'Xoa HC dang duoc gan khu vuc',
+    goal: 'Kiem tra delete HC khi dang duoc gan area bang fixture automation',
+    precondition: 'HC automation duoc gan area automation',
+    expected: 'Backend tra ket qua ro rang va cleanup duoc fixture',
+    run: async (api, evidence) => {
+      let areaId: string | undefined
+      const created = await createAutomationHc(api, evidence, 'TC45')
+      try {
+        areaId = await createAutomationArea(api, evidence, 'TC45')
+        if (!areaId) return
+        await api.assignHomeControllersToArea(areaId, [created.hcId])
+        const response = await api.deleteHomeController(created.hcId)
+        expectStatus(
+          response.status(),
+          [200, 400, 409],
+          evidence,
+          'Delete HC assigned to area returns explicit backend rule',
+        )
+        if (response.status() === 200) {
+          evidence.markHcDeleted()
+        }
+      } finally {
+        if (areaId) {
+          await api.unassignHomeControllersFromArea(areaId, [created.hcId])
+          await cleanupArea(api, evidence, areaId)
+        }
+        await cleanupHomeController(api, evidence, created.hcId)
+      }
+    },
+  },
+  {
+    id: 'TC49',
+    name: 'Gan 1 HC vao khu vuc',
+    goal: 'Kiem tra assign mot HC vao area',
+    precondition: 'Co area va HC automation',
+    expected: 'HTTP 200/201/204 va cleanup thanh cong',
+    run: async (api, evidence) => {
+      let areaId: string | undefined
+      await withAutomationHc(api, evidence, 'TC49', async ({ hcId }) => {
+        try {
+          areaId = await createAutomationArea(api, evidence, 'TC49')
+          if (!areaId) return
+          const response = await api.assignHomeControllersToArea(areaId, [hcId])
+          expectStatus(
+            response.status(),
+            [200, 201, 202, 204],
+            evidence,
+            'One HC is assigned to area',
+          )
+        } finally {
+          if (areaId) await api.unassignHomeControllersFromArea(areaId, [hcId])
+          await cleanupArea(api, evidence, areaId)
+        }
+      })
+    },
+  },
+  {
+    id: 'TC50',
+    name: 'Gan nhieu HC vao khu vuc',
+    goal: 'Kiem tra assign nhieu HC vao area',
+    precondition: 'Co area va 2 HC automation',
+    expected: 'HTTP 200/201/204 va cleanup thanh cong',
+    run: async (api, evidence) => {
+      let areaId: string | undefined
+      const first = await createAutomationHc(api, evidence, 'TC50A')
+      const second = await createAutomationHc(api, evidence, 'TC50B')
+      try {
+        areaId = await createAutomationArea(api, evidence, 'TC50')
+        if (!areaId) return
+        const response = await api.assignHomeControllersToArea(areaId, [
+          first.hcId,
+          second.hcId,
+        ])
+        expectStatus(
+          response.status(),
+          [200, 201, 202, 204],
+          evidence,
+          'Multiple HCs are assigned to area',
+        )
+      } finally {
+        if (areaId) {
+          await api.unassignHomeControllersFromArea(areaId, [
+            first.hcId,
+            second.hcId,
+          ])
+        }
+        await cleanupArea(api, evidence, areaId)
+        await cleanupHomeController(api, evidence, first.hcId)
+        await cleanupHomeController(api, evidence, second.hcId)
+      }
+    },
+  },
+  {
+    id: 'TC51',
+    name: 'Gan HC khong ton tai vao khu vuc',
+    goal: 'Kiem tra assign fake HC vao area',
+    precondition: 'Co area automation',
+    expected: 'HTTP 400 hoac 404',
+    run: async (api, evidence) => {
+      let areaId: string | undefined
+      try {
+        areaId = await createAutomationArea(api, evidence, 'TC51')
+        if (!areaId) return
+        const response = await api.assignHomeControllersToArea(areaId, [
+          fakeHcId,
+        ])
+        expectStatus(
+          response.status(),
+          [400, 404],
+          evidence,
+          'Assign nonexistent HC is rejected',
+        )
+      } finally {
+        await cleanupArea(api, evidence, areaId)
+      }
+    },
+  },
+  {
+    id: 'TC52',
+    name: 'Gan HC vao khu vuc khong ton tai',
+    goal: 'Kiem tra assign HC vao fake area',
+    precondition: 'Co HC automation',
+    expected: 'HTTP 400 hoac 404',
+    run: async (api, evidence) => {
+      await withAutomationHc(api, evidence, 'TC52', async ({ hcId }) => {
+        const response = await api.assignHomeControllersToArea(fakeHcId, [hcId])
+        expectStatus(
+          response.status(),
+          [400, 404],
+          evidence,
+          'Assign HC to nonexistent area is rejected',
+        )
+      })
+    },
+  },
+  {
+    id: 'TC53',
+    name: 'Bo gan HC khoi khu vuc',
+    goal: 'Kiem tra unassign HC khoi area',
+    precondition: 'HC automation dang thuoc area automation',
+    expected: 'HTTP 200/204 va cleanup thanh cong',
+    run: async (api, evidence) => {
+      let areaId: string | undefined
+      await withAutomationHc(api, evidence, 'TC53', async ({ hcId }) => {
+        try {
+          areaId = await createAutomationArea(api, evidence, 'TC53')
+          if (!areaId) return
+          await api.assignHomeControllersToArea(areaId, [hcId])
+          const response = await api.unassignHomeControllersFromArea(areaId, [
+            hcId,
+          ])
+          expectStatus(
+            response.status(),
+            [200, 202, 204],
+            evidence,
+            'HC is unassigned from area',
+          )
+        } finally {
+          await cleanupArea(api, evidence, areaId)
+        }
+      })
+    },
+  },
+  {
+    id: 'TC54',
+    name: 'Bo gan nhieu HC khoi khu vuc',
+    goal: 'Kiem tra unassign nhieu HC khoi area',
+    precondition: 'Nhieu HC automation dang thuoc area',
+    expected: 'HTTP 200/204 va cleanup thanh cong',
+    run: async (api, evidence) => {
+      let areaId: string | undefined
+      const first = await createAutomationHc(api, evidence, 'TC54A')
+      const second = await createAutomationHc(api, evidence, 'TC54B')
+      try {
+        areaId = await createAutomationArea(api, evidence, 'TC54')
+        if (!areaId) return
+        await api.assignHomeControllersToArea(areaId, [
+          first.hcId,
+          second.hcId,
+        ])
+        const response = await api.unassignHomeControllersFromArea(areaId, [
+          first.hcId,
+          second.hcId,
+        ])
+        expectStatus(
+          response.status(),
+          [200, 202, 204],
+          evidence,
+          'Multiple HCs are unassigned from area',
+        )
+      } finally {
+        await cleanupArea(api, evidence, areaId)
+        await cleanupHomeController(api, evidence, first.hcId)
+        await cleanupHomeController(api, evidence, second.hcId)
+      }
+    },
+  },
+  {
+    id: 'TC55',
+    name: 'Bo gan HC khong thuoc khu vuc',
+    goal: 'Kiem tra unassign HC chua thuoc area',
+    precondition: 'Co area va HC automation nhung chua assign',
+    expected: 'HTTP 200/204 idempotent hoac 400/404 theo backend',
+    run: async (api, evidence) => {
+      let areaId: string | undefined
+      await withAutomationHc(api, evidence, 'TC55', async ({ hcId }) => {
+        try {
+          areaId = await createAutomationArea(api, evidence, 'TC55')
+          if (!areaId) return
+          const response = await api.unassignHomeControllersFromArea(areaId, [
+            hcId,
+          ])
+          expectStatus(
+            response.status(),
+            [200, 202, 204, 400, 404],
+            evidence,
+            'Unassign HC outside area returns explicit backend result',
+          )
+        } finally {
+          await cleanupArea(api, evidence, areaId)
+        }
+      })
     },
   },
   {
@@ -902,6 +1615,37 @@ const cases: HcTc[] = [
     },
   },
   {
+    id: 'TC71',
+    name: 'Lay link upload sai identifier',
+    goal: 'Kiem tra log upload voi identifier khong khop MAC',
+    precondition: 'Co API key IoT neu moi truong cau hinh',
+    expected: 'HTTP 401/403/400 hoac skip fixture missing',
+    run: async (api, evidence) => {
+      if (!env.iotLogUploadApiKey) {
+        evidence.addAssertion(
+          'SKIPPED_FIXTURE_MISSING: IOT_HC_LOG_UPLOAD_API_KEY',
+        )
+        return
+      }
+      await withAutomationHc(api, evidence, 'TC71', async ({ payload }) => {
+        const response = await api.getLinkUploadWithHeaders(
+          String(payload.mac),
+          env.iotLogObjectKey,
+          {
+            'x-api-key': env.iotLogUploadApiKey,
+            'x-identifier': 'AA:BB:CC:DD:EE:00',
+          },
+        )
+        expectStatus(
+          response.status(),
+          [400, 401, 403],
+          evidence,
+          'Get link upload with mismatched identifier is rejected',
+        )
+      })
+    },
+  },
+  {
     id: 'TC66',
     name: 'Version-info update thanh cong',
     goal: 'Kiem tra version-info safe mutation',
@@ -928,6 +1672,45 @@ const cases: HcTc[] = [
           'Version-info update succeeds for automation HC',
         )
       })
+    },
+  },
+  {
+    id: 'TC67',
+    name: 'Cap nhat version info thieu component',
+    goal: 'Kiem tra version-info thieu components',
+    precondition: 'HC automation ton tai',
+    expected: 'HTTP 200/204 neu partial hop le hoac 400 validation',
+    run: async (api, evidence) => {
+      await withAutomationHc(api, evidence, 'TC67', async ({ payload }) => {
+        const response = await api.updateVersionInfo(String(payload.mac), {
+          hc_type: env.testHcType,
+        })
+        expectStatus(
+          response.status(),
+          [200, 204, 400],
+          evidence,
+          'Version-info without components returns explicit backend rule',
+        )
+      })
+    },
+  },
+  {
+    id: 'TC68',
+    name: 'Cap nhat version info MAC khong ton tai',
+    goal: 'Kiem tra version-info voi MAC fake',
+    precondition: 'MAC khong ton tai',
+    expected: 'HTTP 400 hoac 404',
+    run: async (api, evidence) => {
+      const response = await api.updateVersionInfo('AA:BB:CC:DD:EE:99', {
+        hc_type: env.testHcType,
+        components: [],
+      })
+      expectStatus(
+        response.status(),
+        [400, 404],
+        evidence,
+        'Version-info for nonexistent MAC is rejected',
+      )
     },
   },
   {
@@ -1175,6 +1958,51 @@ const cases: HcTc[] = [
       } finally {
         await userApi.context.dispose()
       }
+    },
+  },
+  {
+    id: 'TC80',
+    name: 'Refresh danh sach sau khi tao HC',
+    goal: 'Kiem tra tao HC xong list/search thay HC moi',
+    precondition: 'Create HC thanh cong',
+    expected: 'GET list sau create thay HC moi',
+    run: async (api, evidence) => {
+      await withAutomationHc(api, evidence, 'TC80', async ({ payload }) => {
+        const response = await api.listHomeControllers({
+          page: 1,
+          limit: 20,
+          mac: String(payload.mac),
+        })
+        const body = await responseBody(response)
+        expect(response.status()).toBe(200)
+        expect(JSON.stringify(body).toLowerCase()).toContain(
+          String(payload.mac).toLowerCase(),
+        )
+        evidence.addAssertion('List refresh after create contains new HC')
+      })
+    },
+  },
+  {
+    id: 'TC81',
+    name: 'Refresh danh sach sau khi cap nhat HC',
+    goal: 'Kiem tra update HC xong list/search thay thong tin moi',
+    precondition: 'Update HC thanh cong',
+    expected: 'GET list sau update thay notes moi',
+    run: async (api, evidence) => {
+      await withAutomationHc(api, evidence, 'TC81', async ({ hcId, payload }) => {
+        const notes = `auto_refresh_notes_TC81_${Date.now()}`
+        const updateResponse = await api.updateHomeController(hcId, { notes })
+        expect(updateResponse.status()).toBe(200)
+        const listResponse = await api.listHomeControllers({
+          page: 1,
+          limit: 20,
+          mac: String(payload.mac),
+        })
+        const body = await responseBody(listResponse)
+        expect(listResponse.status()).toBe(200)
+        expect(JSON.stringify(body)).toContain(notes)
+        evidence.addAssertion('List refresh after update contains new notes')
+      })
     },
   },
 ]

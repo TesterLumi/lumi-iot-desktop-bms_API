@@ -372,6 +372,36 @@ export class HomeControllerSuiteApi {
     )
   }
 
+  async createArea(payload: Record<string, unknown>) {
+    return this.call('Create area', 'POST', `${this.env.apiPrefix}/areas`, payload)
+  }
+
+  async deleteArea(areaId: string) {
+    return this.call(
+      'Delete area',
+      'DELETE',
+      `${this.env.apiPrefix}/areas/${areaId}`,
+    )
+  }
+
+  async assignHomeControllersToArea(areaId: string, hcIds: string[]) {
+    return this.call(
+      'Assign home controllers to area',
+      'POST',
+      `${this.env.apiPrefix}/areas/${areaId}/home-controllers`,
+      { hc_ids: hcIds },
+    )
+  }
+
+  async unassignHomeControllersFromArea(areaId: string, hcIds: string[]) {
+    return this.call(
+      'Unassign home controllers from area',
+      'DELETE',
+      `${this.env.apiPrefix}/areas/${areaId}/home-controllers`,
+      { hc_ids: hcIds },
+    )
+  }
+
   async iotListHomeControllers(
     query?: Record<string, string | number | boolean>,
   ) {
@@ -405,6 +435,20 @@ export class HomeControllerSuiteApi {
       `${this.env.apiPrefix}/iot/home-controllers/${encodeURIComponent(mac)}/get-link-upload${toQuery({ object_key: objectKey })}`,
       undefined,
       apiKey ? { 'x-api-key': apiKey } : undefined,
+    )
+  }
+
+  async getLinkUploadWithHeaders(
+    mac: string,
+    objectKey: string,
+    headers: Record<string, string>,
+  ) {
+    return this.call(
+      'Get link upload with custom headers',
+      'GET',
+      `${this.env.apiPrefix}/iot/home-controllers/${encodeURIComponent(mac)}/get-link-upload${toQuery({ object_key: objectKey })}`,
+      undefined,
+      headers,
     )
   }
 
@@ -575,7 +619,11 @@ export const loginHomeControllerSuiteUser = async (
 export const generateUniqueHcMac = (tcId: string) => {
   const clean = tcId.replace(/[^0-9A-Fa-f]/g, '').padEnd(2, '0').slice(0, 2)
   const n = Date.now().toString(16).toUpperCase().slice(-8).padStart(8, '0')
-  return `AA:BB:${clean}:${n.slice(0, 2)}:${n.slice(2, 4)}:${n.slice(4, 6)}`
+  const random = Math.floor(Math.random() * 256)
+    .toString(16)
+    .toUpperCase()
+    .padStart(2, '0')
+  return `AA:BB:${clean}:${n.slice(0, 2)}:${n.slice(2, 4)}:${random}`
 }
 
 export const generateHomeControllerPayload = (
