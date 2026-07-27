@@ -74,6 +74,10 @@ export type HcSuiteEnv = {
   viewerPassword: string
   noPermissionUsername: string
   noPermissionPassword: string
+  adminAccessToken: string
+  viewerAccessToken: string
+  noPermissionAccessToken: string
+  requireAuth: boolean
   testHcId: string
   testHcMac: string
   testHcType: string
@@ -123,7 +127,13 @@ export const getHomeControllerSuiteEnv = (): HcSuiteEnv => {
     'HOME_CONTROLLER_EVIDENCE_DIR',
     'home-controller-management-current',
   )
-  const base = normalizeBmsBaseUrl(shared.baseUrl)
+  const rawBaseUrl =
+    process.env.HOME_CONTROLLER_BASE_URL ||
+    process.env.BASE_URL ||
+    process.env.BMS_API_ENDPOINT ||
+    process.env.GROUP_BASE_URL ||
+    shared.baseUrl
+  const base = normalizeBmsBaseUrl(rawBaseUrl)
   const runDir =
     process.env.HOME_CONTROLLER_RUN_DIR ||
     join(process.cwd(), 'test-runs', 'home-controller-management-current')
@@ -155,6 +165,25 @@ export const getHomeControllerSuiteEnv = (): HcSuiteEnv => {
       process.env.NO_PERMISSION_PASSWORD ||
       process.env.BMS_NO_PERMISSION_PASSWORD ||
       '',
+    adminAccessToken:
+      process.env.HOME_CONTROLLER_ADMIN_ACCESS_TOKEN ||
+      process.env.GROUP_ADMIN_ACCESS_TOKEN ||
+      process.env.BMS_ACCESS_TOKEN ||
+      process.env.BMS_ROOT_ACCESS_TOKEN ||
+      '',
+    viewerAccessToken:
+      process.env.HOME_CONTROLLER_VIEWER_ACCESS_TOKEN ||
+      process.env.GROUP_VIEWER_ACCESS_TOKEN ||
+      process.env.BMS_VIEWER_ACCESS_TOKEN ||
+      '',
+    noPermissionAccessToken:
+      process.env.HOME_CONTROLLER_NO_PERMISSION_ACCESS_TOKEN ||
+      process.env.GROUP_NO_PERMISSION_ACCESS_TOKEN ||
+      process.env.BMS_NO_PERMISSION_ACCESS_TOKEN ||
+      '',
+    requireAuth:
+      process.env.HOME_CONTROLLER_REQUIRE_AUTH === 'true' ||
+      process.env.GROUP_REQUIRE_AUTH === 'true',
     testHcId: process.env.TEST_HC_ID || '',
     testHcMac: process.env.TEST_HC_MAC || '',
     testHcType: process.env.TEST_HC_TYPE || 'mt7688',
@@ -437,9 +466,10 @@ export class HomeControllerSuiteApi {
   ) {
     const api = await newHomeControllerSuiteApi(this.env, 'invalid_token')
     try {
-      return api
+      const result = await api
         .withEvidence(this.evidence || emptyEvidence())
         .call('Invalid token request', method, endpoint, payload)
+      return result
     } finally {
       await api.context.dispose()
     }

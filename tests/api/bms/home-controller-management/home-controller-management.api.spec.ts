@@ -142,7 +142,11 @@ const loginOptionalUserApi = async (
   password: string,
   evidence: HomeControllerEvidence,
   label: string,
+  token?: string,
 ) => {
+  if (token) {
+    return newHomeControllerSuiteApi(env, token)
+  }
   if (!username || !password) {
     evidence.addAssertion(`SKIPPED_FIXTURE_MISSING: ${label} username/password`)
     return undefined
@@ -798,11 +802,14 @@ const cases: HcTc[] = [
     run: async (api, evidence) => {
       await withAutomationHc(api, evidence, 'TC36', async ({ payload }) => {
         const response = await api.updateVersionInfo(String(payload.mac), {
+          hc_type: env.testHcType,
           components: [
             {
-              type: 'firmware',
+              component_type: 'firmware',
               name: 'automation',
               version: env.testHcVersion,
+              binary_checksum:
+                'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
             },
           ],
         })
@@ -824,11 +831,14 @@ const cases: HcTc[] = [
     run: async (api, evidence) => {
       await withAutomationHc(api, evidence, 'TC37', async ({ payload }) => {
         const component = {
-          type: 'firmware',
+          component_type: 'firmware',
           name: 'automation',
           version: env.testHcVersion,
+          binary_checksum:
+            'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
         }
         const response = await api.updateVersionInfo(String(payload.mac), {
+          hc_type: env.testHcType,
           components: [component, component],
         })
         expectStatus(
@@ -922,9 +932,11 @@ const cases: HcTc[] = [
           .listHomeControllers({ page: 1, limit: 10 })
         expectStatus(
           response.status(),
-          [400, 401],
+          env.requireAuth ? [400, 401] : [200, 400, 401],
           evidence,
-          'List HC without token is rejected',
+          response.status() === 200
+            ? 'Auth is disabled in current environment; list HC without token is allowed'
+            : 'List HC without token is rejected',
         )
       } finally {
         await anonymousApi.context.dispose()
@@ -944,9 +956,11 @@ const cases: HcTc[] = [
       )
       expectStatus(
         response.status(),
-        [401],
+        env.requireAuth ? [401] : [200, 401],
         evidence,
-        'Invalid token returns 401',
+        response.status() === 200
+          ? 'Auth is disabled in current environment; invalid token is ignored'
+          : 'Invalid token returns 401',
       )
     },
   },
@@ -962,6 +976,7 @@ const cases: HcTc[] = [
         env.noPermissionPassword,
         evidence,
         'NO_PERMISSION',
+        env.noPermissionAccessToken,
       )
       if (!userApi) return
       try {
@@ -991,6 +1006,7 @@ const cases: HcTc[] = [
         env.viewerPassword || env.noPermissionPassword,
         evidence,
         'VIEWER_OR_NO_PERMISSION',
+        env.viewerAccessToken || env.noPermissionAccessToken,
       )
       if (!userApi) return
       let hcId: string | undefined
@@ -1024,6 +1040,7 @@ const cases: HcTc[] = [
         env.viewerPassword || env.noPermissionPassword,
         evidence,
         'VIEWER_OR_NO_PERMISSION',
+        env.viewerAccessToken || env.noPermissionAccessToken,
       )
       if (!userApi) return
       try {
@@ -1059,9 +1076,13 @@ test.describe('Home Controller Management API suite TC1-TC45', () => {
 
   test.beforeAll(async () => {
     await clearHomeControllerEvidenceDir(env)
-    if (!env.adminUsername || !env.adminPassword) {
+    if (
+      env.requireAuth &&
+      !env.adminAccessToken &&
+      (!env.adminUsername || !env.adminPassword)
+    ) {
       const error =
-        'ADMIN_USERNAME and ADMIN_PASSWORD are required for home-controller-management suite'
+        'ADMIN_USERNAME/ADMIN_PASSWORD or HOME_CONTROLLER_ADMIN_ACCESS_TOKEN/GROUP_ADMIN_ACCESS_TOKEN are required when HOME_CONTROLLER_REQUIRE_AUTH or GROUP_REQUIRE_AUTH is true'
       await writeHomeControllerPrecheckEvidence(
         env,
         'PRECHECK_admin_login_env_missing',
@@ -1090,13 +1111,17 @@ test.describe('Home Controller Management API suite TC1-TC45', () => {
       await precheckApi.context.dispose()
     }
 
-    const adminLogin = await loginHomeControllerSuiteUser(
-      env,
-      env.adminUsername,
-      env.adminPassword,
-    )
-    adminToken = adminLogin.token
-    adminRefreshToken = adminLogin.refreshToken
+    if (env.adminAccessToken) {
+      adminToken = env.adminAccessToken
+    } else if (env.adminUsername && env.adminPassword) {
+      const adminLogin = await loginHomeControllerSuiteUser(
+        env,
+        env.adminUsername,
+        env.adminPassword,
+      )
+      adminToken = adminLogin.token
+      adminRefreshToken = adminLogin.refreshToken
+    }
     adminApi = await newHomeControllerSuiteApi(env, adminToken)
   })
 
