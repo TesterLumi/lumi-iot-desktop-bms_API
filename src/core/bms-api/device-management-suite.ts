@@ -525,3 +525,449 @@ const maskSecret = (value: string) =>
 
 const truncate = (value: string, maxChars: number) =>
   value.length <= maxChars ? value : value.slice(-maxChars)
+
+export class DeviceManagementSuiteApi {
+  constructor(
+    public context: APIRequestContext,
+    private env: DeviceSuiteEnv,
+    private evidence?: DeviceManagementEvidence,
+  ) {}
+
+  withEvidence(evidence: DeviceManagementEvidence) {
+    return new DeviceManagementSuiteApi(this.context, this.env, evidence)
+  }
+
+  async healthCheck() {
+    return this.call('Health check', 'GET', this.env.healthEndpoint)
+  }
+
+  async login(payload: { user_name?: string; password?: string }) {
+    return this.call(
+      'Login',
+      'POST',
+      `${this.env.apiPrefix}/auth/login`,
+      payload,
+    )
+  }
+
+  async logout(refreshToken: string) {
+    return this.call('Logout', 'POST', `${this.env.apiPrefix}/auth/logout`, {
+      refresh_token: refreshToken,
+    })
+  }
+
+  async listDevices(query?: Record<string, string | number | boolean>) {
+    return this.call(
+      'List devices',
+      'GET',
+      `${this.env.apiPrefix}/devices${toQuery(query)}`,
+    )
+  }
+
+  async getDevice(deviceId: string) {
+    return this.call(
+      'Get device',
+      'GET',
+      `${this.env.apiPrefix}/devices/${deviceId}`,
+    )
+  }
+
+  async lookupDevices(deviceIds: string[]) {
+    return this.call(
+      'Lookup devices',
+      'POST',
+      `${this.env.apiPrefix}/devices/lookup`,
+      { device_ids: deviceIds },
+    )
+  }
+
+  async bmsPutDevice(deviceId: string, payload: Record<string, unknown>) {
+    return this.call(
+      'BMS put device',
+      'PUT',
+      `${this.env.apiPrefix}/devices/${deviceId}`,
+      payload,
+    )
+  }
+
+  async bmsPatchDevice(deviceId: string, payload: Record<string, unknown>) {
+    return this.call(
+      'BMS patch device',
+      'PATCH',
+      `${this.env.apiPrefix}/devices/${deviceId}`,
+      payload,
+    )
+  }
+
+  async bmsDeleteDevice(deviceId: string) {
+    return this.call(
+      'BMS delete device',
+      'DELETE',
+      `${this.env.apiPrefix}/devices/${deviceId}`,
+    )
+  }
+
+  async iotListDevices(query?: Record<string, string | number | boolean>) {
+    return this.call(
+      'IoT list devices',
+      'GET',
+      `${this.env.apiPrefix}/iot/devices${toQuery(query)}`,
+    )
+  }
+
+  async iotGetDevice(deviceId: string) {
+    return this.call(
+      'IoT get device',
+      'GET',
+      `${this.env.apiPrefix}/iot/devices/${deviceId}`,
+    )
+  }
+
+  async iotCreateDevice(hcId: string, payload: DeviceCreatePayload) {
+    return this.call(
+      'IoT create device under HC',
+      'POST',
+      `${this.env.apiPrefix}/iot/home-controllers/${hcId}/devices`,
+      payload,
+    )
+  }
+
+  async iotBindBatchDevices(hcId: string, devices: DeviceCreatePayload[]) {
+    return this.call(
+      'IoT bind batch devices',
+      'POST',
+      `${this.env.apiPrefix}/iot/home-controllers/${hcId}/devices/bind-batch`,
+      { devices },
+    )
+  }
+
+  async iotPutDevice(deviceId: string, payload: Record<string, unknown>) {
+    return this.call(
+      'IoT put device',
+      'PUT',
+      `${this.env.apiPrefix}/iot/devices/${deviceId}`,
+      payload,
+    )
+  }
+
+  async iotPatchDevice(deviceId: string, payload: Record<string, unknown>) {
+    return this.call(
+      'IoT patch device',
+      'PATCH',
+      `${this.env.apiPrefix}/iot/devices/${deviceId}`,
+      payload,
+    )
+  }
+
+  async iotDeleteDevice(deviceId: string) {
+    return this.call(
+      'IoT delete device',
+      'DELETE',
+      `${this.env.apiPrefix}/iot/devices/${deviceId}`,
+    )
+  }
+
+  async createArea(payload: Record<string, unknown>) {
+    return this.call(
+      'Create area',
+      'POST',
+      `${this.env.apiPrefix}/areas`,
+      payload,
+    )
+  }
+
+  async deleteArea(areaId: string) {
+    return this.call(
+      'Delete area',
+      'DELETE',
+      `${this.env.apiPrefix}/areas/${areaId}`,
+    )
+  }
+
+  async assignDevicesToArea(areaId: string, deviceIds: string[]) {
+    return this.call(
+      'Assign devices to area',
+      'POST',
+      `${this.env.apiPrefix}/areas/${areaId}/devices`,
+      { device_ids: deviceIds },
+    )
+  }
+
+  async unassignDevicesFromArea(areaId: string, deviceIds: string[]) {
+    return this.call(
+      'Unassign devices from area',
+      'DELETE',
+      `${this.env.apiPrefix}/areas/${areaId}/devices`,
+      { device_ids: deviceIds },
+    )
+  }
+
+  async listAreaDevices(
+    areaId: string,
+    query?: Record<string, string | number | boolean>,
+  ) {
+    return this.call(
+      'List area devices',
+      'GET',
+      `${this.env.apiPrefix}/areas/${areaId}/devices${toQuery(query)}`,
+    )
+  }
+
+  async updateDevicePosition(
+    areaId: string,
+    deviceId: string,
+    payload: Record<string, unknown>,
+  ) {
+    return this.call(
+      'Update device position',
+      'PATCH',
+      `${this.env.apiPrefix}/areas/${areaId}/devices/${deviceId}/position`,
+      payload,
+    )
+  }
+
+  async getAreaDeviceSummary(areaId: string) {
+    return this.call(
+      'Get area device summary',
+      'GET',
+      `${this.env.apiPrefix}/areas/${areaId}/devices/summary`,
+    )
+  }
+
+  async requestInvalidToken(
+    method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
+    endpoint: string,
+    payload?: unknown,
+  ) {
+    const api = await newDeviceManagementSuiteApi(this.env, 'invalid_token')
+    try {
+      return await api
+        .withEvidence(this.evidence || emptyEvidence())
+        .call('Invalid token request', method, endpoint, payload)
+    } finally {
+      await api.context.dispose()
+    }
+  }
+
+  private async call(
+    step: string,
+    method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
+    endpoint: string,
+    payload?: unknown,
+    headers?: Record<string, string>,
+  ) {
+    await waitForApiThrottle()
+    const response =
+      method === 'GET'
+        ? await this.context.get(endpoint, { headers })
+        : method === 'POST'
+          ? await this.context.post(endpoint, { data: payload, headers })
+          : method === 'PUT'
+            ? await this.context.put(endpoint, { data: payload, headers })
+            : method === 'PATCH'
+              ? await this.context.patch(endpoint, { data: payload, headers })
+              : await this.context.delete(endpoint, { data: payload, headers })
+    const result = await toApiCallResult(response)
+    this.evidence?.attachStep({
+      step,
+      method,
+      endpoint,
+      status: result.status(),
+      request: payload,
+      response: result.body,
+    })
+    return result
+  }
+}
+
+export const newDeviceManagementSuiteApi = async (
+  env: DeviceSuiteEnv,
+  token?: string,
+  omitApiKey = false,
+) => {
+  const headers = commonHeaders(env, omitApiKey)
+  if (token) headers.Authorization = `Bearer ${token}`
+  const context = await request.newContext({
+    baseURL: env.baseUrl,
+    extraHTTPHeaders: headers,
+  })
+  return new DeviceManagementSuiteApi(context, env)
+}
+
+export const loginDeviceSuiteUser = async (
+  env: DeviceSuiteEnv,
+  userName: string,
+  password: string,
+) => {
+  const api = await newDeviceManagementSuiteApi(env)
+  try {
+    const response = await api.login({ user_name: userName, password })
+    if (response.status() !== 200) {
+      throw new Error(
+        `Login failed for ${userName}: status=${response.status()} body=${await response.text()}`,
+      )
+    }
+    const body = (await response.json()) as any
+    const token =
+      body?.data?.access_token || body?.data?.token || body?.data?.accessToken
+    const refreshToken =
+      body?.data?.refresh_token ||
+      body?.data?.refreshToken ||
+      body?.data?.refresh ||
+      ''
+    if (!token) throw new Error(`Login response for ${userName} has no token`)
+    return { token, refreshToken }
+  } finally {
+    await api.context.dispose()
+  }
+}
+
+export const generateUniqueDeviceId = (tcId: string) => {
+  const clean = tcId.replace(/[^0-9]/g, '').padEnd(2, '0').slice(0, 2)
+  const suffix = Date.now().toString().slice(-10)
+  return Number(`${clean}${suffix}`.slice(0, 15))
+}
+
+export const generateUniqueDeviceMac = (tcId: string) => {
+  const clean = tcId.replace(/[^0-9A-Fa-f]/g, '').padEnd(2, '0').slice(0, 2)
+  const n = Date.now().toString(16).toUpperCase().slice(-8).padStart(8, '0')
+  const random = Math.floor(Math.random() * 256)
+    .toString(16)
+    .toUpperCase()
+    .padStart(2, '0')
+  return `EA:2C:${clean}:${n.slice(0, 2)}:${n.slice(2, 4)}:${random}`
+}
+
+export const generateDevicePayload = (
+  env: DeviceSuiteEnv,
+  tcId: string,
+  overrides: DeviceCreatePayload = {},
+): DeviceCreatePayload => {
+  const token = `${Date.now()}_${Math.random().toString(36).slice(2, 7)}`
+  return {
+    id: generateUniqueDeviceId(tcId),
+    hc_id: env.testHcId,
+    cell_model_id: env.testCellModelId,
+    mac: generateUniqueDeviceMac(tcId),
+    pid: env.testPid,
+    protocol: env.testProtocol,
+    network_state: 'activated',
+    cell_idx: env.testCellIdx,
+    spec: {
+      name: `auto_device_spec_${tcId}`,
+      input: [{ idx: 1, data_type: { type: 'boolean' } }],
+      output: [{ idx: 1, data_type: { type: 'boolean' } }],
+      state: [{ idx: 0, data_type: { type: 'boolean' } }],
+    },
+    profile: { encoder: [], decoder: [], config: [] },
+    network_data: null,
+    config: { source: 'bms-e2e-test', tc_id: tcId },
+    scene: null,
+    name: `auto_device_${tcId}_${token}`,
+    notes: `auto_device_notes_${tcId}_${token}`,
+    icon_key: 'lightbulb',
+    ...overrides,
+  }
+}
+
+export const cleanupDevice = async (
+  api: DeviceManagementSuiteApi,
+  evidence: DeviceManagementEvidence,
+  deviceId?: string,
+) => {
+  if (!deviceId) return
+  try {
+    const response = await api.iotDeleteDevice(deviceId)
+    if ([200, 204, 404].includes(response.status())) {
+      evidence.markDeviceDeleted()
+      return
+    }
+    evidence.addCleanupWarning(
+      `Device ${deviceId} cleanup returned status=${response.status()} body=${await response.text()}`,
+    )
+  } catch (error) {
+    evidence.addCleanupWarning(
+      `Device ${deviceId} cleanup failed: ${formatError(error)}`,
+    )
+  }
+}
+
+export const cleanupArea = async (
+  api: DeviceManagementSuiteApi,
+  evidence: DeviceManagementEvidence,
+  areaId?: string,
+) => {
+  if (!areaId) return
+  try {
+    const response = await api.deleteArea(areaId)
+    if ([200, 202, 204, 404].includes(response.status())) {
+      evidence.markAreaDeleted()
+      return
+    }
+    evidence.addCleanupWarning(
+      `Area ${areaId} cleanup returned status=${response.status()} body=${await response.text()}`,
+    )
+  } catch (error) {
+    evidence.addCleanupWarning(
+      `Area ${areaId} cleanup failed: ${formatError(error)}`,
+    )
+  }
+}
+
+const commonHeaders = (
+  env: DeviceSuiteEnv,
+  omitApiKey = false,
+): Record<string, string> => {
+  const headers: Record<string, string> = {
+    'x-client-version': env.clientVersion,
+    'x-client-os': env.clientOs,
+    'x-client-id': env.clientId,
+    'accept-language': env.language,
+  }
+  if (env.apiKey && !omitApiKey) headers['x-client-api-key'] = env.apiKey
+  return headers
+}
+
+const toApiCallResult = async (
+  response: APIResponse,
+): Promise<ApiCallResult> => {
+  const body = await safeJson(response)
+  return {
+    response,
+    body,
+    status: () => response.status(),
+    url: () => response.url(),
+    json: async () => body,
+    text: async () =>
+      typeof body === 'string' ? body : JSON.stringify(body, null, 2),
+  }
+}
+
+const safeJson = async (response: APIResponse): Promise<unknown> => {
+  try {
+    return await response.json()
+  } catch {
+    return await response.text()
+  }
+}
+
+const toQuery = (query?: Record<string, string | number | boolean>) => {
+  const params = new URLSearchParams()
+  for (const [key, value] of Object.entries(query || {})) {
+    if (value !== undefined && value !== '') params.append(key, String(value))
+  }
+  return params.toString() ? `?${params}` : ''
+}
+
+let nextApiRequestAt = 0
+
+const waitForApiThrottle = async () => {
+  const throttleMs = Number(process.env.BMS_API_THROTTLE_MS || 0)
+  if (!Number.isFinite(throttleMs) || throttleMs <= 0) return
+  const now = Date.now()
+  const waitMs = Math.max(0, nextApiRequestAt - now)
+  nextApiRequestAt = Math.max(now, nextApiRequestAt) + throttleMs
+  if (waitMs > 0) await new Promise((resolve) => setTimeout(resolve, waitMs))
+}
+
+const emptyEvidence = () => undefined as unknown as DeviceManagementEvidence
