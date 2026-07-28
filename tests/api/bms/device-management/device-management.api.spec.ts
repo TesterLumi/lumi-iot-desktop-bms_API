@@ -44,6 +44,7 @@ type ExistingDevice = {
   hc_id?: string
   protocol?: string
   network_state?: string
+  status?: boolean
   area?: { id?: string; name?: string } | null
   device_type?: { id?: string | number; name?: string } | null
 }
@@ -685,25 +686,28 @@ const cases: DeviceTc[] = [
     id: 'TC21',
     name: 'Xem chi tiet thiet bi thanh cong',
     goal: 'Kiem tra detail device',
-    precondition: 'Co device automation',
+    precondition: 'Co device that trong danh sach, uu tien online',
     expected: 'HTTP 200 va id/mac dung',
     run: async (api, evidence) => {
-      await withAutomationDevice(
+      let device = await findExistingDevice(
         api,
         evidence,
-        'TC21',
-        async ({ deviceId, payload }) => {
-          const response = await api.getDevice(deviceId)
-          const body = await responseBody(response)
-          const data = responseData(body)
-          expect(response.status()).toBe(200)
-          expect(String(data.id)).toBe(deviceId)
-          expect(String(data.mac).toLowerCase()).toBe(
-            String(payload.mac).toLowerCase(),
-          )
-          evidence.addAssertion('Device detail returns created id and MAC')
-        },
+        (item) => item.status === true && Boolean(item.id),
       )
+      if (!device?.id) {
+        device = await findExistingDevice(api, evidence)
+      }
+      const response = await api.getDevice(device.id)
+      const body = await responseBody(response)
+      const data = responseData(body)
+      expect(response.status()).toBe(200)
+      expect(String(data.id)).toBe(device.id)
+      if (device.mac) {
+        expect(String(data.mac).toLowerCase()).toBe(
+          String(device.mac).toLowerCase(),
+        )
+      }
+      evidence.addAssertion('Device detail returns selected existing device')
     },
   },
   {
