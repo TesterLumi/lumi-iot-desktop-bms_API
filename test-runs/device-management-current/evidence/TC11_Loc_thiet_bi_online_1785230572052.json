@@ -2,7 +2,7 @@
   "tc_id": "TC11",
   "tc_name": "Loc thiet bi online",
   "status": "PASSED",
-  "started_at": "2026-07-28T08:52:40.841Z",
+  "started_at": "2026-07-28T09:22:50.370Z",
   "base_url": "http://10.10.0.198:3332/api/",
   "device_service_base_url": "http://10.10.0.198:3333/",
   "steps": [
@@ -6175,7 +6175,7 @@
             "offline": 0
           }
         },
-        "timestamp": "2026-07-28T08:52:40.681201646+00:00"
+        "timestamp": "2026-07-28T09:22:50.253604699+00:00"
       }
     }
   ],
@@ -6188,5 +6188,5 @@
     "warnings": []
   },
   "hc_logs": [],
-  "finished_at": "2026-07-28T08:52:41.838Z"
+  "finished_at": "2026-07-28T09:22:52.052Z"
 }

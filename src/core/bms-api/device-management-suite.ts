@@ -122,6 +122,8 @@ export type DeviceCreatePayload = {
   icon_key?: string | null
 }
 
+type QueryValue = string | number | boolean | Array<string | number | boolean>
+
 type ApiCallResult = {
   response: APIResponse
   body: unknown
@@ -579,7 +581,7 @@ export class DeviceManagementSuiteApi {
     })
   }
 
-  async listDevices(query?: Record<string, string | number | boolean>) {
+  async listDevices(query?: Record<string, QueryValue>) {
     return this.call(
       'List devices',
       'GET',
@@ -645,7 +647,7 @@ export class DeviceManagementSuiteApi {
     )
   }
 
-  async iotListDevices(query?: Record<string, string | number | boolean>) {
+  async iotListDevices(query?: Record<string, QueryValue>) {
     return this.call(
       'IoT list devices',
       'GET',
@@ -759,7 +761,7 @@ export class DeviceManagementSuiteApi {
 
   async listAreaDevices(
     areaId: string,
-    query?: Record<string, string | number | boolean>,
+    query?: Record<string, QueryValue>,
   ) {
     return this.call(
       'List area devices',
@@ -1021,10 +1023,13 @@ const safeJson = async (response: APIResponse): Promise<unknown> => {
   }
 }
 
-const toQuery = (query?: Record<string, string | number | boolean>) => {
+const toQuery = (query?: Record<string, QueryValue>) => {
   const params = new URLSearchParams()
   for (const [key, value] of Object.entries(query || {})) {
-    if (value !== undefined && value !== '') params.append(key, String(value))
+    const values = Array.isArray(value) ? value : [value]
+    for (const item of values) {
+      if (item !== undefined && item !== '') params.append(key, String(item))
+    }
   }
   return params.toString() ? `?${params}` : ''
 }

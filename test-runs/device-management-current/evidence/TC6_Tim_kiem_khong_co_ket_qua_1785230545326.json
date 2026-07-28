@@ -1,8 +1,8 @@
 {
-  "tc_id": "TC24",
-  "tc_name": "Lookup co ID khong ton tai",
+  "tc_id": "TC6",
+  "tc_name": "Tim kiem khong co ket qua",
   "status": "PASSED",
-  "started_at": "2026-07-28T08:52:43.052Z",
+  "started_at": "2026-07-28T09:22:25.244Z",
   "base_url": "http://10.10.0.198:3332/api/",
   "device_service_base_url": "http://10.10.0.198:3333/",
   "steps": [
@@ -17,34 +17,29 @@
       }
     },
     {
-      "step": "Lookup devices",
-      "method": "POST",
-      "endpoint": "api/v0/devices/lookup",
+      "step": "List devices",
+      "method": "GET",
+      "endpoint": "api/v0/devices?page=1&limit=20&search=auto_device_not_found_1785230545244",
       "status": 200,
-      "request": {
-        "device_ids": [
-          "9223372036854775807"
-        ]
-      },
       "response": {
         "success": true,
         "data": {
           "items": [],
           "total": 0,
           "page": 1,
-          "limit": 0,
+          "limit": 20,
           "summary": {
             "total": 0,
             "online": 0,
             "offline": 0
           }
         },
-        "timestamp": "2026-07-28T08:52:42.857495983+00:00"
+        "timestamp": "2026-07-28T09:22:25.095557871+00:00"
       }
     }
   ],
   "assertions": [
-    "Lookup fake id returns explicit backend result"
+    "Search with nonexistent keyword returns no items"
   ],
   "cleanup": {
     "devices_deleted": 0,
@@ -52,5 +47,5 @@
     "warnings": []
   },
   "hc_logs": [],
-  "finished_at": "2026-07-28T08:52:43.059Z"
+  "finished_at": "2026-07-28T09:22:25.326Z"
 }

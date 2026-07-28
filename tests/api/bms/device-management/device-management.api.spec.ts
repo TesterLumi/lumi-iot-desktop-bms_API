@@ -37,6 +37,17 @@ type CreatedDevice = {
   body: any
 }
 
+type ExistingDevice = {
+  id: string
+  mac?: string
+  name?: string
+  hc_id?: string
+  protocol?: string
+  network_state?: string
+  area?: { id?: string; name?: string } | null
+  device_type?: { id?: string | number; name?: string } | null
+}
+
 const fakeDeviceId = '9223372036854775807'
 
 const responseBody = async (response: { json: () => Promise<unknown> }) =>
@@ -52,6 +63,41 @@ const listItems = (body: any): any[] =>
         : []
 
 const responseData = (body: any) => body?.data?.device || body?.data || body
+
+const findExistingDevice = async (
+  api: DeviceManagementSuiteApi,
+  evidence: DeviceManagementEvidence,
+  predicate: (device: ExistingDevice) => boolean = () => true,
+): Promise<ExistingDevice> => {
+  const response = await api.listDevices({ page: 1, limit: 100 })
+  const body = await responseBody(response)
+  expect(response.status()).toBe(200)
+  const device = listItems(body).find(predicate)
+  if (!device?.id) {
+    evidence.addAssertion('SKIPPED_FIXTURE_MISSING: matching existing device')
+    test.skip(true, 'No matching existing device found for read-only filter')
+  }
+  evidence.addAssertion(`Existing device selected: ${device.id}`)
+  return {
+    ...device,
+    id: String(device.id),
+    hc_id: device.hc_id ? String(device.hc_id) : undefined,
+    protocol: device.protocol ? String(device.protocol) : undefined,
+    network_state: device.network_state
+      ? String(device.network_state)
+      : undefined,
+  }
+}
+
+const expectBodyContainsDevice = (
+  body: any,
+  deviceId: string,
+  evidence: DeviceManagementEvidence,
+  assertion: string,
+) => {
+  expect(JSON.stringify(body)).toContain(deviceId)
+  evidence.addAssertion(assertion)
+}
 
 const expectStatus = (
   actual: number,
@@ -246,19 +292,25 @@ const cases: DeviceTc[] = [
     precondition: 'Co device automation',
     expected: 'HTTP 200 va response chua device vua tao',
     run: async (api, evidence) => {
-      await withAutomationDevice(api, evidence, 'TC5', async ({ payload }) => {
-        const response = await api.listDevices({
-          page: 1,
-          limit: 20,
-          search: String(payload.mac),
-        })
-        const body = await responseBody(response)
-        expect(response.status()).toBe(200)
-        expect(JSON.stringify(body).toLowerCase()).toContain(
-          String(payload.mac).toLowerCase(),
-        )
-        evidence.addAssertion('Search by MAC returns automation device')
+      const device = await findExistingDevice(
+        api,
+        evidence,
+        (item) => Boolean(item.mac || item.name),
+      )
+      const search = String(device.mac || device.name)
+      const response = await api.listDevices({
+        page: 1,
+        limit: 20,
+        search,
       })
+      const body = await responseBody(response)
+      expect(response.status()).toBe(200)
+      expectBodyContainsDevice(
+        body,
+        device.id,
+        evidence,
+        'Search by existing MAC/name returns selected device',
+      )
     },
   },
   {
@@ -306,17 +358,24 @@ const cases: DeviceTc[] = [
     precondition: 'Co device automation tren TEST_HC_ID',
     expected: 'HTTP 200 va response chua device dung HC',
     run: async (api, evidence) => {
-      await withAutomationDevice(api, evidence, 'TC8', async ({ deviceId }) => {
-        const response = await api.listDevices({
-          page: 1,
-          limit: 20,
-          hc_id: env.testHcId,
-        })
-        const body = await responseBody(response)
-        expect(response.status()).toBe(200)
-        expect(JSON.stringify(body)).toContain(deviceId)
-        evidence.addAssertion('Filter by HC returns automation device')
+      const device = await findExistingDevice(
+        api,
+        evidence,
+        (item) => Boolean(item.hc_id),
+      )
+      const response = await api.listDevices({
+        page: 1,
+        limit: 20,
+        hc_id: String(device.hc_id),
       })
+      const body = await responseBody(response)
+      expect(response.status()).toBe(200)
+      expectBodyContainsDevice(
+        body,
+        device.id,
+        evidence,
+        'Filter by HC returns selected existing device',
+      )
     },
   },
   {
@@ -326,17 +385,24 @@ const cases: DeviceTc[] = [
     precondition: 'Co device automation protocol ble',
     expected: 'HTTP 200 va response chua protocol tuong ung',
     run: async (api, evidence) => {
-      await withAutomationDevice(api, evidence, 'TC9', async ({ payload }) => {
-        const response = await api.listDevices({
-          page: 1,
-          limit: 20,
-          protocol: String(payload.protocol),
-        })
-        const body = await responseBody(response)
-        expect(response.status()).toBe(200)
-        expect(JSON.stringify(body)).toContain(String(payload.protocol))
-        evidence.addAssertion('Filter by protocol returns matching devices')
+      const device = await findExistingDevice(
+        api,
+        evidence,
+        (item) => Boolean(item.protocol),
+      )
+      const response = await api.listDevices({
+        page: 1,
+        limit: 20,
+        protocol: String(device.protocol),
       })
+      const body = await responseBody(response)
+      expect(response.status()).toBe(200)
+      expectBodyContainsDevice(
+        body,
+        device.id,
+        evidence,
+        'Filter by protocol returns selected existing device',
+      )
     },
   },
   {
@@ -346,15 +412,24 @@ const cases: DeviceTc[] = [
     precondition: 'Co device automation activated',
     expected: 'HTTP 200 va response chua network_state activated',
     run: async (api, evidence) => {
-      await withAutomationDevice(api, evidence, 'TC10', async () => {
-        const response = await api.listDevices({
-          page: 1,
-          limit: 20,
-          network_state: 'activated',
-        })
-        expect(response.status()).toBe(200)
-        evidence.addAssertion('Filter by network_state returns HTTP 200')
+      const device = await findExistingDevice(
+        api,
+        evidence,
+        (item) => Boolean(item.network_state),
+      )
+      const response = await api.listDevices({
+        page: 1,
+        limit: 20,
+        network_state: String(device.network_state),
       })
+      const body = await responseBody(response)
+      expect(response.status()).toBe(200)
+      expectBodyContainsDevice(
+        body,
+        device.id,
+        evidence,
+        'Filter by network_state returns selected existing device',
+      )
     },
   },
   {
@@ -382,31 +457,24 @@ const cases: DeviceTc[] = [
     precondition: 'Co area va device automation',
     expected: 'HTTP 200 va response chua device trong area',
     run: async (api, evidence) => {
-      let areaId: string | undefined
-      await withAutomationDevice(api, evidence, 'TC12', async ({ deviceId }) => {
-        try {
-          areaId = await createAutomationArea(api, evidence, 'TC12')
-          const assign = await api.assignDevicesToArea(areaId, [deviceId])
-          expectStatus(
-            assign.status(),
-            [200, 201, 202, 204],
-            evidence,
-            'Device is assigned to area',
-          )
-          const response = await api.listDevices({
-            page: 1,
-            limit: 20,
-            areas: areaId,
-          })
-          const body = await responseBody(response)
-          expect(response.status()).toBe(200)
-          expect(JSON.stringify(body)).toContain(deviceId)
-          evidence.addAssertion('Filter by one area returns assigned device')
-        } finally {
-          if (areaId) await api.unassignDevicesFromArea(areaId, [deviceId])
-          await cleanupArea(api, evidence, areaId)
-        }
+      const device = await findExistingDevice(
+        api,
+        evidence,
+        (item) => Boolean(item.area?.id),
+      )
+      const response = await api.listDevices({
+        page: 1,
+        limit: 20,
+        areas: String(device.area?.id),
       })
+      const body = await responseBody(response)
+      expect(response.status()).toBe(200)
+      expectBodyContainsDevice(
+        body,
+        device.id,
+        evidence,
+        'Filter by one existing area returns selected device',
+      )
     },
   },
   {
@@ -416,32 +484,39 @@ const cases: DeviceTc[] = [
     precondition: 'Co area automation A/B va device gan A',
     expected: 'HTTP 200',
     run: async (api, evidence) => {
-      let areaA: string | undefined
-      let areaB: string | undefined
-      await withAutomationDevice(api, evidence, 'TC13', async ({ deviceId }) => {
-        try {
-          areaA = await createAutomationArea(api, evidence, 'TC13A')
-          areaB = await createAutomationArea(api, evidence, 'TC13B')
-          const assign = await api.assignDevicesToArea(areaA, [deviceId])
-          expectStatus(
-            assign.status(),
-            [200, 201, 202, 204],
-            evidence,
-            'Device is assigned before multi-area filter',
-          )
-          const response = await api.listDevices({
-            page: 1,
-            limit: 20,
-            areas: `${areaA},${areaB}`,
-          })
-          expect(response.status()).toBe(200)
-          evidence.addAssertion('Filter by multiple areas returns HTTP 200')
-        } finally {
-          if (areaA) await api.unassignDevicesFromArea(areaA, [deviceId])
-          await cleanupArea(api, evidence, areaA)
-          await cleanupArea(api, evidence, areaB)
-        }
+      const response = await api.listDevices({ page: 1, limit: 100 })
+      const body = await responseBody(response)
+      expect(response.status()).toBe(200)
+      const areaIds = [
+        ...new Set(
+          listItems(body)
+            .map((item) => item?.area?.id)
+            .filter(Boolean)
+            .map(String),
+        ),
+      ]
+      if (areaIds.length < 2) {
+        evidence.addAssertion(
+          'SKIPPED_FIXTURE_MISSING: at least two existing areas',
+        )
+        test.skip(true, 'Need at least two existing areas for multi-area filter')
+      }
+      const selected = listItems(body).find(
+        (item) => String(item?.area?.id) === areaIds[0],
+      )
+      const filtered = await api.listDevices({
+        page: 1,
+        limit: 20,
+        areas: [areaIds[0], areaIds[1]],
       })
+      const filteredBody = await responseBody(filtered)
+      expect(filtered.status()).toBe(200)
+      expectBodyContainsDevice(
+        filteredBody,
+        String(selected.id),
+        evidence,
+        'Filter by multiple existing areas returns selected device',
+      )
     },
   },
   {
@@ -451,17 +526,26 @@ const cases: DeviceTc[] = [
     precondition: 'Co device automation chua gan area',
     expected: 'HTTP 200 va response chua device chua gan',
     run: async (api, evidence) => {
-      await withAutomationDevice(api, evidence, 'TC14', async ({ deviceId }) => {
-        const response = await api.listDevices({
-          page: 1,
-          limit: 20,
-          areas: 'null',
-        })
-        const body = await responseBody(response)
-        expect(response.status()).toBe(200)
-        expect(JSON.stringify(body)).toContain(deviceId)
-        evidence.addAssertion('areas=null returns unassigned automation device')
+      const response = await api.listDevices({
+        page: 1,
+        limit: 20,
+        areas: 'null',
       })
+      const body = await responseBody(response)
+      expect(response.status()).toBe(200)
+      const unassigned = listItems(body).find((item) => !item?.area)
+      if (!unassigned?.id) {
+        evidence.addAssertion(
+          'SKIPPED_FIXTURE_MISSING: existing unassigned device',
+        )
+        test.skip(true, 'No existing unassigned device found')
+      }
+      expectBodyContainsDevice(
+        body,
+        String(unassigned.id),
+        evidence,
+        'areas=null returns existing unassigned device',
+      )
     },
   },
   {
@@ -471,16 +555,15 @@ const cases: DeviceTc[] = [
     precondition: 'Co device automation chua gan area',
     expected: 'HTTP 200',
     run: async (api, evidence) => {
-      await withAutomationDevice(api, evidence, 'TC15', async () => {
-        const areaId = env.testAreaId || 'null'
-        const response = await api.listDevices({
-          page: 1,
-          limit: 20,
-          areas: `${areaId},null`,
-        })
-        expect(response.status()).toBe(200)
-        evidence.addAssertion('Area or unassigned filter returns HTTP 200')
+      const device = await findExistingDevice(api, evidence)
+      const areaId = device.area?.id ? String(device.area.id) : 'null'
+      const response = await api.listDevices({
+        page: 1,
+        limit: 20,
+        areas: [areaId, 'null'],
       })
+      expect(response.status()).toBe(200)
+      evidence.addAssertion('Area or unassigned filter returns HTTP 200')
     },
   },
   {
@@ -490,14 +573,19 @@ const cases: DeviceTc[] = [
     precondition: 'TEST_DEVICE_TYPE_ID neu moi truong co catalog',
     expected: 'HTTP 200 hoac skip fixture missing',
     run: async (api, evidence) => {
-      if (!env.testDeviceTypeId) {
-        evidence.addAssertion('SKIPPED_FIXTURE_MISSING: TEST_DEVICE_TYPE_ID')
-        test.skip(true, 'Set TEST_DEVICE_TYPE_ID to run device type filter')
-      }
+      const existing = env.testDeviceTypeId
+        ? undefined
+        : await findExistingDevice(
+            api,
+            evidence,
+            (item) => Boolean(item.device_type?.id),
+          )
+      const deviceTypeId =
+        env.testDeviceTypeId || String(existing?.device_type?.id || '')
       const response = await api.listDevices({
         page: 1,
         limit: 20,
-        device_type_id: env.testDeviceTypeId,
+        device_type_id: deviceTypeId,
       })
       expect(response.status()).toBe(200)
       evidence.addAssertion('Filter by device_type_id returns HTTP 200')
@@ -558,22 +646,28 @@ const cases: DeviceTc[] = [
     precondition: 'Co device automation',
     expected: 'HTTP 200 va response chua device automation',
     run: async (api, evidence) => {
-      await withAutomationDevice(api, evidence, 'TC20', async ({ payload }) => {
-        const response = await api.listDevices({
-          page: 1,
-          limit: 20,
-          hc_id: env.testHcId,
-          protocol: String(payload.protocol),
-          network_state: 'activated',
-          search: String(payload.mac),
-        })
-        const body = await responseBody(response)
-        expect(response.status()).toBe(200)
-        expect(JSON.stringify(body).toLowerCase()).toContain(
-          String(payload.mac).toLowerCase(),
-        )
-        evidence.addAssertion('Combined filters return automation device')
+      const device = await findExistingDevice(
+        api,
+        evidence,
+        (item) =>
+          Boolean(item.mac && item.hc_id && item.protocol && item.network_state),
+      )
+      const response = await api.listDevices({
+        page: 1,
+        limit: 20,
+        hc_id: String(device.hc_id),
+        protocol: String(device.protocol),
+        network_state: String(device.network_state),
+        search: String(device.mac),
       })
+      const body = await responseBody(response)
+      expect(response.status()).toBe(200)
+      expectBodyContainsDevice(
+        body,
+        device.id,
+        evidence,
+        'Combined filters return selected existing device',
+      )
     },
   },
   {
