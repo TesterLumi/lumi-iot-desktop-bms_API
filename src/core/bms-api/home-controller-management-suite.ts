@@ -372,6 +372,15 @@ export class HomeControllerSuiteApi {
     )
   }
 
+  async deleteBatchHomeControllers(hcIds: string[]) {
+    return this.call(
+      'Delete batch home controllers',
+      'POST',
+      `${this.env.apiPrefix}/home-controllers/delete-batch`,
+      { hc_ids: hcIds },
+    )
+  }
+
   async createArea(payload: Record<string, unknown>) {
     return this.call('Create area', 'POST', `${this.env.apiPrefix}/areas`, payload)
   }

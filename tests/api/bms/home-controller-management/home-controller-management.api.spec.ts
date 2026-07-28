@@ -1288,6 +1288,95 @@ const cases: HcTc[] = [
     },
   },
   {
+    id: 'TC46',
+    name: 'Xoa nhieu HC thanh cong',
+    goal: 'Kiem tra xoa batch chi voi HC automation do testcase tao',
+    precondition: 'Co 2 HC automation hop le duoc phep xoa',
+    expected: 'Batch delete thanh cong va 2 HC automation khong con active',
+    run: async (api, evidence) => {
+      const first = await createAutomationHc(api, evidence, 'TC46A')
+      const second = await createAutomationHc(api, evidence, 'TC46B')
+      let batchDeleted = false
+      try {
+        const response = await api.deleteBatchHomeControllers([
+          first.hcId,
+          second.hcId,
+        ])
+        expectStatus(
+          response.status(),
+          [200, 202, 204],
+          evidence,
+          'Batch delete automation HCs succeeds',
+        )
+        batchDeleted = true
+        evidence.markHcDeleted()
+        evidence.markHcDeleted()
+        const firstDetail = await api.getHomeController(first.hcId)
+        const secondDetail = await api.getHomeController(second.hcId)
+        expect([400, 404]).toContain(firstDetail.status())
+        expect([400, 404]).toContain(secondDetail.status())
+        evidence.addAssertion('Batch deleted HCs are no longer readable')
+      } finally {
+        if (!batchDeleted) {
+          await cleanupHomeController(api, evidence, first.hcId)
+          await cleanupHomeController(api, evidence, second.hcId)
+        }
+      }
+    },
+  },
+  {
+    id: 'TC47',
+    name: 'Xoa batch co HC khong ton tai',
+    goal: 'Kiem tra batch delete voi 1 HC automation va 1 fake id',
+    precondition: 'Co 1 HC automation va 1 ID khong ton tai',
+    expected: 'Backend tra ro ket qua partial hoac validation, khong de rac',
+    run: async (api, evidence) => {
+      const created = await createAutomationHc(api, evidence, 'TC47')
+      let validDeleted = false
+      try {
+        const response = await api.deleteBatchHomeControllers([
+          created.hcId,
+          fakeHcId,
+        ])
+        expectStatus(
+          response.status(),
+          [200, 202, 204, 400, 404],
+          evidence,
+          'Batch delete mixed valid/fake ids returns explicit backend result',
+        )
+        const detail = await api.getHomeController(created.hcId)
+        validDeleted = [400, 404].includes(detail.status())
+        evidence.addAssertion(
+          validDeleted
+            ? 'Valid automation HC was deleted during partial batch flow'
+            : 'Valid automation HC remains after backend rejected mixed batch',
+        )
+      } finally {
+        if (!validDeleted) {
+          await cleanupHomeController(api, evidence, created.hcId)
+        } else {
+          evidence.markHcDeleted()
+        }
+      }
+    },
+  },
+  {
+    id: 'TC48',
+    name: 'Xoa batch khi khong chon HC',
+    goal: 'Kiem tra delete batch voi hc_ids rong',
+    precondition: 'Khong chon HC nao',
+    expected: 'Backend validation chan request rong, khong xoa du lieu',
+    run: async (api, evidence) => {
+      const response = await api.deleteBatchHomeControllers([])
+      expectStatus(
+        response.status(),
+        [400, 422],
+        evidence,
+        'Batch delete with empty hc_ids is rejected',
+      )
+    },
+  },
+  {
     id: 'TC49',
     name: 'Gan 1 HC vao khu vuc',
     goal: 'Kiem tra assign mot HC vao area',
