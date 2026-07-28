@@ -1,8 +1,8 @@
 {
-  "tc_id": "TC5",
-  "tc_name": "Tim kiem thiet bi co ket qua",
+  "tc_id": "TC20",
+  "tc_name": "Ket hop nhieu filter",
   "status": "PASSED",
-  "started_at": "2026-07-28T09:22:17.297Z",
+  "started_at": "2026-07-28T09:40:31.924Z",
   "base_url": "http://10.10.0.198:3332/api/",
   "device_service_base_url": "http://10.10.0.198:3333/",
   "steps": [
@@ -13268,13 +13268,13 @@
             "offline": 16
           }
         },
-        "timestamp": "2026-07-28T09:22:17.315566031+00:00"
+        "timestamp": "2026-07-28T09:40:31.860517106+00:00"
       }
     },
     {
       "step": "List devices",
       "method": "GET",
-      "endpoint": "api/v0/devices?page=1&limit=20&search=38%3A4b%3A7d%3A03%3Af6%3A1c",
+      "endpoint": "api/v0/devices?page=1&limit=20&hc_id=4932308540097724437&protocol=ble&network_state=activated&search=38%3A4b%3A7d%3A03%3Af6%3A1c",
       "status": 200,
       "response": {
         "success": true,
@@ -14332,13 +14332,13 @@
             "offline": 0
           }
         },
-        "timestamp": "2026-07-28T09:22:24.715838174+00:00"
+        "timestamp": "2026-07-28T09:40:32.450013898+00:00"
       }
     }
   ],
   "assertions": [
     "Existing device selected: 87903193043180547",
-    "Search by existing MAC/name returns selected device"
+    "Combined filters return selected existing device"
   ],
   "cleanup": {
     "devices_deleted": 0,
@@ -14346,5 +14346,5 @@
     "warnings": []
   },
   "hc_logs": [],
-  "finished_at": "2026-07-28T09:22:25.197Z"
+  "finished_at": "2026-07-28T09:40:32.939Z"
 }

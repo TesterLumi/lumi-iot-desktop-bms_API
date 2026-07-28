@@ -2,7 +2,7 @@
   "tc_id": "TC14",
   "tc_name": "Loc thiet bi chua gan khu vuc",
   "status": "PASSED",
-  "started_at": "2026-07-28T09:23:08.198Z",
+  "started_at": "2026-07-28T09:40:29.367Z",
   "base_url": "http://10.10.0.198:3332/api/",
   "device_service_base_url": "http://10.10.0.198:3333/",
   "steps": [
@@ -5920,7 +5920,7 @@
             "offline": 11
           }
         },
-        "timestamp": "2026-07-28T09:23:08.081243835+00:00"
+        "timestamp": "2026-07-28T09:40:29.295576610+00:00"
       }
     }
   ],
@@ -5933,5 +5933,5 @@
     "warnings": []
   },
   "hc_logs": [],
-  "finished_at": "2026-07-28T09:23:09.653Z"
+  "finished_at": "2026-07-28T09:40:29.582Z"
 }

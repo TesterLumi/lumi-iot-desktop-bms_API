@@ -1,8 +1,8 @@
 {
-  "tc_id": "TC6",
-  "tc_name": "Tim kiem khong co ket qua",
+  "tc_id": "TC2",
+  "tc_name": "Danh sach thiet bi rong",
   "status": "PASSED",
-  "started_at": "2026-07-28T09:22:25.244Z",
+  "started_at": "2026-07-28T09:40:24.154Z",
   "base_url": "http://10.10.0.198:3332/api/",
   "device_service_base_url": "http://10.10.0.198:3333/",
   "steps": [
@@ -19,7 +19,7 @@
     {
       "step": "List devices",
       "method": "GET",
-      "endpoint": "api/v0/devices?page=1&limit=20&search=auto_device_not_found_1785230545244",
+      "endpoint": "api/v0/devices?page=1&limit=20&search=auto_no_result_1785231624154",
       "status": 200,
       "response": {
         "success": true,
@@ -34,12 +34,12 @@
             "offline": 0
           }
         },
-        "timestamp": "2026-07-28T09:22:25.095557871+00:00"
+        "timestamp": "2026-07-28T09:40:24.062977461+00:00"
       }
     }
   ],
   "assertions": [
-    "Search with nonexistent keyword returns no items"
+    "No-result search returns empty device list"
   ],
   "cleanup": {
     "devices_deleted": 0,
@@ -47,5 +47,5 @@
     "warnings": []
   },
   "hc_logs": [],
-  "finished_at": "2026-07-28T09:22:25.326Z"
+  "finished_at": "2026-07-28T09:40:24.175Z"
 }

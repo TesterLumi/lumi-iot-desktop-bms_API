@@ -1,0 +1,30 @@
+{
+  "tc_id": "TC40",
+  "tc_name": "Huy xoa thiet bi",
+  "status": "PASSED",
+  "started_at": "2026-07-28T09:40:33.384Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "device_service_base_url": "http://10.10.0.198:3333/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***"
+      }
+    }
+  ],
+  "assertions": [
+    "UI_ONLY_NOT_APPLICABLE: cancel delete does not call API in API suite"
+  ],
+  "cleanup": {
+    "devices_deleted": 0,
+    "areas_deleted": 0,
+    "warnings": []
+  },
+  "hc_logs": [],
+  "finished_at": "2026-07-28T09:40:33.384Z"
+}

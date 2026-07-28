@@ -2,7 +2,7 @@
   "tc_id": "TC7",
   "tc_name": "Xoa keyword tim kiem",
   "status": "PASSED",
-  "started_at": "2026-07-28T09:22:25.348Z",
+  "started_at": "2026-07-28T09:40:24.871Z",
   "base_url": "http://10.10.0.198:3332/api/",
   "device_service_base_url": "http://10.10.0.198:3333/",
   "steps": [
@@ -19,7 +19,7 @@
     {
       "step": "List devices",
       "method": "GET",
-      "endpoint": "api/v0/devices?page=1&limit=20&search=auto_clear_1785230545348",
+      "endpoint": "api/v0/devices?page=1&limit=20&search=auto_clear_1785231624871",
       "status": 200,
       "response": {
         "success": true,
@@ -34,7 +34,7 @@
             "offline": 0
           }
         },
-        "timestamp": "2026-07-28T09:22:25.198395337+00:00"
+        "timestamp": "2026-07-28T09:40:24.777012313+00:00"
       }
     },
     {
@@ -6152,7 +6152,7 @@
             "offline": 16
           }
         },
-        "timestamp": "2026-07-28T09:22:25.318465526+00:00"
+        "timestamp": "2026-07-28T09:40:24.813528215+00:00"
       }
     }
   ],
@@ -6165,5 +6165,5 @@
     "warnings": []
   },
   "hc_logs": [],
-  "finished_at": "2026-07-28T09:22:27.640Z"
+  "finished_at": "2026-07-28T09:40:24.988Z"
 }

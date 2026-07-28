@@ -1,8 +1,8 @@
 {
-  "tc_id": "TC17",
-  "tc_name": "Loc thiet bi input",
+  "tc_id": "TC18",
+  "tc_name": "Loc thiet bi output",
   "status": "PASSED",
-  "started_at": "2026-07-28T09:23:26.184Z",
+  "started_at": "2026-07-28T09:40:31.511Z",
   "base_url": "http://10.10.0.198:3332/api/",
   "device_service_base_url": "http://10.10.0.198:3333/",
   "steps": [
@@ -19,7 +19,7 @@
     {
       "step": "List devices",
       "method": "GET",
-      "endpoint": "api/v0/devices?page=1&limit=20&io_capability=input",
+      "endpoint": "api/v0/devices?page=1&limit=20&io_capability=output",
       "status": 200,
       "response": {
         "success": true,
@@ -6333,21 +6333,21 @@
               "updated_at": "2026-06-12T02:15:05.326850Z"
             }
           ],
-          "total": 40,
+          "total": 42,
           "page": 1,
           "limit": 20,
           "summary": {
-            "total": 40,
-            "online": 26,
+            "total": 42,
+            "online": 28,
             "offline": 14
           }
         },
-        "timestamp": "2026-07-28T09:23:26.068971805+00:00"
+        "timestamp": "2026-07-28T09:40:31.442688864+00:00"
       }
     }
   ],
   "assertions": [
-    "io_capability=input returns HTTP 200"
+    "io_capability=output returns HTTP 200"
   ],
   "cleanup": {
     "devices_deleted": 0,
@@ -6355,5 +6355,5 @@
     "warnings": []
   },
   "hc_logs": [],
-  "finished_at": "2026-07-28T09:23:30.678Z"
+  "finished_at": "2026-07-28T09:40:31.669Z"
 }
