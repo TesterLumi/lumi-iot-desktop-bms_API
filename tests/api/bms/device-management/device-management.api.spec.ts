@@ -484,6 +484,7 @@ const cases: DeviceTc[] = [
     precondition: 'Co area automation A/B va device gan A',
     expected: 'HTTP 200',
     run: async (api, evidence) => {
+      let temporaryAreaId: string | undefined
       const response = await api.listDevices({ page: 1, limit: 100 })
       const body = await responseBody(response)
       expect(response.status()).toBe(200)
@@ -495,28 +496,38 @@ const cases: DeviceTc[] = [
             .map(String),
         ),
       ]
-      if (areaIds.length < 2) {
+      if (areaIds.length < 1) {
         evidence.addAssertion(
-          'SKIPPED_FIXTURE_MISSING: at least two existing areas',
+          'SKIPPED_FIXTURE_MISSING: at least one existing area with device',
         )
-        test.skip(true, 'Need at least two existing areas for multi-area filter')
+        test.skip(true, 'Need an existing area with device for multi-area filter')
       }
       const selected = listItems(body).find(
         (item) => String(item?.area?.id) === areaIds[0],
       )
-      const filtered = await api.listDevices({
-        page: 1,
-        limit: 20,
-        areas: [areaIds[0], areaIds[1]],
-      })
-      const filteredBody = await responseBody(filtered)
-      expect(filtered.status()).toBe(200)
-      expectBodyContainsDevice(
-        filteredBody,
-        String(selected.id),
-        evidence,
-        'Filter by multiple existing areas returns selected device',
-      )
+      expect(selected?.id).toBeTruthy()
+      try {
+        if (areaIds.length < 2) {
+          temporaryAreaId = await createAutomationArea(api, evidence, 'TC13')
+          areaIds.push(temporaryAreaId)
+          evidence.addAssertion('Temporary empty area is created for multi-area filter')
+        }
+        const filtered = await api.listDevices({
+          page: 1,
+          limit: 20,
+          areas: [areaIds[0], areaIds[1]],
+        })
+        const filteredBody = await responseBody(filtered)
+        expect(filtered.status()).toBe(200)
+        expectBodyContainsDevice(
+          filteredBody,
+          String(selected.id),
+          evidence,
+          'Filter by existing area and temporary/second area returns selected device',
+        )
+      } finally {
+        await cleanupArea(api, evidence, temporaryAreaId)
+      }
     },
   },
   {
