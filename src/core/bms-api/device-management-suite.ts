@@ -44,6 +44,7 @@ type DeviceEvidenceFile = {
   started_at: string
   finished_at?: string
   base_url: string
+  device_service_base_url: string
   steps: DeviceStepEvidence[]
   assertions: string[]
   cleanup: {
@@ -59,6 +60,8 @@ type DeviceEvidenceFile = {
 export type DeviceSuiteEnv = {
   baseUrl: string
   apiPrefix: string
+  deviceServiceBaseUrl: string
+  deviceApiPrefix: string
   healthEndpoint: string
   evidenceDir: string
   runDir: string
@@ -139,6 +142,12 @@ export const getDeviceSuiteEnv = (): DeviceSuiteEnv => {
     process.env.BMS_API_ENDPOINT ||
     shared.baseUrl
   const base = normalizeBmsBaseUrl(rawBaseUrl)
+  const rawDeviceServiceBaseUrl =
+    process.env.DEVICE_MANAGEMENT_DEVICE_SERVICE_BASE_URL ||
+    process.env.DEVICE_SERVICE_ENDPOINT ||
+    process.env.GROUP_BASE_URL ||
+    rawBaseUrl
+  const deviceBase = normalizeBmsBaseUrl(rawDeviceServiceBaseUrl)
   const runDir =
     process.env.DEVICE_MANAGEMENT_RUN_DIR ||
     join(process.cwd(), 'test-runs', 'device-management-current')
@@ -146,6 +155,8 @@ export const getDeviceSuiteEnv = (): DeviceSuiteEnv => {
   return {
     baseUrl: base.baseUrl,
     apiPrefix: base.apiPrefix,
+    deviceServiceBaseUrl: deviceBase.baseUrl,
+    deviceApiPrefix: deviceBase.apiPrefix,
     healthEndpoint: base.healthEndpoint,
     evidenceDir:
       process.env.DEVICE_MANAGEMENT_EVIDENCE_DIR ||
@@ -185,8 +196,8 @@ export const getDeviceSuiteEnv = (): DeviceSuiteEnv => {
       process.env.BMS_NO_PERMISSION_ACCESS_TOKEN ||
       '',
     requireAuth: process.env.DEVICE_MANAGEMENT_REQUIRE_AUTH === 'true',
-    testHcId: process.env.TEST_HC_ID || '',
-    testHcMac: process.env.TEST_HC_MAC || '',
+    testHcId: process.env.TEST_HC_ID || process.env.AUTOMATION_HC_ID || '',
+    testHcMac: process.env.TEST_HC_MAC || process.env.AUTOMATION_HC_MAC || '',
     testCellModelId: Number(process.env.TEST_DEVICE_CELL_MODEL_ID || '501'),
     testPid: Number(process.env.TEST_DEVICE_PID || '1234'),
     testProtocol: process.env.TEST_DEVICE_PROTOCOL || 'ble',
@@ -229,6 +240,7 @@ export class DeviceManagementEvidence {
       status: 'FAILED',
       started_at: new Date().toISOString(),
       base_url: env.baseUrl,
+      device_service_base_url: env.deviceServiceBaseUrl,
       steps: [],
       assertions: [],
       cleanup: {
@@ -529,12 +541,23 @@ const truncate = (value: string, maxChars: number) =>
 export class DeviceManagementSuiteApi {
   constructor(
     public context: APIRequestContext,
+    public deviceContext: APIRequestContext,
     private env: DeviceSuiteEnv,
     private evidence?: DeviceManagementEvidence,
   ) {}
 
   withEvidence(evidence: DeviceManagementEvidence) {
-    return new DeviceManagementSuiteApi(this.context, this.env, evidence)
+    return new DeviceManagementSuiteApi(
+      this.context,
+      this.deviceContext,
+      this.env,
+      evidence,
+    )
+  }
+
+  async dispose() {
+    await this.context.dispose()
+    await this.deviceContext.dispose()
   }
 
   async healthCheck() {
@@ -560,7 +583,10 @@ export class DeviceManagementSuiteApi {
     return this.call(
       'List devices',
       'GET',
-      `${this.env.apiPrefix}/devices${toQuery(query)}`,
+      `${this.env.deviceApiPrefix}/devices${toQuery(query)}`,
+      undefined,
+      undefined,
+      this.deviceContext,
     )
   }
 
@@ -568,7 +594,10 @@ export class DeviceManagementSuiteApi {
     return this.call(
       'Get device',
       'GET',
-      `${this.env.apiPrefix}/devices/${deviceId}`,
+      `${this.env.deviceApiPrefix}/devices/${deviceId}`,
+      undefined,
+      undefined,
+      this.deviceContext,
     )
   }
 
@@ -576,8 +605,10 @@ export class DeviceManagementSuiteApi {
     return this.call(
       'Lookup devices',
       'POST',
-      `${this.env.apiPrefix}/devices/lookup`,
+      `${this.env.deviceApiPrefix}/devices/lookup`,
       { device_ids: deviceIds },
+      undefined,
+      this.deviceContext,
     )
   }
 
@@ -585,8 +616,10 @@ export class DeviceManagementSuiteApi {
     return this.call(
       'BMS put device',
       'PUT',
-      `${this.env.apiPrefix}/devices/${deviceId}`,
+      `${this.env.deviceApiPrefix}/devices/${deviceId}`,
       payload,
+      undefined,
+      this.deviceContext,
     )
   }
 
@@ -594,8 +627,10 @@ export class DeviceManagementSuiteApi {
     return this.call(
       'BMS patch device',
       'PATCH',
-      `${this.env.apiPrefix}/devices/${deviceId}`,
+      `${this.env.deviceApiPrefix}/devices/${deviceId}`,
       payload,
+      undefined,
+      this.deviceContext,
     )
   }
 
@@ -603,7 +638,10 @@ export class DeviceManagementSuiteApi {
     return this.call(
       'BMS delete device',
       'DELETE',
-      `${this.env.apiPrefix}/devices/${deviceId}`,
+      `${this.env.deviceApiPrefix}/devices/${deviceId}`,
+      undefined,
+      undefined,
+      this.deviceContext,
     )
   }
 
@@ -611,7 +649,10 @@ export class DeviceManagementSuiteApi {
     return this.call(
       'IoT list devices',
       'GET',
-      `${this.env.apiPrefix}/iot/devices${toQuery(query)}`,
+      `${this.env.deviceApiPrefix}/iot/devices${toQuery(query)}`,
+      undefined,
+      undefined,
+      this.deviceContext,
     )
   }
 
@@ -619,7 +660,10 @@ export class DeviceManagementSuiteApi {
     return this.call(
       'IoT get device',
       'GET',
-      `${this.env.apiPrefix}/iot/devices/${deviceId}`,
+      `${this.env.deviceApiPrefix}/iot/devices/${deviceId}`,
+      undefined,
+      undefined,
+      this.deviceContext,
     )
   }
 
@@ -627,8 +671,10 @@ export class DeviceManagementSuiteApi {
     return this.call(
       'IoT create device under HC',
       'POST',
-      `${this.env.apiPrefix}/iot/home-controllers/${hcId}/devices`,
+      `${this.env.deviceApiPrefix}/iot/home-controllers/${hcId}/devices`,
       payload,
+      undefined,
+      this.deviceContext,
     )
   }
 
@@ -636,8 +682,10 @@ export class DeviceManagementSuiteApi {
     return this.call(
       'IoT bind batch devices',
       'POST',
-      `${this.env.apiPrefix}/iot/home-controllers/${hcId}/devices/bind-batch`,
+      `${this.env.deviceApiPrefix}/iot/home-controllers/${hcId}/devices/bind-batch`,
       { devices },
+      undefined,
+      this.deviceContext,
     )
   }
 
@@ -645,8 +693,10 @@ export class DeviceManagementSuiteApi {
     return this.call(
       'IoT put device',
       'PUT',
-      `${this.env.apiPrefix}/iot/devices/${deviceId}`,
+      `${this.env.deviceApiPrefix}/iot/devices/${deviceId}`,
       payload,
+      undefined,
+      this.deviceContext,
     )
   }
 
@@ -654,8 +704,10 @@ export class DeviceManagementSuiteApi {
     return this.call(
       'IoT patch device',
       'PATCH',
-      `${this.env.apiPrefix}/iot/devices/${deviceId}`,
+      `${this.env.deviceApiPrefix}/iot/devices/${deviceId}`,
       payload,
+      undefined,
+      this.deviceContext,
     )
   }
 
@@ -663,7 +715,10 @@ export class DeviceManagementSuiteApi {
     return this.call(
       'IoT delete device',
       'DELETE',
-      `${this.env.apiPrefix}/iot/devices/${deviceId}`,
+      `${this.env.deviceApiPrefix}/iot/devices/${deviceId}`,
+      undefined,
+      undefined,
+      this.deviceContext,
     )
   }
 
@@ -743,9 +798,19 @@ export class DeviceManagementSuiteApi {
     try {
       return await api
         .withEvidence(this.evidence || emptyEvidence())
-        .call('Invalid token request', method, endpoint, payload)
+        .call(
+          'Invalid token request',
+          method,
+          endpoint,
+          payload,
+          undefined,
+          endpoint.startsWith(`${this.env.deviceApiPrefix}/devices`) ||
+            endpoint.startsWith(`${this.env.deviceApiPrefix}/iot/`)
+            ? api.deviceContext
+            : api.context,
+        )
     } finally {
-      await api.context.dispose()
+      await api.dispose()
     }
   }
 
@@ -755,18 +820,19 @@ export class DeviceManagementSuiteApi {
     endpoint: string,
     payload?: unknown,
     headers?: Record<string, string>,
+    context: APIRequestContext = this.context,
   ) {
     await waitForApiThrottle()
     const response =
       method === 'GET'
-        ? await this.context.get(endpoint, { headers })
+        ? await context.get(endpoint, { headers })
         : method === 'POST'
-          ? await this.context.post(endpoint, { data: payload, headers })
+          ? await context.post(endpoint, { data: payload, headers })
           : method === 'PUT'
-            ? await this.context.put(endpoint, { data: payload, headers })
+            ? await context.put(endpoint, { data: payload, headers })
             : method === 'PATCH'
-              ? await this.context.patch(endpoint, { data: payload, headers })
-              : await this.context.delete(endpoint, { data: payload, headers })
+              ? await context.patch(endpoint, { data: payload, headers })
+              : await context.delete(endpoint, { data: payload, headers })
     const result = await toApiCallResult(response)
     this.evidence?.attachStep({
       step,
@@ -791,7 +857,11 @@ export const newDeviceManagementSuiteApi = async (
     baseURL: env.baseUrl,
     extraHTTPHeaders: headers,
   })
-  return new DeviceManagementSuiteApi(context, env)
+  const deviceContext = await request.newContext({
+    baseURL: env.deviceServiceBaseUrl,
+    extraHTTPHeaders: headers,
+  })
+  return new DeviceManagementSuiteApi(context, deviceContext, env)
 }
 
 export const loginDeviceSuiteUser = async (
@@ -818,7 +888,7 @@ export const loginDeviceSuiteUser = async (
     if (!token) throw new Error(`Login response for ${userName} has no token`)
     return { token, refreshToken }
   } finally {
-    await api.context.dispose()
+    await api.dispose()
   }
 }
 

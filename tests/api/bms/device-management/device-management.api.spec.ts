@@ -63,8 +63,13 @@ const expectStatus = (
   evidence.addAssertion(assertion)
 }
 
-const requireWriteFixture = () => {
-  expect(env.testHcId, 'TEST_HC_ID is required for write cases').toBeTruthy()
+const requireWriteFixture = (evidence?: DeviceManagementEvidence) => {
+  if (!env.testHcId) {
+    evidence?.addAssertion(
+      'SKIPPED_FIXTURE_MISSING: TEST_HC_ID or AUTOMATION_HC_ID',
+    )
+    test.skip(true, 'Set TEST_HC_ID or AUTOMATION_HC_ID for write cases')
+  }
 }
 
 const runTc = async (
@@ -108,7 +113,7 @@ const createAutomationDevice = async (
   tcId: string,
   overrides: DeviceCreatePayload = {},
 ): Promise<CreatedDevice> => {
-  requireWriteFixture()
+  requireWriteFixture(evidence)
   const payload = generateDevicePayload(env, tcId, overrides)
   const response = await api.iotCreateDevice(String(env.testHcId), payload)
   const body = await responseBody(response)
@@ -674,7 +679,7 @@ const cases: DeviceTc[] = [
     precondition: 'TEST_HC_ID hop le',
     expected: 'HTTP 400',
     run: async (api, evidence) => {
-      requireWriteFixture()
+      requireWriteFixture(evidence)
       const payload = generateDevicePayload(env, 'TC26')
       delete payload.id
       const response = await api.iotCreateDevice(env.testHcId, payload)
@@ -693,7 +698,7 @@ const cases: DeviceTc[] = [
     precondition: 'TEST_HC_ID hop le',
     expected: 'HTTP 400',
     run: async (api, evidence) => {
-      requireWriteFixture()
+      requireWriteFixture(evidence)
       const payload = generateDevicePayload(env, 'TC27')
       delete payload.mac
       const response = await api.iotCreateDevice(env.testHcId, payload)
@@ -712,7 +717,7 @@ const cases: DeviceTc[] = [
     precondition: 'TEST_HC_ID hop le',
     expected: 'HTTP 400',
     run: async (api, evidence) => {
-      requireWriteFixture()
+      requireWriteFixture(evidence)
       const payload = generateDevicePayload(env, 'TC28', { mac: 'bad-mac' })
       const response = await api.iotCreateDevice(env.testHcId, payload)
       expectStatus(response.status(), [400], evidence, 'Invalid MAC is rejected')
@@ -1191,7 +1196,7 @@ const cases: DeviceTc[] = [
           'No-permission user cannot view device list',
         )
       } finally {
-        await userApi.context.dispose()
+        await userApi.dispose()
       }
     },
   },
@@ -1212,7 +1217,7 @@ const cases: DeviceTc[] = [
       if (!userApi) return
       let createdId: string | undefined
       try {
-        requireWriteFixture()
+        requireWriteFixture(evidence)
         const payload = generateDevicePayload(env, 'TC51')
         const response = await userApi
           .withEvidence(evidence)
@@ -1227,7 +1232,7 @@ const cases: DeviceTc[] = [
         )
       } finally {
         await cleanupDevice(api, evidence, createdId)
-        await userApi.context.dispose()
+        await userApi.dispose()
       }
     },
   },
@@ -1259,7 +1264,7 @@ const cases: DeviceTc[] = [
           )
         })
       } finally {
-        await userApi.context.dispose()
+        await userApi.dispose()
       }
     },
   },
@@ -1291,7 +1296,7 @@ const cases: DeviceTc[] = [
           )
         })
       } finally {
-        await userApi.context.dispose()
+        await userApi.dispose()
       }
     },
   },
@@ -1316,7 +1321,7 @@ const cases: DeviceTc[] = [
             : 'Anonymous list device is rejected',
         )
       } finally {
-        await anonymousApi.context.dispose()
+        await anonymousApi.dispose()
       }
     },
   },
@@ -1361,7 +1366,7 @@ test.describe('Device Management API suite aligned with manual sheet', () => {
         )
       }
     } finally {
-      await precheckApi.context.dispose()
+      await precheckApi.dispose()
     }
 
     if (env.adminAccessToken) {
@@ -1386,7 +1391,7 @@ test.describe('Device Management API suite aligned with manual sheet', () => {
         // Best effort only.
       }
     }
-    await adminApi?.context.dispose()
+    await adminApi?.dispose()
   })
 
   for (const tc of cases) {

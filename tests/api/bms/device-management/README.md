@@ -21,9 +21,10 @@ Suite nay cover phan quan ly thiet bi theo huong safe-first: chi thao tac tren d
 
 ## Bien moi truong chinh
 
-- `BASE_URL` hoac `DEVICE_MANAGEMENT_BASE_URL`: endpoint BMS/IOT console that.
+- `BASE_URL` hoac `DEVICE_MANAGEMENT_BASE_URL`: endpoint BMS/auth/area that.
+- `DEVICE_MANAGEMENT_DEVICE_SERVICE_BASE_URL` hoac `DEVICE_SERVICE_ENDPOINT`: endpoint device service that cho `/api/v0/devices` va `/api/v0/iot/*`.
 - `ADMIN_USERNAME`, `ADMIN_PASSWORD` hoac `DEVICE_MANAGEMENT_ADMIN_ACCESS_TOKEN`: tai khoan admin.
-- `TEST_HC_ID`: HC that dung de tao automation device.
+- `TEST_HC_ID` hoac `AUTOMATION_HC_ID`: HC that dung de tao automation device.
 - `TEST_AREA_ID`: area co san neu muon filter theo area co san.
 - `VIEWER_USERNAME`/`VIEWER_PASSWORD`, `NO_PERMISSION_USERNAME`/`NO_PERMISSION_PASSWORD`: user permission negative.
 - `HC_SSH_HOST`, `HC_SSH_USER`, `HC_SSH_PASSWORD` hoac `HC_SSH_KEY_PATH`: lay log HC khi fail.

@@ -1,0 +1,56 @@
+{
+  "tc_id": "TC24",
+  "tc_name": "Lookup co ID khong ton tai",
+  "status": "PASSED",
+  "started_at": "2026-07-28T08:52:43.052Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "device_service_base_url": "http://10.10.0.198:3333/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***"
+      }
+    },
+    {
+      "step": "Lookup devices",
+      "method": "POST",
+      "endpoint": "api/v0/devices/lookup",
+      "status": 200,
+      "request": {
+        "device_ids": [
+          "9223372036854775807"
+        ]
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "items": [],
+          "total": 0,
+          "page": 1,
+          "limit": 0,
+          "summary": {
+            "total": 0,
+            "online": 0,
+            "offline": 0
+          }
+        },
+        "timestamp": "2026-07-28T08:52:42.857495983+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Lookup fake id returns explicit backend result"
+  ],
+  "cleanup": {
+    "devices_deleted": 0,
+    "areas_deleted": 0,
+    "warnings": []
+  },
+  "hc_logs": [],
+  "finished_at": "2026-07-28T08:52:43.059Z"
+}
