@@ -2,6 +2,9 @@
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 evidence/role-management/
 test-runs/home-controller-management-current/
+test-runs/notification-current/
+test-runs/maintenance-current/
+test-runs/settings-current/
 
 # Dependency directories
 node_modules/
