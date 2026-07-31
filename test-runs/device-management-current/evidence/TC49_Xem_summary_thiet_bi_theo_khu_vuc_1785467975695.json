@@ -1,0 +1,88 @@
+{
+  "tc_id": "TC49",
+  "tc_name": "Xem summary thiet bi theo khu vuc",
+  "status": "PASSED",
+  "started_at": "2026-07-31T03:19:35.632Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "device_service_base_url": "http://10.10.0.198:3333/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***"
+      }
+    },
+    {
+      "step": "Create area",
+      "method": "POST",
+      "endpoint": "v0/areas",
+      "status": 200,
+      "request": {
+        "name": "auto_device_area_TC49_1785467975632"
+      },
+      "response": {
+        "data": {
+          "code": "AREA-8C3D2874",
+          "created_at": "2026-07-31T03:19:33.900970+00:00",
+          "direct_devices": 0,
+          "floor_plan_url": null,
+          "id": "e369a17a-7f99-4303-9415-c7d21e80ed32",
+          "image_url": null,
+          "name": "auto_device_area_TC49_1785467975632",
+          "parent_id": null,
+          "path": "AREA_8C3D2874",
+          "total_devices": 0,
+          "total_sub_areas": 0,
+          "updated_at": "2026-07-31T03:19:33.900970+00:00"
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-31T03:19:33.903112590+00:00"
+      }
+    },
+    {
+      "step": "Get area device summary",
+      "method": "GET",
+      "endpoint": "v0/areas/e369a17a-7f99-4303-9415-c7d21e80ed32/devices/summary",
+      "status": 200,
+      "response": {
+        "data": {
+          "children_summary": [],
+          "direct_devices": 0,
+          "total_devices": 0,
+          "unassigned_devices": 0
+        },
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-31T03:19:33.930630577+00:00"
+      }
+    },
+    {
+      "step": "Delete area",
+      "method": "DELETE",
+      "endpoint": "v0/areas/e369a17a-7f99-4303-9415-c7d21e80ed32",
+      "status": 200,
+      "response": {
+        "data": null,
+        "error": null,
+        "success": true,
+        "timestamp": "2026-07-31T03:19:33.954660233+00:00"
+      }
+    }
+  ],
+  "assertions": [
+    "Automation area is created",
+    "Area device summary returns summary payload"
+  ],
+  "cleanup": {
+    "devices_deleted": 0,
+    "areas_deleted": 1,
+    "warnings": []
+  },
+  "hc_logs": [],
+  "finished_at": "2026-07-31T03:19:35.695Z"
+}

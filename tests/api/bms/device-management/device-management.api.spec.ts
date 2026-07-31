@@ -90,6 +90,16 @@ const findExistingDevice = async (
   }
 }
 
+const findOnlineUnassignedDevice = async (
+  api: DeviceManagementSuiteApi,
+  evidence: DeviceManagementEvidence,
+): Promise<ExistingDevice> =>
+  findExistingDevice(
+    api,
+    evidence,
+    (item) => item.status === true && !item.area?.id && Boolean(item.id),
+  )
+
 const expectBodyContainsDevice = (
   body: any,
   deviceId: string,
@@ -1150,113 +1160,118 @@ const cases: DeviceTc[] = [
     id: 'TC45',
     name: 'Gan 1 thiet bi vao khu vuc',
     goal: 'Kiem tra assign device to area',
-    precondition: 'Co area va device automation',
+    precondition: 'Co device online that chua gan area va area tam',
     expected: 'Device duoc gan vao area',
     run: async (api, evidence) => {
       let areaId: string | undefined
-      await withAutomationDevice(api, evidence, 'TC45', async ({ deviceId }) => {
-        try {
-          areaId = await createAutomationArea(api, evidence, 'TC45')
-          const response = await api.assignDevicesToArea(areaId, [deviceId])
-          expectStatus(
-            response.status(),
-            [200, 201, 202, 204],
-            evidence,
-            'Device is assigned to area',
-          )
-          const list = await api.listAreaDevices(areaId, { page: 1, limit: 20 })
-          const body = await responseBody(list)
-          expect(JSON.stringify(body)).toContain(deviceId)
-          evidence.addAssertion('Area device list contains assigned device')
-        } finally {
-          if (areaId) await api.unassignDevicesFromArea(areaId, [deviceId])
-          await cleanupArea(api, evidence, areaId)
-        }
-      })
+      let assigned = false
+      const device = await findOnlineUnassignedDevice(api, evidence)
+      try {
+        areaId = await createAutomationArea(api, evidence, 'TC45')
+        const response = await api.assignDevicesToArea(areaId, [device.id])
+        assigned = [200, 201, 202, 204].includes(response.status())
+        expectStatus(
+          response.status(),
+          [200, 201, 202, 204],
+          evidence,
+          'Online existing device is assigned to temporary area',
+        )
+        const list = await api.listAreaDevices(areaId, { page: 1, limit: 20 })
+        const body = await responseBody(list)
+        expect(JSON.stringify(body)).toContain(device.id)
+        evidence.addAssertion('Temporary area device list contains selected device')
+      } finally {
+        if (areaId && assigned) await api.unassignDevicesFromArea(areaId, [device.id])
+        await cleanupArea(api, evidence, areaId)
+      }
     },
   },
   {
     id: 'TC46',
     name: 'Bo gan thiet bi khoi khu vuc',
     goal: 'Kiem tra unassign device from area',
-    precondition: 'Device da duoc assign area',
+    precondition: 'Co device online that chua gan area va area tam',
     expected: 'Device khong con trong area',
     run: async (api, evidence) => {
       let areaId: string | undefined
-      await withAutomationDevice(api, evidence, 'TC46', async ({ deviceId }) => {
-        try {
-          areaId = await createAutomationArea(api, evidence, 'TC46')
-          await api.assignDevicesToArea(areaId, [deviceId])
-          const response = await api.unassignDevicesFromArea(areaId, [deviceId])
-          expectStatus(
-            response.status(),
-            [200, 202, 204],
-            evidence,
-            'Device is unassigned from area',
-          )
-        } finally {
-          if (areaId) await api.unassignDevicesFromArea(areaId, [deviceId])
-          await cleanupArea(api, evidence, areaId)
-        }
-      })
+      let assigned = false
+      const device = await findOnlineUnassignedDevice(api, evidence)
+      try {
+        areaId = await createAutomationArea(api, evidence, 'TC46')
+        const assign = await api.assignDevicesToArea(areaId, [device.id])
+        assigned = [200, 201, 202, 204].includes(assign.status())
+        const response = await api.unassignDevicesFromArea(areaId, [device.id])
+        assigned = ![200, 202, 204].includes(response.status())
+        expectStatus(
+          response.status(),
+          [200, 202, 204],
+          evidence,
+          'Online existing device is unassigned from temporary area',
+        )
+      } finally {
+        if (areaId && assigned) await api.unassignDevicesFromArea(areaId, [device.id])
+        await cleanupArea(api, evidence, areaId)
+      }
     },
   },
   {
     id: 'TC47',
     name: 'Cap nhat vi tri thiet bi tren mat bang',
     goal: 'Kiem tra update position hop le',
-    precondition: 'Device da duoc gan area',
+    precondition: 'Co device online that chua gan area va area tam',
     expected: 'HTTP 200/204',
     run: async (api, evidence) => {
       let areaId: string | undefined
-      await withAutomationDevice(api, evidence, 'TC47', async ({ deviceId }) => {
-        try {
-          areaId = await createAutomationArea(api, evidence, 'TC47')
-          await api.assignDevicesToArea(areaId, [deviceId])
-          const response = await api.updateDevicePosition(areaId, deviceId, {
-            pos_x: 0.25,
-            pos_y: 0.75,
-          })
-          expectStatus(
-            response.status(),
-            [200, 204],
-            evidence,
-            'Device position is updated',
-          )
-        } finally {
-          if (areaId) await api.unassignDevicesFromArea(areaId, [deviceId])
-          await cleanupArea(api, evidence, areaId)
-        }
-      })
+      let assigned = false
+      const device = await findOnlineUnassignedDevice(api, evidence)
+      try {
+        areaId = await createAutomationArea(api, evidence, 'TC47')
+        const assign = await api.assignDevicesToArea(areaId, [device.id])
+        assigned = [200, 201, 202, 204].includes(assign.status())
+        const response = await api.updateDevicePosition(areaId, device.id, {
+          pos_x: 0.25,
+          pos_y: 0.75,
+        })
+        expectStatus(
+          response.status(),
+          [200, 204],
+          evidence,
+          'Online existing device position is updated in temporary area',
+        )
+      } finally {
+        if (areaId && assigned) await api.unassignDevicesFromArea(areaId, [device.id])
+        await cleanupArea(api, evidence, areaId)
+      }
     },
   },
   {
     id: 'TC48',
     name: 'Cap nhat vi tri ngoai khoang hop le',
     goal: 'Kiem tra validation position',
-    precondition: 'Device da duoc gan area',
+    precondition: 'Co device online that chua gan area va area tam',
     expected: 'HTTP 400',
     run: async (api, evidence) => {
       let areaId: string | undefined
-      await withAutomationDevice(api, evidence, 'TC48', async ({ deviceId }) => {
-        try {
-          areaId = await createAutomationArea(api, evidence, 'TC48')
-          await api.assignDevicesToArea(areaId, [deviceId])
-          const response = await api.updateDevicePosition(areaId, deviceId, {
-            pos_x: -1,
-            pos_y: 2,
-          })
-          expectStatus(
-            response.status(),
-            [400],
-            evidence,
-            'Invalid position is rejected',
-          )
-        } finally {
-          if (areaId) await api.unassignDevicesFromArea(areaId, [deviceId])
-          await cleanupArea(api, evidence, areaId)
-        }
-      })
+      let assigned = false
+      const device = await findOnlineUnassignedDevice(api, evidence)
+      try {
+        areaId = await createAutomationArea(api, evidence, 'TC48')
+        const assign = await api.assignDevicesToArea(areaId, [device.id])
+        assigned = [200, 201, 202, 204].includes(assign.status())
+        const response = await api.updateDevicePosition(areaId, device.id, {
+          pos_x: -1,
+          pos_y: 2,
+        })
+        expectStatus(
+          response.status(),
+          [400],
+          evidence,
+          'Invalid position is rejected for online existing device',
+        )
+      } finally {
+        if (areaId && assigned) await api.unassignDevicesFromArea(areaId, [device.id])
+        await cleanupArea(api, evidence, areaId)
+      }
     },
   },
   {
