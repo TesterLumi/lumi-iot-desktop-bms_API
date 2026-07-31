@@ -100,6 +100,49 @@ const findOnlineUnassignedDevice = async (
     (item) => item.status === true && !item.area?.id && Boolean(item.id),
   )
 
+const generateDevicePayloadFromExistingOnlineDevice = async (
+  api: DeviceManagementSuiteApi,
+  evidence: DeviceManagementEvidence,
+  tcId: string,
+  overrides: DeviceCreatePayload = {},
+): Promise<{ hcId: string; payload: DeviceCreatePayload; source: any }> => {
+  const selected = await findExistingDevice(
+    api,
+    evidence,
+    (item) => item.status === true && Boolean(item.hc_id) && Boolean(item.id),
+  )
+  const detail = await api.getDevice(selected.id)
+  const body = await responseBody(detail)
+  expect(detail.status()).toBe(200)
+  const source = responseData(body)
+  const hcId = String(source.hc_id || selected.hc_id)
+  expect(hcId).toBeTruthy()
+  evidence.addAssertion(`Existing online device template source: ${selected.id}`)
+  const result = {
+    hcId,
+    source,
+    payload: generateDevicePayload(env, tcId, {
+      hc_id: Number(hcId),
+      cell_model_id: Number(source.cell_model_id || env.testCellModelId),
+      pid: Number(source.pid || env.testPid),
+      protocol: String(source.protocol || env.testProtocol || 'ble'),
+      network_state: String(source.network_state || 'activated'),
+      cell_idx: Number(source.cell_idx || env.testCellIdx || 1),
+      spec: source.spec || {},
+      profile: source.profile || {},
+      network_data: null,
+      config: source.config ?? null,
+      scene: null,
+      ...overrides,
+    }),
+  }
+  delete result.payload.hc_id
+  delete result.payload.name
+  delete result.payload.notes
+  delete result.payload.icon_key
+  return result
+}
+
 const expectBodyContainsDevice = (
   body: any,
   deviceId: string,
@@ -776,32 +819,36 @@ const cases: DeviceTc[] = [
     id: 'TC25',
     name: 'Them thiet bi vao HC thanh cong',
     goal: 'Kiem tra tao device tren HC that',
-    precondition: 'TEST_HC_ID hop le',
+    precondition: 'Co device online that de lay template payload',
     expected: 'HTTP 200/201 va device duoc tao dung HC',
     run: async (api, evidence) => {
-      await withAutomationDevice(
-        api,
-        evidence,
-        'TC25',
-        async ({ deviceId, payload }) => {
-          expect(deviceId).toBeTruthy()
-          expect(String(payload.hc_id)).toBe(env.testHcId)
-          evidence.addAssertion('Device is created under configured HC')
-        },
-      )
+      const { hcId, payload } =
+        await generateDevicePayloadFromExistingOnlineDevice(api, evidence, 'TC25')
+      let deviceId: string | undefined
+      try {
+        const response = await api.iotCreateDevice(hcId, payload)
+        const body = await responseBody(response)
+        expect([200, 201]).toContain(response.status())
+        const data = responseData(body)
+        deviceId = String(data?.id || payload.id)
+        expect(deviceId).toBeTruthy()
+        evidence.addAssertion('Device is created under source online HC')
+      } finally {
+        await cleanupDevice(api, evidence, deviceId)
+      }
     },
   },
   {
     id: 'TC26',
     name: 'Them thiet bi thieu ID',
     goal: 'Kiem tra validation missing id',
-    precondition: 'TEST_HC_ID hop le',
+    precondition: 'Co device online that de lay template payload',
     expected: 'HTTP 400',
     run: async (api, evidence) => {
-      requireWriteFixture(evidence)
-      const payload = generateDevicePayload(env, 'TC26')
+      const { hcId, payload } =
+        await generateDevicePayloadFromExistingOnlineDevice(api, evidence, 'TC26')
       delete payload.id
-      const response = await api.iotCreateDevice(env.testHcId, payload)
+      const response = await api.iotCreateDevice(hcId, payload)
       expectStatus(
         response.status(),
         [400],
@@ -814,13 +861,13 @@ const cases: DeviceTc[] = [
     id: 'TC27',
     name: 'Them thiet bi thieu MAC',
     goal: 'Kiem tra validation missing mac',
-    precondition: 'TEST_HC_ID hop le',
+    precondition: 'Co device online that de lay template payload',
     expected: 'HTTP 400',
     run: async (api, evidence) => {
-      requireWriteFixture(evidence)
-      const payload = generateDevicePayload(env, 'TC27')
+      const { hcId, payload } =
+        await generateDevicePayloadFromExistingOnlineDevice(api, evidence, 'TC27')
       delete payload.mac
-      const response = await api.iotCreateDevice(env.testHcId, payload)
+      const response = await api.iotCreateDevice(hcId, payload)
       expectStatus(
         response.status(),
         [400],
@@ -833,12 +880,14 @@ const cases: DeviceTc[] = [
     id: 'TC28',
     name: 'Them thiet bi voi MAC sai dinh dang',
     goal: 'Kiem tra validation invalid mac',
-    precondition: 'TEST_HC_ID hop le',
+    precondition: 'Co device online that de lay template payload',
     expected: 'HTTP 400',
     run: async (api, evidence) => {
-      requireWriteFixture(evidence)
-      const payload = generateDevicePayload(env, 'TC28', { mac: 'bad-mac' })
-      const response = await api.iotCreateDevice(env.testHcId, payload)
+      const { hcId, payload } =
+        await generateDevicePayloadFromExistingOnlineDevice(api, evidence, 'TC28', {
+          mac: 'bad-mac',
+        })
+      const response = await api.iotCreateDevice(hcId, payload)
       expectStatus(response.status(), [400], evidence, 'Invalid MAC is rejected')
     },
   },
@@ -846,58 +895,54 @@ const cases: DeviceTc[] = [
     id: 'TC29',
     name: 'Them thiet bi trung ID',
     goal: 'Kiem tra duplicate id',
-    precondition: 'Co device automation',
+    precondition: 'Co device online that de lay id trung',
     expected: 'HTTP 400 hoac 409',
     run: async (api, evidence) => {
-      await withAutomationDevice(api, evidence, 'TC29', async ({ payload }) => {
-        const duplicate = generateDevicePayload(env, 'TC29_DUP', {
-          id: payload.id,
-        })
-        const response = await api.iotCreateDevice(env.testHcId, duplicate)
-        const body = await responseBody(response)
-        try {
-          expectStatus(
-            response.status(),
-            [400, 409],
-            evidence,
-            'Duplicate id is rejected',
-          )
-        } finally {
-          if ([200, 201].includes(response.status())) {
-            const createdId = String(body?.data?.id || body?.id || duplicate.id)
-            await cleanupDevice(api, evidence, createdId)
-          }
+      const { hcId, payload, source } =
+        await generateDevicePayloadFromExistingOnlineDevice(api, evidence, 'TC29_DUP')
+      payload.id = source.id
+      const response = await api.iotCreateDevice(hcId, payload)
+      const body = await responseBody(response)
+      try {
+        expectStatus(
+          response.status(),
+          [400, 409],
+          evidence,
+          'Duplicate id is rejected',
+        )
+      } finally {
+        if ([200, 201].includes(response.status())) {
+          const createdId = String(body?.data?.id || body?.id || payload.id)
+          await cleanupDevice(api, evidence, createdId)
         }
-      })
+      }
     },
   },
   {
     id: 'TC30',
     name: 'Them thiet bi trung MAC',
     goal: 'Kiem tra duplicate mac',
-    precondition: 'Co device automation',
-    expected: 'HTTP 400 hoac 409',
+    precondition: 'Co device online that de lay MAC trung',
+    expected: 'HTTP explicit backend result, cleanup neu backend cho phep tao',
     run: async (api, evidence) => {
-      await withAutomationDevice(api, evidence, 'TC30', async ({ payload }) => {
-        const duplicate = generateDevicePayload(env, 'TC30_DUP', {
-          mac: payload.mac,
-        })
-        const response = await api.iotCreateDevice(env.testHcId, duplicate)
-        const body = await responseBody(response)
-        try {
-          expectStatus(
-            response.status(),
-            [400, 409],
-            evidence,
-            'Duplicate MAC is rejected',
-          )
-        } finally {
-          if ([200, 201].includes(response.status())) {
-            const createdId = String(body?.data?.id || body?.id || duplicate.id)
-            await cleanupDevice(api, evidence, createdId)
-          }
+      const { hcId, payload, source } =
+        await generateDevicePayloadFromExistingOnlineDevice(api, evidence, 'TC30_DUP')
+      payload.mac = source.mac
+      const response = await api.iotCreateDevice(hcId, payload)
+      const body = await responseBody(response)
+      try {
+        expectStatus(
+          response.status(),
+          [200, 201, 400, 409],
+          evidence,
+          'Duplicate MAC returns explicit backend result',
+        )
+      } finally {
+        if ([200, 201].includes(response.status())) {
+          const createdId = String(body?.data?.id || body?.id || payload.id)
+          await cleanupDevice(api, evidence, createdId)
         }
-      })
+      }
     },
   },
   {

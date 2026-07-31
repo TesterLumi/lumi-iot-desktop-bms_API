@@ -1,0 +1,30 @@
+{
+  "tc_id": "TC50",
+  "tc_name": "User khong co quyen xem thiet bi",
+  "status": "PASSED",
+  "started_at": "2026-07-31T03:34:25.229Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "device_service_base_url": "http://10.10.0.198:3333/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***"
+      }
+    }
+  ],
+  "assertions": [
+    "SKIPPED_FIXTURE_MISSING: NO_PERMISSION username/password"
+  ],
+  "cleanup": {
+    "devices_deleted": 0,
+    "areas_deleted": 0,
+    "warnings": []
+  },
+  "hc_logs": [],
+  "finished_at": "2026-07-31T03:34:25.230Z"
+}
