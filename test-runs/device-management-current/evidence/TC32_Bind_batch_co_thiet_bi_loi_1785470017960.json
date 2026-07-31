@@ -1,0 +1,31 @@
+{
+  "tc_id": "TC32",
+  "tc_name": "Bind batch co thiet bi loi",
+  "status": "SKIPPED",
+  "started_at": "2026-07-31T03:53:37.959Z",
+  "base_url": "http://10.10.0.198:3332/api/",
+  "device_service_base_url": "http://10.10.0.198:3333/",
+  "steps": [
+    {
+      "step": "Login admin precondition",
+      "method": "POST",
+      "endpoint": "v0/auth/login",
+      "status": 200,
+      "response": {
+        "token_present": "***",
+        "token_length": "***"
+      }
+    }
+  ],
+  "assertions": [
+    "DEFERRED_SAFE_FIXTURE: bind-batch mixed result waits for explicit safe HC mesh cleanup confirmation"
+  ],
+  "cleanup": {
+    "devices_deleted": 0,
+    "areas_deleted": 0,
+    "warnings": []
+  },
+  "hc_logs": [],
+  "finished_at": "2026-07-31T03:53:37.960Z",
+  "error_message": "Test is skipped: DEFERRED_SAFE_FIXTURE: bind-batch safe cleanup not confirmed"
+}
