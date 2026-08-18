@@ -1,0 +1,183 @@
+﻿{
+    "applied_at":  "2026-08-05T10:18:43",
+    "results":  [
+                    {
+                        "label":  "scene switch 1 press_1_time -\u003e switch 3 ON",
+                        "device_id":  "118431937308523264",
+                        "payload":  "{\r\n    \"config\":  {\r\n                   \"event[press_1_time]\":  {\r\n                                               \"out\":  {\r\n                                                           \"87903193043180546\":  {\r\n                                                                                     \"input[1]\":  1\r\n                                                                                 }\r\n                                                       }\r\n                                           }\r\n               },\r\n    \"device_id\":  \"118431937308523264\"\r\n}",
+                        "response":  {
+
+                                     }
+                    },
+                    {
+                        "label":  "MSB switch 1 touch_mode auto off 60s",
+                        "device_id":  "118431937308523266",
+                        "payload":  "{\r\n    \"config\":  {\r\n                   \"touch_mode\":  {\r\n                                      \"delay\":  60,\r\n                                      \"mode\":  0,\r\n                                      \"output_mode\":  4\r\n                                  }\r\n               },\r\n    \"device_id\":  \"118431937308523266\"\r\n}",
+                        "response":  {
+
+                                     }
+                    },
+                    {
+                        "label":  "Presence office distance",
+                        "device_id":  "120416080507841536",
+                        "payload":  "{\r\n    \"config\":  {\r\n                   \"distance\":  375\r\n               },\r\n    \"device_id\":  \"120416080507841536\"\r\n}",
+                        "response":  {
+
+                                     }
+                    },
+                    {
+                        "label":  "Presence office environment_volatile",
+                        "device_id":  "120416080507841536",
+                        "payload":  "{\r\n    \"config\":  {\r\n                   \"environment_volatile\":  10800\r\n               },\r\n    \"device_id\":  \"120416080507841536\"\r\n}",
+                        "response":  {
+
+                                     }
+                    },
+                    {
+                        "label":  "Presence office pir_time",
+                        "device_id":  "120416080507841536",
+                        "payload":  "{\r\n    \"config\":  {\r\n                   \"pir_time\":  120\r\n               },\r\n    \"device_id\":  \"120416080507841536\"\r\n}",
+                        "response":  {
+
+                                     }
+                    }
+                ],
+    "selected_devices":  [
+                             {
+                                 "id":  "87903193043180546",
+                                 "mac":  "38:4b:7d:03:f6:1c",
+                                 "cell_idx":  2,
+                                 "name":  "switch 3",
+                                 "config":  {
+                                                "delay":  0.0,
+                                                "group_all":  false,
+                                                "ignore_23":  null,
+                                                "ignore_29":  null,
+                                                "ignore_AD":  null,
+                                                "led_disable":  false,
+                                                "led_level":  1.0,
+                                                "lock_touch":  false,
+                                                "output_mode":  0.0,
+                                                "switch_type":  0.0,
+                                                "touch_mode":  {
+                                                                   "delay":  1,
+                                                                   "mode":  0,
+                                                                   "output_mode":  0
+                                                               }
+                                            }
+                             },
+                             {
+                                 "id":  "118431937308523266",
+                                 "mac":  "a4:c1:38:31:55:fb",
+                                 "cell_idx":  2,
+                                 "name":  "switch 1",
+                                 "config":  {
+                                                "autolock_schedule":  {
+                                                                          "enable":  0,
+                                                                          "lock_state":  0,
+                                                                          "repeat_time":  124,
+                                                                          "start_time":  480,
+                                                                          "stop_time":  1020
+                                                                      },
+                                                "clear_power":  {
+
+                                                                },
+                                                "decoupled_mode":  [
+                                                                       false,
+                                                                       false,
+                                                                       false
+                                                                   ],
+                                                "event[off]":  {
+                                                                   "in":  null,
+                                                                   "out":  {
+
+                                                                           }
+                                                               },
+                                                "event[on]":  {
+                                                                  "in":  null,
+                                                                  "out":  {
+
+                                                                          }
+                                                              },
+                                                "group_all":  true,
+                                                "state_default":  2.0,
+                                                "touch_mode":  {
+                                                                   "delay":  60,
+                                                                   "mode":  0,
+                                                                   "output_mode":  4
+                                                               }
+                                            }
+                             },
+                             {
+                                 "id":  "118431937308523264",
+                                 "mac":  "a4:c1:38:31:55:fb",
+                                 "cell_idx":  0,
+                                 "name":  "scene switch 1",
+                                 "config":  {
+                                                "autolock_schedule":  {
+                                                                          "enable":  0,
+                                                                          "lock_state":  0,
+                                                                          "repeat_time":  127,
+                                                                          "start_time":  0,
+                                                                          "stop_time":  0
+                                                                      },
+                                                "event[hold_2_seconds]":  {
+                                                                              "in":  null,
+                                                                              "out":  {
+
+                                                                                      }
+                                                                          },
+                                                "event[press_1_time]":  {
+                                                                            "out":  {
+                                                                                        "87903193043180546":  {
+                                                                                                                  "input[1]":  1
+                                                                                                              }
+                                                                                    }
+                                                                        },
+                                                "event[press_2_times]":  {
+                                                                             "in":  null,
+                                                                             "out":  {
+
+                                                                                     }
+                                                                         }
+                                            }
+                             },
+                             {
+                                 "id":  "120416080507841536",
+                                 "mac":  "ab:cd:c9:87:ea:2c",
+                                 "cell_idx":  0,
+                                 "name":  "presence",
+                                 "config":  {
+                                                "distance":  375.0,
+                                                "environment_volatile":  10800.0,
+                                                "event[active]":  {
+                                                                      "in":  null,
+                                                                      "out":  {
+                                                                                  "87903193043180546":  {
+                                                                                                            "input[1]":  0
+                                                                                                        }
+                                                                              }
+                                                                  },
+                                                "event[inactive]":  {
+                                                                        "in":  null,
+                                                                        "out":  {
+
+                                                                                }
+                                                                    },
+                                                "link_state":  true,
+                                                "lux_threshold":  65535.0,
+                                                "pir_time":  120.0,
+                                                "presence_mode":  0.0,
+                                                "radar_bluetooth_state":  false,
+                                                "schedule":  {
+                                                                 "active":  true,
+                                                                 "end":  1065,
+                                                                 "repeat":  127,
+                                                                 "start":  510
+                                                             },
+                                                "sensitivity":  15.0,
+                                                "time":  60.0
+                                            }
+                             }
+                         ]
+}

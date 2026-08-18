@@ -1,0 +1,38 @@
+{
+  "tc_id": "TC-AC-014",
+  "tc_name": "MSB command clear_power accepted",
+  "status": "PASSED",
+  "started_at": "2026-08-05T04:09:38.888Z",
+  "finished_at": "2026-08-05T04:09:38.899Z",
+  "endpoints": {
+    "base_url": "http://10.10.30.154:8080",
+    "config_api": "/api/devices/config",
+    "cmd_api": "/api/devices/cmd",
+    "devices_api": "/api/devices"
+  },
+  "steps": [
+    {
+      "step": "Run command clear_power",
+      "method": "POST",
+      "endpoint": "/api/devices/cmd",
+      "base_url": "http://10.10.30.154:8080",
+      "request": {
+        "device_id": "118431937308523266",
+        "cmd": "clear_power",
+        "params": {}
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    }
+  ],
+  "assertions": [
+    "Command clear_power accepted by gateway/HC"
+  ],
+  "cleanup": {
+    "restored_keys": [],
+    "warnings": []
+  },
+  "hc_logs": []
+}

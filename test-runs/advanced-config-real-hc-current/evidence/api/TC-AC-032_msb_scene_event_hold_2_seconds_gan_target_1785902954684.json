@@ -1,0 +1,6609 @@
+{
+  "tc_id": "TC-AC-032",
+  "tc_name": "MSB scene event hold_2_seconds gan target",
+  "status": "PASSED",
+  "started_at": "2026-08-05T04:09:12.435Z",
+  "finished_at": "2026-08-05T04:09:14.684Z",
+  "endpoints": {
+    "base_url": "http://10.10.30.154:8080",
+    "config_api": "/api/devices/config",
+    "cmd_api": "/api/devices/cmd",
+    "devices_api": "/api/devices"
+  },
+  "steps": [
+    {
+      "step": "Capture original config fallback detail",
+      "method": "GET",
+      "endpoint": "/api/devices/118431937308523264",
+      "base_url": "http://10.10.30.154:8080",
+      "response": null,
+      "status": 404
+    },
+    {
+      "step": "Capture original config fallback list devices",
+      "method": "GET",
+      "endpoint": "/api/devices",
+      "base_url": "http://10.10.30.154:8080",
+      "response": [
+        {
+          "id": "118431939276353282",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 8,
+          "mac": "a4:c1:38:a6:a0:af",
+          "pid": 2229,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 2,
+          "spec": {
+            "name": "switch 1",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 2,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "V",
+                    "nullable": false
+                  }
+                }
+              },
+              {
+                "idx": 3,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "mA",
+                    "nullable": false
+                  }
+                }
+              },
+              {
+                "idx": 4,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "W",
+                    "nullable": false
+                  }
+                }
+              },
+              {
+                "idx": 5,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "Wh",
+                    "nullable": false,
+                    "metric_type": "counter"
+                  }
+                }
+              },
+              {
+                "idx": 6,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "seconds",
+                    "nullable": false,
+                    "metric_type": "counter"
+                  }
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "commands": [
+              {
+                "cmd": "clear_time"
+              },
+              {
+                "cmd": "clear_power"
+              }
+            ],
+            "configs": {
+              "state_default": {
+                "type": "number",
+                "default": 2
+              },
+              "autolock_schedule": {
+                "type": "object",
+                "default": {
+                  "enable": 0,
+                  "lock_state": 0,
+                  "repeat_time": 127,
+                  "start_time": 0,
+                  "stop_time": 0
+                }
+              },
+              "event[off]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "lock_touch": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              },
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              },
+              "event[on]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": true
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff;payload_tmpl={val:bool}_{tid}_00_00"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "state[2]",
+                "protocol_ref": "config_op=0xEB;type=u16;offset=2;scale=0.1",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "state[3]",
+                "protocol_ref": "config_op=0xEB;type=u16;offset=0",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "state[4]",
+                "protocol_ref": "config_op=0xEB;type=u24;offset=4;scale=0.001",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "state[5]",
+                "protocol_ref": "config_op=0xEA;type=u32;offset=1",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "state[6]",
+                "protocol_ref": "config_op=0xEC;type=u32;offset=0",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[extra_option]",
+                "protocol_ref": "config_op=0x29;type=u8"
+              },
+              {
+                "cell_ref": "config[autolock_schedule]",
+                "protocol_ref": "config_op=0xC8;type=autolock_schedule",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "config[event[on]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=5"
+              },
+              {
+                "cell_ref": "config[event[off]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=6"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              },
+              {
+                "cell_ref": "config[decoupled_mode]",
+                "protocol_ref": "config_op=0x2D;type=telink_link"
+              },
+              {
+                "cell_ref": "config[request_time_sync]",
+                "protocol_ref": "config_op=0x2E;type=bool"
+              }
+            ],
+            "commands": [
+              {
+                "cmd": "clear_time",
+                "protocol_ref": "config_op=0xEC;type=none;method=delete"
+              },
+              {
+                "cmd": "clear_power",
+                "protocol_ref": "config_op=0xEA;type=none;method=delete"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F19504A4C138A6A0AF",
+            "node_id": 423,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {},
+          "cron": [],
+          "config": {
+            "autolock_schedule": {
+              "enable": 0,
+              "lock_state": 0,
+              "repeat_time": 127,
+              "start_time": 0,
+              "stop_time": 0
+            },
+            "decoupled_mode": false,
+            "event[off]": {
+              "in": null,
+              "out": {}
+            },
+            "event[on]": {
+              "in": null,
+              "out": {}
+            },
+            "group_all": true,
+            "state_default": 2,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 5
+            }
+          }
+        },
+        {
+          "id": "118431939276353281",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 8,
+          "mac": "a4:c1:38:a6:a0:af",
+          "pid": 2229,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 1,
+          "spec": {
+            "name": "scene switch 2",
+            "input": [],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [],
+            "events": [
+              {
+                "type": "enum",
+                "semantic": {
+                  "nullable": false,
+                  "enum_variants": [
+                    0,
+                    1,
+                    4
+                  ]
+                }
+              }
+            ],
+            "configs": {
+              "name": {
+                "type": "string"
+              },
+              "event[press_1_time]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "autolock_schedule": {
+                "type": "object",
+                "default": {
+                  "enable": 0,
+                  "lock_state": 0,
+                  "repeat_time": 127,
+                  "start_time": 0,
+                  "stop_time": 0
+                }
+              },
+              "event[hold_2_seconds]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "event[press_2_times]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              }
+            }
+          },
+          "profile": {
+            "decoder": [
+              {
+                "cell_ref": "events[action]",
+                "protocol_ref": "op=0xC01102;type=u8;offset=0"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[autolock_schedule]",
+                "protocol_ref": "config_op=0xC8;type=autolock_schedule",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "config[event[press_1_time]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=0"
+              },
+              {
+                "cell_ref": "config[event[press_2_times]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=1"
+              },
+              {
+                "cell_ref": "config[event[hold_2_seconds]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=4"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F19504A4C138A6A0AF",
+            "node_id": 422,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {},
+          "cron": [],
+          "config": {
+            "autolock_schedule": {
+              "enable": 0,
+              "lock_state": 0,
+              "repeat_time": 127,
+              "start_time": 0,
+              "stop_time": 0
+            },
+            "event[hold_2_seconds]": {
+              "in": null,
+              "out": {}
+            },
+            "event[press_1_time]": {
+              "in": null,
+              "out": {}
+            },
+            "event[press_2_times]": {
+              "in": null,
+              "out": {}
+            }
+          }
+        },
+        {
+          "id": "118431939276353280",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 8,
+          "mac": "a4:c1:38:a6:a0:af",
+          "pid": 2229,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 0,
+          "spec": {
+            "name": "scene switch 1",
+            "input": [],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [],
+            "events": [
+              {
+                "type": "enum",
+                "semantic": {
+                  "nullable": false,
+                  "enum_variants": [
+                    0,
+                    1,
+                    4
+                  ]
+                }
+              }
+            ],
+            "configs": {
+              "event[press_1_time]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "event[hold_2_seconds]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "autolock_schedule": {
+                "type": "object",
+                "default": {
+                  "enable": 0,
+                  "lock_state": 0,
+                  "repeat_time": 127,
+                  "start_time": 0,
+                  "stop_time": 0
+                }
+              },
+              "name": {
+                "type": "string"
+              },
+              "event[press_2_times]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              }
+            }
+          },
+          "profile": {
+            "decoder": [
+              {
+                "cell_ref": "events[action]",
+                "protocol_ref": "op=0xC01102;type=u8;offset=0"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[autolock_schedule]",
+                "protocol_ref": "config_op=0xC8;type=autolock_schedule",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "config[event[press_1_time]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=0"
+              },
+              {
+                "cell_ref": "config[event[press_2_times]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=1"
+              },
+              {
+                "cell_ref": "config[event[hold_2_seconds]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=4"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F19504A4C138A6A0AF",
+            "node_id": 421,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {},
+          "cron": [],
+          "config": {
+            "autolock_schedule": {
+              "enable": 0,
+              "lock_state": 0,
+              "repeat_time": 127,
+              "start_time": 0,
+              "stop_time": 0
+            },
+            "event[hold_2_seconds]": {
+              "in": null,
+              "out": {}
+            },
+            "event[press_1_time]": {
+              "in": null,
+              "out": {}
+            },
+            "event[press_2_times]": {
+              "in": null,
+              "out": {}
+            }
+          }
+        },
+        {
+          "id": "87903193043180547",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 5,
+          "mac": "38:4b:7d:03:f6:1c",
+          "pid": 2052,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 3,
+          "spec": {
+            "name": "switch 4",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "configs": {
+              "delay": {
+                "type": "number",
+                "default": 0
+              },
+              "led_level": {
+                "type": "number",
+                "default": 1
+              },
+              "lock_touch": {
+                "type": "boolean",
+                "default": false
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": false
+              },
+              "output_mode": {
+                "type": "number",
+                "default": 0
+              },
+              "name": {
+                "type": "string"
+              },
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              },
+              {
+                "cell_ref": "config[extra_option]",
+                "protocol_ref": "config_op=0x29;type=u16",
+                "endpoint": true
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F19504384B7D03F61C",
+            "node_id": 420,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {},
+          "cron": [
+            {
+              "cron": "0 35 11 * * 2,3,4,5,6,7,1 *",
+              "enable": true,
+              "snapshot": {
+                "1": false
+              }
+            }
+          ],
+          "config": {
+            "delay": 0,
+            "group_all": false,
+            "ignore_23": null,
+            "ignore_29": null,
+            "ignore_AD": null,
+            "led_disable": false,
+            "led_level": 1,
+            "lock_touch": false,
+            "output_mode": 0,
+            "switch_type": 0,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 0
+            }
+          }
+        },
+        {
+          "id": "87903193043180546",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 5,
+          "mac": "38:4b:7d:03:f6:1c",
+          "pid": 2052,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 2,
+          "spec": {
+            "name": "switch 3",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "configs": {
+              "name": {
+                "type": "string"
+              },
+              "led_level": {
+                "type": "number",
+                "default": 1
+              },
+              "delay": {
+                "type": "number",
+                "default": 0
+              },
+              "lock_touch": {
+                "type": "boolean",
+                "default": false
+              },
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": false
+              },
+              "output_mode": {
+                "type": "number",
+                "default": 0
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              },
+              {
+                "cell_ref": "config[extra_option]",
+                "protocol_ref": "config_op=0x29;type=u16",
+                "endpoint": true
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F19504384B7D03F61C",
+            "node_id": 419,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {},
+          "cron": [],
+          "config": {
+            "delay": 0,
+            "group_all": false,
+            "ignore_23": null,
+            "ignore_29": null,
+            "ignore_AD": null,
+            "led_disable": false,
+            "led_level": 1,
+            "lock_touch": false,
+            "output_mode": 0,
+            "switch_type": 0,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 0
+            }
+          }
+        },
+        {
+          "id": "87903193043180545",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 5,
+          "mac": "38:4b:7d:03:f6:1c",
+          "pid": 2052,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 1,
+          "spec": {
+            "name": "switch 2",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "configs": {
+              "led_level": {
+                "type": "number",
+                "default": 1
+              },
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              },
+              "lock_touch": {
+                "type": "boolean",
+                "default": false
+              },
+              "output_mode": {
+                "type": "number",
+                "default": 0
+              },
+              "name": {
+                "type": "string"
+              },
+              "delay": {
+                "type": "number",
+                "default": 0
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": false
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F19504384B7D03F61C",
+            "node_id": 418,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {},
+          "cron": [],
+          "config": {
+            "delay": 0,
+            "group_all": false,
+            "ignore_23": null,
+            "ignore_29": null,
+            "ignore_AD": null,
+            "led_disable": true,
+            "led_level": 1,
+            "lock_touch": false,
+            "output_mode": 0,
+            "switch_type": 0,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 0
+            }
+          }
+        },
+        {
+          "id": "87903193043180544",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 5,
+          "mac": "38:4b:7d:03:f6:1c",
+          "pid": 2052,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 0,
+          "spec": {
+            "name": "switch 1",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "configs": {
+              "led_level": {
+                "type": "number",
+                "default": 1
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": false
+              },
+              "delay": {
+                "type": "number",
+                "default": 0
+              },
+              "name": {
+                "type": "string"
+              },
+              "output_mode": {
+                "type": "number",
+                "default": 0
+              },
+              "lock_touch": {
+                "type": "boolean",
+                "default": false
+              },
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F19504384B7D03F61C",
+            "node_id": 417,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {},
+          "cron": [],
+          "config": {
+            "delay": 0,
+            "group_all": false,
+            "ignore_23": null,
+            "ignore_29": null,
+            "ignore_AD": null,
+            "led_disable": false,
+            "led_level": 1,
+            "lock_touch": false,
+            "output_mode": 0,
+            "switch_type": 0,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 0
+            }
+          }
+        },
+        {
+          "id": "118431938226406656",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 2,
+          "mac": "a4:c1:38:68:0b:c5",
+          "pid": 2049,
+          "protocol": "ble",
+          "network_state": "pending",
+          "cell_idx": 0,
+          "spec": {
+            "name": "switch 1",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "configs": {
+              "output_mode": {
+                "type": "number",
+                "default": 0
+              },
+              "lock_touch": {
+                "type": "boolean",
+                "default": false
+              },
+              "name": {
+                "type": "string"
+              },
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": false
+              },
+              "led_level": {
+                "type": "number",
+                "default": 1
+              },
+              "delay": {
+                "type": "number",
+                "default": 0
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              }
+            ]
+          },
+          "network_data": null,
+          "scene": null,
+          "cron": null,
+          "config": {
+            "delay": 0,
+            "group_all": false,
+            "led_level": 1,
+            "lock_touch": false,
+            "output_mode": 0,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 5
+            }
+          }
+        },
+        {
+          "id": "118431938284513283",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 5,
+          "mac": "a4:c1:38:6b:82:68",
+          "pid": 2052,
+          "protocol": "ble",
+          "network_state": "pending",
+          "cell_idx": 3,
+          "spec": {
+            "name": "switch 4",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "configs": {
+              "group_all": {
+                "type": "boolean",
+                "default": false
+              },
+              "led_level": {
+                "type": "number",
+                "default": 1
+              },
+              "lock_touch": {
+                "type": "boolean",
+                "default": false
+              },
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              },
+              "output_mode": {
+                "type": "number",
+                "default": 0
+              },
+              "name": {
+                "type": "string"
+              },
+              "delay": {
+                "type": "number",
+                "default": 0
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              },
+              {
+                "cell_ref": "config[extra_option]",
+                "protocol_ref": "config_op=0x29;type=u16",
+                "endpoint": true
+              }
+            ]
+          },
+          "network_data": null,
+          "scene": null,
+          "cron": null,
+          "config": {
+            "delay": 0,
+            "group_all": false,
+            "led_level": 1,
+            "lock_touch": false,
+            "output_mode": 0,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 5
+            }
+          }
+        },
+        {
+          "id": "118431938284513282",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 5,
+          "mac": "a4:c1:38:6b:82:68",
+          "pid": 2052,
+          "protocol": "ble",
+          "network_state": "pending",
+          "cell_idx": 2,
+          "spec": {
+            "name": "switch 3",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "configs": {
+              "delay": {
+                "type": "number",
+                "default": 0
+              },
+              "name": {
+                "type": "string"
+              },
+              "output_mode": {
+                "type": "number",
+                "default": 0
+              },
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              },
+              "lock_touch": {
+                "type": "boolean",
+                "default": false
+              },
+              "led_level": {
+                "type": "number",
+                "default": 1
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": false
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              },
+              {
+                "cell_ref": "config[extra_option]",
+                "protocol_ref": "config_op=0x29;type=u16",
+                "endpoint": true
+              }
+            ]
+          },
+          "network_data": null,
+          "scene": null,
+          "cron": null,
+          "config": {
+            "delay": 0,
+            "group_all": false,
+            "led_level": 1,
+            "lock_touch": false,
+            "output_mode": 0,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 5
+            }
+          }
+        },
+        {
+          "id": "118431938284513281",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 5,
+          "mac": "a4:c1:38:6b:82:68",
+          "pid": 2052,
+          "protocol": "ble",
+          "network_state": "pending",
+          "cell_idx": 1,
+          "spec": {
+            "name": "switch 2",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "configs": {
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              },
+              "led_level": {
+                "type": "number",
+                "default": 1
+              },
+              "name": {
+                "type": "string"
+              },
+              "output_mode": {
+                "type": "number",
+                "default": 0
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": false
+              },
+              "delay": {
+                "type": "number",
+                "default": 0
+              },
+              "lock_touch": {
+                "type": "boolean",
+                "default": false
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              }
+            ]
+          },
+          "network_data": null,
+          "scene": null,
+          "cron": null,
+          "config": {
+            "delay": 0,
+            "group_all": false,
+            "led_level": 1,
+            "lock_touch": false,
+            "output_mode": 0,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 5
+            }
+          }
+        },
+        {
+          "id": "118431938284513280",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 5,
+          "mac": "a4:c1:38:6b:82:68",
+          "pid": 2052,
+          "protocol": "ble",
+          "network_state": "pending",
+          "cell_idx": 0,
+          "spec": {
+            "name": "switch 1",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "configs": {
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              },
+              "output_mode": {
+                "type": "number",
+                "default": 0
+              },
+              "delay": {
+                "type": "number",
+                "default": 0
+              },
+              "name": {
+                "type": "string"
+              },
+              "lock_touch": {
+                "type": "boolean",
+                "default": false
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": false
+              },
+              "led_level": {
+                "type": "number",
+                "default": 1
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              }
+            ]
+          },
+          "network_data": null,
+          "scene": null,
+          "cron": null,
+          "config": {
+            "delay": 0,
+            "group_all": false,
+            "led_level": 1,
+            "lock_touch": false,
+            "output_mode": 0,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 5
+            }
+          }
+        },
+        {
+          "id": "87907690177550336",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 2,
+          "mac": "38:4f:94:16:0e:d8",
+          "pid": 2049,
+          "protocol": "ble",
+          "network_state": "pending",
+          "cell_idx": 0,
+          "spec": {
+            "name": "switch 1",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "configs": {
+              "name": {
+                "type": "string"
+              },
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              },
+              "delay": {
+                "type": "number",
+                "default": 0
+              },
+              "led_level": {
+                "type": "number",
+                "default": 1
+              },
+              "lock_touch": {
+                "type": "boolean",
+                "default": false
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": false
+              },
+              "output_mode": {
+                "type": "number",
+                "default": 0
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F19504384F94160ED8",
+            "node_id": 412,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {
+            "235854694654908919": [
+              [
+                1,
+                true
+              ]
+            ],
+            "253305685605699425": [
+              [
+                1,
+                false
+              ]
+            ]
+          },
+          "cron": [],
+          "config": {
+            "delay": 0,
+            "group_all": false,
+            "ignore_23": null,
+            "ignore_29": null,
+            "ignore_AD": null,
+            "led_disable": false,
+            "led_level": 1,
+            "lock_touch": false,
+            "output_mode": 0,
+            "switch_type": 1,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 0
+            }
+          }
+        },
+        {
+          "id": "118431937308523268",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 10,
+          "mac": "a4:c1:38:31:55:fb",
+          "pid": 2231,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 4,
+          "spec": {
+            "name": "switch 3",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 2,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "V",
+                    "nullable": false
+                  }
+                }
+              },
+              {
+                "idx": 3,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "mA",
+                    "nullable": false
+                  }
+                }
+              },
+              {
+                "idx": 4,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "W",
+                    "nullable": false
+                  }
+                }
+              },
+              {
+                "idx": 5,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "Wh",
+                    "nullable": false,
+                    "metric_type": "counter"
+                  }
+                }
+              },
+              {
+                "idx": 6,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "seconds",
+                    "nullable": false,
+                    "metric_type": "counter"
+                  }
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "commands": [
+              {
+                "cmd": "clear_time"
+              },
+              {
+                "cmd": "clear_power"
+              }
+            ],
+            "configs": {
+              "event[off]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": true
+              },
+              "lock_touch": {
+                "type": "boolean"
+              },
+              "event[on]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "autolock_schedule": {
+                "type": "object",
+                "default": {
+                  "enable": 0,
+                  "lock_state": 0,
+                  "repeat_time": 127,
+                  "start_time": 0,
+                  "stop_time": 0
+                }
+              },
+              "name": {
+                "type": "string"
+              },
+              "state_default": {
+                "type": "number",
+                "default": 2
+              },
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff;payload_tmpl={val:bool}_{tid}_00_00"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "state[2]",
+                "protocol_ref": "config_op=0xEB;type=u16;offset=2;scale=0.1",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "state[3]",
+                "protocol_ref": "config_op=0xEB;type=u16;offset=0",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "state[4]",
+                "protocol_ref": "config_op=0xEB;type=u24;offset=4;scale=0.001",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "state[5]",
+                "protocol_ref": "config_op=0xEA;type=u32;offset=1",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "state[6]",
+                "protocol_ref": "config_op=0xEC;type=u32;offset=0",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[extra_option]",
+                "protocol_ref": "config_op=0x29;type=u8"
+              },
+              {
+                "cell_ref": "config[autolock_schedule]",
+                "protocol_ref": "config_op=0xC8;type=autolock_schedule",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "config[event[on]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=5"
+              },
+              {
+                "cell_ref": "config[event[off]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=6"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              },
+              {
+                "cell_ref": "config[decoupled_mode]",
+                "protocol_ref": "config_op=0x2D;type=telink_link"
+              },
+              {
+                "cell_ref": "config[request_time_sync]",
+                "protocol_ref": "config_op=0x2E;type=bool"
+              }
+            ],
+            "commands": [
+              {
+                "cmd": "clear_time",
+                "protocol_ref": "config_op=0xEC;type=none;method=delete"
+              },
+              {
+                "cmd": "clear_power",
+                "protocol_ref": "config_op=0xEA;type=none;method=delete"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F19504A4C1383155FB",
+            "node_id": 428,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {
+            "267299698993309960": [
+              [
+                0,
+                true
+              ]
+            ],
+            "235854694654908919": [
+              [
+                1,
+                true
+              ]
+            ],
+            "224012506547504338": [
+              [
+                1,
+                true
+              ]
+            ],
+            "253305685605699425": [
+              [
+                1,
+                true
+              ]
+            ],
+            "264869073196418130": [
+              [
+                1,
+                true
+              ]
+            ],
+            "267730084126027460": [
+              [
+                1,
+                true
+              ]
+            ],
+            "271102268692043717": [
+              [
+                0,
+                true
+              ]
+            ],
+            "217704431325429106": [
+              [
+                1,
+                true
+              ]
+            ]
+          },
+          "cron": [],
+          "config": {
+            "autolock_schedule": {
+              "enable": 0,
+              "lock_state": 0,
+              "repeat_time": 127,
+              "start_time": 0,
+              "stop_time": 0
+            },
+            "decoupled_mode": [
+              false,
+              false,
+              false
+            ],
+            "event[off]": {
+              "in": null,
+              "out": {}
+            },
+            "event[on]": {
+              "in": null,
+              "out": {}
+            },
+            "group_all": true,
+            "state_default": 2,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 5
+            }
+          }
+        },
+        {
+          "id": "118431937308523267",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 10,
+          "mac": "a4:c1:38:31:55:fb",
+          "pid": 2231,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 3,
+          "spec": {
+            "name": "switch 2",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 2,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "V",
+                    "nullable": false
+                  }
+                }
+              },
+              {
+                "idx": 3,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "mA",
+                    "nullable": false
+                  }
+                }
+              },
+              {
+                "idx": 4,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "W",
+                    "nullable": false
+                  }
+                }
+              },
+              {
+                "idx": 5,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "Wh",
+                    "nullable": false,
+                    "metric_type": "counter"
+                  }
+                }
+              },
+              {
+                "idx": 6,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "seconds",
+                    "nullable": false,
+                    "metric_type": "counter"
+                  }
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "commands": [
+              {
+                "cmd": "clear_time"
+              },
+              {
+                "cmd": "clear_power"
+              }
+            ],
+            "configs": {
+              "autolock_schedule": {
+                "type": "object",
+                "default": {
+                  "enable": 0,
+                  "lock_state": 0,
+                  "repeat_time": 127,
+                  "start_time": 0,
+                  "stop_time": 0
+                }
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "state_default": {
+                "type": "number",
+                "default": 2
+              },
+              "event[on]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "lock_touch": {
+                "type": "boolean"
+              },
+              "event[off]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff;payload_tmpl={val:bool}_{tid}_00_00"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "state[2]",
+                "protocol_ref": "config_op=0xEB;type=u16;offset=2;scale=0.1",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "state[3]",
+                "protocol_ref": "config_op=0xEB;type=u16;offset=0",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "state[4]",
+                "protocol_ref": "config_op=0xEB;type=u24;offset=4;scale=0.001",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "state[5]",
+                "protocol_ref": "config_op=0xEA;type=u32;offset=1",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "state[6]",
+                "protocol_ref": "config_op=0xEC;type=u32;offset=0",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[extra_option]",
+                "protocol_ref": "config_op=0x29;type=u8"
+              },
+              {
+                "cell_ref": "config[autolock_schedule]",
+                "protocol_ref": "config_op=0xC8;type=autolock_schedule",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "config[event[on]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=5"
+              },
+              {
+                "cell_ref": "config[event[off]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=6"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              },
+              {
+                "cell_ref": "config[decoupled_mode]",
+                "protocol_ref": "config_op=0x2D;type=telink_link"
+              },
+              {
+                "cell_ref": "config[request_time_sync]",
+                "protocol_ref": "config_op=0x2E;type=bool"
+              }
+            ],
+            "commands": [
+              {
+                "cmd": "clear_time",
+                "protocol_ref": "config_op=0xEC;type=none;method=delete"
+              },
+              {
+                "cmd": "clear_power",
+                "protocol_ref": "config_op=0xEA;type=none;method=delete"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F19504A4C1383155FB",
+            "node_id": 427,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {
+            "235854694654908919": [
+              [
+                1,
+                true
+              ]
+            ],
+            "253305685605699425": [
+              [
+                1,
+                true
+              ]
+            ]
+          },
+          "cron": [],
+          "config": {
+            "autolock_schedule": {
+              "enable": 0,
+              "lock_state": 0,
+              "repeat_time": 127,
+              "start_time": 0,
+              "stop_time": 0
+            },
+            "decoupled_mode": [
+              false,
+              false,
+              false
+            ],
+            "event[off]": {
+              "in": null,
+              "out": {}
+            },
+            "event[on]": {
+              "in": null,
+              "out": {}
+            },
+            "group_all": true,
+            "state_default": 2,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 5
+            }
+          }
+        },
+        {
+          "id": "118431937308523266",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 10,
+          "mac": "a4:c1:38:31:55:fb",
+          "pid": 2231,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 2,
+          "spec": {
+            "name": "switch 1",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 2,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "V",
+                    "nullable": false
+                  }
+                }
+              },
+              {
+                "idx": 3,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "mA",
+                    "nullable": false
+                  }
+                }
+              },
+              {
+                "idx": 4,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "W",
+                    "nullable": false
+                  }
+                }
+              },
+              {
+                "idx": 5,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "Wh",
+                    "nullable": false,
+                    "metric_type": "counter"
+                  }
+                }
+              },
+              {
+                "idx": 6,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "seconds",
+                    "nullable": false,
+                    "metric_type": "counter"
+                  }
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "commands": [
+              {
+                "cmd": "clear_time"
+              },
+              {
+                "cmd": "clear_power"
+              }
+            ],
+            "configs": {
+              "autolock_schedule": {
+                "type": "object",
+                "default": {
+                  "enable": 0,
+                  "lock_state": 0,
+                  "repeat_time": 127,
+                  "start_time": 0,
+                  "stop_time": 0
+                }
+              },
+              "event[on]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": true
+              },
+              "event[off]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "name": {
+                "type": "string"
+              },
+              "state_default": {
+                "type": "number",
+                "default": 2
+              },
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              },
+              "lock_touch": {
+                "type": "boolean"
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff;payload_tmpl={val:bool}_{tid}_00_00"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "state[2]",
+                "protocol_ref": "config_op=0xEB;type=u16;offset=2;scale=0.1",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "state[3]",
+                "protocol_ref": "config_op=0xEB;type=u16;offset=0",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "state[4]",
+                "protocol_ref": "config_op=0xEB;type=u24;offset=4;scale=0.001",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "state[5]",
+                "protocol_ref": "config_op=0xEA;type=u32;offset=1",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "state[6]",
+                "protocol_ref": "config_op=0xEC;type=u32;offset=0",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[extra_option]",
+                "protocol_ref": "config_op=0x29;type=u8"
+              },
+              {
+                "cell_ref": "config[autolock_schedule]",
+                "protocol_ref": "config_op=0xC8;type=autolock_schedule",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "config[event[on]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=5"
+              },
+              {
+                "cell_ref": "config[event[off]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=6"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              },
+              {
+                "cell_ref": "config[decoupled_mode]",
+                "protocol_ref": "config_op=0x2D;type=telink_link"
+              },
+              {
+                "cell_ref": "config[request_time_sync]",
+                "protocol_ref": "config_op=0x2E;type=bool"
+              }
+            ],
+            "commands": [
+              {
+                "cmd": "clear_time",
+                "protocol_ref": "config_op=0xEC;type=none;method=delete"
+              },
+              {
+                "cmd": "clear_power",
+                "protocol_ref": "config_op=0xEA;type=none;method=delete"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F19504A4C1383155FB",
+            "node_id": 426,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {
+            "280231888921263014": [
+              [
+                1,
+                false
+              ]
+            ],
+            "251043423751361180": [
+              [
+                1,
+                true
+              ]
+            ],
+            "255447310216044581": [
+              [
+                1,
+                true
+              ]
+            ],
+            "256860924468206514": [
+              [
+                1,
+                true
+              ]
+            ],
+            "230164471581779780": [
+              [
+                1,
+                true
+              ]
+            ],
+            "262775335885786987": [
+              [
+                1,
+                true
+              ]
+            ],
+            "248616369860934625": [
+              [
+                1,
+                true
+              ]
+            ],
+            "229607831733418332": [
+              [
+                1,
+                false
+              ]
+            ],
+            "275280488496433048": [
+              [
+                1,
+                true
+              ]
+            ],
+            "250671309971261830": [
+              [
+                1,
+                true
+              ]
+            ],
+            "253305685605699425": [
+              [
+                1,
+                true
+              ]
+            ]
+          },
+          "cron": [],
+          "config": {
+            "autolock_schedule": {
+              "enable": 0,
+              "lock_state": 0,
+              "repeat_time": 124,
+              "start_time": 480,
+              "stop_time": 1020
+            },
+            "clear_power": {},
+            "decoupled_mode": [
+              false,
+              false,
+              false
+            ],
+            "event[off]": {
+              "in": null,
+              "out": {}
+            },
+            "event[on]": {
+              "in": null,
+              "out": {}
+            },
+            "group_all": true,
+            "state_default": 2,
+            "touch_mode": {
+              "delay": 60,
+              "mode": 0,
+              "output_mode": 4
+            }
+          }
+        },
+        {
+          "id": "118431937308523265",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 10,
+          "mac": "a4:c1:38:31:55:fb",
+          "pid": 2231,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 1,
+          "spec": {
+            "name": "scene switch 2",
+            "input": [],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [],
+            "events": [
+              {
+                "type": "enum",
+                "semantic": {
+                  "nullable": false,
+                  "enum_variants": [
+                    0,
+                    1,
+                    4
+                  ]
+                }
+              }
+            ],
+            "configs": {
+              "event[press_2_times]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "autolock_schedule": {
+                "type": "object",
+                "default": {
+                  "enable": 0,
+                  "lock_state": 0,
+                  "repeat_time": 127,
+                  "start_time": 0,
+                  "stop_time": 0
+                }
+              },
+              "name": {
+                "type": "string"
+              },
+              "event[press_1_time]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "event[hold_2_seconds]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              }
+            }
+          },
+          "profile": {
+            "decoder": [
+              {
+                "cell_ref": "events[action]",
+                "protocol_ref": "op=0xC01102;type=u8;offset=0"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[autolock_schedule]",
+                "protocol_ref": "config_op=0xC8;type=autolock_schedule",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "config[event[press_1_time]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=0"
+              },
+              {
+                "cell_ref": "config[event[press_2_times]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=1"
+              },
+              {
+                "cell_ref": "config[event[hold_2_seconds]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=4"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F19504A4C1383155FB",
+            "node_id": 425,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {},
+          "cron": [],
+          "config": {
+            "autolock_schedule": {
+              "enable": 0,
+              "lock_state": 0,
+              "repeat_time": 127,
+              "start_time": 0,
+              "stop_time": 0
+            },
+            "event[hold_2_seconds]": {
+              "in": null,
+              "out": {}
+            },
+            "event[press_1_time]": {
+              "in": null,
+              "out": {}
+            },
+            "event[press_2_times]": {
+              "in": null,
+              "out": {}
+            }
+          }
+        },
+        {
+          "id": "118431937308523264",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 10,
+          "mac": "a4:c1:38:31:55:fb",
+          "pid": 2231,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 0,
+          "spec": {
+            "name": "scene switch 1",
+            "input": [],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [],
+            "events": [
+              {
+                "type": "enum",
+                "semantic": {
+                  "nullable": false,
+                  "enum_variants": [
+                    0,
+                    1,
+                    4
+                  ],
+                  "enum_variant_names": [
+                    "press 1 time",
+                    "press 2 times",
+                    "long press"
+                  ]
+                }
+              }
+            ],
+            "configs": {
+              "autolock_schedule": {
+                "type": "object",
+                "default": {
+                  "enable": 0,
+                  "lock_state": 0,
+                  "repeat_time": 127,
+                  "start_time": 0,
+                  "stop_time": 0
+                }
+              },
+              "event[hold_2_seconds]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "event[press_2_times]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "name": {
+                "type": "string"
+              },
+              "event[press_1_time]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              }
+            }
+          },
+          "profile": {
+            "decoder": [
+              {
+                "cell_ref": "events[action]",
+                "protocol_ref": "op=0xC01102;type=u8;offset=0"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[autolock_schedule]",
+                "protocol_ref": "config_op=0xC8;type=autolock_schedule",
+                "exact_ep": true
+              },
+              {
+                "cell_ref": "config[event[press_1_time]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=0"
+              },
+              {
+                "cell_ref": "config[event[press_2_times]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=1"
+              },
+              {
+                "cell_ref": "config[event[hold_2_seconds]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=4"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F19504A4C1383155FB",
+            "node_id": 424,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {},
+          "cron": [],
+          "config": {
+            "autolock_schedule": {
+              "enable": 0,
+              "lock_state": 0,
+              "repeat_time": 127,
+              "start_time": 0,
+              "stop_time": 0
+            },
+            "event[hold_2_seconds]": {
+              "in": null,
+              "out": {}
+            },
+            "event[press_1_time]": {
+              "out": {
+                "87903193043180546": {
+                  "input[1]": 1
+                }
+              }
+            },
+            "event[press_2_times]": {
+              "in": null,
+              "out": {}
+            }
+          }
+        },
+        {
+          "id": "83316584622508291",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 14,
+          "mac": "27:ff:fe:06:52:c9",
+          "pid": 1284,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 3,
+          "spec": {
+            "name": "switch 4",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "configs": {
+              "delay": {
+                "type": "number",
+                "default": 0
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": false
+              },
+              "led_level": {
+                "type": "number",
+                "default": 1
+              },
+              "lock_touch": {
+                "type": "boolean",
+                "default": false
+              },
+              "name": {
+                "type": "string"
+              },
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              },
+              "output_mode": {
+                "type": "number",
+                "default": 0
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F1950427FFFE0652C9",
+            "node_id": 406,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {
+            "256526906510244304": [
+              [
+                1,
+                true
+              ]
+            ]
+          },
+          "cron": [],
+          "config": {
+            "delay": 0,
+            "group_all": false,
+            "ignore_23": null,
+            "ignore_29": null,
+            "led_disable": false,
+            "led_level": 1,
+            "lock_touch": false,
+            "output_mode": 0,
+            "switch_type": 1,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 0
+            }
+          }
+        },
+        {
+          "id": "83316584622508290",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 14,
+          "mac": "27:ff:fe:06:52:c9",
+          "pid": 1284,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 2,
+          "spec": {
+            "name": "switch 3",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "configs": {
+              "delay": {
+                "type": "number",
+                "default": 0
+              },
+              "lock_touch": {
+                "type": "boolean",
+                "default": false
+              },
+              "output_mode": {
+                "type": "number",
+                "default": 0
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": false
+              },
+              "name": {
+                "type": "string"
+              },
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              },
+              "led_level": {
+                "type": "number",
+                "default": 1
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F1950427FFFE0652C9",
+            "node_id": 405,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {},
+          "cron": [],
+          "config": {
+            "delay": 0,
+            "group_all": false,
+            "ignore_23": null,
+            "ignore_29": null,
+            "led_disable": false,
+            "led_level": 1,
+            "lock_touch": false,
+            "output_mode": 0,
+            "switch_type": 1,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 0
+            }
+          }
+        },
+        {
+          "id": "83316584622508289",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 14,
+          "mac": "27:ff:fe:06:52:c9",
+          "pid": 1284,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 1,
+          "spec": {
+            "name": "switch 2",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "configs": {
+              "name": {
+                "type": "string"
+              },
+              "delay": {
+                "type": "number",
+                "default": 0
+              },
+              "output_mode": {
+                "type": "number",
+                "default": 0
+              },
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              },
+              "led_level": {
+                "type": "number",
+                "default": 1
+              },
+              "lock_touch": {
+                "type": "boolean",
+                "default": false
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": false
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F1950427FFFE0652C9",
+            "node_id": 404,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {},
+          "cron": [],
+          "config": {
+            "delay": 0,
+            "group_all": false,
+            "ignore_23": null,
+            "ignore_29": null,
+            "led_disable": true,
+            "led_level": 1,
+            "lock_touch": false,
+            "output_mode": 0,
+            "switch_type": 1,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 0
+            }
+          }
+        },
+        {
+          "id": "83316584622508288",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 14,
+          "mac": "27:ff:fe:06:52:c9",
+          "pid": 1284,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 0,
+          "spec": {
+            "name": "switch 1",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "configs": {
+              "output_mode": {
+                "type": "number",
+                "default": 0
+              },
+              "delay": {
+                "type": "number",
+                "default": 0
+              },
+              "name": {
+                "type": "string"
+              },
+              "touch_mode": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "delay": {
+                      "default": 0,
+                      "semantic": {
+                        "max": 10800,
+                        "min": 1,
+                        "unit": "seconds"
+                      },
+                      "type": "number"
+                    },
+                    "mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "toggle",
+                          "momentary",
+                          "lighting"
+                        ],
+                        "enum_variants": [
+                          0,
+                          1,
+                          2
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    },
+                    "output_mode": {
+                      "default": 0,
+                      "semantic": {
+                        "enum_variant_names": [
+                          "normal",
+                          "auto on",
+                          "auto off"
+                        ],
+                        "enum_variants": [
+                          0,
+                          3,
+                          4
+                        ],
+                        "nullable": false
+                      },
+                      "type": "enum"
+                    }
+                  }
+                },
+                "default": {
+                  "delay": 1,
+                  "mode": 0,
+                  "output_mode": 5
+                }
+              },
+              "led_level": {
+                "type": "number",
+                "default": 1
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": false
+              },
+              "lock_touch": {
+                "type": "boolean",
+                "default": false
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x824E;type=bool",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[touch_mode]",
+                "protocol_ref": "config_op=0x21;type=lumi_touch_mode",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[lock_touch]",
+                "protocol_ref": "config_op=0x28;type=bool;method=set",
+                "endpoint": true
+              },
+              {
+                "cell_ref": "config[led_disable]",
+                "protocol_ref": "config_op=0x24;type=bitmask1"
+              },
+              {
+                "cell_ref": "config[switch_type]",
+                "protocol_ref": "config_op=0x22;type=u8"
+              },
+              {
+                "cell_ref": "config[ignore_23]",
+                "protocol_ref": "config_op=0x23;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_29]",
+                "protocol_ref": "config_op=0x29;type=ignore"
+              },
+              {
+                "cell_ref": "config[ignore_AD]",
+                "protocol_ref": "config_op=0xAD;type=ignore"
+              },
+              {
+                "cell_ref": "config[delay]",
+                "protocol_ref": "config_op=0x25;type=u8"
+              },
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F1950427FFFE0652C9",
+            "node_id": 403,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {},
+          "cron": [],
+          "config": {
+            "delay": 0,
+            "group_all": false,
+            "ignore_23": null,
+            "ignore_29": null,
+            "led_disable": false,
+            "led_level": 1,
+            "lock_touch": false,
+            "output_mode": 0,
+            "switch_type": 1,
+            "touch_mode": {
+              "delay": 1,
+              "mode": 0,
+              "output_mode": 0
+            }
+          }
+        },
+        {
+          "id": "120416080507841538",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 7,
+          "mac": "ab:cd:c9:87:ea:2c",
+          "pid": 2192,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 2,
+          "spec": {
+            "name": "output",
+            "input": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "configs": {
+              "name": {
+                "type": "string"
+              },
+              "group_all": {
+                "type": "boolean",
+                "default": false
+              }
+            }
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8213;type=u8"
+              },
+              {
+                "cell_ref": "input[1]",
+                "protocol_ref": "op=0x8202;type=bool;frame=sig_onoff"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x8204;type=bool"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[group_all]",
+                "protocol_ref": "config_op=0x31;type=bool"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F19504ABCDC987EA2C",
+            "node_id": 339,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {
+            "223027197106228696": [
+              [
+                1,
+                false
+              ]
+            ],
+            "223867827462833653": [
+              [
+                1,
+                true
+              ]
+            ],
+            "226289996330010006": [
+              [
+                1,
+                false
+              ]
+            ],
+            "241604940896267857": [
+              [
+                1,
+                false
+              ]
+            ],
+            "269614128016017519": [
+              [
+                1,
+                false
+              ]
+            ],
+            "259734100519771726": [
+              [
+                1,
+                true
+              ]
+            ],
+            "249773522281817538": [
+              [
+                1,
+                false
+              ]
+            ],
+            "265586371931833759": [
+              [
+                1,
+                false
+              ]
+            ],
+            "259353481223408961": [
+              [
+                1,
+                true
+              ]
+            ],
+            "275571902299692518": [
+              [
+                1,
+                false
+              ]
+            ],
+            "272079869824096845": [
+              [
+                1,
+                false
+              ]
+            ],
+            "280159519826392123": [
+              [
+                1,
+                true
+              ]
+            ],
+            "275094830712291881": [
+              [
+                1,
+                true
+              ]
+            ],
+            "220806991358873745": [
+              [
+                1,
+                false
+              ]
+            ],
+            "282294528657676381": [
+              [
+                1,
+                true
+              ]
+            ],
+            "278232705839478491": [
+              [
+                1,
+                true
+              ]
+            ],
+            "263062095004208587": [
+              [
+                1,
+                true
+              ]
+            ],
+            "249695706322965373": [
+              [
+                1,
+                false
+              ]
+            ],
+            "217715144850364121": [
+              [
+                1,
+                true
+              ]
+            ],
+            "279172276315539543": [
+              [
+                1,
+                true
+              ]
+            ],
+            "286867662779134737": [
+              [
+                1,
+                false
+              ]
+            ],
+            "240947004272054877": [
+              [
+                1,
+                true
+              ]
+            ],
+            "253908548497054040": [
+              [
+                1,
+                false
+              ]
+            ],
+            "258723732914173199": [
+              [
+                1,
+                true
+              ]
+            ],
+            "273224795723613239": [
+              [
+                1,
+                true
+              ]
+            ],
+            "287563840208320888": [
+              [
+                1,
+                true
+              ]
+            ],
+            "230090039475109261": [
+              [
+                1,
+                true
+              ]
+            ],
+            "230487898456905108": [
+              [
+                1,
+                true
+              ]
+            ],
+            "257023528735903931": [
+              [
+                1,
+                true
+              ]
+            ],
+            "231299356928274873": [
+              [
+                1,
+                true
+              ]
+            ],
+            "245742816554851838": [
+              [
+                1,
+                true
+              ]
+            ],
+            "219405600942672582": [
+              [
+                1,
+                false
+              ]
+            ],
+            "273263873660236501": [
+              [
+                1,
+                false
+              ]
+            ],
+            "246307217322213851": [
+              [
+                1,
+                true
+              ]
+            ],
+            "278008340466910062": [
+              [
+                1,
+                false
+              ]
+            ],
+            "278086322962873642": [
+              [
+                1,
+                true
+              ]
+            ],
+            "275183864738091168": [
+              [
+                1,
+                false
+              ]
+            ],
+            "261380879468687284": [
+              [
+                1,
+                false
+              ]
+            ],
+            "258523255243420632": [
+              [
+                1,
+                true
+              ]
+            ],
+            "233143640756944381": [
+              [
+                1,
+                false
+              ]
+            ],
+            "240140920771652320": [
+              [
+                1,
+                true
+              ]
+            ],
+            "231825465205449350": [
+              [
+                1,
+                false
+              ]
+            ],
+            "238252733073400937": [
+              [
+                1,
+                true
+              ]
+            ],
+            "279974181921594440": [
+              [
+                1,
+                true
+              ]
+            ],
+            "285010290470996165": [
+              [
+                1,
+                true
+              ]
+            ],
+            "244345425657143541": [
+              [
+                1,
+                false
+              ]
+            ],
+            "219879614792017190": [
+              [
+                1,
+                false
+              ]
+            ],
+            "271687149703408090": [
+              [
+                1,
+                true
+              ]
+            ],
+            "224585799241928602": [
+              [
+                1,
+                false
+              ]
+            ],
+            "224491695173742259": [
+              [
+                1,
+                true
+              ]
+            ],
+            "239605551760395444": [
+              [
+                1,
+                true
+              ]
+            ],
+            "245086488206924399": [
+              [
+                1,
+                false
+              ]
+            ],
+            "287591501342612472": [
+              [
+                1,
+                true
+              ]
+            ],
+            "236177497606708194": [
+              [
+                1,
+                true
+              ]
+            ],
+            "265655009951616026": [
+              [
+                1,
+                true
+              ]
+            ],
+            "240941800757155158": [
+              [
+                1,
+                true
+              ]
+            ],
+            "257584917401970961": [
+              [
+                1,
+                false
+              ]
+            ],
+            "268997229379258075": [
+              [
+                1,
+                false
+              ]
+            ],
+            "278766307816314197": [
+              [
+                1,
+                true
+              ]
+            ],
+            "229668157072485323": [
+              [
+                1,
+                true
+              ]
+            ],
+            "256140547946392787": [
+              [
+                1,
+                true
+              ]
+            ],
+            "250141399300395383": [
+              [
+                1,
+                true
+              ]
+            ],
+            "282032127821359666": [
+              [
+                1,
+                false
+              ]
+            ],
+            "228550620357310116": [
+              [
+                1,
+                true
+              ]
+            ],
+            "217385420797446560": [
+              [
+                1,
+                false
+              ]
+            ],
+            "274038647907478811": [
+              [
+                1,
+                false
+              ]
+            ],
+            "236480652205686338": [
+              [
+                1,
+                true
+              ]
+            ],
+            "269210997654484463": [
+              [
+                1,
+                true
+              ]
+            ],
+            "235008960209294654": [
+              [
+                1,
+                false
+              ]
+            ],
+            "232171852947156343": [
+              [
+                1,
+                false
+              ]
+            ],
+            "237589673858152659": [
+              [
+                1,
+                false
+              ]
+            ],
+            "239868209949494564": [
+              [
+                1,
+                true
+              ]
+            ],
+            "254982204944079796": [
+              [
+                1,
+                true
+              ]
+            ],
+            "283232103060736479": [
+              [
+                1,
+                true
+              ]
+            ],
+            "287477935395951750": [
+              [
+                1,
+                true
+              ]
+            ],
+            "237057469042181959": [
+              [
+                1,
+                true
+              ]
+            ],
+            "240617991116245166": [
+              [
+                1,
+                true
+              ]
+            ],
+            "242846139245687449": [
+              [
+                1,
+                true
+              ]
+            ],
+            "254593328539372658": [
+              [
+                1,
+                true
+              ]
+            ],
+            "270730196214632432": [
+              [
+                1,
+                true
+              ]
+            ],
+            "234967926451428981": [
+              [
+                1,
+                false
+              ]
+            ],
+            "245297984220806182": [
+              [
+                1,
+                true
+              ]
+            ],
+            "262995421712876189": [
+              [
+                1,
+                true
+              ]
+            ],
+            "272912000365902551": [
+              [
+                1,
+                true
+              ]
+            ],
+            "260693931609626594": [
+              [
+                1,
+                true
+              ]
+            ],
+            "219129668932686048": [
+              [
+                1,
+                false
+              ]
+            ]
+          },
+          "cron": [],
+          "config": {
+            "group_all": false
+          }
+        },
+        {
+          "id": "120416080507841537",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 7,
+          "mac": "ab:cd:c9:87:ea:2c",
+          "pid": 2192,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 1,
+          "spec": {
+            "name": "luminance",
+            "input": [],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "lux",
+                    "nullable": false
+                  }
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "number",
+                  "semantic": {
+                    "unit": "lux",
+                    "nullable": false
+                  }
+                }
+              }
+            ]
+          },
+          "profile": {
+            "encoder": [
+              {
+                "cell_ref": "config[request_status]",
+                "protocol_ref": "op=0x8212;type=u8"
+              }
+            ],
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x0052;type=u16;offset=4"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F19504ABCDC987EA2C",
+            "node_id": 338,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {},
+          "cron": [],
+          "config": {}
+        },
+        {
+          "id": "120416080507841536",
+          "hc_id": "4932308540097724437",
+          "cell_model_id": 7,
+          "mac": "ab:cd:c9:87:ea:2c",
+          "pid": 2192,
+          "protocol": "ble",
+          "network_state": "activated",
+          "cell_idx": 0,
+          "spec": {
+            "name": "presence",
+            "input": [],
+            "state": [
+              {
+                "idx": 0,
+                "data_type": {
+                  "type": "boolean"
+                }
+              },
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "output": [
+              {
+                "idx": 1,
+                "data_type": {
+                  "type": "boolean"
+                }
+              }
+            ],
+            "commands": [
+              {
+                "cmd": "auto_calib",
+                "input": [
+                  {
+                    "type": "object",
+                    "semantic": {
+                      "nullable": false,
+                      "schema": {
+                        "act": {
+                          "default": "start",
+                          "type": "string"
+                        },
+                        "duration": {
+                          "default": 180,
+                          "semantic": {
+                            "max": 600,
+                            "min": 120,
+                            "step": 1
+                          },
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "default": {
+                      "act": "start",
+                      "duration": 180
+                    }
+                  }
+                ]
+              }
+            ],
+            "configs": {
+              "event[inactive]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "lux_threshold": {
+                "type": "number",
+                "semantic": {
+                  "min": 1,
+                  "max": 65535,
+                  "step": 1,
+                  "nullable": false
+                },
+                "default": 100
+              },
+              "radar_bluetooth_state": {
+                "type": "boolean",
+                "default": false
+              },
+              "time": {
+                "type": "number",
+                "semantic": {
+                  "unit": "seconds",
+                  "min": 10,
+                  "max": 3600,
+                  "nullable": false
+                },
+                "default": 60
+              },
+              "presence_mode": {
+                "type": "enum",
+                "semantic": {
+                  "nullable": false,
+                  "enum_variants": [
+                    0,
+                    1,
+                    2
+                  ],
+                  "enum_variant_names": [
+                    "pir&radars",
+                    "pir",
+                    "radars"
+                  ]
+                },
+                "default": 2
+              },
+              "environment_volatile": {
+                "type": "number",
+                "semantic": {
+                  "min": 180,
+                  "max": 14400,
+                  "step": 1,
+                  "nullable": false
+                },
+                "default": 7200
+              },
+              "sensitivity": {
+                "type": "number",
+                "semantic": {
+                  "unit": "percentage",
+                  "min": 5,
+                  "max": 45,
+                  "nullable": false
+                },
+                "default": 100
+              },
+              "pir_time": {
+                "type": "number",
+                "semantic": {
+                  "min": 0,
+                  "max": 1800,
+                  "step": 1,
+                  "nullable": false
+                },
+                "default": 0
+              },
+              "event[active]": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "in": {
+                      "type": "object"
+                    },
+                    "out": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "default": {
+                  "in": null,
+                  "out": {}
+                }
+              },
+              "schedule": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "active": {
+                      "default": false,
+                      "type": "boolean"
+                    },
+                    "end": {
+                      "default": 1439,
+                      "type": "number"
+                    },
+                    "repeat": {
+                      "default": 127,
+                      "type": "number"
+                    },
+                    "start": {
+                      "default": 0,
+                      "type": "number"
+                    }
+                  }
+                },
+                "default": {
+                  "active": true,
+                  "end": 840,
+                  "repeat": 127,
+                  "start": 240
+                }
+              },
+              "name": {
+                "type": "string"
+              },
+              "link_state": {
+                "type": "boolean",
+                "default": true
+              },
+              "distance": {
+                "type": "number",
+                "semantic": {
+                  "unit": "centimeter",
+                  "min": 75,
+                  "max": 600,
+                  "step": 75,
+                  "nullable": false
+                },
+                "default": 300
+              },
+              "config_process": {
+                "type": "object",
+                "semantic": {
+                  "nullable": false,
+                  "schema": {
+                    "data": {
+                      "type": "object"
+                    },
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "options": [
+                    {
+                      "data": {
+                        "auto_calib": 180,
+                        "distance": 300,
+                        "environment_volatile": 3600,
+                        "pir_time": 30
+                      },
+                      "id": "wc"
+                    },
+                    {
+                      "data": {
+                        "auto_calib": 180,
+                        "distance": 375,
+                        "environment_volatile": 10800,
+                        "pir_time": 120
+                      },
+                      "id": "office"
+                    },
+                    {
+                      "data": {
+                        "auto_calib": 180,
+                        "distance": 375,
+                        "environment_volatile": 14400,
+                        "pir_time": 300
+                      },
+                      "id": "bedroom"
+                    },
+                    {
+                      "data": {
+                        "auto_calib": 180,
+                        "distance": 300,
+                        "environment_volatile": 7200,
+                        "pir_time": 30
+                      },
+                      "id": "kitchen"
+                    },
+                    {
+                      "data": {
+                        "auto_calib": 180,
+                        "distance": 300,
+                        "environment_volatile": 300,
+                        "pir_time": 10
+                      },
+                      "id": "lobby"
+                    },
+                    {
+                      "data": {
+                        "auto_calib": 180,
+                        "distance": 300,
+                        "environment_volatile": 3600,
+                        "pir_time": 20
+                      },
+                      "id": "bathroom"
+                    },
+                    {
+                      "data": {
+                        "auto_calib": 180,
+                        "distance": 375,
+                        "environment_volatile": 3600,
+                        "pir_time": 30
+                      },
+                      "id": "other"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "profile": {
+            "decoder": [
+              {
+                "cell_ref": "config[state_default]",
+                "protocol_ref": "op=0x8212;type=u8"
+              },
+              {
+                "cell_ref": "state[1]",
+                "protocol_ref": "op=0x0052;type=bool;offset=4",
+                "route": "control_request"
+              }
+            ],
+            "config": [
+              {
+                "cell_ref": "config[sensitivity]",
+                "protocol_ref": "config_op=0x01;type=u8"
+              },
+              {
+                "cell_ref": "config[link_state]",
+                "protocol_ref": "config_op=0x11;type=bool"
+              },
+              {
+                "cell_ref": "config[distance]",
+                "protocol_ref": "config_op=0xD0;type=u16"
+              },
+              {
+                "cell_ref": "config[presence_mode]",
+                "protocol_ref": "config_op=0xD4;type=u8"
+              },
+              {
+                "cell_ref": "config[time]",
+                "protocol_ref": "config_op=0xD8;type=u16"
+              },
+              {
+                "cell_ref": "config[radar_bluetooth_state]",
+                "protocol_ref": "config_op=0xD9;type=bool"
+              },
+              {
+                "cell_ref": "config[pir_time]",
+                "protocol_ref": "config_op=0x00;type=u16"
+              },
+              {
+                "cell_ref": "config[schedule]",
+                "protocol_ref": "config_op=0xD1;type=schedule"
+              },
+              {
+                "cell_ref": "config[environment_volatile]",
+                "protocol_ref": "config_op=0xD3;type=u16"
+              },
+              {
+                "cell_ref": "config[lux_threshold]",
+                "protocol_ref": "config_op=0xD5;type=u16"
+              },
+              {
+                "cell_ref": "config[event[inactive]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=0"
+              },
+              {
+                "cell_ref": "config[event[active]]",
+                "protocol_ref": "op=0x11F6;type=switch_event_rule;action=1"
+              },
+              {
+                "cell_ref": "config[ignore_2E]",
+                "protocol_ref": "config_op=0x2E;type=ignore"
+              }
+            ],
+            "commands": [
+              {
+                "cmd": "auto_calib",
+                "protocol_ref": "config_op=0xD6;type=auto_calib"
+              }
+            ]
+          },
+          "network_data": {
+            "app_key": "F5B9A3030C0650E5F56B2745493C2B72",
+            "dev_key": "0FC97B53C71548F19504ABCDC987EA2C",
+            "node_id": 337,
+            "nwk_key": "8A5062383013421A9DF0DE389D130CDB"
+          },
+          "scene": {},
+          "cron": [],
+          "config": {
+            "auto_calib": {
+              "act": "start",
+              "duration": 180
+            },
+            "distance": 375,
+            "environment_volatile": 10800,
+            "event[active]": {
+              "in": null,
+              "out": {
+                "87903193043180546": {
+                  "input[1]": 0
+                }
+              }
+            },
+            "event[inactive]": {
+              "in": null,
+              "out": {}
+            },
+            "link_state": true,
+            "lux_threshold": 65535,
+            "pir_time": 120,
+            "presence_mode": 0,
+            "radar_bluetooth_state": false,
+            "schedule": {
+              "active": true,
+              "end": 1065,
+              "repeat": 127,
+              "start": 510
+            },
+            "sensitivity": 15,
+            "time": 60
+          }
+        }
+      ],
+      "status": 200
+    },
+    {
+      "step": "Set device config",
+      "method": "POST",
+      "endpoint": "/api/devices/config",
+      "base_url": "http://10.10.30.154:8080",
+      "request": {
+        "device_id": "118431937308523264",
+        "config": {
+          "event[hold_2_seconds]": {
+            "out": {
+              "87903193043180546": {
+                "input[1]": 0
+              }
+            }
+          }
+        }
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    },
+    {
+      "step": "Poll config until ACK/config visible",
+      "details": {
+        "timeout_ms": 30000,
+        "poll_interval_ms": 500,
+        "attempts": [
+          {
+            "attempt": 1,
+            "matched": false,
+            "keys": {
+              "event[hold_2_seconds]": {
+                "in": null,
+                "out": {}
+              }
+            }
+          },
+          {
+            "attempt": 2,
+            "matched": false,
+            "keys": {
+              "event[hold_2_seconds]": {
+                "in": null,
+                "out": {}
+              }
+            }
+          },
+          {
+            "attempt": 3,
+            "matched": true,
+            "keys": {
+              "event[hold_2_seconds]": {
+                "out": {
+                  "87903193043180546": {
+                    "input[1]": 0
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "step": "Set device config",
+      "method": "POST",
+      "endpoint": "/api/devices/config",
+      "base_url": "http://10.10.30.154:8080",
+      "request": {
+        "device_id": "118431937308523264",
+        "config": {
+          "event[hold_2_seconds]": {
+            "in": null,
+            "out": {}
+          }
+        }
+      },
+      "response": {
+        "status": true
+      },
+      "status": 200
+    },
+    {
+      "step": "Poll config until ACK/config visible",
+      "details": {
+        "timeout_ms": 30000,
+        "poll_interval_ms": 500,
+        "attempts": [
+          {
+            "attempt": 1,
+            "matched": false,
+            "keys": {
+              "event[hold_2_seconds]": {
+                "out": {
+                  "87903193043180546": {
+                    "input[1]": 0
+                  }
+                }
+              }
+            }
+          },
+          {
+            "attempt": 2,
+            "matched": true,
+            "keys": {
+              "event[hold_2_seconds]": {
+                "in": null,
+                "out": {}
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "assertions": [
+    "Config API accepted request",
+    "Config key event[hold_2_seconds] reached expected value",
+    "Config API accepted request",
+    "Config key event[hold_2_seconds] reached expected value"
+  ],
+  "cleanup": {
+    "restored_keys": [
+      "event[hold_2_seconds]"
+    ],
+    "warnings": []
+  },
+  "hc_logs": []
+}

@@ -18,9 +18,7 @@ export const DEVICE_CONTROL_ENDPOINT =
 export const AUTOMATION_CLOUD_ENDPOINT = AUTOMATION_SERVICE_ENDPOINT
 
 export const GROUP_BASE_URL =
-  process.env.GROUP_BASE_URL ||
-  process.env.BASE_URL ||
-  DEVICE_SERVICE_ENDPOINT
+  process.env.GROUP_BASE_URL || process.env.BASE_URL || DEVICE_SERVICE_ENDPOINT
 
 export const GROUP_API_BASE = process.env.GROUP_API_BASE || '/api/v0/groups'
 export const GROUP_AUTH_LOGIN_API =
@@ -34,7 +32,9 @@ export const GROUP_DEVICE_STATUS_API =
   process.env.DEVICE_STATUS_API ||
   '/api/devices/status'
 export const GROUP_HC_API_BASE =
-  process.env.GROUP_HC_API_BASE || process.env.HC_GROUP_API_BASE || '/api/groups'
+  process.env.GROUP_HC_API_BASE ||
+  process.env.HC_GROUP_API_BASE ||
+  '/api/groups'
 export const GROUP_ALLOW_DEVICE_CONTROL =
   process.env.GROUP_ALLOW_DEVICE_CONTROL === 'true' ||
   process.env.AUTOMATION_ALLOW_DEVICE_CONTROL === 'true'
@@ -71,6 +71,52 @@ export const AUTOMATION_DEVICE_STATE_IDX =
 
 export const AUTOMATION_ALLOW_DEVICE_CONTROL =
   process.env.AUTOMATION_ALLOW_DEVICE_CONTROL === 'true'
+
+export const ADVANCED_CONFIG_BASE_URL =
+  process.env.ADVANCED_CONFIG_BASE_URL ||
+  process.env.GATEWAY_BASE_URL ||
+  DEVICE_CONTROL_ENDPOINT
+
+export const ADVANCED_CONFIG_HC_ID =
+  process.env.ADVANCED_CONFIG_HC_ID || AUTOMATION_HC_ID
+
+export const ADVANCED_CONFIG_MSB_DEVICE_ID =
+  process.env.ADVANCED_CONFIG_MSB_DEVICE_ID ||
+  process.env.TEST_MSB_DEVICE_ID ||
+  AUTOMATION_ACTION_DEVICE_ID
+
+export const ADVANCED_CONFIG_MSB_SCENE_DEVICE_ID =
+  process.env.ADVANCED_CONFIG_MSB_SCENE_DEVICE_ID ||
+  process.env.TEST_MSB_SCENE_DEVICE_ID ||
+  ADVANCED_CONFIG_MSB_DEVICE_ID
+
+export const ADVANCED_CONFIG_PRESENCE_DEVICE_ID =
+  process.env.ADVANCED_CONFIG_PRESENCE_DEVICE_ID ||
+  process.env.TEST_PRESENCE_DEVICE_ID ||
+  AUTOMATION_PIR_SENSOR_DEVICE_ID
+
+export const ADVANCED_CONFIG_TARGET_DEVICE_ID =
+  process.env.ADVANCED_CONFIG_TARGET_DEVICE_ID ||
+  process.env.TEST_TARGET_DEVICE_ID ||
+  AUTOMATION_ACTION_DEVICE_ID
+
+export const ADVANCED_CONFIG_GROUP_ID =
+  process.env.ADVANCED_CONFIG_GROUP_ID || process.env.TEST_GROUP_ID || ''
+
+export const ADVANCED_CONFIG_ALLOW_DEVICE_CONTROL =
+  process.env.ADVANCED_CONFIG_ALLOW_DEVICE_CONTROL === 'true'
+
+export const ADVANCED_CONFIG_ACK_TIMEOUT_MS = Number(
+  process.env.ADVANCED_CONFIG_ACK_TIMEOUT_MS || '30000',
+)
+
+export const ADVANCED_CONFIG_POLL_INTERVAL_MS = Number(
+  process.env.ADVANCED_CONFIG_POLL_INTERVAL_MS || '500',
+)
+
+export const ADVANCED_CONFIG_RUN_DIR =
+  process.env.ADVANCED_CONFIG_RUN_DIR ||
+  'test-runs/advanced-config-real-hc-current'
 
 export const AUTOMATION_RULE_INPUT_SLOT = Number(
   process.env.INPUT_SLOT ?? process.env.AUTOMATION_RULE_INPUT_SLOT ?? '0',
